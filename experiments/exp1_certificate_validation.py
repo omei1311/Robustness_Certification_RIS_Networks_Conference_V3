@@ -160,6 +160,7 @@ def main() -> dict:
     shape = uncertainty_shape(cfg)
     configs = []
     mc_rows = []
+    mc_first_violation = []
     for label, idx in reps:
         cand = pool[idx]
         rc = float(cand.r_cert)
@@ -204,6 +205,20 @@ def main() -> dict:
         )
         v = np.array(viol_arr)
         first_v = radii[np.flatnonzero(v > 0.0)[0]] if np.any(v > 0.0) else np.inf
+        first_alpha = (
+            float(first_v / rc) if np.isfinite(first_v) and rc > 0 else None
+        )
+        mc_first_violation.append(
+            {
+                "label": label,
+                "index": idx,
+                "epsilon_cert": rc,
+                "first_sampled_violation_epsilon": (
+                    float(first_v) if np.isfinite(first_v) else None
+                ),
+                "first_sampled_violation_alpha": first_alpha,
+            }
+        )
         print(f"[exp1-MC] {label}: idx={idx} eps_cert={rc:.4f}; "
               f"first sampled violation at eps={first_v:.4f} "
               f"(alpha={first_v / rc if np.isfinite(first_v) and rc > 0 else float('inf'):.2f}) "
@@ -215,6 +230,7 @@ def main() -> dict:
     summary = {
         "alpha_key_points": list(ALPHA_KEY_POINTS),
         "consistency": all_consistency,
+        "mc_first_sampled_violation": mc_first_violation,
         "representatives": [
             {"label": label, "index": idx, "r_cert": float(pool[idx].r_cert),
              "epsilon_cert": float(pool[idx].r_cert),

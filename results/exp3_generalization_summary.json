@@ -1,0 +1,39 @@
+{
+  "manifest": {
+    "experiment": "exp3_generalization",
+    "created": "2026-09-24T19:12:33"
+  },
+  "valid_seed_count": 12,
+  "n_seeds_requested": 12,
+  "epsilon_design": 0.05,
+  "pool_size": {
+    "mean": 40.0,
+    "median": 40.0,
+    "std": 0.0
+  },
+  "n_pareto": {
+    "mean": 2.1666666666666665,
+    "median": 2.0,
+    "std": 0.7993052538854533
+  },
+  "selected_wee_proposed": {
+    "mean": 1.4062521275361195,
+    "median": 1.3939345648154986,
+    "std": 0.09629820070536416
+  },
+  "selected_epsilon_cert_proposed": {
+    "mean": 0.10868530273437498,
+    "median": 0.11304931640624999,
+    "std": 0.02287309968460341
+  },
+  "epsilon_cert_wee_only": {
+    "mean": 0.10868530273437498,
+    "median": 0.11304931640624999,
+    "std": 0.02287309968460341
+  },
+  "selection_same_count": 12,
+  "selection_changed_count": 0,
+  "n_seeds_no_eligible_candidate": 0,
+  "note": "Compact holdout validation on independent channel seeds; per-seed Pareto frontiers are never merged into one plot. Reference results for the paper come from the single nominal channel; this check is separate.",
+  "selection_changed_rate": 0.0
+}

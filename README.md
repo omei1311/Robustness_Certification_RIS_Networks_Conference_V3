@@ -170,7 +170,7 @@ results/ figures/    JSON/CSV/NPZ + 300dpi PNG
 
 **Exp3 敏感性**：0 / 0.25 / 0.50 / 0.75·ε_max → idx 34；0.90 / 0.95·ε_max → idx 6。
 
-**Exp1 一致性**：α≤1.00 全部 feasible（α=1.00 处 margin ≈ −1.9e-4，在 feasibility_tol=2e-4 内，保守下端点语义）；首个不可行网格点在 α=1.01–1.05；MC 首个采样违例在 α≈1.9–2.1（经验验证）。
+**Exp1 一致性**：α≤1.00 全部 feasible（α=1.00 处 margin ≈ −1.9e-4，在 feasibility_tol=2e-4 内，保守下端点语义）；首个不可行网格点在 α=1.01–1.05。MC 经验验证：两个高证书代表（max-WEE idx34、max-ε_cert idx6）的首个采样违例出现在约 **1.9–2.0×ε_cert**；低证书代表（low-ε_cert idx26，ε_cert≈0.000952）在 **α≈0.13** 即出现采样违例——直观体现其脆弱性（per-representative 数值由 `exp1_summary.json` 的 `mc_first_sampled_violation` 字段记录，不手工维护）。
 
 **说明**：当前参考结果来自**单一信道实现**；多种子泛化结论以独立的 holdout 检查为准（见 §6）。证书认证开销：40 配置 ≈ 600 次 oracle 调用 ≈ 18 s（复杂度对应论文 Eq.(21)–(23)）。
 

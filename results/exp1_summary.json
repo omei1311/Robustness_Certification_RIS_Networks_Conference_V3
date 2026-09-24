@@ -1,7 +1,7 @@
 {
   "manifest": {
     "experiment": "exp1",
-    "created": "2026-09-24T19:08:43"
+    "created": "2026-09-24T19:45:10"
   },
   "alpha_key_points": [
     0.9,
@@ -39,6 +39,29 @@
       "label": "low-eps_cert",
       "candidate": 26,
       "epsilon_cert": 0.0009521484374999999
+    }
+  ],
+  "mc_first_sampled_violation": [
+    {
+      "label": "max-WEE",
+      "index": 34,
+      "epsilon_cert": 0.0908935546875,
+      "first_sampled_violation_epsilon": 0.181787109375,
+      "first_sampled_violation_alpha": 2.0
+    },
+    {
+      "label": "max-eps_cert",
+      "index": 6,
+      "epsilon_cert": 0.11396484374999999,
+      "first_sampled_violation_epsilon": 0.21368408203124997,
+      "first_sampled_violation_alpha": 1.875
+    },
+    {
+      "label": "low-eps_cert",
+      "index": 26,
+      "epsilon_cert": 0.0009521484374999999,
+      "first_sampled_violation_epsilon": 0.0001190185546875,
+      "first_sampled_violation_alpha": 0.12500000000000003
     }
   ],
   "representatives": [
