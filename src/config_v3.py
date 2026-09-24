@@ -11,6 +11,8 @@ a radius value ``eps`` means ``eps * ||h_lk||`` per user.
 
 from __future__ import annotations
 
+import hashlib
+import json
 from dataclasses import asdict, dataclass, replace
 from typing import Any, Dict, Tuple
 
@@ -33,7 +35,10 @@ class CertConfig:
     direction_choices: Tuple[str, ...] = ("zf_full",)
     align_frac_grid: Tuple[float, ...] = (0.0, 0.25, 0.5, 0.75, 1.0)
     align_jitter_grid: Tuple[float, ...] = (0.0, 0.3, 0.6, 1.0)  # radians, half-width
-    bits_grid: Tuple[int, ...] = (1, 2, 3)
+    # The paper fixes B = 2; bit resolution is NOT a diversity knob.
+    # Diversity comes from phase initialization, alignment fraction/jitter,
+    # beamforming initialization, design epsilon/gamma, power slack, seeds.
+    bits_grid: Tuple[int, ...] = (2,)
     # QoS design targets (multiples of the required gamma_bar).
     design_gamma_mult: Tuple[float, ...] = (1.0, 1.5, 2.0, 3.0, 5.0, 7.0)
     # Design uncertainty radius choices: 0 = nominal design, eps = robust design.
@@ -96,3 +101,77 @@ class CertConfig:
 
 def default_cert_config() -> CertConfig:
     return CertConfig().validate()
+
+
+def config_fingerprint(cfg, cert_cfg) -> str:
+    """Stable sha256 fingerprint of every parameter that determines the
+    certified pool: system model (topology, channel, QoS, power, uncertainty
+    conventions) and the full pool/certification/experiment configuration.
+
+    The pool cache may only be reused when this fingerprint matches exactly;
+    any mismatch forces a rebuild.  Note that ``SimConfig.seed`` is
+    deliberately excluded: the experiment channel is generated from
+    ``cert_cfg.channel_seed``, which is included below.
+    """
+    payload = {
+        "simconfig": {
+            "L": cfg.L, "K": cfg.K, "M": cfg.M, "N": cfg.N,
+            "gamma": cfg.gamma, "bits": cfg.bits,
+            "uncertainty_model": cfg.uncertainty_model,
+            "relative_radius": cfg.relative_radius,
+            "radius_floor": cfg.radius_floor,
+            "feasibility_tol": cfg.feasibility_tol,
+            "geometry_channel": {
+                "bs_x": tuple(cfg.bs_x), "bs_y": tuple(cfg.bs_y),
+                "ue_center_x": tuple(cfg.ue_center_x),
+                "ue_center_y": tuple(cfg.ue_center_y),
+                "ue_radius": cfg.ue_radius,
+                "ris_x": cfg.ris_x, "ris_y": cfg.ris_y,
+                "c0_db": cfg.c0_db,
+                "alpha_bu": cfg.alpha_bu, "alpha_br": cfg.alpha_br,
+                "alpha_ru": cfg.alpha_ru,
+                "rician_k": cfg.rician_k,
+                "channel_scale": cfg.channel_scale,
+                "direct_serving_attenuation": cfg.direct_serving_attenuation,
+                "include_direct_intercell": cfg.include_direct_intercell,
+                "inter_ris_attenuation": cfg.inter_ris_attenuation,
+                "ris_size_model": cfg.ris_size_model,
+                "ris_reference_N": cfg.ris_reference_N,
+            },
+            "power_model": {
+                "noise_power_dbm": cfg.noise_power_dbm,
+                "p_max_dbm": cfg.p_max_dbm,
+                "pa_efficiency": cfg.pa_efficiency,
+                "p_bs": cfg.p_bs, "p_ue": cfg.p_ue, "p_loss": cfg.p_loss,
+                "p_ris_controller": cfg.p_ris_controller,
+                "p_cell_idle": cfg.p_cell_idle,
+                "p_diode_on": cfg.p_diode_on,
+                "ue_power_per_user": cfg.ue_power_per_user,
+                "ris_power_model": cfg.ris_power_model,
+                "omega_eta": cfg.omega_eta,
+                "bandwidth_hz": cfg.bandwidth_hz,
+            },
+        },
+        "certconfig": {
+            "channel_seed": cert_cfg.channel_seed,
+            "pool_seed": cert_cfg.pool_seed,
+            "pool_target_size": cert_cfg.pool_target_size,
+            "pool_max_attempts": cert_cfg.pool_max_attempts,
+            "direction_choices": tuple(cert_cfg.direction_choices),
+            "align_frac_grid": tuple(cert_cfg.align_frac_grid),
+            "align_jitter_grid": tuple(cert_cfg.align_jitter_grid),
+            "bits_grid": tuple(cert_cfg.bits_grid),
+            "design_gamma_mult": tuple(cert_cfg.design_gamma_mult),
+            "design_eps_grid": tuple(cert_cfg.design_eps_grid),
+            "power_slack_grid": tuple(cert_cfg.power_slack_grid),
+            "epsilon_design": cert_cfg.epsilon_design,
+            "pc_max_iter": cert_cfg.pc_max_iter,
+            "pc_tol": cert_cfg.pc_tol,
+            "bisection_eps_hi": cert_cfg.bisection_eps_hi,
+            "bisection_eps_hi_max": cert_cfg.bisection_eps_hi_max,
+            "bisection_tol": cert_cfg.bisection_tol,
+            "bisection_max_iter": cert_cfg.bisection_max_iter,
+        },
+    }
+    blob = json.dumps(payload, sort_keys=True, separators=(",", ":"), default=str)
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()

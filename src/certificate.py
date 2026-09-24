@@ -1,21 +1,31 @@
-"""Configuration-specific robustness certificate R_cert (new; Section 4).
+"""Configuration-specific robustness certificate epsilon_cert (new; Section 4).
 
 For a FIXED configuration X = (w, theta) that is nominally feasible, the
 robustness-feasibility indicator is
 
-    F_X(r) = 1  if  X satisfies all robust QoS constraints at radius r     (10)
-           = 0  otherwise,
+    F_X(eps) = 1  if  X satisfies all robust QoS constraints at the
+                    relative uncertainty radius                              (10)
+                    r_lk(X, eps) = eps * max(||h_hat_lk(X)||, radius_floor)
+              = 0  otherwise,
 
-and the certificate is
+and the certificate is the certified *scaling factor* of the per-user
+nominal channel norms:
 
-    R_cert(X) = sup { r >= 0 : F_X(r) = 1 }.                              (11)
+    epsilon_cert(X) = sup { eps >= 0 : F_X(eps) = 1 }.                    (11)
 
-Because the norm-bounded uncertainty sets are nested, F_X is monotone
-non-increasing in r, so R_cert is computed by bisection (Eq. (12)-(13)):
-the returned value is the conservative lower endpoint r_low of the final
-bracket.  The oracle used at every bisection step is the reused statewise
-S-procedure LMI feasibility test (``ris_base.robustness.robust_check``);
-no beamforming or RIS re-optimization happens here.
+NOTE on semantics: the bisection variable is the dimensionless relative
+uncertainty factor epsilon, NOT an absolute channel radius.  Each user's
+actual ball radius is r_lk = eps * ||h_hat_lk||, i.e. it scales with that
+user's own (Theta-dependent) nominal channel norm, matching the first
+paper's uncertainty convention.  Because the balls are nested in eps,
+F_X is monotone non-increasing and epsilon_cert is computed by bisection
+(Eq. (12)-(13)); the returned value is the conservative lower endpoint of
+the final bracket.  The oracle at every bisection step is the reused
+statewise S-procedure LMI feasibility test
+(``ris_base.robustness.robust_check``); no beamforming or RIS
+re-optimization happens here.
+
+``r_cert`` is kept as a backward-compatible alias for ``epsilon_cert``.
 """
 
 from __future__ import annotations
@@ -35,7 +45,11 @@ def robust_feasibility_indicator(
     epsilon: float,
     cfg: SimConfig,
 ) -> bool:
-    """F_X(eps) in Eq. (10) via the statewise LMI test (Eq. (9))."""
+    """F_X(eps) in Eq. (10) via the statewise LMI test (Eq. (9)).
+
+    ``epsilon`` is the dimensionless relative uncertainty factor; the
+    per-user ball radius is eps * max(||h_hat_lk||, radius_floor).
+    """
     return bool(robust_check(w, H, epsilon, cfg).feasible)
 
 
@@ -46,12 +60,17 @@ class CertificateResult:
     n_feasibility_checks: int         # oracle calls (complexity Eq. (21)-(23))
     n_bisection_iter: int
     bracket: tuple                    # final (eps_lo, eps_hi)
-    binding_user: Optional[tuple] = None      # (l, k) with the smallest margin at r_cert
+    binding_user: Optional[tuple] = None      # (l, k) with the smallest margin at eps_cert
     binding_margin: Optional[float] = None
     per_user_margins: Optional[np.ndarray] = None  # (L,K) margins at eps_lo
 
+    @property
+    def epsilon_cert(self) -> float:
+        """Primary name: the certified relative uncertainty scaling factor."""
+        return self.r_cert
 
-def r_cert_bisection(
+
+def epsilon_cert_bisection(
     w: np.ndarray,
     H: np.ndarray,
     cfg: SimConfig,
@@ -60,9 +79,11 @@ def r_cert_bisection(
     tol: float = 1.0e-4,
     max_iter: int = 40,
 ) -> CertificateResult:
-    """Compute R_cert(X) by bisection with the statewise LMI oracle.
+    """Compute epsilon_cert(X) by bisection with the statewise LMI oracle.
 
-    The bracket starts at [0, eps_hi]; the upper end is doubled (up to
+    The bisection variable is the relative uncertainty factor eps (each
+    user's ball radius is eps * max(||h_hat_lk||, radius_floor)).  The
+    bracket starts at [0, eps_hi]; the upper end is doubled (up to
     ``eps_hi_max``) until F_X is 0 there, guaranteeing a valid bracket.
     Iteration stops when eps_hi - eps_lo <= tol (Eq. (13)); the conservative
     lower endpoint is returned as the certificate.
@@ -73,7 +94,7 @@ def r_cert_bisection(
     n_checks += 1
     if not feasible0:
         # Only nominally feasible configurations enter certification
-        # (Section 9 protocol); a nominally infeasible one gets R_cert = 0.
+        # (Section 9 protocol); a nominally infeasible one gets eps_cert = 0.
         return CertificateResult(
             r_cert=0.0,
             feasible_at_zero=False,
@@ -129,6 +150,11 @@ def r_cert_bisection(
     )
 
 
+# Backward-compatible alias: R_cert(X) == epsilon_cert(X) under the
+# relative-radius convention adopted by this framework.
+r_cert_bisection = epsilon_cert_bisection
+
+
 def robustness_profile(
     w: np.ndarray,
     H: np.ndarray,
@@ -138,8 +164,8 @@ def robustness_profile(
     """Sample the monotone robustness profile F_X(eps) on a grid.
 
     Used to visualize the nested feasible-radius property mentioned in
-    Section 4 (indicator is 1 up to R_cert and 0 beyond, up to the bisection
-    tolerance).
+    Section 4 (indicator is 1 up to epsilon_cert and 0 beyond, up to the
+    bisection tolerance).
     """
     return np.asarray(
         [robust_feasibility_indicator(w, H, float(e), cfg) for e in eps_grid],

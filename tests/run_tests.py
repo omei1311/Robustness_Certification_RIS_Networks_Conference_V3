@@ -19,10 +19,12 @@ if str(PROJECT_ROOT) not in sys.path:
 from src import SimConfig, default_cert_config  # noqa: E402
 from src.candidate_pool import build_pool  # noqa: E402
 from src.certificate import (  # noqa: E402
+    epsilon_cert_bisection,
     r_cert_bisection,
     robust_feasibility_indicator,
     robustness_profile,
 )
+from src.config_v3 import config_fingerprint  # noqa: E402
 from src.pareto import pareto_mask  # noqa: E402
 from src.robust_oracle import robust_feasible_cvxpy  # noqa: E402
 from src.selection import (  # noqa: E402
@@ -93,6 +95,40 @@ def test_pareto_and_selection():
     assert rows[0]["selected_index"] == 0
     assert rows[1]["selected_index"] == 1  # 0.5*R_max = 0.25 excludes idx0 (rc=0.1)
     assert rows[2]["selected_index"] == 1
+
+
+def test_fingerprint_and_metadata():
+    """Cache fingerprint determinism/sensitivity + candidate provenance."""
+    cfg = SimConfig().validate()
+    cc = default_cert_config()
+    fp1 = config_fingerprint(cfg, cc)
+    assert fp1 == config_fingerprint(cfg, cc), "fingerprint must be stable"
+    assert fp1 != config_fingerprint(cfg, cc.with_overrides(pool_target_size=5))
+    assert fp1 != config_fingerprint(cfg.with_overrides(gamma=2.5), cc)
+    assert fp1 != config_fingerprint(cfg, cc.with_overrides(align_jitter_grid=(0.0, 0.5)))
+    # Paper fixes B = 2: bit resolution must not be a diversity knob.
+    assert cc.bits_grid == (2,), f"bits_grid must be (2,), got {cc.bits_grid}"
+
+    # Alias compatibility: R_cert == epsilon_cert under relative radius.
+    assert r_cert_bisection is epsilon_cert_bisection
+
+    from src.ris_base import generate_channel_drop
+
+    cc_small = cc.with_overrides(pool_target_size=2, pool_max_attempts=120)
+    drop = generate_channel_drop(cfg, np.random.default_rng(cc.channel_seed))
+    pool, _ = build_pool(drop, cfg, cc_small)
+    assert len(pool) >= 1, "pool unexpectedly empty"
+    fp_small = config_fingerprint(cfg, cc_small)
+    for c in pool:
+        assert c.channel_seed == cc.channel_seed, "channel seed not stamped"
+        assert c.config_fingerprint == fp_small, "fingerprint not stamped"
+        assert c.align_jitter in cc.align_jitter_grid
+        c.r_cert = 0.123  # simulate post-certification stamping
+        assert c.epsilon_cert == c.r_cert  # compat alias
+        rec = c.to_record()
+        for key in ("epsilon_cert", "channel_seed", "align_jitter",
+                    "config_fingerprint"):
+            assert key in rec, f"to_record missing {key}"
 
 
 def test_profile_monotone():
@@ -178,6 +214,7 @@ def main() -> None:
     print("=== certification framework tests ===")
     check("t_cert arithmetic", test_t_cert)
     check("pareto + selection logic", test_pareto_and_selection)
+    check("fingerprint + candidate metadata", test_fingerprint_and_metadata)
     check("F_X monotonicity", test_profile_monotone)
     check("bisection vs grid boundary", test_bisection_matches_grid)
     check("LMI eig vs cvxpy SDP", test_lmi_cvxpy_crosscheck)

@@ -57,6 +57,7 @@ def main() -> dict:
                 "selected_index": out.index,
                 "selected_wee": out.wee,
                 "selected_rcert": out.rcert,
+                "selected_epsilon_cert": out.rcert,
                 "selected_t_cert_s": out.t_cert,
                 "n_remaining": out.n_remaining,
             }
@@ -84,6 +85,7 @@ def main() -> dict:
         check[name] = {
             "index": int(idx),
             "r_cert": float(cand.r_cert),
+            "epsilon_cert": float(cand.r_cert),
             "epsilon_design": cc.epsilon_design,
             "qos_hold_rate": hold,
             "worst_sinr_p5": float(np.percentile(worst, 5)),
@@ -109,7 +111,7 @@ def main() -> dict:
     print("=== Experiment 3: selection and sensitivity ===")
     for r in rule_rows:
         print(f"{r['rule']:<16s} idx={r['selected_index']:>3d} "
-              f"WEE={r['selected_wee']:.5f} R_cert={r['selected_rcert']:.4f} "
+              f"WEE={r['selected_wee']:.5f} eps_cert={r['selected_rcert']:.4f} "
               f"T_cert={r['selected_t_cert_s']:.1f}s")
     print(f"R_max={r_max:.4f}, epsilon_design={cc.epsilon_design}, nu={nu}/s")
     for frac, r in zip(cc.r_min_fracs, rows):
@@ -120,7 +122,7 @@ def main() -> dict:
               f"remaining={r['n_remaining']}")
     for name, c in check.items():
         print(f"  check[{name}]: hold@eps={c['qos_hold_rate']:.3f} "
-              f"(R_cert {'>=' if c['meets_epsilon_design'] else '<'} eps)")
+              f"(eps_cert {'>=' if c['meets_epsilon_design'] else '<'} eps)")
     print(f"figure -> {fig_path}")
     return summary
 

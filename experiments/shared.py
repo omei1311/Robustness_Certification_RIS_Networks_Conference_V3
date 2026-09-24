@@ -16,6 +16,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from src import SimConfig, default_cert_config  # noqa: E402
 from src.candidate_pool import build_pool, load_pool, save_pool  # noqa: E402
 from src.certificate import r_cert_bisection  # noqa: E402
+from src.config_v3 import config_fingerprint  # noqa: E402
 from src.io_utils import RESULTS_DIR, ensure_dirs  # noqa: E402
 from src.ris_base import generate_channel_drop  # noqa: E402
 
@@ -28,9 +29,13 @@ def make_system() -> Tuple[SimConfig, object]:
     return cfg, cc
 
 
-def nominal_drop(cfg: SimConfig):
-    """The shared nominal channel drop (common comparison axis, Section 9)."""
-    rng = np.random.default_rng(cfg.seed)
+def nominal_drop(cfg: SimConfig, seed: int):
+    """The shared nominal channel drop (common comparison axis, Section 9).
+
+    The seed is the experiment channel seed (``cert_cfg.channel_seed``),
+    NOT ``cfg.seed``; cache metadata records exactly this seed.
+    """
+    rng = np.random.default_rng(seed)
     return generate_channel_drop(cfg, rng)
 
 
@@ -42,25 +47,30 @@ def build_and_certify(
 ) -> Tuple[List, Dict]:
     """Build the candidate pool, certify every member, cache to results/."""
     ensure_dirs()
+    fingerprint = config_fingerprint(cfg, cert_cfg)
     cache_ok = False
     if not rebuild and Path(POOL_PREFIX + ".npz").exists():
         try:
             pool, meta = load_pool(POOL_PREFIX)
             if (
-                meta.get("pool_target_size") == cert_cfg.pool_target_size
+                meta.get("config_fingerprint") == fingerprint
                 and meta.get("channel_seed") == cert_cfg.channel_seed
-                and meta.get("cfg_seed") == cfg.seed
                 and all(np.isfinite(c.r_cert) for c in pool)
                 and len(pool) > 0
             ):
                 cache_ok = True
-                log(f"[pool] loaded {len(pool)} certified candidates from cache")
+                log(f"[pool] loaded {len(pool)} certified candidates from cache "
+                    f"(fingerprint {fingerprint[:12]}...)")
+            elif meta.get("config_fingerprint") is not None:
+                log(f"[pool] cache fingerprint mismatch "
+                    f"(cached {str(meta.get('config_fingerprint'))[:12]}... != "
+                    f"current {fingerprint[:12]}...); rebuilding")
         except Exception as exc:  # pragma: no cover - cache self-heal
             log(f"[pool] cache unreadable ({exc}); rebuilding")
 
     if not cache_ok:
         t0 = time.time()
-        drop = nominal_drop(cfg)
+        drop = nominal_drop(cfg, cert_cfg.channel_seed)
         pool, stats = build_pool(drop, cfg, cert_cfg)
         if not pool:
             raise RuntimeError(
@@ -93,6 +103,7 @@ def build_and_certify(
             "pool_target_size": cert_cfg.pool_target_size,
             "channel_seed": cert_cfg.channel_seed,
             "cfg_seed": cfg.seed,
+            "config_fingerprint": fingerprint,
             "generation_stats": stats,
             "n_oracle_calls": n_checks,
         }

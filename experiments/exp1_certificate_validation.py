@@ -81,6 +81,7 @@ def main() -> dict:
                     "label": label,
                     "candidate": idx,
                     "r_cert": rc,
+                    "epsilon_cert": rc,
                     "eps_real": float(eps_real),
                     "eps_over_rcert": float(eps_real / rc) if rc > 0 else np.inf,
                     "worst_sinr_mean": mean_arr[-1],
@@ -92,7 +93,7 @@ def main() -> dict:
             )
         configs.append(
             {
-                "label": f"{label} (idx {idx}, R={rc:.3f})",
+                "label": f"{label} (idx {idx}, eps_cert={rc:.3f})",
                 "r_cert": rc,
                 "radii": radii,
                 "sinr_mean": np.array(mean_arr),
@@ -107,7 +108,7 @@ def main() -> dict:
         onset = radii[np.flatnonzero(v > 0.0)[0]] if np.any(v > 0.0) else np.inf
         below = wc < cfg.gamma
         wc_cross = radii[np.flatnonzero(below)[0]] if np.any(below) else np.inf
-        print(f"[exp1] {label}: idx={idx} R_cert={rc:.4f} "
+        print(f"[exp1] {label}: idx={idx} eps_cert={rc:.4f} "
               f"worst-case-curve crosses target at {wc_cross:.4f} "
               f"(ratio {wc_cross / rc if rc > 0 else float('inf'):.2f}); "
               f"first sampled violation at {onset:.4f}")
@@ -117,6 +118,7 @@ def main() -> dict:
     summary = {
         "representatives": [
             {"label": label, "index": idx, "r_cert": float(pool[idx].r_cert),
+             "epsilon_cert": float(pool[idx].r_cert),
              "wee": float(pool[idx].wee)}
             for label, idx in reps
         ],

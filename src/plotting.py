@@ -79,7 +79,7 @@ def plot_exp1(
             ax.plot(x, 10.0 * np.log10(np.maximum(c["sinr_wc"], 1e-12)),
                     color=col, lw=1.1, ls="-.", alpha=0.9)
     ax.axvline(1.0, color=C_GREY, lw=1.0, ls=":", alpha=0.9)
-    ax.annotate(r"$\varepsilon = R_{\rm cert}$", xy=(1.0, ax.get_ylim()[1]),
+    ax.annotate(r"$\varepsilon = \varepsilon_{\rm cert}$", xy=(1.0, ax.get_ylim()[1]),
                 xytext=(-4, -12), textcoords="offset points", fontsize=8,
                 ha="right")
     tgt_db = 10.0 * np.log10(gamma_target)
@@ -87,7 +87,7 @@ def plot_exp1(
     ax.annotate(f"QoS target ({tgt_db:.0f} dB)",
                 xy=(0.02, tgt_db), xycoords=("axes fraction", "data"),
                 xytext=(2, 4), textcoords="offset points", fontsize=8)
-    ax.set_xlabel(r"realized uncertainty radius $\varepsilon / R_{\rm cert}$")
+    ax.set_xlabel(r"realized uncertainty factor $\varepsilon / \varepsilon_{\rm cert}$")
     ax.set_ylabel("worst-user SINR (dB)")
     ax.set_title("(a) worst-user SINR (solid mean, dashed p5, dash-dot worst case)")
     ax.legend(fontsize=8, loc="lower left")
@@ -98,9 +98,9 @@ def plot_exp1(
                 color=col, lw=1.6, label=c["label"])
     ax.axvline(1.0, color=C_GREY, lw=1.0, ls=":", alpha=0.9)
     ax.set_ylim(-2, 102)
-    ax.set_xlabel(r"realized uncertainty radius $\varepsilon / R_{\rm cert}$")
+    ax.set_xlabel(r"realized uncertainty factor $\varepsilon / \varepsilon_{\rm cert}$")
     ax.set_ylabel("empirical QoS violation rate (%)")
-    ax.set_title(r"(b) violation rate; dotted line marks $\varepsilon = R_{\rm cert}$")
+    ax.set_title(r"(b) violation rate; dotted line marks $\varepsilon = \varepsilon_{\rm cert}$")
     fig.tight_layout()
     path = save_fig(fig, out_name, subdir=subdir)
     plt.close(fig)
@@ -155,7 +155,7 @@ def plot_exp2(
                 xytext=(-8, 14), textcoords="offset points", rotation=90,
                 fontsize=8, ha="right")
 
-    ax.set_xlabel(r"robustness certificate $R_{\rm cert}$ (relative radius)")
+    ax.set_xlabel(r"robustness certificate $\varepsilon_{\rm cert}$ (relative uncertainty factor)")
     ax.set_ylabel(r"WEE (bit/s/Hz per watt)")
     ax.set_title("Candidate pool in the WEE-robustness plane")
     ax.legend(fontsize=8, loc="lower right")

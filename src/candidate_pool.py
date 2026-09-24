@@ -40,6 +40,7 @@ from .ris_base import (
     utility_power_wee_from_H,
 )
 from .ris_base.models import phase_indices
+from .config_v3 import config_fingerprint
 
 
 # ---------------------------------------------------------------------- #
@@ -66,9 +67,20 @@ class Candidate:
     qos_feasible: bool
     # Optional post-convergence power scaling (1 = power-minimal design)
     power_slack: float = 1.0
-    # Filled by the certification stage
+    # Provenance metadata (audit/cache consistency)
+    align_jitter: float = 0.0         # radians, half-width used at generation
+    channel_seed: int = -1            # seed of the nominal drop this candidate
+                                      # was generated on
+    config_fingerprint: str = ""      # sha256 of the full experiment config
+    # Filled by the certification stage (r_cert kept as a compatibility
+    # alias of epsilon_cert, the certified relative uncertainty factor)
     r_cert: float = float("nan")
     cert_info: Dict = field(default_factory=dict)
+
+    @property
+    def epsilon_cert(self) -> float:
+        """Certified relative uncertainty scaling factor (primary name)."""
+        return self.r_cert
 
     def to_record(self) -> Dict:
         return {
@@ -77,9 +89,12 @@ class Candidate:
             "bits": self.bits,
             "direction_kind": self.direction_kind,
             "align_frac": self.align_frac,
+            "align_jitter": self.align_jitter,
             "design_gamma": self.design_gamma,
             "design_eps": self.design_eps,
             "power_slack": self.power_slack,
+            "channel_seed": self.channel_seed,
+            "config_fingerprint": self.config_fingerprint,
             "min_sinr_nominal": float(np.min(self.sinr_nominal)),
             "wee": self.wee,
             "U": self.U,
@@ -87,6 +102,7 @@ class Candidate:
             "power_per_bs": self.power_per_bs.tolist(),
             "qos_feasible": self.qos_feasible,
             "r_cert": self.r_cert,
+            "epsilon_cert": self.r_cert,
             "cert_info": self.cert_info,
         }
 
@@ -306,6 +322,7 @@ def generate_candidate(
     cfg: SimConfig,
     cert_cfg,
     seed: int,
+    config_fingerprint: str = "",
 ) -> Tuple[Optional[Candidate], str]:
     """One candidate attempt; returns (candidate_or_None, reject_reason)."""
     rng = np.random.default_rng(seed)
@@ -361,6 +378,9 @@ def generate_candidate(
         design_gamma=gamma_d,
         design_eps=eps_d,
         power_slack=slack,
+        align_jitter=align_jitter,
+        channel_seed=int(cert_cfg.channel_seed),
+        config_fingerprint=config_fingerprint,
         w=w,
         theta=theta,
         H=H,
@@ -378,8 +398,14 @@ def build_pool(
     cfg: SimConfig,
     cert_cfg,
 ) -> Tuple[List[Candidate], Dict]:
-    """Build the candidate pool on the shared nominal drop (Section 9)."""
+    """Build the candidate pool on the shared nominal drop (Section 9).
+
+    Every candidate is stamped with the channel seed and the full
+    configuration fingerprint, so pool provenance is auditable from the
+    saved records alone.
+    """
     rng = np.random.default_rng(cert_cfg.pool_seed)
+    fingerprint = config_fingerprint(cfg, cert_cfg)
     pool: List[Candidate] = []
     seen = set()
     stats = {
@@ -394,7 +420,8 @@ def build_pool(
            and stats["attempts"] < cert_cfg.pool_max_attempts):
         stats["attempts"] += 1
         seed += 1
-        cand, reason = generate_candidate(drop, cfg, cert_cfg, seed)
+        cand, reason = generate_candidate(drop, cfg, cert_cfg, seed,
+                                          config_fingerprint=fingerprint)
         if cand is None:
             stats["rejected_qos_power"] += 1
             stats["reject_reasons"][reason] = stats["reject_reasons"].get(reason, 0) + 1
@@ -458,6 +485,9 @@ def load_pool(path_prefix: str) -> Tuple[List[Candidate], Dict]:
                 design_gamma=rec["design_gamma"],
                 design_eps=rec["design_eps"],
                 power_slack=rec.get("power_slack", 1.0),
+                align_jitter=rec.get("align_jitter", 0.0),
+                channel_seed=rec.get("channel_seed", -1),
+                config_fingerprint=rec.get("config_fingerprint", ""),
                 w=data["w"][i],
                 theta=data["theta"][i],
                 H=data["H"][i],

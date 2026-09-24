@@ -59,6 +59,10 @@ def main(rebuild: bool = False) -> dict:
                 "design_eps": c.design_eps,
                 "wee": c.wee,
                 "r_cert": c.r_cert,
+                "epsilon_cert": c.r_cert,
+                "align_jitter": c.align_jitter,
+                "channel_seed": c.channel_seed,
+                "config_fingerprint": c.config_fingerprint,
                 "nondominated": bool(mask[c.index]),
                 "min_sinr_nominal": float(np.min(c.sinr_nominal)),
                 "power_per_bs_w": float(np.sum(c.power_per_bs)),
@@ -73,6 +77,8 @@ def main(rebuild: bool = False) -> dict:
         "wee_max": float(wee.max()),
         "rcert_min": float(rcert.min()),
         "rcert_max": r_max,
+        "epsilon_cert_min": float(rcert.min()),
+        "epsilon_cert_max": r_max,
         "spearman_rho": float(rho),
         "spearman_p": float(pval),
         "epsilon_design": cc.epsilon_design,
@@ -96,14 +102,15 @@ def main(rebuild: bool = False) -> dict:
     print(f"pool size            : {summary['pool_size']}")
     print(f"nondominated / dominated : {summary['n_nondominated']} / {summary['n_dominated']}")
     print(f"WEE range            : [{summary['wee_min']:.5f}, {summary['wee_max']:.5f}]")
-    print(f"R_cert range         : [{summary['rcert_min']:.5f}, {summary['rcert_max']:.5f}]")
-    print(f"Spearman(WEE, R_cert): rho={rho:.3f} (p={pval:.2g})")
+    print(f"eps_cert range       : [{summary['rcert_min']:.5f}, {summary['rcert_max']:.5f}] "
+          f"(relative uncertainty factor)")
+    print(f"Spearman(WEE, eps_cert): rho={rho:.3f} (p={pval:.2g})")
     print(f"candidates below prescribed epsilon={cc.epsilon_design}: "
           f"{summary['n_below_epsilon_design']}")
-    print(f"WEE-only choice        : idx={out_wee.index} WEE={out_wee.wee:.5f} R={out_wee.rcert:.4f}")
-    print(f"robustness-only choice : idx={out_rob.index} WEE={out_rob.wee:.5f} R={out_rob.rcert:.4f}")
+    print(f"WEE-only choice        : idx={out_wee.index} WEE={out_wee.wee:.5f} eps_cert={out_wee.rcert:.4f}")
+    print(f"robustness-only choice : idx={out_rob.index} WEE={out_rob.wee:.5f} eps_cert={out_rob.rcert:.4f}")
     print(f"stability-aware (0.9R_max): idx={out_sel.index} WEE={out_sel.wee:.5f} "
-          f"R={out_sel.rcert:.4f} T_cert={out_sel.t_cert:.1f}s")
+          f"eps_cert={out_sel.rcert:.4f} T_cert={out_sel.t_cert:.1f}s")
     print(f"figure -> {fig_path}")
     return summary
 

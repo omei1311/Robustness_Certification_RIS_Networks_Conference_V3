@@ -1,16 +1,20 @@
 """Stability-aware configuration selection (new; Sections 5-6).
 
-Selection rules on a certified candidate set:
-  - WEE-only rule            X_WEE = argmax WEE                        (17)
-  - robustness-only rule     X_R   = argmax R_cert  (reference only)
-  - proposed rule            X_sel = argmax WEE  s.t. R_cert >= R_min  (18)
+Selection rules on a certified candidate set.  The robustness axis is the
+certified relative uncertainty scaling factor epsilon_cert(X) (see
+``certificate.py``); ``R_cert`` is retained as a compatibility alias.
 
-Under the linear drift model rho(t) = nu t of Section 5, the minimum
-robustness requirement can equivalently be written as a minimum certified
-reuse horizon, R_cert(X) >= nu * T_min  <=>  T_cert(X) >= T_min        (19),
+  - WEE-only rule            X_WEE = argmax WEE                        (17)
+  - robustness-only rule     X_R   = argmax eps_cert  (reference only)
+  - proposed rule            X_sel = argmax WEE  s.t. eps_cert >= R_min (18)
+
+Under the linear drift model rho(t) = nu t of Section 5 -- with nu in the
+same relative-radius units per second -- the minimum robustness requirement
+can equivalently be written as a minimum certified reuse horizon,
+eps_cert(X) >= nu * T_min  <=>  T_cert(X) >= T_min                     (19),
 with the conditional corollary
 
-    T_cert(X) = R_cert(X) / nu.                                          (16)
+    T_cert(X) = eps_cert(X) / nu.                                        (16)
 
 T_cert is a conservative certified reuse horizon under the stated drift
 model -- not a prediction of the actual QoS failure time.
@@ -25,7 +29,11 @@ import numpy as np
 
 
 def t_cert(rcert: float, nu: float) -> float:
-    """Certified reuse horizon T_cert = R_cert / nu  (Eq. (16))."""
+    """Certified reuse horizon T_cert = eps_cert / nu  (Eq. (16)).
+
+    ``rcert`` is the certified relative uncertainty factor; ``nu`` is the
+    relative channel-drift-rate bound (relative radius per second).
+    """
     if nu <= 0.0:
         raise ValueError("drift-rate bound nu must be positive")
     return float(rcert) / float(nu)
@@ -40,6 +48,11 @@ class SelectionOutcome:
     t_cert: float
     n_candidates: int
     n_remaining: int          # candidates passing the robustness filter
+
+    @property
+    def epsilon_cert(self) -> float:
+        """Primary name for the certified robustness value."""
+        return self.rcert
 
 
 def _argbest(wee: np.ndarray, rcert: np.ndarray, mask: np.ndarray, key: str, rule: str) -> SelectionOutcome:
@@ -74,7 +87,7 @@ def select_wee_only(
 def select_robustness_only(
     wee: Sequence[float], rcert: Sequence[float], nu: float
 ) -> SelectionOutcome:
-    """Reference rule argmax R_cert (reported for comparison, Section 6)."""
+    """Reference rule argmax eps_cert (reported for comparison, Section 6)."""
     wee = np.asarray(wee, dtype=float)
     rcert = np.asarray(rcert, dtype=float)
     best = _argbest(wee, rcert, np.ones(wee.size, dtype=bool), "rcert", "robustness_only")
@@ -95,7 +108,10 @@ def select_stability_aware(
     r_min: float,
     nu: float,
 ) -> SelectionOutcome:
-    """Eq. (18): max WEE subject to R_cert >= R_min."""
+    """Eq. (18): max WEE subject to eps_cert >= R_min.
+
+    ``r_min`` is a threshold on the certified relative uncertainty factor.
+    """
     wee = np.asarray(wee, dtype=float)
     rcert = np.asarray(rcert, dtype=float)
     mask = rcert >= r_min
@@ -142,6 +158,7 @@ def r_min_sensitivity(
                     "selected_index": out.index,
                     "selected_wee": out.wee,
                     "selected_rcert": out.rcert,
+                    "selected_epsilon_cert": out.rcert,
                     "selected_t_cert_s": out.t_cert,
                     "n_remaining": out.n_remaining,
                     "feasible": True,
@@ -155,6 +172,7 @@ def r_min_sensitivity(
                     "selected_index": None,
                     "selected_wee": float("nan"),
                     "selected_rcert": float("nan"),
+                    "selected_epsilon_cert": float("nan"),
                     "selected_t_cert_s": float("nan"),
                     "n_remaining": 0,
                     "feasible": False,
