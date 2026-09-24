@@ -1,0 +1,9 @@
+# Numerical experiment framework for
+# "Configuration-Specific Robustness Certification for Stability-Aware
+#  Selection of Discrete RIS Configurations"
+numpy>=1.24
+scipy>=1.10
+matplotlib>=3.7
+pandas>=2.0
+cvxpy>=1.4      # statewise S-procedure LMI feasibility test (Eq. (9))
+tqdm>=4.65

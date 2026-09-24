@@ -1,0 +1,29 @@
+{
+  "manifest": {
+    "experiment": "exp1",
+    "created": "2026-09-23T15:14:33"
+  },
+  "representatives": [
+    {
+      "label": "max-WEE",
+      "index": 29,
+      "r_cert": 0.12026367187499998,
+      "wee": 0.22836006674033343
+    },
+    {
+      "label": "max-Rcert",
+      "index": 12,
+      "r_cert": 0.12846679687499998,
+      "wee": 0.21124766974394196
+    },
+    {
+      "label": "low-Rcert",
+      "index": 13,
+      "r_cert": 0.0010986328125,
+      "wee": 0.10455145259174614
+    }
+  ],
+  "mc_samples": 300,
+  "radius_points": 25,
+  "radius_extend": 3.0
+}
