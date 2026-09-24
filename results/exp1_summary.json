@@ -1,32 +1,71 @@
 {
   "manifest": {
     "experiment": "exp1",
-    "created": "2026-09-24T18:25:29"
+    "created": "2026-09-24T18:45:26"
   },
+  "alpha_key_points": [
+    0.9,
+    0.95,
+    0.99,
+    1.0,
+    1.01,
+    1.05,
+    1.1
+  ],
+  "consistency": [
+    {
+      "feasible_below_one": true,
+      "feasible_at_one": true,
+      "first_infeasible_alpha": 1.01,
+      "consistent_with_certificate": true,
+      "label": "max-WEE",
+      "candidate": 34,
+      "epsilon_cert": 0.0908935546875
+    },
+    {
+      "feasible_below_one": true,
+      "feasible_at_one": true,
+      "first_infeasible_alpha": 1.01,
+      "consistent_with_certificate": true,
+      "label": "max-eps_cert",
+      "candidate": 6,
+      "epsilon_cert": 0.11396484374999999
+    },
+    {
+      "feasible_below_one": true,
+      "feasible_at_one": true,
+      "first_infeasible_alpha": 1.05,
+      "consistent_with_certificate": true,
+      "label": "low-eps_cert",
+      "candidate": 26,
+      "epsilon_cert": 0.0009521484374999999
+    }
+  ],
   "representatives": [
     {
       "label": "max-WEE",
-      "index": 18,
-      "r_cert": 0.07998046874999999,
-      "epsilon_cert": 0.07998046874999999,
-      "wee": 0.21616223817925265
+      "index": 34,
+      "r_cert": 0.0908935546875,
+      "epsilon_cert": 0.0908935546875,
+      "wee": 1.2792320135377533
     },
     {
-      "label": "max-Rcert",
-      "index": 27,
-      "r_cert": 0.12355957031249996,
-      "epsilon_cert": 0.12355957031249996,
-      "wee": 0.21134814256377835
+      "label": "max-eps_cert",
+      "index": 6,
+      "r_cert": 0.11396484374999999,
+      "epsilon_cert": 0.11396484374999999,
+      "wee": 1.2460197453193609
     },
     {
-      "label": "low-Rcert",
+      "label": "low-eps_cert",
       "index": 26,
-      "r_cert": 0.000732421875,
-      "epsilon_cert": 0.000732421875,
-      "wee": 0.10663741746474395
+      "r_cert": 0.0009521484374999999,
+      "epsilon_cert": 0.0009521484374999999,
+      "wee": 0.6319332180288708
     }
   ],
   "mc_samples": 300,
   "radius_points": 25,
-  "radius_extend": 3.0
+  "radius_extend": 3.0,
+  "note": "epsilon_cert is obtained by deterministic LMI bisection only; the Monte Carlo sweep is an empirical validation and is never used to estimate epsilon_cert."
 }

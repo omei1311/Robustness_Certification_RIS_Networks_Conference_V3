@@ -1,63 +1,73 @@
 {
   "manifest": {
     "experiment": "exp2",
-    "created": "2026-09-24T18:25:00"
+    "created": "2026-09-24T18:44:48"
   },
   "pool_size": 40,
+  "unique_theta_count": 40,
+  "unique_configuration_count": 40,
   "n_nondominated": 2,
   "n_dominated": 38,
-  "wee_min": 0.10663741746474395,
-  "wee_max": 0.21616223817925265,
-  "rcert_min": 0.000732421875,
-  "rcert_max": 0.12355957031249996,
-  "epsilon_cert_min": 0.000732421875,
-  "epsilon_cert_max": 0.12355957031249996,
-  "spearman_rho": 0.8941319959177405,
-  "spearman_p": 7.878253942710831e-15,
+  "wee_min": 0.6319332180288708,
+  "wee_max": 1.2792320135377533,
+  "rcert_min": 0.0009521484374999999,
+  "rcert_max": 0.11396484374999999,
+  "epsilon_cert_min": 0.0009521484374999999,
+  "epsilon_cert_max": 0.11396484374999999,
+  "spearman_rho": 0.8559099437148219,
+  "spearman_p": 1.9476426117074263e-12,
   "epsilon_design": 0.05,
-  "n_below_epsilon_design": 12,
+  "n_below_epsilon_design": 10,
   "wee_only": {
     "rule": "wee_only",
-    "index": 18,
-    "wee": 0.21616223817925265,
-    "rcert": 0.07998046874999999,
-    "t_cert": 39.99023437499999,
+    "index": 34,
+    "wee": 1.2792320135377533,
+    "rcert": 0.0908935546875,
+    "t_cert": 45.44677734375,
     "n_candidates": 40,
-    "n_remaining": 40
+    "n_remaining": 40,
+    "n_pareto": 2,
+    "n_after_rmin": 40
   },
   "robustness_only": {
     "rule": "robustness_only",
-    "index": 27,
-    "wee": 0.21134814256377835,
-    "rcert": 0.12355957031249996,
-    "t_cert": 61.77978515624998,
+    "index": 6,
+    "wee": 1.2460197453193609,
+    "rcert": 0.11396484374999999,
+    "t_cert": 56.98242187499999,
     "n_candidates": 40,
-    "n_remaining": 40
+    "n_remaining": 40,
+    "n_pareto": 2,
+    "n_after_rmin": 40
   },
   "stability_aware_0p9rmax": {
     "rule": "stability_aware",
-    "index": 27,
-    "wee": 0.21134814256377835,
-    "rcert": 0.12355957031249996,
-    "t_cert": 61.77978515624998,
+    "index": 6,
+    "wee": 1.2460197453193609,
+    "rcert": 0.11396484374999999,
+    "t_cert": 56.98242187499999,
     "n_candidates": 40,
-    "n_remaining": 4
+    "n_remaining": 1,
+    "n_pareto": 2,
+    "n_after_rmin": 1
   },
   "meta": {
     "pool_target_size": 40,
     "channel_seed": 20260706,
     "cfg_seed": 20260706,
-    "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
+    "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
     "generation_stats": {
-      "attempts": 81,
+      "attempts": 125,
       "accepted": 40,
       "rejected_unique": 0,
-      "rejected_qos_power": 41,
+      "rejected_qos_power": 85,
       "reject_reasons": {
-        "power:power_budget_exceeded": 9,
-        "power:diverged": 24,
-        "power:slack_budget": 8
-      }
+        "power:diverged": 59,
+        "power:slack_budget": 5,
+        "power:power_budget_exceeded": 21
+      },
+      "unique_theta_count": 40,
+      "unique_configuration_count": 40
     },
     "n_oracle_calls": 600
   }

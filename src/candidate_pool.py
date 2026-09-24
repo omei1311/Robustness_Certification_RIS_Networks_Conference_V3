@@ -22,6 +22,7 @@ WEE-robustness plane, as required by Experiment 2.
 
 from __future__ import annotations
 
+import hashlib
 import json
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -36,8 +37,8 @@ from .ris_base import (
     compute_sinr_from_H,
     quantize_theta,
     random_theta,
-    user_weights,
-    utility_power_wee_from_H,
+    robust_check,
+    wee_unweighted_from_H,
 )
 from .ris_base.models import phase_indices
 from .config_v3 import config_fingerprint
@@ -67,11 +68,14 @@ class Candidate:
     qos_feasible: bool
     # Optional post-convergence power scaling (1 = power-minimal design)
     power_slack: float = 1.0
+    # Max relative per-user power perturbation applied at generation
+    power_perturb: float = 0.0
     # Provenance metadata (audit/cache consistency)
     align_jitter: float = 0.0         # radians, half-width used at generation
     channel_seed: int = -1            # seed of the nominal drop this candidate
                                       # was generated on
     config_fingerprint: str = ""      # sha256 of the full experiment config
+    configuration_signature: str = ""  # sha256 over (W_re, W_im, theta indices)
     # Filled by the certification stage (r_cert kept as a compatibility
     # alias of epsilon_cert, the certified relative uncertainty factor)
     r_cert: float = float("nan")
@@ -93,8 +97,10 @@ class Candidate:
             "design_gamma": self.design_gamma,
             "design_eps": self.design_eps,
             "power_slack": self.power_slack,
+            "power_perturb": self.power_perturb,
             "channel_seed": self.channel_seed,
             "config_fingerprint": self.config_fingerprint,
+            "configuration_signature": self.configuration_signature,
             "min_sinr_nominal": float(np.min(self.sinr_nominal)),
             "wee": self.wee,
             "U": self.U,
@@ -105,6 +111,38 @@ class Candidate:
             "epsilon_cert": self.r_cert,
             "cert_info": self.cert_info,
         }
+
+
+# ---------------------------------------------------------------------- #
+# Configuration identity: X = (W, Theta)                                #
+# ---------------------------------------------------------------------- #
+
+def configuration_signature(
+    w: np.ndarray,
+    theta: np.ndarray,
+    bits: int,
+    decimals: int = 6,
+) -> str:
+    """Stable sha256 identity of the full configuration X = (W, Theta).
+
+    - Theta enters through its DISCRETE phase indices in Q_B (exact).
+    - W enters through real/imaginary parts rounded to ``decimals`` places
+      (deterministic numerical rounding), so perturbations below the
+      rounding threshold do not change the identity.
+    The hash is taken over the concatenated byte stream of
+    (W_real, W_imag, theta_indices); this -- not Theta plus generation
+    parameters -- is the pool's unique-configuration key.
+    """
+    theta_idx = phase_indices(np.asarray(theta), int(bits)).astype(np.int64)
+    w_arr = np.asarray(w, dtype=np.complex128)
+    payload = np.concatenate(
+        [
+            np.round(w_arr.real, decimals).ravel(),
+            np.round(w_arr.imag, decimals).ravel(),
+            theta_idx.ravel(),
+        ]
+    )
+    return hashlib.sha256(payload.tobytes()).hexdigest()
 
 
 # ---------------------------------------------------------------------- #
@@ -334,7 +372,10 @@ def generate_candidate(
     eps_d = float(cert_cfg.design_eps_grid[rng.integers(0, len(cert_cfg.design_eps_grid))])
     gamma_d = gamma_mult * cfg.gamma
 
-    omega = user_weights(drop, cfg)
+    # Uniform alignment weights: the weighted user_weights()/omega_eta
+    # machinery is legacy compatibility and is NOT part of the V3 paper
+    # path (its WEE is the unweighted sum-rate below).
+    omega = np.full((cfg.L, cfg.K), 1.0 / (cfg.L * cfg.K))
 
     # Pass 1: directions with an arbitrary theta, then aligned-phase mixture.
     f0 = unit_directions(effective_channels(drop, np.ones(cfg.N, dtype=complex), cfg), kind, cfg, rng)
@@ -360,6 +401,27 @@ def generate_candidate(
         if np.any(p.sum(axis=1) > cfg.p_max_watt):
             return None, "power:slack_budget"
 
+    # Small per-user power perturbation: extra feasible operating points
+    # around the power-control solution.  The perturbed allocation is never
+    # accepted blindly -- it must re-pass nominal QoS, and robust QoS at the
+    # design radius whenever eps_d > 0; otherwise the base feasible
+    # allocation is kept.
+    perturb = float(
+        cert_cfg.power_perturb_grid[rng.integers(0, len(cert_cfg.power_perturb_grid))]
+    )
+    if perturb > 0.0:
+        delta = rng.uniform(0.0, perturb, size=(cfg.L, cfg.K))
+        p_try = p * (1.0 + delta)
+        if np.all(p_try.sum(axis=1) <= cfg.p_max_watt):
+            w_try = f * np.sqrt(p_try)[:, :, None]
+            sinr_try = compute_sinr_from_H(w_try, H, cfg)
+            if bool(np.min(sinr_try) >= cfg.gamma - 1e-6):
+                robust_ok = True
+                if eps_d > 0.0:
+                    robust_ok = robust_check(w_try, H, eps_d, cfg).feasible
+                if robust_ok:
+                    p = p_try
+
     w = f * np.sqrt(p)[:, :, None]
 
     # Reused nominal QoS check and WEE evaluation.
@@ -368,7 +430,8 @@ def generate_candidate(
     if not qos_ok:
         return None, "qos:not_met"
 
-    U, V, wee = utility_power_wee_from_H(w, theta, drop, H, cfg, omega=omega)
+    # V3 paper main path: WEE = sum_{l,k} log2(1+SINR_lk) / P_tot  (bit/s/Hz/W).
+    U, V, wee = wee_unweighted_from_H(w, theta, H, cfg)
     return Candidate(
         index=-1,
         seed=seed,
@@ -378,6 +441,7 @@ def generate_candidate(
         design_gamma=gamma_d,
         design_eps=eps_d,
         power_slack=slack,
+        power_perturb=perturb,
         align_jitter=align_jitter,
         channel_seed=int(cert_cfg.channel_seed),
         config_fingerprint=config_fingerprint,
@@ -407,13 +471,18 @@ def build_pool(
     rng = np.random.default_rng(cert_cfg.pool_seed)
     fingerprint = config_fingerprint(cfg, cert_cfg)
     pool: List[Candidate] = []
-    seen = set()
+    # Pool identity is the full X = (W, Theta) signature -- NOT Theta plus
+    # generation parameters: same W with same Theta is one configuration,
+    # same Theta with a different W is two.
+    seen: set = set()
     stats = {
         "attempts": 0,
         "accepted": 0,
         "rejected_unique": 0,
         "rejected_qos_power": 0,
         "reject_reasons": {},
+        "unique_theta_count": 0,
+        "unique_configuration_count": 0,
     }
     seed = int(cert_cfg.pool_seed)
     while (len(pool) < cert_cfg.pool_target_size
@@ -426,21 +495,21 @@ def build_pool(
             stats["rejected_qos_power"] += 1
             stats["reject_reasons"][reason] = stats["reject_reasons"].get(reason, 0) + 1
             continue
-        key = (
-            tuple(phase_indices(cand.theta, cand.bits).tolist()),
-            cand.bits,
-            cand.direction_kind,
-            round(cand.design_gamma, 6),
-            round(cand.design_eps, 6),
-            round(cand.power_slack, 6),
-        )
-        if key in seen:
+        sig = configuration_signature(cand.w, cand.theta, cand.bits)
+        if sig in seen:
             stats["rejected_unique"] += 1
             continue
-        seen.add(key)
+        seen.add(sig)
+        cand.configuration_signature = sig
         cand.index = len(pool)
         pool.append(cand)
         stats["accepted"] += 1
+
+    theta_keys = {
+        tuple(phase_indices(c.theta, c.bits).tolist()) for c in pool
+    }
+    stats["unique_theta_count"] = len(theta_keys)
+    stats["unique_configuration_count"] = len(pool)
 
     return pool, stats
 
@@ -485,9 +554,11 @@ def load_pool(path_prefix: str) -> Tuple[List[Candidate], Dict]:
                 design_gamma=rec["design_gamma"],
                 design_eps=rec["design_eps"],
                 power_slack=rec.get("power_slack", 1.0),
+                power_perturb=rec.get("power_perturb", 0.0),
                 align_jitter=rec.get("align_jitter", 0.0),
                 channel_seed=rec.get("channel_seed", -1),
                 config_fingerprint=rec.get("config_fingerprint", ""),
+                configuration_signature=rec.get("configuration_signature", ""),
                 w=data["w"][i],
                 theta=data["theta"][i],
                 H=data["H"][i],

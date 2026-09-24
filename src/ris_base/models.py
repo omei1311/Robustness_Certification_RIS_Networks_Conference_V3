@@ -161,6 +161,29 @@ def utility_power_wee_from_H(
     return u, v, float(u / max(v, 1e-15))
 
 
+def sum_rate_unweighted(sinr: np.ndarray) -> float:
+    """S(X) = sum_{l,k} log2(1 + gamma_lk)  (V3 paper Eq. (5), unweighted)."""
+    return float(np.sum(np.log2(1.0 + np.maximum(sinr, 0.0))))
+
+
+def wee_unweighted_from_H(
+    w: np.ndarray,
+    theta: np.ndarray,
+    H: np.ndarray,
+    cfg: SimConfig,
+) -> Tuple[float, float, float]:
+    """Unweighted WEE of the V3 paper main path: WEE = S(X) / P_tot(X).
+
+    Returns (U, V, WEE) in bit/s/Hz per watt (spectral-efficiency units).
+    Bandwidth B_w is deliberately NOT used anywhere in this computation;
+    the weighted-rate helpers above are legacy compatibility only.
+    """
+    sinr = compute_sinr_from_H(w, H, cfg)
+    u = sum_rate_unweighted(sinr)
+    v = total_power(w, theta, cfg)
+    return u, v, float(u / max(v, 1e-15))
+
+
 def initialize_mrt(
     drop: ChannelDrop,
     theta: np.ndarray,

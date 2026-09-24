@@ -3,17 +3,19 @@
     "pool_target_size": 40,
     "channel_seed": 20260706,
     "cfg_seed": 20260706,
-    "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
+    "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
     "generation_stats": {
-      "attempts": 81,
+      "attempts": 125,
       "accepted": 40,
       "rejected_unique": 0,
-      "rejected_qos_power": 41,
+      "rejected_qos_power": 85,
       "reject_reasons": {
-        "power:power_budget_exceeded": 9,
-        "power:diverged": 24,
-        "power:slack_budget": 8
-      }
+        "power:diverged": 59,
+        "power:slack_budget": 5,
+        "power:power_budget_exceeded": 21
+      },
+      "unique_theta_count": 40,
+      "unique_configuration_count": 40
     },
     "n_oracle_calls": 600
   },
@@ -23,28 +25,30 @@
       "seed": 31002,
       "bits": 2,
       "direction_kind": "zf_full",
-      "align_frac": 0.5,
-      "align_jitter": 0.3,
+      "align_frac": 0.6,
+      "align_jitter": 0.15,
       "design_gamma": 3.0,
-      "design_eps": 0.0,
-      "power_slack": 1.3,
+      "design_eps": 0.025,
+      "power_slack": 1.0,
+      "power_perturb": 0.2,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 3.899999999999998,
-      "wee": 0.1498014999255319,
-      "U": 2.2927817492278466,
-      "V": 15.305465902328184,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "49cc0fb1fccfe319072adc737fae5d3b08669d4316d06451c487ef5e4bc26eae",
+      "min_sinr_nominal": 3.8418336826186668,
+      "wee": 0.9345649453098074,
+      "U": 14.449165521715411,
+      "V": 15.460846883065496,
       "power_per_bs": [
-        0.26255137226251424,
-        0.1392856706221955
+        0.22985727749242796,
+        0.2310245380724612
       ],
       "qos_feasible": true,
-      "r_cert": 0.07426757812499998,
-      "epsilon_cert": 0.07426757812499998,
+      "r_cert": 0.07792968749999998,
+      "epsilon_cert": 0.07792968749999998,
       "cert_info": {
         "bracket": [
-          0.07426757812499998,
-          0.07434082031249999
+          0.07792968749999998,
+          0.07800292968749999
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -52,110 +56,77 @@
           0,
           0
         ],
-        "binding_margin": -0.0001985768664285466
+        "binding_margin": -0.00019582877404544785
       }
     },
     {
       "index": 1,
-      "seed": 31003,
+      "seed": 31006,
       "bits": 2,
       "direction_kind": "zf_full",
-      "align_frac": 1.0,
-      "align_jitter": 1.0,
+      "align_frac": 0.4,
+      "align_jitter": 0.0,
       "design_gamma": 3.0,
-      "design_eps": 0.05,
-      "power_slack": 1.0,
+      "design_eps": 0.025,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 6.566787155806106,
-      "wee": 0.19268326181135734,
-      "U": 3.355429976394949,
-      "V": 17.414226564630273,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "567a43d3f7b1157df0d34a7a49b9dbd51ca38b67e6567bc6b1c396302dcc84e0",
+      "min_sinr_nominal": 4.0363782363856116,
+      "wee": 0.9546677575628628,
+      "U": 14.919228061567164,
+      "V": 15.627665167674593,
       "power_per_bs": [
-        0.5619961389422021,
-        0.6442099556173018
+        0.2817557835596152,
+        0.24403698015673014
       ],
       "qos_feasible": true,
-      "r_cert": 0.104736328125,
-      "epsilon_cert": 0.104736328125,
+      "r_cert": 0.0705322265625,
+      "epsilon_cert": 0.0705322265625,
       "cert_info": {
         "bracket": [
-          0.104736328125,
-          0.1048095703125
+          0.0705322265625,
+          0.07060546875
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
         "binding_user": [
           1,
-          1
+          2
         ],
-        "binding_margin": -0.00018983933765075178
+        "binding_margin": -0.00019351601104169829
       }
     },
     {
       "index": 2,
-      "seed": 31006,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.5,
-      "align_jitter": 0.0,
-      "design_gamma": 4.0,
-      "design_eps": 0.0,
-      "power_slack": 1.3,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.199999999999998,
-      "wee": 0.1621197914258894,
-      "U": 2.6322682154995136,
-      "V": 16.236563052221882,
-      "power_per_bs": [
-        0.4720481637663454,
-        0.27144579607797026
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.06408691406249999,
-      "epsilon_cert": 0.06408691406249999,
-      "cert_info": {
-        "bracket": [
-          0.06408691406249999,
-          0.06416015624999999
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          0,
-          0
-        ],
-        "binding_margin": -0.00019678424164951515
-      }
-    },
-    {
-      "index": 3,
       "seed": 31008,
       "bits": 2,
       "direction_kind": "zf_full",
       "align_frac": 0.0,
       "align_jitter": 0.3,
       "design_gamma": 2.0,
-      "design_eps": 0.0,
-      "power_slack": 1.8,
+      "design_eps": 0.05,
+      "power_slack": 1.5,
+      "power_perturb": 0.1,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 3.5999999999999983,
-      "wee": 0.140359610861996,
-      "U": 2.2016338611696504,
-      "V": 15.685665182802017,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "ac9c5e63645d1f9ebd9698e48a11524e1925639429f3f773de2ab2746ca7199f",
+      "min_sinr_nominal": 6.731046892768803,
+      "wee": 1.1278637420919295,
+      "U": 20.17263073160544,
+      "V": 17.88569840377156,
       "power_per_bs": [
-        0.37755425499239303,
-        0.15659851447237366
+        0.973523807781911,
+        0.39664158565128227
       ],
       "qos_feasible": true,
-      "r_cert": 0.0369873046875,
-      "epsilon_cert": 0.0369873046875,
+      "r_cert": 0.07375488281249999,
+      "epsilon_cert": 0.07375488281249999,
       "cert_info": {
         "bracket": [
-          0.0369873046875,
-          0.037060546874999996
+          0.07375488281249999,
+          0.073828125
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -163,110 +134,38 @@
           0,
           2
         ],
-        "binding_margin": -0.0001954388856951761
+        "binding_margin": -0.0001943195911896514
       }
     },
     {
-      "index": 4,
-      "seed": 31009,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.25,
-      "align_jitter": 0.6,
-      "design_gamma": 4.0,
-      "design_eps": 0.0,
-      "power_slack": 1.8,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 7.1999999999999975,
-      "wee": 0.18599629273186985,
-      "U": 3.035623909730721,
-      "V": 16.320883954965932,
-      "power_per_bs": [
-        0.48551113531344087,
-        0.3052247675736143
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.0791015625,
-      "epsilon_cert": 0.0791015625,
-      "cert_info": {
-        "bracket": [
-          0.0791015625,
-          0.0791748046875
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          2
-        ],
-        "binding_margin": -0.00019824331301495298
-      }
-    },
-    {
-      "index": 5,
-      "seed": 31010,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.25,
-      "align_jitter": 0.6,
-      "design_gamma": 4.0,
-      "design_eps": 0.05,
-      "power_slack": 1.0,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 8.158787083433284,
-      "wee": 0.2093459675645562,
-      "U": 3.8658499242049684,
-      "V": 18.46632141606861,
-      "power_per_bs": [
-        0.8532304981058012,
-        0.7497316400002708
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.11748046874999998,
-      "epsilon_cert": 0.11748046874999998,
-      "cert_info": {
-        "bracket": [
-          0.11748046874999998,
-          0.11755371093749999
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          2
-        ],
-        "binding_margin": -0.00019911946002056796
-      }
-    },
-    {
-      "index": 6,
+      "index": 3,
       "seed": 31013,
       "bits": 2,
       "direction_kind": "zf_full",
-      "align_frac": 0.25,
+      "align_frac": 0.4,
       "align_jitter": 1.0,
       "design_gamma": 2.0,
       "design_eps": 0.0,
-      "power_slack": 1.0,
+      "power_slack": 1.5,
+      "power_perturb": 0.2,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 1.9999999999999996,
-      "wee": 0.10727412406362885,
-      "U": 1.5849625007211565,
-      "V": 14.774881776532128,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "a2e07ca21a99041d04aa217b522f6ca7a8e1379ebfae2930694b5e04361c79ad",
+      "min_sinr_nominal": 3.003179753297563,
+      "wee": 0.7992840191578267,
+      "U": 12.448542946764883,
+      "V": 15.574617593232267,
       "power_per_bs": [
-        0.08188260124803923,
-        0.1168124738341695
+        0.19784921600098432,
+        0.297145469427277
       ],
       "qos_feasible": true,
-      "r_cert": 0.0010986328125,
-      "epsilon_cert": 0.0010986328125,
+      "r_cert": 0.036035156250000006,
+      "epsilon_cert": 0.036035156250000006,
       "cert_info": {
         "bracket": [
-          0.0010986328125,
-          0.001171875
+          0.036035156250000006,
+          0.03610839843750001
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -274,184 +173,155 @@
           1,
           1
         ],
-        "binding_margin": -0.0001997134002760603
+        "binding_margin": -0.00019112274670547808
       }
     },
     {
-      "index": 7,
-      "seed": 31014,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.5,
-      "align_jitter": 1.0,
-      "design_gamma": 6.0,
-      "design_eps": 0.0,
-      "power_slack": 1.0,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.999999999999997,
-      "wee": 0.17613347801615548,
-      "U": 2.8073549220576046,
-      "V": 15.938792293649627,
-      "power_per_bs": [
-        0.3743082162586159,
-        0.26363285532824193
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.06818847656249999,
-      "epsilon_cert": 0.06818847656249999,
-      "cert_info": {
-        "bracket": [
-          0.06818847656249999,
-          0.06826171874999999
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          2
-        ],
-        "binding_margin": -0.0001957059438823431
-      }
-    },
-    {
-      "index": 8,
+      "index": 4,
       "seed": 31015,
       "bits": 2,
       "direction_kind": "zf_full",
       "align_frac": 0.0,
       "align_jitter": 1.0,
-      "design_gamma": 4.0,
+      "design_gamma": 3.0,
       "design_eps": 0.0,
-      "power_slack": 1.0,
+      "power_slack": 1.1,
+      "power_perturb": 0.05,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 3.9999999999999956,
-      "wee": 0.14947717460699217,
-      "U": 2.321928094887362,
-      "V": 15.533663256562171,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "86c5805d6060680bd6c052c79bf4dade6bdc49175fbf821c3ae93817c26182be",
+      "min_sinr_nominal": 3.305100306006095,
+      "wee": 0.8339482851743105,
+      "U": 12.785869281552142,
+      "V": 15.331729207740572,
       "power_per_bs": [
-        0.27030026517944594,
-        0.21369177231417938
+        0.2271885051944198,
+        0.18006859374699802
       ],
       "qos_feasible": true,
-      "r_cert": 0.06298828124999999,
-      "epsilon_cert": 0.06298828124999999,
+      "r_cert": 0.0521484375,
+      "epsilon_cert": 0.0521484375,
       "cert_info": {
         "bracket": [
-          0.06298828124999999,
-          0.06306152343749999
+          0.0521484375,
+          0.052221679687499994
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
         "binding_user": [
-          1,
+          0,
           2
         ],
-        "binding_margin": -0.00019369277043054973
+        "binding_margin": -0.00019453696916327257
       }
     },
     {
-      "index": 9,
+      "index": 5,
+      "seed": 31019,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.15,
+      "design_gamma": 10.0,
+      "design_eps": 0.0,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "0c1a34de0cd4ccae084378d5c309b275e997320c25fd264cf28f6dd4c2df7447",
+      "min_sinr_nominal": 11.26321329124009,
+      "wee": 1.2542979252639572,
+      "U": 21.927219466722008,
+      "V": 17.481667652529676,
+      "power_per_bs": [
+        0.7691600282042701,
+        0.47027367975700685
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0818115234375,
+      "epsilon_cert": 0.0818115234375,
+      "cert_info": {
+        "bracket": [
+          0.0818115234375,
+          0.081884765625
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          2
+        ],
+        "binding_margin": -0.00019731557960311896
+      }
+    },
+    {
+      "index": 6,
       "seed": 31020,
       "bits": 2,
       "direction_kind": "zf_full",
-      "align_frac": 0.25,
+      "align_frac": 0.2,
       "align_jitter": 0.3,
       "design_gamma": 3.0,
-      "design_eps": 0.0,
-      "power_slack": 1.0,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 2.9999999999999987,
-      "wee": 0.13038914451664402,
-      "U": 2.0,
-      "V": 15.33870022243073,
-      "power_per_bs": [
-        0.20050489727661636,
-        0.21548118724706117
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.0340576171875,
-      "epsilon_cert": 0.0340576171875,
-      "cert_info": {
-        "bracket": [
-          0.0340576171875,
-          0.034130859374999996
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          1
-        ],
-        "binding_margin": -0.0001981722360122078
-      }
-    },
-    {
-      "index": 10,
-      "seed": 31021,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.5,
-      "align_jitter": 0.0,
-      "design_gamma": 3.0,
       "design_eps": 0.05,
-      "power_slack": 1.0,
+      "power_slack": 1.5,
+      "power_perturb": 0.1,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 6.415320418467573,
-      "wee": 0.19539598341511427,
-      "U": 3.4112332279608624,
-      "V": 17.4580519432366,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "5b16c8273e7d0c31ee26dae69c2ff77176c73b715f2bd3ad1c6bc733e220bfa7",
+      "min_sinr_nominal": 8.2380083458834,
+      "wee": 1.2460197453193609,
+      "U": 23.21337605812263,
+      "V": 18.630022634330672,
       "power_per_bs": [
-        0.6716401616352553,
-        0.5436195767946537
+        0.8927537898344022,
+        0.7632948112112536
       ],
       "qos_feasible": true,
-      "r_cert": 0.11821289062499998,
-      "epsilon_cert": 0.11821289062499998,
+      "r_cert": 0.11396484374999999,
+      "epsilon_cert": 0.11396484374999999,
       "cert_info": {
         "bracket": [
-          0.11821289062499998,
-          0.11828613281249999
+          0.11396484374999999,
+          0.11403808593749999
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
         "binding_user": [
-          1,
+          0,
           0
         ],
-        "binding_margin": -0.00019277370971164813
+        "binding_margin": -0.0001887726640456
       }
     },
     {
-      "index": 11,
+      "index": 7,
       "seed": 31024,
       "bits": 2,
       "direction_kind": "zf_full",
       "align_frac": 0.0,
-      "align_jitter": 0.3,
+      "align_jitter": 0.15,
       "design_gamma": 4.0,
       "design_eps": 0.0,
-      "power_slack": 1.3,
+      "power_slack": 1.2,
+      "power_perturb": 0.1,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.199999999999998,
-      "wee": 0.1620472634428237,
-      "U": 2.6322682154995127,
-      "V": 16.243830099779963,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "75c217d9495d6a6ade7059b2d1af9f52f4c344e574e6dd6e9ba17187c03dfd44",
+      "min_sinr_nominal": 4.849064713778604,
+      "wee": 0.9574284596203241,
+      "U": 15.446169606250725,
+      "V": 16.1329752119297,
       "power_per_bs": [
-        0.3773555116460262,
-        0.38409992627036
+        0.3552732013104096,
+        0.36405737922287684
       ],
       "qos_feasible": true,
-      "r_cert": 0.042993164062500006,
-      "epsilon_cert": 0.042993164062500006,
+      "r_cert": 0.044165039062499994,
+      "epsilon_cert": 0.044165039062499994,
       "cert_info": {
         "bracket": [
-          0.042993164062500006,
-          0.04306640625000001
+          0.044165039062499994,
+          0.04423828125
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -459,73 +329,38 @@
           1,
           2
         ],
-        "binding_margin": -0.00019906164718538032
+        "binding_margin": -0.0001948014898418022
       }
     },
     {
-      "index": 12,
+      "index": 8,
       "seed": 31026,
       "bits": 2,
       "direction_kind": "zf_full",
       "align_frac": 1.0,
-      "align_jitter": 0.3,
+      "align_jitter": 0.15,
       "design_gamma": 6.0,
-      "design_eps": 0.0,
-      "power_slack": 1.0,
+      "design_eps": 0.025,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.999999999999996,
-      "wee": 0.16860394383127614,
-      "U": 2.8073549220576037,
-      "V": 16.65058870074211,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "e865ef43eeacde7d0130f19539df01e172471e39772df1b500c19c3e080bcf17",
+      "min_sinr_nominal": 10.06838371111691,
+      "wee": 1.2140075947631732,
+      "U": 22.280211382908263,
+      "V": 18.352612849390496,
       "power_per_bs": [
-        0.5673416258022639,
-        0.33956208047973796
+        0.9855752343694263,
+        0.5665776483989621
       ],
       "qos_feasible": true,
-      "r_cert": 0.06020507812499999,
-      "epsilon_cert": 0.06020507812499999,
+      "r_cert": 0.0944091796875,
+      "epsilon_cert": 0.0944091796875,
       "cert_info": {
         "bracket": [
-          0.06020507812499999,
-          0.060278320312499994
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          0,
-          2
-        ],
-        "binding_margin": -0.00019270686660971537
-      }
-    },
-    {
-      "index": 13,
-      "seed": 31032,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 1.0,
-      "align_jitter": 0.0,
-      "design_gamma": 3.0,
-      "design_eps": 0.0,
-      "power_slack": 1.8,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.399999999999996,
-      "wee": 0.16490953244041728,
-      "U": 2.678071905112638,
-      "V": 16.239642824044996,
-      "power_per_bs": [
-        0.5808773039143899,
-        0.16834696922270867
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.06130371093749999,
-      "epsilon_cert": 0.06130371093749999,
-      "cert_info": {
-        "bracket": [
-          0.06130371093749999,
-          0.06137695312499999
+          0.0944091796875,
+          0.094482421875
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -533,36 +368,77 @@
           0,
           0
         ],
-        "binding_margin": -0.00018896231798315455
+        "binding_margin": -0.0001916165874150666
       }
     },
     {
-      "index": 14,
+      "index": 9,
+      "seed": 31032,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 1.0,
+      "align_jitter": 0.15,
+      "design_gamma": 2.5,
+      "design_eps": 0.0,
+      "power_slack": 1.5,
+      "power_perturb": 0.05,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "f36f334a432e4e4ed7d414205d3f307c4ab000cbb39092e9c9ebe5f95d674cf6",
+      "min_sinr_nominal": 3.769849199660671,
+      "wee": 0.874284927215261,
+      "U": 13.602025983446707,
+      "V": 15.557886862777517,
+      "power_per_bs": [
+        0.3445373368765007,
+        0.14409967097895562
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0494384765625,
+      "epsilon_cert": 0.0494384765625,
+      "cert_info": {
+        "bracket": [
+          0.0494384765625,
+          0.04951171875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": -0.00019899439110349085
+      }
+    },
+    {
+      "index": 10,
       "seed": 31036,
       "bits": 2,
       "direction_kind": "zf_full",
       "align_frac": 1.0,
       "align_jitter": 0.0,
       "design_gamma": 4.0,
-      "design_eps": 0.0,
+      "design_eps": 0.025,
       "power_slack": 1.3,
+      "power_perturb": 0.05,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.199999999999996,
-      "wee": 0.16282119427293748,
-      "U": 2.632268215499513,
-      "V": 16.166619015747035,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "f5d89ee2c2cc8c8734bdabd537f5a93285269bad85931321e95d102e19b24bd8",
+      "min_sinr_nominal": 7.153387214528373,
+      "wee": 1.1000928895817368,
+      "U": 18.783918207725613,
+      "V": 17.07484739299369,
       "power_per_bs": [
-        0.5593633296953383,
-        0.16211189628853429
+        0.8251094402060482,
+        0.2414925691315547
       ],
       "qos_feasible": true,
-      "r_cert": 0.060278320312499994,
-      "epsilon_cert": 0.060278320312499994,
+      "r_cert": 0.0739013671875,
+      "epsilon_cert": 0.0739013671875,
       "cert_info": {
         "bracket": [
-          0.060278320312499994,
-          0.06035156249999999
+          0.0739013671875,
+          0.073974609375
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -570,36 +446,38 @@
           0,
           0
         ],
-        "binding_margin": -0.00019355474989668497
+        "binding_margin": -0.000189191919696019
       }
     },
     {
-      "index": 15,
+      "index": 11,
       "seed": 31037,
       "bits": 2,
       "direction_kind": "zf_full",
-      "align_frac": 0.75,
+      "align_frac": 0.8,
       "align_jitter": 0.0,
-      "design_gamma": 3.0,
-      "design_eps": 0.0,
-      "power_slack": 1.0,
+      "design_gamma": 2.5,
+      "design_eps": 0.025,
+      "power_slack": 1.8,
+      "power_perturb": 0.05,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 2.9999999999999996,
-      "wee": 0.13000410842047522,
-      "U": 2.0,
-      "V": 15.384129196373971,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "a327d90448f291c7a8cdd139872e4150cd2e64d71f4a3d7fb84a83997ef2248b",
+      "min_sinr_nominal": 5.320831749749428,
+      "wee": 1.0226767414629965,
+      "U": 16.559196859525308,
+      "V": 16.192014727778446,
       "power_per_bs": [
-        0.21257174619482083,
-        0.20699734842728856
+        0.505436728384346,
+        0.22872886817146404
       ],
       "qos_feasible": true,
-      "r_cert": 0.03984375,
-      "epsilon_cert": 0.03984375,
+      "r_cert": 0.08627929687500002,
+      "epsilon_cert": 0.08627929687500002,
       "cert_info": {
         "bracket": [
-          0.03984375,
-          0.0399169921875
+          0.08627929687500002,
+          0.08635253906250001
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -607,36 +485,194 @@
           1,
           2
         ],
-        "binding_margin": -0.00019729414813409764
+        "binding_margin": -0.0001905005480674957
+      }
+    },
+    {
+      "index": 12,
+      "seed": 31043,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.3,
+      "design_gamma": 2.5,
+      "design_eps": 0.025,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "96b6d57c4990f62de90900e9cb3f990c5a564789aa13ddc7258465e6c3ac983f",
+      "min_sinr_nominal": 3.462429160487509,
+      "wee": 0.8943555272465321,
+      "U": 14.7620359298423,
+      "V": 16.505780397299535,
+      "power_per_bs": [
+        0.40019597632854265,
+        0.45472057464528115
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.056689453125,
+      "epsilon_cert": 0.056689453125,
+      "cert_info": {
+        "bracket": [
+          0.056689453125,
+          0.0567626953125
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          2
+        ],
+        "binding_margin": -0.00019271812770072817
+      }
+    },
+    {
+      "index": 13,
+      "seed": 31045,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.4,
+      "align_jitter": 0.15,
+      "design_gamma": 3.0,
+      "design_eps": 0.025,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "63590b98eb4b56c57c4b34a24de1b8fa25330240be4caac9873be1b88f402dc4",
+      "min_sinr_nominal": 4.932594009699841,
+      "wee": 0.9705784397709193,
+      "U": 16.021657646121234,
+      "V": 16.507329021137895,
+      "power_per_bs": [
+        0.4680392705872326,
+        0.39050575744516713
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0733154296875,
+      "epsilon_cert": 0.0733154296875,
+      "cert_info": {
+        "bracket": [
+          0.0733154296875,
+          0.073388671875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          1
+        ],
+        "binding_margin": -0.00019439375599508701
+      }
+    },
+    {
+      "index": 14,
+      "seed": 31046,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.4,
+      "align_jitter": 0.15,
+      "design_gamma": 3.0,
+      "design_eps": 0.025,
+      "power_slack": 1.5,
+      "power_perturb": 0.2,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "916c433b5043bdc90168215b2342263e507e501cfb66962e66c97b0caa00832f",
+      "min_sinr_nominal": 6.038916252803259,
+      "wee": 1.0366984495780678,
+      "U": 18.21963336252741,
+      "V": 17.57467021383386,
+      "power_per_bs": [
+        0.5658839718671076,
+        0.6800107093897589
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0768310546875,
+      "epsilon_cert": 0.0768310546875,
+      "cert_info": {
+        "bracket": [
+          0.0768310546875,
+          0.076904296875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          2
+        ],
+        "binding_margin": -0.00019821330833615206
+      }
+    },
+    {
+      "index": 15,
+      "seed": 31048,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.8,
+      "align_jitter": 0.0,
+      "design_gamma": 2.5,
+      "design_eps": 0.05,
+      "power_slack": 1.8,
+      "power_perturb": 0.1,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "5edee938172be6a844f2686693e47b68667a3925112e5ee090ea41c7a0302604",
+      "min_sinr_nominal": 9.660621439244714,
+      "wee": 1.2322853590418206,
+      "U": 22.33435174007308,
+      "V": 18.1243342511506,
+      "power_per_bs": [
+        0.8978097325350658,
+        0.5675972829021636
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.10502929687500001,
+      "epsilon_cert": 0.10502929687500001,
+      "cert_info": {
+        "bracket": [
+          0.10502929687500001,
+          0.1051025390625
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          2
+        ],
+        "binding_margin": -0.000186477652146827
       }
     },
     {
       "index": 16,
-      "seed": 31038,
+      "seed": 31051,
       "bits": 2,
       "direction_kind": "zf_full",
       "align_frac": 0.0,
-      "align_jitter": 0.3,
+      "align_jitter": 0.0,
       "design_gamma": 2.0,
-      "design_eps": 0.05,
-      "power_slack": 1.0,
+      "design_eps": 0.025,
+      "power_slack": 1.8,
+      "power_perturb": 0.05,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 4.3343213904453,
-      "wee": 0.16841753976882406,
-      "U": 2.769062499614834,
-      "V": 16.441651525225627,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "ba595c0659ea5795a131c187687d940c368aa16e1d994dd838c25c006eb583b3",
+      "min_sinr_nominal": 4.287896897260092,
+      "wee": 0.9642230240850043,
+      "U": 15.801013279762929,
+      "V": 16.387301366047797,
       "power_per_bs": [
-        0.25261991246225896,
-        0.5779276671234795
+        0.4409092789028932,
+        0.37050524019526987
       ],
       "qos_feasible": true,
-      "r_cert": 0.071484375,
-      "epsilon_cert": 0.071484375,
+      "r_cert": 0.061523437499999986,
+      "epsilon_cert": 0.061523437499999986,
       "cert_info": {
         "bracket": [
-          0.071484375,
-          0.0715576171875
+          0.061523437499999986,
+          0.06159667968749999
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -644,65 +680,69 @@
           1,
           0
         ],
-        "binding_margin": -0.00018890766840773399
+        "binding_margin": -0.00019538789224633833
       }
     },
     {
       "index": 17,
-      "seed": 31040,
+      "seed": 31052,
       "bits": 2,
       "direction_kind": "zf_full",
-      "align_frac": 0.25,
-      "align_jitter": 0.3,
+      "align_frac": 0.2,
+      "align_jitter": 1.0,
       "design_gamma": 2.0,
       "design_eps": 0.0,
-      "power_slack": 1.8,
+      "power_slack": 1.2,
+      "power_perturb": 0.2,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 3.5999999999999996,
-      "wee": 0.14263985564076345,
-      "U": 2.201633861169651,
-      "V": 15.434913694209254,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "db50200e79923db01e388105532d6561d297805a388989ff5eeaad73b0f330f3",
+      "min_sinr_nominal": 2.4388486084156247,
+      "wee": 0.7305346554960167,
+      "U": 11.005097442477272,
+      "V": 15.064442678636588,
       "power_per_bs": [
-        0.2036375865232667,
-        0.24130961727624978
+        0.16166517954825277,
+        0.1531430383336511
       ],
       "qos_feasible": true,
-      "r_cert": 0.0357421875,
-      "epsilon_cert": 0.0357421875,
+      "r_cert": 0.02255859375,
+      "epsilon_cert": 0.02255859375,
       "cert_info": {
         "bracket": [
-          0.0357421875,
-          0.0358154296875
+          0.02255859375,
+          0.0226318359375
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
         "binding_user": [
           1,
-          1
+          0
         ],
-        "binding_margin": -0.0001994561989725578
+        "binding_margin": -0.00019269381820842944
       }
     },
     {
       "index": 18,
-      "seed": 31042,
+      "seed": 31053,
       "bits": 2,
       "direction_kind": "zf_full",
-      "align_frac": 0.25,
-      "align_jitter": 0.3,
-      "design_gamma": 14.0,
+      "align_frac": 0.2,
+      "align_jitter": 0.0,
+      "design_gamma": 10.0,
       "design_eps": 0.0,
-      "power_slack": 1.0,
+      "power_slack": 1.2,
+      "power_perturb": 0.2,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 13.999999999999993,
-      "wee": 0.21616223817925265,
-      "U": 3.9068905956085187,
-      "V": 18.073881120571706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "35a8194ed8584c5806fed995fae8cfcaa25483d89e587afd486b21c35b9efe34",
+      "min_sinr_nominal": 12.150547554943605,
+      "wee": 1.2080396898387327,
+      "U": 22.88302352455724,
+      "V": 18.94227790447184,
       "power_per_bs": [
-        0.7062519712398001,
-        0.7415028545774487
+        0.8712629994822454,
+        0.9140826042170546
       ],
       "qos_feasible": true,
       "r_cert": 0.07998046874999999,
@@ -716,408 +756,79 @@
         "n_feasibility_checks": 15,
         "binding_user": [
           1,
-          1
+          2
         ],
-        "binding_margin": -0.00019265541242536482
+        "binding_margin": -0.00019201953112514547
       }
     },
     {
       "index": 19,
-      "seed": 31043,
+      "seed": 31057,
       "bits": 2,
       "direction_kind": "zf_full",
-      "align_frac": 0.25,
-      "align_jitter": 0.6,
-      "design_gamma": 3.0,
+      "align_frac": 0.4,
+      "align_jitter": 0.3,
+      "design_gamma": 4.0,
       "design_eps": 0.0,
-      "power_slack": 1.0,
+      "power_slack": 1.1,
+      "power_perturb": 0.2,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 2.9999999999999996,
-      "wee": 0.1303891151967367,
-      "U": 2.0,
-      "V": 15.33870367156272,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "95d67edf1839ec2a80ee0069d3588ef98154010850c4db1d15db525b88cd7bc1",
+      "min_sinr_nominal": 4.459959950843301,
+      "wee": 0.8743800983566086,
+      "U": 15.11856683966227,
+      "V": 17.290611792374406,
       "power_per_bs": [
-        0.2613596169882834,
-        0.14702777820555085
+        0.41875832052100814,
+        0.719194160581266
       ],
       "qos_feasible": true,
-      "r_cert": 0.044091796875,
-      "epsilon_cert": 0.044091796875,
+      "r_cert": 0.027465820312499997,
+      "epsilon_cert": 0.027465820312499997,
       "cert_info": {
         "bracket": [
-          0.044091796875,
-          0.044165039062499994
+          0.027465820312499997,
+          0.027539062499999996
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
         "binding_user": [
-          0,
-          0
+          1,
+          2
         ],
-        "binding_margin": -0.00019799475019612468
+        "binding_margin": -0.00019760927540190404
       }
     },
     {
       "index": 20,
-      "seed": 31044,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.5,
-      "align_jitter": 0.3,
-      "design_gamma": 2.0,
-      "design_eps": 0.05,
-      "power_slack": 1.8,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.882133638930769,
-      "wee": 0.18064361905959211,
-      "U": 3.0250896643502116,
-      "V": 16.746175038445568,
-      "power_per_bs": [
-        0.5304512002459515,
-        0.412775314363364
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.10737304687499999,
-      "epsilon_cert": 0.10737304687499999,
-      "cert_info": {
-        "bracket": [
-          0.10737304687499999,
-          0.10744628906249999
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          0
-        ],
-        "binding_margin": -0.0001970766504599254
-      }
-    },
-    {
-      "index": 21,
-      "seed": 31045,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.5,
-      "align_jitter": 0.3,
-      "design_gamma": 3.0,
-      "design_eps": 0.0,
-      "power_slack": 1.3,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 3.899999999999998,
-      "wee": 0.14680343912052501,
-      "U": 2.292781749227846,
-      "V": 15.618038398579218,
-      "power_per_bs": [
-        0.2571628237828439,
-        0.2558517676772597
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.05690917968749999,
-      "epsilon_cert": 0.05690917968749999,
-      "cert_info": {
-        "bracket": [
-          0.05690917968749999,
-          0.056982421874999994
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          2
-        ],
-        "binding_margin": -0.0001952216216867808
-      }
-    },
-    {
-      "index": 22,
-      "seed": 31046,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.5,
-      "align_jitter": 0.3,
-      "design_gamma": 4.0,
-      "design_eps": 0.0,
-      "power_slack": 1.3,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.199999999999998,
-      "wee": 0.16083308607618085,
-      "U": 2.6322682154995127,
-      "V": 16.366459661494662,
-      "power_per_bs": [
-        0.4678192690935632,
-        0.32959540227440853
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.06123046874999999,
-      "epsilon_cert": 0.06123046874999999,
-      "cert_info": {
-        "bracket": [
-          0.06123046874999999,
-          0.06130371093749999
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          0,
-          1
-        ],
-        "binding_margin": -0.00019827490271440168
-      }
-    },
-    {
-      "index": 23,
-      "seed": 31048,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.75,
-      "align_jitter": 0.0,
-      "design_gamma": 3.0,
-      "design_eps": 0.0,
-      "power_slack": 1.8,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.399999999999998,
-      "wee": 0.1638159834214374,
-      "U": 2.6780719051126383,
-      "V": 16.348050105849307,
-      "power_per_bs": [
-        0.5664410690062398,
-        0.23309797121649672
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.065185546875,
-      "epsilon_cert": 0.065185546875,
-      "cert_info": {
-        "bracket": [
-          0.065185546875,
-          0.06525878906249999
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          2
-        ],
-        "binding_margin": -0.00019457169472626444
-      }
-    },
-    {
-      "index": 24,
-      "seed": 31049,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.75,
-      "align_jitter": 0.6,
-      "design_gamma": 2.0,
-      "design_eps": 0.05,
-      "power_slack": 1.3,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 6.619425124032306,
-      "wee": 0.1928711304890877,
-      "U": 3.336434411859011,
-      "V": 17.298775630123558,
-      "power_per_bs": [
-        0.6651868132543967,
-        0.488027926192555
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.08452148437500001,
-      "epsilon_cert": 0.08452148437500001,
-      "cert_info": {
-        "bracket": [
-          0.08452148437500001,
-          0.0845947265625
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          0,
-          2
-        ],
-        "binding_margin": -0.0001958969192781268
-      }
-    },
-    {
-      "index": 25,
-      "seed": 31051,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.0,
-      "align_jitter": 0.0,
-      "design_gamma": 2.0,
-      "design_eps": 0.0,
-      "power_slack": 1.8,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 3.5999999999999983,
-      "wee": 0.1401024430483801,
-      "U": 2.201633861169651,
-      "V": 15.71445731613248,
-      "power_per_bs": [
-        0.3366692997035415,
-        0.2190644804268015
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.040869140625,
-      "epsilon_cert": 0.040869140625,
-      "cert_info": {
-        "bracket": [
-          0.040869140625,
-          0.0409423828125
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          0
-        ],
-        "binding_margin": -0.00019953319443852073
-      }
-    },
-    {
-      "index": 26,
-      "seed": 31052,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.25,
-      "align_jitter": 1.0,
-      "design_gamma": 2.0,
-      "design_eps": 0.0,
-      "power_slack": 1.0,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 2.0,
-      "wee": 0.10663741746474395,
-      "U": 1.584962500721156,
-      "V": 14.863099073504571,
-      "power_per_bs": [
-        0.13325080727680802,
-        0.1050468406549298
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.000732421875,
-      "epsilon_cert": 0.000732421875,
-      "cert_info": {
-        "bracket": [
-          0.000732421875,
-          0.0008056640625
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          0,
-          0
-        ],
-        "binding_margin": -0.00019416638372149464
-      }
-    },
-    {
-      "index": 27,
-      "seed": 31056,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.75,
-      "align_jitter": 0.6,
-      "design_gamma": 4.0,
-      "design_eps": 0.05,
-      "power_slack": 1.0,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 8.45512481663726,
-      "wee": 0.21134814256377835,
-      "U": 3.679301788456221,
-      "V": 17.40872545092712,
-      "power_per_bs": [
-        0.5988582298039267,
-        0.5991774415483788
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.12355957031249996,
-      "epsilon_cert": 0.12355957031249996,
-      "cert_info": {
-        "bracket": [
-          0.12355957031249996,
-          0.12363281249999997
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          2
-        ],
-        "binding_margin": -0.000195171431392787
-      }
-    },
-    {
-      "index": 28,
-      "seed": 31057,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.25,
-      "align_jitter": 0.6,
-      "design_gamma": 6.0,
-      "design_eps": 0.0,
-      "power_slack": 1.0,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.999999999999997,
-      "wee": 0.1682212784665854,
-      "U": 2.8073549220576046,
-      "V": 16.688465024448394,
-      "power_per_bs": [
-        0.4792696023874339,
-        0.4374671069029564
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.048046875,
-      "epsilon_cert": 0.048046875,
-      "cert_info": {
-        "bracket": [
-          0.048046875,
-          0.048120117187500006
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          2
-        ],
-        "binding_margin": -0.00019787680838456723
-      }
-    },
-    {
-      "index": 29,
       "seed": 31058,
       "bits": 2,
       "direction_kind": "zf_full",
       "align_frac": 0.0,
       "align_jitter": 0.6,
-      "design_gamma": 3.0,
-      "design_eps": 0.0,
-      "power_slack": 1.3,
+      "design_gamma": 2.5,
+      "design_eps": 0.025,
+      "power_slack": 1.2,
+      "power_perturb": 0.05,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 3.899999999999998,
-      "wee": 0.1439138940173051,
-      "U": 2.2927817492278466,
-      "V": 15.931621924927892,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "e0b672f70ba201874a33b3c77e1631d9cd1b93379bb8be09eb92e297efa4f245",
+      "min_sinr_nominal": 3.5963555830264164,
+      "wee": 0.8721429185974934,
+      "U": 13.898504140528573,
+      "V": 15.936039660654442,
       "power_per_bs": [
-        0.3810116209210491,
-        0.26180471055154997
+        0.3619205367907411,
+        0.2825745342579471
       ],
       "qos_feasible": true,
-      "r_cert": 0.05595703125,
-      "epsilon_cert": 0.05595703125,
+      "r_cert": 0.0680419921875,
+      "epsilon_cert": 0.0680419921875,
       "cert_info": {
         "bracket": [
-          0.05595703125,
-          0.0560302734375
+          0.0680419921875,
+          0.068115234375
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -1125,73 +836,38 @@
           1,
           1
         ],
-        "binding_margin": -0.00019809555160336107
+        "binding_margin": -0.0001951657702617236
       }
     },
     {
-      "index": 30,
-      "seed": 31061,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.0,
-      "align_jitter": 0.6,
-      "design_gamma": 2.0,
-      "design_eps": 0.05,
-      "power_slack": 1.0,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 3.793647036701795,
-      "wee": 0.17415615930444264,
-      "U": 2.845586902632229,
-      "V": 16.339283743952198,
-      "power_per_bs": [
-        0.5510486823561707,
-        0.23451914034566446
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.067529296875,
-      "epsilon_cert": 0.067529296875,
-      "cert_info": {
-        "bracket": [
-          0.067529296875,
-          0.0676025390625
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          0,
-          0
-        ],
-        "binding_margin": -0.00018538351267995666
-      }
-    },
-    {
-      "index": 31,
+      "index": 21,
       "seed": 31063,
       "bits": 2,
       "direction_kind": "zf_full",
       "align_frac": 1.0,
-      "align_jitter": 0.3,
-      "design_gamma": 4.0,
-      "design_eps": 0.0,
+      "align_jitter": 0.15,
+      "design_gamma": 3.0,
+      "design_eps": 0.05,
       "power_slack": 1.3,
+      "power_perturb": 0.2,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.199999999999998,
-      "wee": 0.16124758196901495,
-      "U": 2.6322682154995136,
-      "V": 16.324388765130912,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "eae5a54c7efbd92209d2798fd4d7bc7527580e2ee04cf2f87e2c15fa4f60ab08",
+      "min_sinr_nominal": 9.567863688500296,
+      "wee": 1.2070809436081766,
+      "U": 23.166253762151428,
+      "V": 19.191963790682863,
       "power_per_bs": [
-        0.44426281774464127,
-        0.3371649130051062
+        0.8940375630892734,
+        0.9785886773702142
       ],
       "qos_feasible": true,
-      "r_cert": 0.06247558593749999,
-      "epsilon_cert": 0.06247558593749999,
+      "r_cert": 0.10371093749999999,
+      "epsilon_cert": 0.10371093749999999,
       "cert_info": {
         "bracket": [
-          0.06247558593749999,
-          0.06254882812499998
+          0.10371093749999999,
+          0.10378417968749999
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -1199,110 +875,38 @@
           1,
           2
         ],
-        "binding_margin": -0.00019285174634676888
+        "binding_margin": -0.000189422640970216
       }
     },
     {
-      "index": 32,
-      "seed": 31064,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.5,
-      "align_jitter": 1.0,
-      "design_gamma": 3.0,
-      "design_eps": 0.05,
-      "power_slack": 1.3,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 6.730058484028458,
-      "wee": 0.20344385844258847,
-      "U": 3.507811630811394,
-      "V": 17.242160356496054,
-      "power_per_bs": [
-        0.6208363981374911,
-        0.5199845373310092
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.11667480468749998,
-      "epsilon_cert": 0.11667480468749998,
-      "cert_info": {
-        "bracket": [
-          0.11667480468749998,
-          0.11674804687499998
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          2
-        ],
-        "binding_margin": -0.00019453137692817152
-      }
-    },
-    {
-      "index": 33,
-      "seed": 31065,
-      "bits": 2,
-      "direction_kind": "zf_full",
-      "align_frac": 0.0,
-      "align_jitter": 0.6,
-      "design_gamma": 3.0,
-      "design_eps": 0.05,
-      "power_slack": 1.0,
-      "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.9765888534702185,
-      "wee": 0.2020455139966492,
-      "U": 3.382407025387268,
-      "V": 16.740817246966262,
-      "power_per_bs": [
-        0.41099664304645306,
-        0.5271539108007259
-      ],
-      "qos_feasible": true,
-      "r_cert": 0.1048095703125,
-      "epsilon_cert": 0.1048095703125,
-      "cert_info": {
-        "bracket": [
-          0.1048095703125,
-          0.1048828125
-        ],
-        "n_bisection_iter": 13,
-        "n_feasibility_checks": 15,
-        "binding_user": [
-          1,
-          1
-        ],
-        "binding_margin": -0.00019037600066470735
-      }
-    },
-    {
-      "index": 34,
+      "index": 22,
       "seed": 31070,
       "bits": 2,
       "direction_kind": "zf_full",
       "align_frac": 0.0,
       "align_jitter": 1.0,
       "design_gamma": 4.0,
-      "design_eps": 0.0,
-      "power_slack": 1.3,
+      "design_eps": 0.025,
+      "power_slack": 1.2,
+      "power_perturb": 0.05,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.199999999999997,
-      "wee": 0.16412600259773058,
-      "U": 2.6322682154995127,
-      "V": 16.03809374405558,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "b372e23fcdc33c71b66ef7619e388807c1c486d34fc5340067108ebb925b7b77",
+      "min_sinr_nominal": 6.351131421050461,
+      "wee": 1.0828583334420174,
+      "U": 18.03903038597996,
+      "V": 16.658716868937386,
       "power_per_bs": [
-        0.3814206913393669,
-        0.29577493140175404
+        0.5131313281359136,
+        0.3999010820602938
       ],
       "qos_feasible": true,
-      "r_cert": 0.0755126953125,
-      "epsilon_cert": 0.0755126953125,
+      "r_cert": 0.092431640625,
+      "epsilon_cert": 0.092431640625,
       "cert_info": {
         "bracket": [
-          0.0755126953125,
-          0.0755859375
+          0.092431640625,
+          0.0925048828125
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -1310,36 +914,77 @@
           1,
           1
         ],
-        "binding_margin": -0.00019941596063792477
+        "binding_margin": -0.00019615655392525775
       }
     },
     {
-      "index": 35,
+      "index": 23,
+      "seed": 31071,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 1.0,
+      "design_gamma": 6.0,
+      "design_eps": 0.0,
+      "power_slack": 1.5,
+      "power_perturb": 0.0,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "ae2585bb90b5a5d00e6cd56c104c350fde1db0f4278d8f6b300e2128a02f8c6a",
+      "min_sinr_nominal": 8.999999999999996,
+      "wee": 1.1853637417755276,
+      "U": 19.931568569324174,
+      "V": 16.814727721862962,
+      "power_per_bs": [
+        0.6235824013630157,
+        0.3502541329449099
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.07236328125000001,
+      "epsilon_cert": 0.07236328125000001,
+      "cert_info": {
+        "bracket": [
+          0.07236328125000001,
+          0.07243652343750001
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          2
+        ],
+        "binding_margin": -0.0001912162708185381
+      }
+    },
+    {
+      "index": 24,
       "seed": 31074,
       "bits": 2,
       "direction_kind": "zf_full",
       "align_frac": 0.0,
-      "align_jitter": 0.3,
-      "design_gamma": 4.0,
-      "design_eps": 0.0,
+      "align_jitter": 0.15,
+      "design_gamma": 3.0,
+      "design_eps": 0.025,
       "power_slack": 1.3,
+      "power_perturb": 0.2,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.199999999999997,
-      "wee": 0.16676539103260915,
-      "U": 2.632268215499513,
-      "V": 15.784259546903241,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "070025d18ca473fd8f66dee9a851fd601d43faafe18106d40d9505c2878ef0ad",
+      "min_sinr_nominal": 5.750272548360342,
+      "wee": 1.046658937965821,
+      "U": 16.738125110483914,
+      "V": 15.991957363890108,
       "power_per_bs": [
-        0.348800281162968,
-        0.23193834666026358
+        0.3941404524977429,
+        0.2655233457804983
       ],
       "qos_feasible": true,
-      "r_cert": 0.08159179687500001,
-      "epsilon_cert": 0.08159179687500001,
+      "r_cert": 0.087890625,
+      "epsilon_cert": 0.087890625,
       "cert_info": {
         "bracket": [
-          0.08159179687500001,
-          0.0816650390625
+          0.087890625,
+          0.0879638671875
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -1347,11 +992,11 @@
           0,
           2
         ],
-        "binding_margin": -0.0001912873277581939
+        "binding_margin": -0.00019826386201837742
       }
     },
     {
-      "index": 36,
+      "index": 25,
       "seed": 31075,
       "bits": 2,
       "direction_kind": "zf_full",
@@ -1360,97 +1005,103 @@
       "design_gamma": 2.0,
       "design_eps": 0.0,
       "power_slack": 1.0,
+      "power_perturb": 0.05,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 2.0,
-      "wee": 0.10677762774089623,
-      "U": 1.5849625007211565,
-      "V": 14.843582258328352,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "6a529f7a25217bd28368606447e8aad5fe09339364ec17312cb67486fac112e0",
+      "min_sinr_nominal": 2.004662500010516,
+      "wee": 0.6505118687683137,
+      "U": 9.667707850164275,
+      "V": 14.861693251606953,
       "power_per_bs": [
-        0.0694888434444916,
-        0.14619241472028255
+        0.07137352388041629,
+        0.15118991173022553
       ],
       "qos_feasible": true,
-      "r_cert": 0.000732421875,
-      "epsilon_cert": 0.000732421875,
+      "r_cert": 0.0031494140624999997,
+      "epsilon_cert": 0.0031494140624999997,
       "cert_info": {
         "bracket": [
-          0.000732421875,
-          0.0008056640625
+          0.0031494140624999997,
+          0.00322265625
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
         "binding_user": [
           1,
-          0
+          2
         ],
-        "binding_margin": -0.00018716262573552768
+        "binding_margin": -0.00019601342614733257
       }
     },
     {
-      "index": 37,
+      "index": 26,
       "seed": 31077,
       "bits": 2,
       "direction_kind": "zf_full",
-      "align_frac": 0.75,
+      "align_frac": 0.6,
       "align_jitter": 0.6,
       "design_gamma": 2.0,
       "design_eps": 0.0,
-      "power_slack": 1.3,
+      "power_slack": 1.0,
+      "power_perturb": 0.0,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 2.5999999999999988,
-      "wee": 0.1208164559511118,
-      "U": 1.8479969065549502,
-      "V": 15.29590395618573,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "58b29879cfba25777dd94e8f4efe5c69041b471d0d544d8315e592ef1bd654a3",
+      "min_sinr_nominal": 1.9999999999999987,
+      "wee": 0.6319332180288708,
+      "U": 9.509775004326936,
+      "V": 15.048702510037174,
       "power_per_bs": [
-        0.23663998227034316,
-        0.16156352108023453
+        0.17611601756884515,
+        0.12055093624528118
       ],
       "qos_feasible": true,
-      "r_cert": 0.0377197265625,
-      "epsilon_cert": 0.0377197265625,
+      "r_cert": 0.0009521484374999999,
+      "epsilon_cert": 0.0009521484374999999,
       "cert_info": {
         "bracket": [
-          0.0377197265625,
-          0.03779296875
+          0.0009521484374999999,
+          0.0010253906249999998
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
         "binding_user": [
           0,
-          0
+          1
         ],
-        "binding_margin": -0.00019920084393389143
+        "binding_margin": -0.00019278173203929327
       }
     },
     {
-      "index": 38,
+      "index": 27,
       "seed": 31078,
       "bits": 2,
       "direction_kind": "zf_full",
       "align_frac": 1.0,
       "align_jitter": 1.0,
       "design_gamma": 6.0,
-      "design_eps": 0.0,
+      "design_eps": 0.025,
       "power_slack": 1.0,
+      "power_perturb": 0.05,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 5.999999999999997,
-      "wee": 0.16819044982733988,
-      "U": 2.8073549220576046,
-      "V": 16.69152395358693,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "5d505a0b03f1f1988fd0e1533456adf582999b4f6db2d3094ca62c98b3dce0ce",
+      "min_sinr_nominal": 8.696513631804946,
+      "wee": 1.1235057387893106,
+      "U": 20.256338699628394,
+      "V": 18.02958187063345,
       "power_per_bs": [
-        0.5028294763908824,
-        0.41354962597215167
+        0.7635336146044114,
+        0.6613074962362997
       ],
       "qos_feasible": true,
-      "r_cert": 0.08598632812500001,
-      "epsilon_cert": 0.08598632812500001,
+      "r_cert": 0.10158691406249999,
+      "epsilon_cert": 0.10158691406249999,
       "cert_info": {
         "bracket": [
-          0.08598632812500001,
-          0.08605957031250001
+          0.10158691406249999,
+          0.10166015625
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
@@ -1458,44 +1109,475 @@
           0,
           2
         ],
-        "binding_margin": -0.00018976408603502918
+        "binding_margin": -0.00019074180394740333
       }
     },
     {
-      "index": 39,
-      "seed": 31082,
+      "index": 28,
+      "seed": 31083,
       "bits": 2,
       "direction_kind": "zf_full",
-      "align_frac": 1.0,
-      "align_jitter": 0.6,
-      "design_gamma": 3.0,
-      "design_eps": 0.05,
-      "power_slack": 1.3,
+      "align_frac": 0.2,
+      "align_jitter": 0.3,
+      "design_gamma": 4.0,
+      "design_eps": 0.025,
+      "power_slack": 1.0,
+      "power_perturb": 0.05,
       "channel_seed": 20260706,
-      "config_fingerprint": "4e599b2dcf8506375cc3194d11f3a52a9b71d686cbaf14a4f0ae27b23c55abff",
-      "min_sinr_nominal": 9.903933099147407,
-      "wee": 0.2095752303407805,
-      "U": 3.813639641783245,
-      "V": 18.196996064764257,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "cd230e673a605e5e47f7d92073d1896ddc54882d8bf89f324bff5b6e8c6bf5f3",
+      "min_sinr_nominal": 4.713165388003305,
+      "wee": 1.0405412962739036,
+      "U": 16.65388951689536,
+      "V": 16.005025054297825,
       "power_per_bs": [
-        0.924281018338166,
-        0.5717774862722519
+        0.36521594034623345,
+        0.30093358028694034
       ],
       "qos_feasible": true,
-      "r_cert": 0.10070800781249999,
-      "epsilon_cert": 0.10070800781249999,
+      "r_cert": 0.08298339843750001,
+      "epsilon_cert": 0.08298339843750001,
       "cert_info": {
         "bracket": [
-          0.10070800781249999,
-          0.10078124999999999
+          0.08298339843750001,
+          0.08305664062500001
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          2
+        ],
+        "binding_margin": -0.00019349634365993661
+      }
+    },
+    {
+      "index": 29,
+      "seed": 31085,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.4,
+      "align_jitter": 1.0,
+      "design_gamma": 10.0,
+      "design_eps": 0.0,
+      "power_slack": 1.2,
+      "power_perturb": 0.0,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "2545ed03673519ca5578b2079c74720c0c7f0e0c8c5c19b8f61cc878a2892411",
+      "min_sinr_nominal": 12.0,
+      "wee": 1.1619045642353794,
+      "U": 22.202638308846552,
+      "V": 19.108831303591238,
+      "power_per_bs": [
+        0.9525058367683165,
+        0.8885300585963538
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.09133300781249999,
+      "epsilon_cert": 0.09133300781249999,
+      "cert_info": {
+        "bracket": [
+          0.09133300781249999,
+          0.09140625
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          0
+        ],
+        "binding_margin": -0.00019800544225818793
+      }
+    },
+    {
+      "index": 30,
+      "seed": 31090,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 0.3,
+      "design_gamma": 2.0,
+      "design_eps": 0.0,
+      "power_slack": 1.3,
+      "power_perturb": 0.2,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "27af353e1220291daacd62805d8eeec715624eb6196227e0ba5cfc494d380023",
+      "min_sinr_nominal": 2.6194455041041835,
+      "wee": 0.7582735433087266,
+      "U": 11.676167757375577,
+      "V": 15.398358363429928,
+      "power_per_bs": [
+        0.1736857421371439,
+        0.251290435966229
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.029296874999999997,
+      "epsilon_cert": 0.029296874999999997,
+      "cert_info": {
+        "bracket": [
+          0.029296874999999997,
+          0.029370117187499996
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          0
+        ],
+        "binding_margin": -0.00019466284226506841
+      }
+    },
+    {
+      "index": 31,
+      "seed": 31093,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 1.0,
+      "design_gamma": 2.5,
+      "design_eps": 0.05,
+      "power_slack": 1.1,
+      "power_perturb": 0.0,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "3286ffa16712a6b3a72b794470e99f4bae06166656baf703dfe9c1408ef8d6ea",
+      "min_sinr_nominal": 5.860254768213912,
+      "wee": 1.2502092350765817,
+      "U": 21.145096465754477,
+      "V": 16.91324609712968,
+      "power_per_bs": [
+        0.5645820127273783,
+        0.44061150418190015
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0884765625,
+      "epsilon_cert": 0.0884765625,
+      "cert_info": {
+        "bracket": [
+          0.0884765625,
+          0.0885498046875
         ],
         "n_bisection_iter": 13,
         "n_feasibility_checks": 15,
         "binding_user": [
           0,
+          2
+        ],
+        "binding_margin": -0.00018888118958207856
+      }
+    },
+    {
+      "index": 32,
+      "seed": 31094,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 0.0,
+      "design_gamma": 10.0,
+      "design_eps": 0.0,
+      "power_slack": 1.0,
+      "power_perturb": 0.0,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "1043782ee233483d479154a2180084921f457d9bb637a35474f62a85afd6bbfc",
+      "min_sinr_nominal": 9.999999999999993,
+      "wee": 1.164130601656489,
+      "U": 20.756589711823786,
+      "V": 17.83012119283557,
+      "power_per_bs": [
+        0.6883021684714583,
+        0.6561838848060592
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.09038085937500001,
+      "epsilon_cert": 0.09038085937500001,
+      "cert_info": {
+        "bracket": [
+          0.09038085937500001,
+          0.0904541015625
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          2
+        ],
+        "binding_margin": -0.00019558501637535752
+      }
+    },
+    {
+      "index": 33,
+      "seed": 31097,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 1.0,
+      "align_jitter": 0.6,
+      "design_gamma": 2.0,
+      "design_eps": 0.025,
+      "power_slack": 1.1,
+      "power_perturb": 0.2,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "6acb7d610b2abc42fbec08862cd3fcd25340f86aa0de63861619c06b215f75f6",
+      "min_sinr_nominal": 2.835289705341705,
+      "wee": 0.8097622286273505,
+      "U": 12.365063578033936,
+      "V": 15.26999301880786,
+      "power_per_bs": [
+        0.19278452307373534,
+        0.19101282407325168
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.05354003906249999,
+      "epsilon_cert": 0.05354003906249999,
+      "cert_info": {
+        "bracket": [
+          0.05354003906249999,
+          0.05361328124999999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
           0
         ],
-        "binding_margin": -0.000194226366561967
+        "binding_margin": -0.0001932673523035069
+      }
+    },
+    {
+      "index": 34,
+      "seed": 31110,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.8,
+      "align_jitter": 0.0,
+      "design_gamma": 6.0,
+      "design_eps": 0.025,
+      "power_slack": 1.3,
+      "power_perturb": 0.05,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "737d8b2ba54657791fe82e32598c766104ba00cfc1aa19154ed701aff55786ca",
+      "min_sinr_nominal": 10.837233381629812,
+      "wee": 1.2792320135377533,
+      "U": 23.280985303134504,
+      "V": 18.199189089045905,
+      "power_per_bs": [
+        0.7100246629982457,
+        0.7823071908391982
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0908935546875,
+      "epsilon_cert": 0.0908935546875,
+      "cert_info": {
+        "bracket": [
+          0.0908935546875,
+          0.090966796875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019908065598858975
+      }
+    },
+    {
+      "index": 35,
+      "seed": 31114,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.8,
+      "align_jitter": 1.0,
+      "design_gamma": 10.0,
+      "design_eps": 0.0,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "7beb19f10a86bfd3e941c3ee55d96e67cadb8803d5dbcf0970bcb6e3d657fd75",
+      "min_sinr_nominal": 11.2380277998184,
+      "wee": 1.2255699321249882,
+      "U": 21.982512058899147,
+      "V": 17.936562804526513,
+      "power_per_bs": [
+        0.5775035734983661,
+        0.8211102922217093
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0736083984375,
+      "epsilon_cert": 0.0736083984375,
+      "cert_info": {
+        "bracket": [
+          0.0736083984375,
+          0.07368164062499999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          2
+        ],
+        "binding_margin": -0.00019500557171009403
+      }
+    },
+    {
+      "index": 36,
+      "seed": 31118,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.3,
+      "design_gamma": 2.0,
+      "design_eps": 0.0,
+      "power_slack": 1.1,
+      "power_perturb": 0.2,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "c1939fdeb4e12d6343be1e901d636ae4ba646e2baca749cb10f0974eac523845",
+      "min_sinr_nominal": 2.2620149331302954,
+      "wee": 0.6997864486540006,
+      "U": 10.652608045246497,
+      "V": 15.22265551974632,
+      "power_per_bs": [
+        0.19308547303336787,
+        0.17880362447023418
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.013842773437499997,
+      "epsilon_cert": 0.013842773437499997,
+      "cert_info": {
+        "bracket": [
+          0.013842773437499997,
+          0.013916015624999998
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          0
+        ],
+        "binding_margin": -0.0001982011676074538
+      }
+    },
+    {
+      "index": 37,
+      "seed": 31120,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.15,
+      "design_gamma": 4.0,
+      "design_eps": 0.0,
+      "power_slack": 1.0,
+      "power_perturb": 0.0,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "51c4e680e4860d1e9b455e108cbe18a480fdf5cf6ad2bbf7b64a1a4b3e18ee10",
+      "min_sinr_nominal": 3.9999999999999973,
+      "wee": 0.8920483484055114,
+      "U": 13.931568569324174,
+      "V": 15.6175039102153,
+      "power_per_bs": [
+        0.3455236958829552,
+        0.17336778999885932
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.052880859375,
+      "epsilon_cert": 0.052880859375,
+      "cert_info": {
+        "bracket": [
+          0.052880859375,
+          0.052954101562499994
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          1
+        ],
+        "binding_margin": -0.00019157276550953113
+      }
+    },
+    {
+      "index": 38,
+      "seed": 31123,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 0.3,
+      "design_gamma": 2.5,
+      "design_eps": 0.025,
+      "power_slack": 1.8,
+      "power_perturb": 0.2,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "b1e0cf9132f41de0605dc99863778fb30b7e61d402b2bd6b82aef4ab9b478e24",
+      "min_sinr_nominal": 6.0420998262750185,
+      "wee": 1.0707081345170713,
+      "U": 17.718282348924944,
+      "V": 16.548190657873857,
+      "power_per_bs": [
+        0.3702620881276111,
+        0.49469036186445414
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.06445312499999999,
+      "epsilon_cert": 0.06445312499999999,
+      "cert_info": {
+        "bracket": [
+          0.06445312499999999,
+          0.06452636718749999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          2
+        ],
+        "binding_margin": -0.00019256150780121595
+      }
+    },
+    {
+      "index": 39,
+      "seed": 31126,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.4,
+      "align_jitter": 1.0,
+      "design_gamma": 2.5,
+      "design_eps": 0.0,
+      "power_slack": 1.1,
+      "power_perturb": 0.2,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "62b145bb7f0041861ad2399b469841490cc2813dbd7a583f1884c798f312a03d",
+      "min_sinr_nominal": 2.7799717083479742,
+      "wee": 0.7957357199881958,
+      "U": 12.04641758540339,
+      "V": 15.138716640220814,
+      "power_per_bs": [
+        0.19233034447391906,
+        0.14766197880999044
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.046362304687499994,
+      "epsilon_cert": 0.046362304687499994,
+      "cert_info": {
+        "bracket": [
+          0.046362304687499994,
+          0.046435546875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          0
+        ],
+        "binding_margin": -0.0001979255636138167
       }
     }
   ]

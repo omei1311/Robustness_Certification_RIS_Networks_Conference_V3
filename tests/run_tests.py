@@ -87,8 +87,11 @@ def test_pareto_and_selection():
     assert mask.tolist() == [True, True, False, False], mask
     out = select_wee_only(wee, rc, 1e-3)
     assert out.index == 0
+    # Pareto-first proposed rule: nondominated {0,1}, threshold 0.2 keeps
+    # only idx1 (rc=0.1 < 0.2), so n_pareto=2 and n_after_rmin=1.
     sel = select_stability_aware(wee, rc, 0.2, 1e-3)
-    assert sel.index == 1 and sel.n_remaining == 2
+    assert sel.index == 1 and sel.n_pareto == 2 and sel.n_after_rmin == 1
+    assert sel.n_remaining == sel.n_after_rmin
     sel2 = select_stability_aware(wee, rc, 0.45, 1e-3)
     assert sel2.index == 1
     rows = r_min_sensitivity(wee, rc, [0.0, 0.5, 0.99], 1e-3)
@@ -129,6 +132,34 @@ def test_fingerprint_and_metadata():
         for key in ("epsilon_cert", "channel_seed", "align_jitter",
                     "config_fingerprint"):
             assert key in rec, f"to_record missing {key}"
+
+
+def test_configuration_signature():
+    """X = (W, Theta) identity: stable, W-sensitive, rounding-tolerant."""
+    from src.candidate_pool import configuration_signature
+    from src.ris_base import random_theta
+
+    cfg = SimConfig().validate()
+    rng = np.random.default_rng(99)
+    w = (
+        rng.standard_normal((cfg.L, cfg.K, cfg.M))
+        + 1j * rng.standard_normal((cfg.L, cfg.K, cfg.M))
+    ) / np.sqrt(2.0)
+    theta = random_theta(cfg.N, 2, rng)
+
+    sig = configuration_signature(w, theta, 2)
+    # identical W and Theta -> identical signature
+    assert configuration_signature(w.copy(), theta.copy(), 2) == sig
+    # same Theta, different W -> different signature
+    assert configuration_signature(w * 1.5, theta, 2) != sig
+    assert configuration_signature(w + 0.25, theta, 2) != sig
+    # same W, different Theta -> different signature
+    assert configuration_signature(w, np.roll(theta, 1), 2) != sig
+    # numerical perturbation below the rounding threshold -> same signature
+    assert configuration_signature(w + 1e-9, theta, 2) == sig
+    assert configuration_signature(w * (1.0 + 1e-9), theta, 2) == sig
+    # a different phase resolution changes the index encoding -> different
+    assert configuration_signature(w, theta, 3) != sig
 
 
 def test_profile_monotone():
@@ -215,6 +246,7 @@ def main() -> None:
     check("t_cert arithmetic", test_t_cert)
     check("pareto + selection logic", test_pareto_and_selection)
     check("fingerprint + candidate metadata", test_fingerprint_and_metadata)
+    check("configuration signature (X = (W, Theta))", test_configuration_signature)
     check("F_X monotonicity", test_profile_monotone)
     check("bisection vs grid boundary", test_bisection_matches_grid)
     check("LMI eig vs cvxpy SDP", test_lmi_cvxpy_crosscheck)

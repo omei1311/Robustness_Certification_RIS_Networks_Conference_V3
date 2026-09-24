@@ -46,6 +46,7 @@ def main(rebuild: bool = False) -> dict:
     out_sel = select_stability_aware(wee, rcert, 0.90 * r_max, cc.drift_rate_nu)
 
     rho, pval = spearmanr(wee, rcert)
+    gen_stats = meta.get("generation_stats", {})
 
     rows = []
     for c in pool:
@@ -63,6 +64,7 @@ def main(rebuild: bool = False) -> dict:
                 "align_jitter": c.align_jitter,
                 "channel_seed": c.channel_seed,
                 "config_fingerprint": c.config_fingerprint,
+                "configuration_signature": c.configuration_signature,
                 "nondominated": bool(mask[c.index]),
                 "min_sinr_nominal": float(np.min(c.sinr_nominal)),
                 "power_per_bs_w": float(np.sum(c.power_per_bs)),
@@ -71,6 +73,8 @@ def main(rebuild: bool = False) -> dict:
 
     summary = {
         "pool_size": len(pool),
+        "unique_theta_count": gen_stats.get("unique_theta_count", len(pool)),
+        "unique_configuration_count": gen_stats.get("unique_configuration_count", len(pool)),
         "n_nondominated": int(mask.sum()),
         "n_dominated": int((~mask).sum()),
         "wee_min": float(wee.min()),
@@ -100,6 +104,8 @@ def main(rebuild: bool = False) -> dict:
 
     print("=== Experiment 2: WEE-robustness landscape ===")
     print(f"pool size            : {summary['pool_size']}")
+    print(f"unique Theta / unique X=(W,Theta) : "
+          f"{summary['unique_theta_count']} / {summary['unique_configuration_count']}")
     print(f"nondominated / dominated : {summary['n_nondominated']} / {summary['n_dominated']}")
     print(f"WEE range            : [{summary['wee_min']:.5f}, {summary['wee_max']:.5f}]")
     print(f"eps_cert range       : [{summary['rcert_min']:.5f}, {summary['rcert_max']:.5f}] "

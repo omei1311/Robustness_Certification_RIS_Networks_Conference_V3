@@ -1,12 +1,23 @@
 """Stability-aware configuration selection (new; Sections 5-6).
 
+Paper pipeline:
+
+    Candidate Pool -> epsilon_cert -> Dominance/Pareto Filtering
+    -> Robustness Threshold -> max WEE.
+
 Selection rules on a certified candidate set.  The robustness axis is the
 certified relative uncertainty scaling factor epsilon_cert(X) (see
 ``certificate.py``); ``R_cert`` is retained as a compatibility alias.
 
-  - WEE-only rule            X_WEE = argmax WEE                        (17)
-  - robustness-only rule     X_R   = argmax eps_cert  (reference only)
-  - proposed rule            X_sel = argmax WEE  s.t. eps_cert >= R_min (18)
+  - WEE-only rule (reference):  X_WEE = argmax WEE over the FULL pool (17)
+  - robustness-only (reference): argmax eps_cert over the FULL pool
+  - proposed stability-aware rule (Eq. (18), Pareto-first):
+        pareto_candidates = candidates[pareto_mask]
+        eligible          = pareto_candidates[epsilon_cert >= epsilon_min]
+        selected          = argmax WEE(eligible)
+
+All policies operate on the SAME candidate pool; no candidate regeneration
+happens inside selection.
 
 Under the linear drift model rho(t) = nu t of Section 5 -- with nu in the
 same relative-radius units per second -- the minimum robustness requirement
@@ -23,9 +34,11 @@ model -- not a prediction of the actual QoS failure time.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import List, Sequence, Tuple
+from typing import List, Optional, Sequence, Tuple
 
 import numpy as np
+
+from .pareto import pareto_mask
 
 
 def t_cert(rcert: float, nu: float) -> float:
@@ -48,31 +61,39 @@ class SelectionOutcome:
     t_cert: float
     n_candidates: int
     n_remaining: int          # candidates passing the robustness filter
+    n_pareto: int = 0         # nondominated candidates in the pool
+    n_after_rmin: int = 0     # eligible after Pareto + threshold filtering
 
     @property
     def epsilon_cert(self) -> float:
         """Primary name for the certified robustness value."""
         return self.rcert
 
+    @property
+    def n_total(self) -> int:
+        """Alias of n_candidates (pool size the policy was applied to)."""
+        return self.n_candidates
 
-def _argbest(wee: np.ndarray, rcert: np.ndarray, mask: np.ndarray, key: str, rule: str) -> SelectionOutcome:
-    idxs = np.flatnonzero(mask)
-    if idxs.size == 0:
-        raise ValueError(f"no candidate satisfies the {rule} filter")
-    if key == "wee":
-        best = idxs[np.argmax(wee[idxs])]
-    else:
-        best = idxs[np.argmax(rcert[idxs])]
-    return int(best)
+
+def _mask_or_compute(
+    wee: np.ndarray, rcert: np.ndarray, nondominated: Optional[np.ndarray]
+) -> np.ndarray:
+    if nondominated is None:
+        return pareto_mask(wee, rcert)
+    return np.asarray(nondominated, dtype=bool)
 
 
 def select_wee_only(
-    wee: Sequence[float], rcert: Sequence[float], nu: float
+    wee: Sequence[float],
+    rcert: Sequence[float],
+    nu: float,
+    nondominated: Optional[Sequence[bool]] = None,
 ) -> SelectionOutcome:
-    """Eq. (17): the conventional WEE-maximizing configuration."""
+    """Eq. (17): the conventional WEE-maximizing configuration (full pool)."""
     wee = np.asarray(wee, dtype=float)
     rcert = np.asarray(rcert, dtype=float)
-    best = _argbest(wee, rcert, np.ones(wee.size, dtype=bool), "wee", "wee_only")
+    mask = _mask_or_compute(wee, rcert, nondominated)
+    best = int(np.argmax(wee))
     return SelectionOutcome(
         rule="wee_only",
         index=best,
@@ -81,16 +102,22 @@ def select_wee_only(
         t_cert=t_cert(rcert[best], nu),
         n_candidates=int(wee.size),
         n_remaining=int(wee.size),
+        n_pareto=int(mask.sum()),
+        n_after_rmin=int(wee.size),
     )
 
 
 def select_robustness_only(
-    wee: Sequence[float], rcert: Sequence[float], nu: float
+    wee: Sequence[float],
+    rcert: Sequence[float],
+    nu: float,
+    nondominated: Optional[Sequence[bool]] = None,
 ) -> SelectionOutcome:
     """Reference rule argmax eps_cert (reported for comparison, Section 6)."""
     wee = np.asarray(wee, dtype=float)
     rcert = np.asarray(rcert, dtype=float)
-    best = _argbest(wee, rcert, np.ones(wee.size, dtype=bool), "rcert", "robustness_only")
+    mask = _mask_or_compute(wee, rcert, nondominated)
+    best = int(np.argmax(rcert))
     return SelectionOutcome(
         rule="robustness_only",
         index=best,
@@ -99,6 +126,8 @@ def select_robustness_only(
         t_cert=t_cert(rcert[best], nu),
         n_candidates=int(wee.size),
         n_remaining=int(wee.size),
+        n_pareto=int(mask.sum()),
+        n_after_rmin=int(wee.size),
     )
 
 
@@ -107,19 +136,25 @@ def select_stability_aware(
     rcert: Sequence[float],
     r_min: float,
     nu: float,
+    nondominated: Optional[Sequence[bool]] = None,
 ) -> SelectionOutcome:
-    """Eq. (18): max WEE subject to eps_cert >= R_min.
+    """Eq. (18), Pareto-first: max WEE subject to eps_cert >= r_min.
 
-    ``r_min`` is a threshold on the certified relative uncertainty factor.
+    Filtering order follows the paper pipeline: dominance/Pareto filtering
+    first, then the minimum-robustness requirement, then WEE maximization
+    among the eligible nondominated candidates.  ``r_min`` is a threshold on
+    the certified relative uncertainty factor.
     """
     wee = np.asarray(wee, dtype=float)
     rcert = np.asarray(rcert, dtype=float)
-    mask = rcert >= r_min
-    if not np.any(mask):
+    mask = _mask_or_compute(wee, rcert, nondominated)
+    pareto_idx = np.flatnonzero(mask)
+    eligible = pareto_idx[rcert[pareto_idx] >= r_min]
+    if eligible.size == 0:
         raise ValueError(
-            f"no candidate satisfies R_cert >= R_min = {r_min:.4f}"
+            f"no nondominated candidate satisfies eps_cert >= {r_min:.4f}"
         )
-    best = _argbest(wee, rcert, mask, "wee", "stability_aware")
+    best = int(eligible[np.argmax(wee[eligible])])
     return SelectionOutcome(
         rule="stability_aware",
         index=best,
@@ -127,7 +162,9 @@ def select_stability_aware(
         rcert=float(rcert[best]),
         t_cert=t_cert(rcert[best], nu),
         n_candidates=int(wee.size),
-        n_remaining=int(np.sum(mask)),
+        n_remaining=int(eligible.size),
+        n_pareto=int(mask.sum()),
+        n_after_rmin=int(eligible.size),
     )
 
 
@@ -136,21 +173,24 @@ def r_min_sensitivity(
     rcert: Sequence[float],
     r_min_fracs: Sequence[float],
     nu: float,
+    nondominated: Optional[Sequence[bool]] = None,
 ) -> List[dict]:
     """Experiment 3 sweep: R_min = frac * R_max over the normalized grid.
 
     Returns one row per fraction with the selected configuration's WEE,
-    R_cert, T_cert and the number of candidates remaining after filtering.
-    Fractions that filter out the whole pool are reported with index = None.
+    epsilon_cert, T_cert and the full filtering statistics
+    (n_total / n_pareto / n_after_rmin).  Fractions that filter out the
+    whole Pareto set are reported with index = None.
     """
     wee = np.asarray(wee, dtype=float)
     rcert = np.asarray(rcert, dtype=float)
+    mask = _mask_or_compute(wee, rcert, nondominated)
     r_max = float(np.max(rcert)) if rcert.size else 0.0
     rows: List[dict] = []
     for frac in r_min_fracs:
         r_min = float(frac) * r_max
         try:
-            out = select_stability_aware(wee, rcert, r_min, nu)
+            out = select_stability_aware(wee, rcert, r_min, nu, nondominated=mask)
             rows.append(
                 {
                     "r_min_frac": float(frac),
@@ -160,6 +200,9 @@ def r_min_sensitivity(
                     "selected_rcert": out.rcert,
                     "selected_epsilon_cert": out.rcert,
                     "selected_t_cert_s": out.t_cert,
+                    "n_total": out.n_candidates,
+                    "n_pareto": out.n_pareto,
+                    "n_after_rmin": out.n_after_rmin,
                     "n_remaining": out.n_remaining,
                     "feasible": True,
                 }
@@ -174,6 +217,9 @@ def r_min_sensitivity(
                     "selected_rcert": float("nan"),
                     "selected_epsilon_cert": float("nan"),
                     "selected_t_cert_s": float("nan"),
+                    "n_total": int(wee.size),
+                    "n_pareto": int(mask.sum()),
+                    "n_after_rmin": 0,
                     "n_remaining": 0,
                     "feasible": False,
                 }

@@ -33,6 +33,8 @@ from .models import (
     user_weights,
     utility_power_wee,
     utility_power_wee_from_H,
+    sum_rate_unweighted,
+    wee_unweighted_from_H,
     initialize_mrt,
     initialize_rzf,
 )
@@ -66,6 +68,8 @@ __all__ = [
     "user_weights",
     "utility_power_wee",
     "utility_power_wee_from_H",
+    "sum_rate_unweighted",
+    "wee_unweighted_from_H",
     "initialize_mrt",
     "initialize_rzf",
     "uncertainty_dimension",

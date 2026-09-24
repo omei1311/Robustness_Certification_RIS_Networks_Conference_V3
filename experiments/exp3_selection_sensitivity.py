@@ -41,13 +41,15 @@ def main() -> dict:
 
     wee = np.array([c.wee for c in pool])
     rcert = np.array([c.r_cert for c in pool])
+    mask = pareto_mask(wee, rcert)
     r_max = float(rcert.max())
     nu = cc.drift_rate_nu
 
-    # ---- three selection rules ---------------------------------------- #
-    out_wee = select_wee_only(wee, rcert, nu)
-    out_rob = select_robustness_only(wee, rcert, nu)
-    out_sel = select_stability_aware(wee, rcert, cc.epsilon_design, nu)
+    # ---- three selection rules on the SAME pool ------------------------ #
+    out_wee = select_wee_only(wee, rcert, nu, nondominated=mask)
+    out_rob = select_robustness_only(wee, rcert, nu, nondominated=mask)
+    out_sel = select_stability_aware(wee, rcert, cc.epsilon_design, nu,
+                                     nondominated=mask)
 
     rule_rows = []
     for out in (out_wee, out_rob, out_sel):
@@ -59,12 +61,15 @@ def main() -> dict:
                 "selected_rcert": out.rcert,
                 "selected_epsilon_cert": out.rcert,
                 "selected_t_cert_s": out.t_cert,
+                "n_total": out.n_total,
+                "n_pareto": out.n_pareto,
+                "n_after_rmin": out.n_after_rmin,
                 "n_remaining": out.n_remaining,
             }
         )
 
     # ---- R_min sensitivity sweep --------------------------------------- #
-    rows = r_min_sensitivity(wee, rcert, cc.r_min_fracs, nu)
+    rows = r_min_sensitivity(wee, rcert, cc.r_min_fracs, nu, nondominated=mask)
 
     # ---- independent-sample robustness check at the design radius ------ #
     rng = np.random.default_rng(cc.exp3_seed)
@@ -117,9 +122,11 @@ def main() -> dict:
     for frac, r in zip(cc.r_min_fracs, rows):
         sel = "-" if r["selected_index"] is None else f"idx {r['selected_index']}"
         w = "n/a" if not r["feasible"] else f"{r['selected_wee']:.5f}"
+        e = "n/a" if not r["feasible"] else f"{r['selected_epsilon_cert']:.4f}"
         t = "n/a" if not r["feasible"] else f"{r['selected_t_cert_s']:.1f}s"
-        print(f"  R_min={frac:.2f}R_max -> {sel:<8s} WEE={w:<9s} T_cert={t:<8s} "
-              f"remaining={r['n_remaining']}")
+        print(f"  R_min={frac:.2f}R_max -> {sel:<8s} WEE={w:<9s} eps_cert={e:<7s} "
+              f"T_cert={t:<8s} n_total={r['n_total']} n_pareto={r['n_pareto']} "
+              f"n_after_rmin={r['n_after_rmin']}")
     for name, c in check.items():
         print(f"  check[{name}]: hold@eps={c['qos_hold_rate']:.3f} "
               f"(eps_cert {'>=' if c['meets_epsilon_design'] else '<'} eps)")

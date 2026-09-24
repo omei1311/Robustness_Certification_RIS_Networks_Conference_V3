@@ -33,19 +33,25 @@ class CertConfig:
     # pure mrt/rzf direction sets are structurally interference-limited and
     # almost never admit a feasible power allocation at the QoS target.
     direction_choices: Tuple[str, ...] = ("zf_full",)
-    align_frac_grid: Tuple[float, ...] = (0.0, 0.25, 0.5, 0.75, 1.0)
-    align_jitter_grid: Tuple[float, ...] = (0.0, 0.3, 0.6, 1.0)  # radians, half-width
+    align_frac_grid: Tuple[float, ...] = (0.0, 0.2, 0.4, 0.6, 0.8, 1.0)
+    align_jitter_grid: Tuple[float, ...] = (0.0, 0.15, 0.3, 0.6, 1.0)  # radians, half-width
     # The paper fixes B = 2; bit resolution is NOT a diversity knob.
     # Diversity comes from phase initialization, alignment fraction/jitter,
-    # beamforming initialization, design epsilon/gamma, power slack, seeds.
+    # beamforming initialization, design epsilon/gamma, power slack/
+    # perturbation, seeds.
     bits_grid: Tuple[int, ...] = (2,)
     # QoS design targets (multiples of the required gamma_bar).
-    design_gamma_mult: Tuple[float, ...] = (1.0, 1.5, 2.0, 3.0, 5.0, 7.0)
+    design_gamma_mult: Tuple[float, ...] = (1.0, 1.25, 1.5, 2.0, 3.0, 5.0, 7.0)
     # Design uncertainty radius choices: 0 = nominal design, eps = robust design.
-    design_eps_grid: Tuple[float, ...] = (0.0, 0.05)
+    design_eps_grid: Tuple[float, ...] = (0.0, 0.025, 0.05, 0.075, 0.10)
     # Non-minimal power operation factors (wasteful designs that trade WEE
     # for extra SINR margin; part of the pool-diversity protocol).
-    power_slack_grid: Tuple[float, ...] = (1.0, 1.3, 1.8)
+    power_slack_grid: Tuple[float, ...] = (1.0, 1.1, 1.2, 1.3, 1.5, 1.8)
+    # Small per-user relative power perturbations around the power-control
+    # solution (0 = none). Perturbed allocations are never accepted blindly:
+    # they must re-pass nominal QoS, and robust QoS at the design radius
+    # whenever design_eps > 0.
+    power_perturb_grid: Tuple[float, ...] = (0.0, 0.05, 0.10, 0.20)
 
     # Prescribed design uncertainty radius epsilon reported in Section 9.
     epsilon_design: float = 0.05
@@ -80,6 +86,12 @@ class CertConfig:
     drift_rate_nu: float = 2.0e-3
     exp3_check_samples: int = 500
     exp3_seed: int = 43001
+
+    # ------------------------------------------------------------------ #
+    # Experiment 3 generalization check (independent channel seeds)       #
+    # ------------------------------------------------------------------ #
+    gen_check_seed_base: int = 60001
+    gen_check_n_seeds: int = 12
 
     def validate(self) -> "CertConfig":
         if self.pool_target_size <= 0 or self.pool_max_attempts < self.pool_target_size:
@@ -164,6 +176,7 @@ def config_fingerprint(cfg, cert_cfg) -> str:
             "design_gamma_mult": tuple(cert_cfg.design_gamma_mult),
             "design_eps_grid": tuple(cert_cfg.design_eps_grid),
             "power_slack_grid": tuple(cert_cfg.power_slack_grid),
+            "power_perturb_grid": tuple(cert_cfg.power_perturb_grid),
             "epsilon_design": cert_cfg.epsilon_design,
             "pc_max_iter": cert_cfg.pc_max_iter,
             "pc_tol": cert_cfg.pc_tol,
