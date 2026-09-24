@@ -64,7 +64,7 @@ def plot_exp1(
     fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.6))
 
     def xvals(c):
-        """Normalized radius eps / R_cert so all configs share one axis."""
+        """Normalized factor eps / epsilon_cert so all configs share one axis."""
         rc = c["r_cert"]
         return np.asarray(c["radii"]) / rc if rc > 0 else np.asarray(c["radii"])
 
@@ -147,7 +147,8 @@ def plot_exp2(
     mark(i_wee, C_ORANGE, "^", "WEE-only choice", 8)
     mark(i_rob, C_GREEN, "s", "robustness-only", -14)
     if i_sel is not None and i_sel != i_wee:
-        mark(i_sel, C_RED, "D", r"stability-aware ($R_{\min}=0.9R_{\max}$)", 10)
+        mark(i_sel, C_RED, "D",
+             r"stability-aware ($\varepsilon_{\min}=0.9\varepsilon_{\max}$)", 10)
 
     ax.axvline(epsilon_design, color=C_BLACK, lw=1.0, ls="--", alpha=0.7)
     ax.annotate(r"design radius $\varepsilon$",
@@ -176,9 +177,8 @@ def plot_exp3(
     out_name: str = "exp3_selection_sensitivity",
     subdir: str = "",
 ):
-    """Sensitivity figure: selected WEE / T_cert / remaining count vs R_min."""
-    fr = np.asarray([r["r_min_frac"] for r in rows], dtype=float)
-    rmin = np.asarray([r["r_min"] for r in rows], dtype=float)
+    """Sensitivity figure: selected WEE / T_cert / remaining count vs eps_min."""
+    fr = np.asarray([r["eps_min_frac"] for r in rows], dtype=float)
     wee = np.asarray([r["selected_wee"] for r in rows], dtype=float)
     tcert = np.asarray([r["selected_t_cert_s"] for r in rows], dtype=float)
     rem = np.asarray([r["n_remaining"] for r in rows], dtype=float)
@@ -203,20 +203,20 @@ def plot_exp3(
         p = rule_points.get(name)
         if p is not None:
             ax.axhline(p["selected_wee"], color=col, lw=0.9, ls=":", alpha=0.8)
-    ax.set_xlabel(r"$R_{\min}/R_{\max}$")
+    ax.set_xlabel(r"$\varepsilon_{\min}/\varepsilon_{\max}$")
     ax.set_ylabel("selected WEE")
     ax.set_title("(a) selected WEE vs requirement")
 
     ax = axes[1]
     ax.plot(fr[m], tcert[m], color=C_PURPLE, lw=1.6, marker="o", ms=4)
-    ax.set_xlabel(r"$R_{\min}/R_{\max}$")
+    ax.set_xlabel(r"$\varepsilon_{\min}/\varepsilon_{\max}$")
     ax.set_ylabel(r"$T_{\rm cert}$ (s)")
     ax.set_title(f"(b) certified reuse horizon ($\\nu={nu*1e3:.1f}$e-3/s)")
 
     ax = axes[2]
     ax.step(fr, rem, where="post", color=C_GREEN, lw=1.6)
     ax.plot(fr, rem, "o", color=C_GREEN, ms=4)
-    ax.set_xlabel(r"$R_{\min}/R_{\max}$")
+    ax.set_xlabel(r"$\varepsilon_{\min}/\varepsilon_{\max}$")
     ax.set_ylabel("candidates remaining")
     ax.set_ylim(bottom=0)
     ax.set_title("(c) pool size after filtering")

@@ -1,4 +1,4 @@
-r_min_frac,r_min,selected_index,selected_wee,selected_rcert,selected_epsilon_cert,selected_t_cert_s,n_total,n_pareto,n_after_rmin,n_remaining,feasible
+eps_min_frac,eps_min,selected_index,selected_wee,selected_rcert,selected_epsilon_cert,selected_t_cert_s,n_total,n_pareto,n_after_rmin,n_remaining,feasible
 0.0,0.0,34,1.2792320135377533,0.0908935546875,0.0908935546875,45.44677734375,40,2,2,2,True
 0.25,0.028491210937499997,34,1.2792320135377533,0.0908935546875,0.0908935546875,45.44677734375,40,2,2,2,True
 0.5,0.056982421874999994,34,1.2792320135377533,0.0908935546875,0.0908935546875,45.44677734375,40,2,2,2,True

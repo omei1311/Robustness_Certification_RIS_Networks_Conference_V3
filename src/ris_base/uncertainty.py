@@ -3,9 +3,9 @@
 The per-user uncertainty ball of the V3 paper, ||Delta h_lk|| <= r, is
 realized here either as an absolute radius (relative_radius=False) or, by
 default exactly as in the first paper, as a *relative* radius
-``r_lk = eps * ||h_lk||`` (relative_radius=True).  All certification results
-(R_cert, the prescribed design radius epsilon, and the drift-rate bound nu)
-are expressed in this same convention.
+``r_lk = eps * ||h_lk||`` (relative_radius=True).  All certification
+results (epsilon_cert, the prescribed design factor epsilon, and the
+drift-rate bound nu) are expressed in this same convention.
 """
 
 from __future__ import annotations

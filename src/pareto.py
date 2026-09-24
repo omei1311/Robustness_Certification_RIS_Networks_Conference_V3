@@ -2,7 +2,7 @@
 
 A configuration X_i dominates X_j when
 
-    WEE(X_i) >= WEE(X_j)   and   R_cert(X_i) >= R_cert(X_j)             (*)
+    WEE(X_i) >= WEE(X_j)   and   eps_cert(X_i) >= eps_cert(X_j)         (*)
 
 with at least one strict inequality.  Candidates satisfying (*) are removed
 before threshold-based selection because no policy that is nondecreasing in
@@ -53,7 +53,7 @@ def pareto_mask(
 def frontier_points(
     wee: Sequence[float], rcert: Sequence[float]
 ) -> Tuple[np.ndarray, np.ndarray]:
-    """Nondominated (WEE, R_cert) pairs sorted by increasing R_cert."""
+    """Nondominated (WEE, epsilon_cert) pairs sorted by increasing epsilon_cert."""
     wee = np.asarray(wee, dtype=float)
     rcert = np.asarray(rcert, dtype=float)
     mask = pareto_mask(wee, rcert)

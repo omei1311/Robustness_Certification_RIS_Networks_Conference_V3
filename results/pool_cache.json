@@ -46,6 +46,7 @@
       "r_cert": 0.07792968749999998,
       "epsilon_cert": 0.07792968749999998,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.07792968749999998,
           0.07800292968749999
@@ -85,6 +86,7 @@
       "r_cert": 0.0705322265625,
       "epsilon_cert": 0.0705322265625,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0705322265625,
           0.07060546875
@@ -124,6 +126,7 @@
       "r_cert": 0.07375488281249999,
       "epsilon_cert": 0.07375488281249999,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.07375488281249999,
           0.073828125
@@ -163,6 +166,7 @@
       "r_cert": 0.036035156250000006,
       "epsilon_cert": 0.036035156250000006,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.036035156250000006,
           0.03610839843750001
@@ -202,6 +206,7 @@
       "r_cert": 0.0521484375,
       "epsilon_cert": 0.0521484375,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0521484375,
           0.052221679687499994
@@ -241,6 +246,7 @@
       "r_cert": 0.0818115234375,
       "epsilon_cert": 0.0818115234375,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0818115234375,
           0.081884765625
@@ -280,6 +286,7 @@
       "r_cert": 0.11396484374999999,
       "epsilon_cert": 0.11396484374999999,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.11396484374999999,
           0.11403808593749999
@@ -319,6 +326,7 @@
       "r_cert": 0.044165039062499994,
       "epsilon_cert": 0.044165039062499994,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.044165039062499994,
           0.04423828125
@@ -358,6 +366,7 @@
       "r_cert": 0.0944091796875,
       "epsilon_cert": 0.0944091796875,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0944091796875,
           0.094482421875
@@ -397,6 +406,7 @@
       "r_cert": 0.0494384765625,
       "epsilon_cert": 0.0494384765625,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0494384765625,
           0.04951171875
@@ -436,6 +446,7 @@
       "r_cert": 0.0739013671875,
       "epsilon_cert": 0.0739013671875,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0739013671875,
           0.073974609375
@@ -475,6 +486,7 @@
       "r_cert": 0.08627929687500002,
       "epsilon_cert": 0.08627929687500002,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.08627929687500002,
           0.08635253906250001
@@ -514,6 +526,7 @@
       "r_cert": 0.056689453125,
       "epsilon_cert": 0.056689453125,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.056689453125,
           0.0567626953125
@@ -553,6 +566,7 @@
       "r_cert": 0.0733154296875,
       "epsilon_cert": 0.0733154296875,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0733154296875,
           0.073388671875
@@ -592,6 +606,7 @@
       "r_cert": 0.0768310546875,
       "epsilon_cert": 0.0768310546875,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0768310546875,
           0.076904296875
@@ -631,6 +646,7 @@
       "r_cert": 0.10502929687500001,
       "epsilon_cert": 0.10502929687500001,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.10502929687500001,
           0.1051025390625
@@ -670,6 +686,7 @@
       "r_cert": 0.061523437499999986,
       "epsilon_cert": 0.061523437499999986,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.061523437499999986,
           0.06159667968749999
@@ -709,6 +726,7 @@
       "r_cert": 0.02255859375,
       "epsilon_cert": 0.02255859375,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.02255859375,
           0.0226318359375
@@ -748,6 +766,7 @@
       "r_cert": 0.07998046874999999,
       "epsilon_cert": 0.07998046874999999,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.07998046874999999,
           0.0800537109375
@@ -787,6 +806,7 @@
       "r_cert": 0.027465820312499997,
       "epsilon_cert": 0.027465820312499997,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.027465820312499997,
           0.027539062499999996
@@ -826,6 +846,7 @@
       "r_cert": 0.0680419921875,
       "epsilon_cert": 0.0680419921875,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0680419921875,
           0.068115234375
@@ -865,6 +886,7 @@
       "r_cert": 0.10371093749999999,
       "epsilon_cert": 0.10371093749999999,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.10371093749999999,
           0.10378417968749999
@@ -904,6 +926,7 @@
       "r_cert": 0.092431640625,
       "epsilon_cert": 0.092431640625,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.092431640625,
           0.0925048828125
@@ -943,6 +966,7 @@
       "r_cert": 0.07236328125000001,
       "epsilon_cert": 0.07236328125000001,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.07236328125000001,
           0.07243652343750001
@@ -982,6 +1006,7 @@
       "r_cert": 0.087890625,
       "epsilon_cert": 0.087890625,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.087890625,
           0.0879638671875
@@ -1021,6 +1046,7 @@
       "r_cert": 0.0031494140624999997,
       "epsilon_cert": 0.0031494140624999997,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0031494140624999997,
           0.00322265625
@@ -1060,6 +1086,7 @@
       "r_cert": 0.0009521484374999999,
       "epsilon_cert": 0.0009521484374999999,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0009521484374999999,
           0.0010253906249999998
@@ -1099,6 +1126,7 @@
       "r_cert": 0.10158691406249999,
       "epsilon_cert": 0.10158691406249999,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.10158691406249999,
           0.10166015625
@@ -1138,6 +1166,7 @@
       "r_cert": 0.08298339843750001,
       "epsilon_cert": 0.08298339843750001,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.08298339843750001,
           0.08305664062500001
@@ -1177,6 +1206,7 @@
       "r_cert": 0.09133300781249999,
       "epsilon_cert": 0.09133300781249999,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.09133300781249999,
           0.09140625
@@ -1216,6 +1246,7 @@
       "r_cert": 0.029296874999999997,
       "epsilon_cert": 0.029296874999999997,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.029296874999999997,
           0.029370117187499996
@@ -1255,6 +1286,7 @@
       "r_cert": 0.0884765625,
       "epsilon_cert": 0.0884765625,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0884765625,
           0.0885498046875
@@ -1294,6 +1326,7 @@
       "r_cert": 0.09038085937500001,
       "epsilon_cert": 0.09038085937500001,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.09038085937500001,
           0.0904541015625
@@ -1333,6 +1366,7 @@
       "r_cert": 0.05354003906249999,
       "epsilon_cert": 0.05354003906249999,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.05354003906249999,
           0.05361328124999999
@@ -1372,6 +1406,7 @@
       "r_cert": 0.0908935546875,
       "epsilon_cert": 0.0908935546875,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0908935546875,
           0.090966796875
@@ -1411,6 +1446,7 @@
       "r_cert": 0.0736083984375,
       "epsilon_cert": 0.0736083984375,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.0736083984375,
           0.07368164062499999
@@ -1450,6 +1486,7 @@
       "r_cert": 0.013842773437499997,
       "epsilon_cert": 0.013842773437499997,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.013842773437499997,
           0.013916015624999998
@@ -1489,6 +1526,7 @@
       "r_cert": 0.052880859375,
       "epsilon_cert": 0.052880859375,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.052880859375,
           0.052954101562499994
@@ -1528,6 +1566,7 @@
       "r_cert": 0.06445312499999999,
       "epsilon_cert": 0.06445312499999999,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.06445312499999999,
           0.06452636718749999
@@ -1567,6 +1606,7 @@
       "r_cert": 0.046362304687499994,
       "epsilon_cert": 0.046362304687499994,
       "cert_info": {
+        "status": "EXACT_BRACKET",
         "bracket": [
           0.046362304687499994,
           0.046435546875

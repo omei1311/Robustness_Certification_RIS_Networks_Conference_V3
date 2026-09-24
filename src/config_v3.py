@@ -1,9 +1,10 @@
 """Certification-layer experiment settings (new in the V3 paper).
 
 These parameters control the NEW parts of the framework only -- candidate
-pool generation, R_cert bisection, dominance filtering, stability-aware
-selection, and the three numerical experiments of Section 9.  The physical
-system model stays in ``ris_base.SimConfig`` (reused from the first paper).
+pool generation, epsilon_cert bisection, dominance filtering, stability-
+aware selection, and the three numerical experiments of Section 9.  The
+physical system model stays in ``ris_base.SimConfig`` (reused from the
+first paper).
 
 All radii follow the ``relative_radius`` convention of the reused layer:
 a radius value ``eps`` means ``eps * ||h_lk||`` per user.
@@ -61,7 +62,7 @@ class CertConfig:
     pc_tol: float = 1.0e-10
 
     # ------------------------------------------------------------------ #
-    # R_cert bisection (Section 4, Eq. (12)-(13))                        #
+    # epsilon_cert bisection (Section 4, Eq. (12)-(13))                  #
     # ------------------------------------------------------------------ #
     bisection_eps_hi: float = 0.60    # initial upper bound (relative radius)
     bisection_eps_hi_max: float = 1.20  # bracket-expansion cap
@@ -72,7 +73,7 @@ class CertConfig:
     # Experiment 1 -- certificate validation (Monte Carlo sweep)          #
     # ------------------------------------------------------------------ #
     exp1_n_configs: int = 4
-    exp1_radius_extend: float = 3.0   # sweep realized radius up to 3 * R_cert
+    exp1_radius_extend: float = 3.0   # sweep realized radius up to 3 * epsilon_cert
     exp1_radius_points: int = 25
     exp1_mc_samples: int = 300
     exp1_seed: int = 41001
@@ -80,9 +81,9 @@ class CertConfig:
     # ------------------------------------------------------------------ #
     # Experiment 3 -- selection sensitivity                               #
     # ------------------------------------------------------------------ #
-    r_min_fracs: Tuple[float, ...] = (0.0, 0.25, 0.50, 0.75, 0.90, 0.95)
+    eps_min_fracs: Tuple[float, ...] = (0.0, 0.25, 0.50, 0.75, 0.90, 0.95)
     # Linear drift-rate bound nu (relative radius per second); used ONLY for
-    # the conditional T_cert corollary: T_cert = R_cert / nu  (Eq. (16)).
+    # the conditional T_cert corollary: T_cert = epsilon_cert / nu  (Eq. (16)).
     drift_rate_nu: float = 2.0e-3
     exp3_check_samples: int = 500
     exp3_seed: int = 43001

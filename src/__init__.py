@@ -4,7 +4,7 @@ Configuration-Specific Robustness Certification for Stability-Aware
 Selection of Discrete RIS Configurations.
 
 Pipeline (paper Eq. (20)):
-    Candidate pool -> statewise robust feasibility -> R_cert ->
+    Candidate pool -> statewise robust feasibility -> epsilon_cert ->
     WEE-robustness Pareto/dominance filtering -> stability-aware selection
     -> (conditional) T_cert interpretation.
 """

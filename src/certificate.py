@@ -63,6 +63,17 @@ class CertificateResult:
     binding_user: Optional[tuple] = None      # (l, k) with the smallest margin at eps_cert
     binding_margin: Optional[float] = None
     per_user_margins: Optional[np.ndarray] = None  # (L,K) margins at eps_lo
+    # Certificate status:
+    #   EXACT_BRACKET        -- an infeasible upper bound was found; bracket
+    #                           (eps_lo, eps_hi) brackets the boundary and the
+    #                           returned value is the conservative lower
+    #                           endpoint eps_lo.
+    #   LOWER_BOUND_CENSORED -- still feasible at eps_hi_max; the returned
+    #                           value is only a LOWER BOUND
+    #                           (eps_cert >= eps_hi_max), not an exact
+    #                           certificate.
+    #   NOMINAL_INFEASIBLE   -- F_X(0) = 0; eps_cert = 0.
+    status: str = "EXACT_BRACKET"
 
     @property
     def epsilon_cert(self) -> float:
@@ -101,6 +112,7 @@ def epsilon_cert_bisection(
             n_feasibility_checks=n_checks,
             n_bisection_iter=0,
             bracket=(0.0, 0.0),
+            status="NOMINAL_INFEASIBLE",
         )
 
     # Ensure the upper endpoint is infeasible (expand if necessary).
@@ -108,13 +120,15 @@ def epsilon_cert_bisection(
     while robust_feasibility_indicator(w, H, hi, cfg):
         n_checks += 1
         if hi >= eps_hi_max:
-            # Still feasible at the cap: report the cap as a lower bound.
+            # Still feasible at the cap: eps_cert >= eps_hi_max; the returned
+            # value is a LOWER BOUND, not an exact certificate.
             return CertificateResult(
                 r_cert=hi,
                 feasible_at_zero=True,
                 n_feasibility_checks=n_checks,
                 n_bisection_iter=0,
                 bracket=(hi, hi),
+                status="LOWER_BOUND_CENSORED",
             )
         hi = min(2.0 * hi, eps_hi_max)
     n_checks += 1
@@ -147,6 +161,7 @@ def epsilon_cert_bisection(
         binding_user=(int(idx[0]), int(idx[1])),
         binding_margin=float(margins[idx]),
         per_user_margins=margins,
+        status="EXACT_BRACKET",
     )
 
 

@@ -1,8 +1,9 @@
 """Experiment 2 -- WEE-robustness landscape and Pareto structure (Section 9).
 
 Builds the candidate pool (~20-50 unique feasible configurations) on the
-shared nominal drop, certifies every member (R_cert by bisection with the
-statewise LMI oracle), visualizes the joint (WEE, R_cert) distribution,
+shared nominal drop, certifies every member (epsilon_cert by bisection with
+the statewise LMI oracle), visualizes the joint (WEE, epsilon_cert)
+distribution,
 marks the WEE-only / robustness-only choices and the nondominated Pareto
 set, and reports representative dominated points.  The prescribed design
 radius epsilon is drawn separately from the post-optimization certificates.
@@ -43,7 +44,8 @@ def main(rebuild: bool = False) -> dict:
     out_wee = select_wee_only(wee, rcert, cc.drift_rate_nu)
     out_rob = select_robustness_only(wee, rcert, cc.drift_rate_nu)
     r_max = float(rcert.max())
-    out_sel = select_stability_aware(wee, rcert, 0.90 * r_max, cc.drift_rate_nu)
+    out_sel = select_stability_aware(wee, rcert, 0.90 * r_max, cc.drift_rate_nu,
+                                     nondominated=mask)
 
     rho, pval = spearmanr(wee, rcert)
     gen_stats = meta.get("generation_stats", {})
@@ -89,7 +91,7 @@ def main(rebuild: bool = False) -> dict:
         "n_below_epsilon_design": int(np.sum(rcert < cc.epsilon_design)),
         "wee_only": out_wee.__dict__,
         "robustness_only": out_rob.__dict__,
-        "stability_aware_0p9rmax": out_sel.__dict__,
+        "stability_aware_0p9epsmax": out_sel.__dict__,
     }
 
     save_csv("exp2_candidate_map", rows)
@@ -115,7 +117,7 @@ def main(rebuild: bool = False) -> dict:
           f"{summary['n_below_epsilon_design']}")
     print(f"WEE-only choice        : idx={out_wee.index} WEE={out_wee.wee:.5f} eps_cert={out_wee.rcert:.4f}")
     print(f"robustness-only choice : idx={out_rob.index} WEE={out_rob.wee:.5f} eps_cert={out_rob.rcert:.4f}")
-    print(f"stability-aware (0.9R_max): idx={out_sel.index} WEE={out_sel.wee:.5f} "
+    print(f"stability-aware (0.9 eps_max): idx={out_sel.index} WEE={out_sel.wee:.5f} "
           f"eps_cert={out_sel.rcert:.4f} T_cert={out_sel.t_cert:.1f}s")
     print(f"figure -> {fig_path}")
     return summary

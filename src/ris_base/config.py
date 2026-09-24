@@ -13,8 +13,9 @@ Conventions inherited from the first paper:
     vector, which is exactly the per-user channel vector of the V3 paper;
   - ``relative_radius = True`` makes the uncertainty radius a fraction of
     the user's own channel norm (r_lk = eps * ||h_lk||).  All radii in this
-    framework -- the prescribed design radius epsilon and the certificate
-    R_cert -- follow this convention unless ``relative_radius`` is disabled.
+    framework -- the prescribed design factor epsilon and the certificate
+    epsilon_cert -- follow this convention unless ``relative_radius`` is
+    disabled.
 """
 
 from __future__ import annotations

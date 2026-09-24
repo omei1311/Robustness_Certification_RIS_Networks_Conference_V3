@@ -1,7 +1,7 @@
 {
   "manifest": {
     "experiment": "exp3",
-    "created": "2026-09-24T18:45:26"
+    "created": "2026-09-24T19:14:38"
   },
   "rules": [
     {
@@ -41,10 +41,10 @@
       "n_remaining": 2
     }
   ],
-  "r_min_sweep": [
+  "eps_min_sweep": [
     {
-      "r_min_frac": 0.0,
-      "r_min": 0.0,
+      "eps_min_frac": 0.0,
+      "eps_min": 0.0,
       "selected_index": 34,
       "selected_wee": 1.2792320135377533,
       "selected_rcert": 0.0908935546875,
@@ -57,8 +57,8 @@
       "feasible": true
     },
     {
-      "r_min_frac": 0.25,
-      "r_min": 0.028491210937499997,
+      "eps_min_frac": 0.25,
+      "eps_min": 0.028491210937499997,
       "selected_index": 34,
       "selected_wee": 1.2792320135377533,
       "selected_rcert": 0.0908935546875,
@@ -71,8 +71,8 @@
       "feasible": true
     },
     {
-      "r_min_frac": 0.5,
-      "r_min": 0.056982421874999994,
+      "eps_min_frac": 0.5,
+      "eps_min": 0.056982421874999994,
       "selected_index": 34,
       "selected_wee": 1.2792320135377533,
       "selected_rcert": 0.0908935546875,
@@ -85,8 +85,8 @@
       "feasible": true
     },
     {
-      "r_min_frac": 0.75,
-      "r_min": 0.08547363281249999,
+      "eps_min_frac": 0.75,
+      "eps_min": 0.08547363281249999,
       "selected_index": 34,
       "selected_wee": 1.2792320135377533,
       "selected_rcert": 0.0908935546875,
@@ -99,8 +99,8 @@
       "feasible": true
     },
     {
-      "r_min_frac": 0.9,
-      "r_min": 0.10256835937499999,
+      "eps_min_frac": 0.9,
+      "eps_min": 0.10256835937499999,
       "selected_index": 6,
       "selected_wee": 1.2460197453193609,
       "selected_rcert": 0.11396484374999999,
@@ -113,8 +113,8 @@
       "feasible": true
     },
     {
-      "r_min_frac": 0.95,
-      "r_min": 0.10826660156249998,
+      "eps_min_frac": 0.95,
+      "eps_min": 0.10826660156249998,
       "selected_index": 6,
       "selected_wee": 1.2460197453193609,
       "selected_rcert": 0.11396484374999999,
@@ -127,7 +127,7 @@
       "feasible": true
     }
   ],
-  "r_max": 0.11396484374999999,
+  "eps_max": 0.11396484374999999,
   "epsilon_design": 0.05,
   "drift_rate_nu": 0.002,
   "independent_check": {

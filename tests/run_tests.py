@@ -96,7 +96,7 @@ def test_pareto_and_selection():
     assert sel2.index == 1
     rows = r_min_sensitivity(wee, rc, [0.0, 0.5, 0.99], 1e-3)
     assert rows[0]["selected_index"] == 0
-    assert rows[1]["selected_index"] == 1  # 0.5*R_max = 0.25 excludes idx0 (rc=0.1)
+    assert rows[1]["selected_index"] == 1  # 0.5*eps_max = 0.25 excludes idx0 (rc=0.1)
     assert rows[2]["selected_index"] == 1
 
 
@@ -112,7 +112,7 @@ def test_fingerprint_and_metadata():
     # Paper fixes B = 2: bit resolution must not be a diversity knob.
     assert cc.bits_grid == (2,), f"bits_grid must be (2,), got {cc.bits_grid}"
 
-    # Alias compatibility: R_cert == epsilon_cert under relative radius.
+    # Alias compatibility: r_cert == epsilon_cert under relative radius.
     assert r_cert_bisection is epsilon_cert_bisection
 
     from src.ris_base import generate_channel_drop
@@ -162,6 +162,73 @@ def test_configuration_signature():
     assert configuration_signature(w, theta, 3) != sig
 
 
+def test_certificate_status():
+    """CertificateResult.status semantics (three states)."""
+    cfg, pool = make_pool(2)
+    cc = default_cert_config()
+
+    # Certify each candidate once; pick the most robust one.
+    certs = [
+        epsilon_cert_bisection(
+            c.w, c.H, cfg,
+            eps_hi=cc.bisection_eps_hi, eps_hi_max=cc.bisection_eps_hi_max,
+            tol=cc.bisection_tol, max_iter=cc.bisection_max_iter,
+        )
+        for c in pool
+    ]
+    # Normal robust candidates on this system: boundary well below eps_hi.
+    assert all(r.status == "EXACT_BRACKET" for r in certs), \
+        [r.status for r in certs]
+    assert all(r.bracket[1] > r.bracket[0] for r in certs)
+
+    # LOWER_BOUND_CENSORED: shrink the bracket cap below the true boundary.
+    c = pool[int(np.argmax([r.r_cert for r in certs]))]
+    res_cens = epsilon_cert_bisection(
+        c.w, c.H, cfg, eps_hi=1.0e-3, eps_hi_max=2.0e-3,
+        tol=cc.bisection_tol, max_iter=cc.bisection_max_iter,
+    )
+    assert res_cens.status == "LOWER_BOUND_CENSORED"
+    assert res_cens.bracket == (2.0e-3, 2.0e-3)
+    assert res_cens.r_cert == 2.0e-3  # lower bound, not an exact certificate
+
+    # NOMINAL_INFEASIBLE: uniformly attenuated beams miss the QoS target.
+    res_bad = epsilon_cert_bisection(
+        c.w * 0.01, c.H, cfg,
+        eps_hi=cc.bisection_eps_hi, eps_hi_max=cc.bisection_eps_hi_max,
+        tol=cc.bisection_tol, max_iter=cc.bisection_max_iter,
+    )
+    assert res_bad.status == "NOMINAL_INFEASIBLE"
+    assert res_bad.r_cert == 0.0
+
+
+def test_certificate_boundary():
+    """0.99*eps_cert feasible, 1.10*eps_cert infeasible, 1.00* feasible.
+
+    1.01 is deliberately NOT asserted infeasible: the bisection width
+    (delta_eps = 1e-4) and feasibility tolerance permit boundary error
+    around it.
+    """
+    cfg, pool = make_pool(3)
+    cc = default_cert_config()
+    certs = [
+        epsilon_cert_bisection(
+            c.w, c.H, cfg,
+            eps_hi=cc.bisection_eps_hi, eps_hi_max=cc.bisection_eps_hi_max,
+            tol=cc.bisection_tol, max_iter=cc.bisection_max_iter,
+        )
+        for c in pool
+    ]
+    # Use a well-separated certificate so that 10% clearly exceeds tol.
+    pairs = [(c, r) for c, r in zip(pool, certs)
+             if r.status == "EXACT_BRACKET" and r.r_cert > 0.01]
+    assert pairs, "no candidate with a well-separated certificate"
+    for c, r in pairs:
+        eps = r.epsilon_cert
+        assert robust_feasibility_indicator(c.w, c.H, 0.99 * eps, cfg) is True
+        assert robust_feasibility_indicator(c.w, c.H, 1.00 * eps, cfg) is True
+        assert robust_feasibility_indicator(c.w, c.H, 1.10 * eps, cfg) is False
+
+
 def test_profile_monotone():
     cfg, pool = make_pool(3)
     grid = np.linspace(0.0, 0.4, 21)
@@ -206,8 +273,8 @@ def test_lmi_cvxpy_crosscheck():
             eps = factor * rc
             eig_ok = robust_feasibility_indicator(c.w, c.H, eps, cfg)
             sdp_ok = robust_feasible_cvxpy(c.w, c.H, eps, cfg)
-            assert eig_ok == expect, f"eig oracle wrong at {factor}R_cert"
-            assert sdp_ok == expect, f"cvxpy oracle disagrees at {factor}R_cert (got {sdp_ok})"
+            assert eig_ok == expect, f"eig oracle wrong at {factor}*eps_cert"
+            assert sdp_ok == expect, f"cvxpy oracle disagrees at {factor}*eps_cert (got {sdp_ok})"
 
 
 def test_robust_design_guarantee():
@@ -247,6 +314,8 @@ def main() -> None:
     check("pareto + selection logic", test_pareto_and_selection)
     check("fingerprint + candidate metadata", test_fingerprint_and_metadata)
     check("configuration signature (X = (W, Theta))", test_configuration_signature)
+    check("certificate status semantics", test_certificate_status)
+    check("certificate boundary (0.99/1.00/1.10)", test_certificate_boundary)
     check("F_X monotonicity", test_profile_monotone)
     check("bisection vs grid boundary", test_bisection_matches_grid)
     check("LMI eig vs cvxpy SDP", test_lmi_cvxpy_crosscheck)

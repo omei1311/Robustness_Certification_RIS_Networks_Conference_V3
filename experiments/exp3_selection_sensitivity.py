@@ -2,8 +2,9 @@
 
 Compares the three selection rules (WEE-only Eq. (17), robustness-only
 reference, and the proposed robustness-constrained WEE rule Eq. (18)),
-sweeps the minimum robustness requirement R_min over the normalized grid
-{0, 0.25, 0.50, 0.75, 0.90} R_max, and reports selected WEE, R_cert, the
+sweeps the minimum robustness requirement eps_min over the normalized grid
+{0, 0.25, 0.50, 0.75, 0.90, 0.95} eps_max, and reports selected WEE,
+epsilon_cert, the
 conditional T_cert under the stated linear drift model, and the number of
 candidates remaining after filtering.  A compact independent-sample check
 at the prescribed design radius epsilon closes the experiment.
@@ -68,8 +69,8 @@ def main() -> dict:
             }
         )
 
-    # ---- R_min sensitivity sweep --------------------------------------- #
-    rows = r_min_sensitivity(wee, rcert, cc.r_min_fracs, nu, nondominated=mask)
+    # ---- eps_min sensitivity sweep ------------------------------------- #
+    rows = r_min_sensitivity(wee, rcert, cc.eps_min_fracs, nu, nondominated=mask)
 
     # ---- independent-sample robustness check at the design radius ------ #
     rng = np.random.default_rng(cc.exp3_seed)
@@ -104,8 +105,8 @@ def main() -> dict:
     save_csv("exp3_rmin_sweep", rows)
     summary = {
         "rules": rule_rows,
-        "r_min_sweep": rows,
-        "r_max": r_max,
+        "eps_min_sweep": rows,
+        "eps_max": r_max,
         "epsilon_design": cc.epsilon_design,
         "drift_rate_nu": nu,
         "independent_check": check,
@@ -118,13 +119,13 @@ def main() -> dict:
         print(f"{r['rule']:<16s} idx={r['selected_index']:>3d} "
               f"WEE={r['selected_wee']:.5f} eps_cert={r['selected_rcert']:.4f} "
               f"T_cert={r['selected_t_cert_s']:.1f}s")
-    print(f"R_max={r_max:.4f}, epsilon_design={cc.epsilon_design}, nu={nu}/s")
-    for frac, r in zip(cc.r_min_fracs, rows):
+    print(f"eps_max={r_max:.4f}, epsilon_design={cc.epsilon_design}, nu={nu}/s")
+    for frac, r in zip(cc.eps_min_fracs, rows):
         sel = "-" if r["selected_index"] is None else f"idx {r['selected_index']}"
         w = "n/a" if not r["feasible"] else f"{r['selected_wee']:.5f}"
         e = "n/a" if not r["feasible"] else f"{r['selected_epsilon_cert']:.4f}"
         t = "n/a" if not r["feasible"] else f"{r['selected_t_cert_s']:.1f}s"
-        print(f"  R_min={frac:.2f}R_max -> {sel:<8s} WEE={w:<9s} eps_cert={e:<7s} "
+        print(f"  eps_min={frac:.2f}*eps_max -> {sel:<8s} WEE={w:<9s} eps_cert={e:<7s} "
               f"T_cert={t:<8s} n_total={r['n_total']} n_pareto={r['n_pareto']} "
               f"n_after_rmin={r['n_after_rmin']}")
     for name, c in check.items():

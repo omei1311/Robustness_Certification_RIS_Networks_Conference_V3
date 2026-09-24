@@ -171,11 +171,11 @@ def select_stability_aware(
 def r_min_sensitivity(
     wee: Sequence[float],
     rcert: Sequence[float],
-    r_min_fracs: Sequence[float],
+    eps_min_fracs: Sequence[float],
     nu: float,
     nondominated: Optional[Sequence[bool]] = None,
 ) -> List[dict]:
-    """Experiment 3 sweep: R_min = frac * R_max over the normalized grid.
+    """Experiment 3 sweep: eps_min = frac * eps_max over the normalized grid.
 
     Returns one row per fraction with the selected configuration's WEE,
     epsilon_cert, T_cert and the full filtering statistics
@@ -185,16 +185,16 @@ def r_min_sensitivity(
     wee = np.asarray(wee, dtype=float)
     rcert = np.asarray(rcert, dtype=float)
     mask = _mask_or_compute(wee, rcert, nondominated)
-    r_max = float(np.max(rcert)) if rcert.size else 0.0
+    eps_max = float(np.max(rcert)) if rcert.size else 0.0
     rows: List[dict] = []
-    for frac in r_min_fracs:
-        r_min = float(frac) * r_max
+    for frac in eps_min_fracs:
+        eps_min = float(frac) * eps_max
         try:
-            out = select_stability_aware(wee, rcert, r_min, nu, nondominated=mask)
+            out = select_stability_aware(wee, rcert, eps_min, nu, nondominated=mask)
             rows.append(
                 {
-                    "r_min_frac": float(frac),
-                    "r_min": r_min,
+                    "eps_min_frac": float(frac),
+                    "eps_min": eps_min,
                     "selected_index": out.index,
                     "selected_wee": out.wee,
                     "selected_rcert": out.rcert,
@@ -210,8 +210,8 @@ def r_min_sensitivity(
         except ValueError:
             rows.append(
                 {
-                    "r_min_frac": float(frac),
-                    "r_min": r_min,
+                    "eps_min_frac": float(frac),
+                    "eps_min": eps_min,
                     "selected_index": None,
                     "selected_wee": float("nan"),
                     "selected_rcert": float("nan"),

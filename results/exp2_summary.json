@@ -1,7 +1,7 @@
 {
   "manifest": {
     "experiment": "exp2",
-    "created": "2026-09-24T18:44:48"
+    "created": "2026-09-24T19:08:07"
   },
   "pool_size": 40,
   "unique_theta_count": 40,
@@ -40,7 +40,7 @@
     "n_pareto": 2,
     "n_after_rmin": 40
   },
-  "stability_aware_0p9rmax": {
+  "stability_aware_0p9epsmax": {
     "rule": "stability_aware",
     "index": 6,
     "wee": 1.2460197453193609,

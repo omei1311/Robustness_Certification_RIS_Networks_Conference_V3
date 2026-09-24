@@ -90,6 +90,7 @@ def build_and_certify(
             )
             c.r_cert = res.r_cert
             c.cert_info = {
+                "status": res.status,
                 "bracket": list(res.bracket),
                 "n_bisection_iter": res.n_bisection_iter,
                 "n_feasibility_checks": res.n_feasibility_checks,
