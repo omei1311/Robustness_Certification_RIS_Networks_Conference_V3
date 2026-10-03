@@ -1,0 +1,1624 @@
+{
+  "meta": {
+    "pool_target_size": 40,
+    "channel_seed": 60002,
+    "cfg_seed": 20260706,
+    "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+    "generation_stats": {
+      "attempts": 117,
+      "accepted": 40,
+      "rejected_unique": 0,
+      "rejected_qos_power": 77,
+      "reject_reasons": {
+        "power:diverged": 59,
+        "power:power_budget_exceeded": 15,
+        "power:slack_budget": 3
+      },
+      "unique_theta_count": 39,
+      "unique_configuration_count": 40
+    },
+    "n_oracle_calls": 600
+  },
+  "candidates": [
+    {
+      "index": 0,
+      "seed": 31002,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.6,
+      "align_jitter": 0.15,
+      "design_gamma": 3.0,
+      "design_eps": 0.025,
+      "power_slack": 1.0,
+      "power_perturb": 0.2,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "dd952b753a18cddad209e8bd63a0ab79366f0938c7b1fb4247ace99776ce6e0b",
+      "min_sinr_nominal": 4.0140267156529195,
+      "wee": 0.9669626063688253,
+      "U": 15.099149707237954,
+      "V": 15.61502958624104,
+      "power_per_bs": [
+        0.2686567861827714,
+        0.2584144565888235
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.06086425781249999,
+      "epsilon_cert": 0.06086425781249999,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.06086425781249999,
+          0.06093749999999999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          2
+        ],
+        "binding_margin": -0.00019806237399946393
+      }
+    },
+    {
+      "index": 1,
+      "seed": 31006,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.4,
+      "align_jitter": 0.0,
+      "design_gamma": 3.0,
+      "design_eps": 0.025,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "2e2f55c462859d6ff0ca2aa5d1694f601063f7aed93b7160bc26281604459ee6",
+      "min_sinr_nominal": 4.2658352633592,
+      "wee": 1.0004052715370804,
+      "U": 15.041233326488776,
+      "V": 15.035140012185817,
+      "power_per_bs": [
+        0.16820345157961042,
+        0.1415497530510002
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.073974609375,
+      "epsilon_cert": 0.073974609375,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.073974609375,
+          0.07404785156249999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          2
+        ],
+        "binding_margin": -0.0001982895395234996
+      }
+    },
+    {
+      "index": 2,
+      "seed": 31010,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.6,
+      "design_gamma": 3.0,
+      "design_eps": 0.05,
+      "power_slack": 1.8,
+      "power_perturb": 0.2,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "ef897950d258c77de236946172e5e11f30d9b3f6420233ecef2ef8be4e6119f6",
+      "min_sinr_nominal": 10.404065148914789,
+      "wee": 1.458720777442619,
+      "U": 25.636622527644967,
+      "V": 17.57472912162823,
+      "power_per_bs": [
+        0.4728032319138505,
+        0.7989538343048777
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.1002685546875,
+      "epsilon_cert": 0.1002685546875,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.1002685546875,
+          0.100341796875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019305002672793253
+      }
+    },
+    {
+      "index": 3,
+      "seed": 31013,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.4,
+      "align_jitter": 1.0,
+      "design_gamma": 2.0,
+      "design_eps": 0.0,
+      "power_slack": 1.5,
+      "power_perturb": 0.2,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "96500bd948e62263c6cf2124ae70086bc0aa407e5568b75bc15adcdee998ff06",
+      "min_sinr_nominal": 3.0031797532975664,
+      "wee": 0.8313510392617056,
+      "U": 12.448542946764885,
+      "V": 14.973870674198002,
+      "power_per_bs": [
+        0.1824089518002994,
+        0.09646190439494137
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0359619140625,
+      "epsilon_cert": 0.0359619140625,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0359619140625,
+          0.036035156250000006
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          2
+        ],
+        "binding_margin": -0.00019504135302922387
+      }
+    },
+    {
+      "index": 4,
+      "seed": 31015,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 1.0,
+      "design_gamma": 3.0,
+      "design_eps": 0.0,
+      "power_slack": 1.1,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "af3f976ce325d1ea3409d05967541dea9bfd34808b902ddfa6191972e1705abe",
+      "min_sinr_nominal": 3.305100306006096,
+      "wee": 0.8401592450945131,
+      "U": 12.785869281552142,
+      "V": 15.218387890397855,
+      "power_per_bs": [
+        0.18518936415030507,
+        0.17899803420087984
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.05324707031249999,
+      "epsilon_cert": 0.05324707031249999,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.05324707031249999,
+          0.053320312499999994
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019569568513989888
+      }
+    },
+    {
+      "index": 5,
+      "seed": 31019,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.15,
+      "design_gamma": 10.0,
+      "design_eps": 0.0,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "1ac6404577d718a002d40e9ebe8a33c988eff5f357d253797586451a6488186c",
+      "min_sinr_nominal": 11.263213291240078,
+      "wee": 1.2623577621389712,
+      "U": 21.927219466722008,
+      "V": 17.3700516005605,
+      "power_per_bs": [
+        0.4209717703073167,
+        0.7775678379056736
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.06364746093749998,
+      "epsilon_cert": 0.06364746093749998,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.06364746093749998,
+          0.06372070312499997
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.0001953180089466404
+      }
+    },
+    {
+      "index": 6,
+      "seed": 31020,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.3,
+      "design_gamma": 3.0,
+      "design_eps": 0.05,
+      "power_slack": 1.5,
+      "power_perturb": 0.1,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "fbb7470eaeacee97424d5d8592536f4030340032e784b58d573651d444d8dc09",
+      "min_sinr_nominal": 8.208875006749844,
+      "wee": 1.3711595372449512,
+      "U": 24.348240388101136,
+      "V": 17.757408767344216,
+      "power_per_bs": [
+        0.6900573259291407,
+        0.6389580056616617
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.1058349609375,
+      "epsilon_cert": 0.1058349609375,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.1058349609375,
+          0.10590820312499999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          2
+        ],
+        "binding_margin": -0.00019077925008474834
+      }
+    },
+    {
+      "index": 7,
+      "seed": 31024,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 0.15,
+      "design_gamma": 4.0,
+      "design_eps": 0.0,
+      "power_slack": 1.2,
+      "power_perturb": 0.1,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "30821e9f459bf4323cf7e237f7fa2d84f12aae5b815cdc1bf92060cd25d2c46b",
+      "min_sinr_nominal": 4.849064713778604,
+      "wee": 1.013502733381291,
+      "U": 15.446169606250724,
+      "V": 15.240382780930997,
+      "power_per_bs": [
+        0.19865043307358193,
+        0.18149502368019693
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.05910644531249999,
+      "epsilon_cert": 0.05910644531249999,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.05910644531249999,
+          0.059179687499999994
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019581092513339235
+      }
+    },
+    {
+      "index": 8,
+      "seed": 31025,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.6,
+      "align_jitter": 0.15,
+      "design_gamma": 3.0,
+      "design_eps": 0.05,
+      "power_slack": 1.3,
+      "power_perturb": 0.0,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "b37f3d068aefce961bb452a2d2a0150f3a9204a798f029bcf9f8c613284bf04c",
+      "min_sinr_nominal": 5.358977352385629,
+      "wee": 1.2702654048411508,
+      "U": 19.58655711623178,
+      "V": 15.419263597658253,
+      "power_per_bs": [
+        0.1902522834855949,
+        0.2609078836245411
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.11857910156249998,
+      "epsilon_cert": 0.11857910156249998,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.11857910156249998,
+          0.11865234374999999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019791031042898886
+      }
+    },
+    {
+      "index": 9,
+      "seed": 31026,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 1.0,
+      "align_jitter": 0.15,
+      "design_gamma": 6.0,
+      "design_eps": 0.025,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "7ad26faea2fb260951a644b9c0cc2d6baa0929e2357734d803e8e1438278de1c",
+      "min_sinr_nominal": 8.88692899657562,
+      "wee": 1.3374178628396975,
+      "U": 22.645961635589956,
+      "V": 16.932599948610296,
+      "power_per_bs": [
+        0.4875878298295321,
+        0.5508001506423796
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0755126953125,
+      "epsilon_cert": 0.0755126953125,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0755126953125,
+          0.0755859375
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.0001912155880398718
+      }
+    },
+    {
+      "index": 10,
+      "seed": 31032,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 1.0,
+      "align_jitter": 0.15,
+      "design_gamma": 2.5,
+      "design_eps": 0.0,
+      "power_slack": 1.5,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "d063bace00a5e102ee5ef21b557b9218f7ea7b5a1814b37ee85bab240d7343ae",
+      "min_sinr_nominal": 3.769849199660671,
+      "wee": 0.9039951431003392,
+      "U": 13.602025983446708,
+      "V": 15.046569760095434,
+      "power_per_bs": [
+        0.1289783275859827,
+        0.19423818125028183
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.03896484374999999,
+      "epsilon_cert": 0.03896484374999999,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.03896484374999999,
+          0.039038085937499994
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019545500151922635
+      }
+    },
+    {
+      "index": 11,
+      "seed": 31036,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 1.0,
+      "align_jitter": 0.0,
+      "design_gamma": 4.0,
+      "design_eps": 0.025,
+      "power_slack": 1.3,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "8e8e6651f2ecd9df65e87085a0a3887080698ead6e2e872e2f6843b44ae2d41e",
+      "min_sinr_nominal": 6.415523468749655,
+      "wee": 1.2079898050579465,
+      "U": 19.36092046900386,
+      "V": 16.027387307358218,
+      "power_per_bs": [
+        0.32154143203289093,
+        0.37286574476323175
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.06679687499999999,
+      "epsilon_cert": 0.06679687499999999,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.06679687499999999,
+          0.0668701171875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019162542989293804
+      }
+    },
+    {
+      "index": 12,
+      "seed": 31037,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.8,
+      "align_jitter": 0.0,
+      "design_gamma": 2.5,
+      "design_eps": 0.025,
+      "power_slack": 1.8,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "94bb0ec279adc5be4e94a956f509d493d3838e1f295a11112aad61ee4da9865e",
+      "min_sinr_nominal": 5.838487262249578,
+      "wee": 1.1293697904931508,
+      "U": 17.46499460505065,
+      "V": 15.464372034800384,
+      "power_per_bs": [
+        0.27136726129608185,
+        0.21061411192806426
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0703125,
+      "epsilon_cert": 0.0703125,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0703125,
+          0.0703857421875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": -0.00019569711236822052
+      }
+    },
+    {
+      "index": 13,
+      "seed": 31040,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.3,
+      "design_gamma": 2.0,
+      "design_eps": 0.05,
+      "power_slack": 1.0,
+      "power_perturb": 0.1,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "814fe82a4e42915a368400bafdd6b5367d4251330063241b84abedaf419ebd17",
+      "min_sinr_nominal": 4.816302811172325,
+      "wee": 1.1562110469070097,
+      "U": 18.693646511634608,
+      "V": 16.168022751246102,
+      "power_per_bs": [
+        0.3487103002654126,
+        0.3748183452081059
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.08056640625,
+      "epsilon_cert": 0.08056640625,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.08056640625,
+          0.0806396484375
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          2
+        ],
+        "binding_margin": -0.00019159950597596992
+      }
+    },
+    {
+      "index": 14,
+      "seed": 31042,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.4,
+      "align_jitter": 0.15,
+      "design_gamma": 10.0,
+      "design_eps": 0.0,
+      "power_slack": 1.5,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "7a782351999498281f5e5ffb868e926bd0235b5ac6b51108f31e75828cd6a8a4",
+      "min_sinr_nominal": 15.052282420505723,
+      "wee": 1.2688496888335667,
+      "U": 24.20846039971355,
+      "V": 19.07906083183738,
+      "power_per_bs": [
+        0.9497044370791512,
+        0.8921786790190536
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.05910644531249999,
+      "epsilon_cert": 0.05910644531249999,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.05910644531249999,
+          0.059179687499999994
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019369064692882298
+      }
+    },
+    {
+      "index": 15,
+      "seed": 31043,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.3,
+      "design_gamma": 2.5,
+      "design_eps": 0.025,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "41e648fffd4fdcaf934191fab743acaeb17b4f00f34efb7a495eb153028caf89",
+      "min_sinr_nominal": 3.522723136731182,
+      "wee": 0.9337595417306525,
+      "U": 14.202521526179135,
+      "V": 15.210041655752015,
+      "power_per_bs": [
+        0.19855812907892473,
+        0.17461770010684124
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0572021484375,
+      "epsilon_cert": 0.0572021484375,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0572021484375,
+          0.057275390625
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": -0.00019533077528205434
+      }
+    },
+    {
+      "index": 16,
+      "seed": 31045,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.4,
+      "align_jitter": 0.15,
+      "design_gamma": 3.0,
+      "design_eps": 0.025,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "dd180609612f056711223f9e695a512138f1bc2381e4c1f7a91ad3ebcabb9439",
+      "min_sinr_nominal": 4.722211695096546,
+      "wee": 1.0696353868636852,
+      "U": 17.70623095346233,
+      "V": 16.553520172307856,
+      "power_per_bs": [
+        0.4506978373671947,
+        0.4375598281097907
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.06181640624999998,
+      "epsilon_cert": 0.06181640624999998,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.06181640624999998,
+          0.061889648437499986
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          2
+        ],
+        "binding_margin": -0.00019367152202480475
+      }
+    },
+    {
+      "index": 17,
+      "seed": 31046,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.4,
+      "align_jitter": 0.15,
+      "design_gamma": 3.0,
+      "design_eps": 0.025,
+      "power_slack": 1.5,
+      "power_perturb": 0.2,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "8acf5035863599540ddeb65763cb6d36c37b2202c7730c4c45a05dc7f218c3cb",
+      "min_sinr_nominal": 6.18926292260595,
+      "wee": 1.1461513836511374,
+      "U": 18.209589212880616,
+      "V": 15.887595192593862,
+      "power_per_bs": [
+        0.33055719847274245,
+        0.29248897471292523
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.067529296875,
+      "epsilon_cert": 0.067529296875,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.067529296875,
+          0.0676025390625
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.0001959940707190282
+      }
+    },
+    {
+      "index": 18,
+      "seed": 31048,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.8,
+      "align_jitter": 0.0,
+      "design_gamma": 2.5,
+      "design_eps": 0.05,
+      "power_slack": 1.8,
+      "power_perturb": 0.1,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "c86536348628c26088a5cc0ef7e5b467173f1c1711735ea09dc82ec61bb9be13",
+      "min_sinr_nominal": 10.087286123676472,
+      "wee": 1.408121144696479,
+      "U": 24.307071447559284,
+      "V": 17.262059829943595,
+      "power_per_bs": [
+        0.5335012347412758,
+        0.6255215006372911
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0967529296875,
+      "epsilon_cert": 0.0967529296875,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0967529296875,
+          0.096826171875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.0001986577199832033
+      }
+    },
+    {
+      "index": 19,
+      "seed": 31051,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 0.0,
+      "design_gamma": 2.0,
+      "design_eps": 0.025,
+      "power_slack": 1.8,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "2aa2c45c866f547633913ce73f9211459896e77b5a0d18f4e3d1cd65051c50f4",
+      "min_sinr_nominal": 4.233277795835522,
+      "wee": 0.9841278553243111,
+      "U": 15.40186624849445,
+      "V": 15.650269591666921,
+      "power_per_bs": [
+        0.18648484785360656,
+        0.3448575969798239
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.05104980468749999,
+      "epsilon_cert": 0.05104980468749999,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.05104980468749999,
+          0.051123046874999994
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019398740554230987
+      }
+    },
+    {
+      "index": 20,
+      "seed": 31052,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 1.0,
+      "design_gamma": 2.0,
+      "design_eps": 0.0,
+      "power_slack": 1.2,
+      "power_perturb": 0.2,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "b4db308a3a6802d52666c29a82965fbe77b2fc955cf957f478f9ec1ab43064a7",
+      "min_sinr_nominal": 2.438848608415625,
+      "wee": 0.7421601148281785,
+      "U": 11.005097442477272,
+      "V": 14.828467904159902,
+      "power_per_bs": [
+        0.1336918134105528,
+        0.09752599017021024
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0139892578125,
+      "epsilon_cert": 0.0139892578125,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0139892578125,
+          0.014062499999999999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": -0.0001972838842271876
+      }
+    },
+    {
+      "index": 21,
+      "seed": 31053,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.0,
+      "design_gamma": 10.0,
+      "design_eps": 0.0,
+      "power_slack": 1.2,
+      "power_perturb": 0.2,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "3fdd2494b716cf30c7ff317fb62d25f20af58da18cb275f9cccff88938f5b414",
+      "min_sinr_nominal": 12.150547554943609,
+      "wee": 1.3817381230817236,
+      "U": 22.88302352455724,
+      "V": 16.561042314965363,
+      "power_per_bs": [
+        0.4638488677273935,
+        0.41814721195944404
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.08452148437500001,
+      "epsilon_cert": 0.08452148437500001,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.08452148437500001,
+          0.0845947265625
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019542937288391553
+      }
+    },
+    {
+      "index": 22,
+      "seed": 31057,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.4,
+      "align_jitter": 0.3,
+      "design_gamma": 4.0,
+      "design_eps": 0.0,
+      "power_slack": 1.1,
+      "power_perturb": 0.2,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "3fd84b3704181624e172969ca39dad75dd908aa92827ed2f89c3e343b961b01b",
+      "min_sinr_nominal": 4.459959950843301,
+      "wee": 0.9501797628364673,
+      "U": 15.118566839662268,
+      "V": 15.911270089072904,
+      "power_per_bs": [
+        0.26078068570353874,
+        0.3621419481441644
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0286376953125,
+      "epsilon_cert": 0.0286376953125,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0286376953125,
+          0.0287109375
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019601132839159457
+      }
+    },
+    {
+      "index": 23,
+      "seed": 31058,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 0.6,
+      "design_gamma": 2.5,
+      "design_eps": 0.025,
+      "power_slack": 1.2,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "a47ca7ca95f7b12c4c89dd3a9124a8da2512bce97715126d1329da51c418372c",
+      "min_sinr_nominal": 3.5833557315329037,
+      "wee": 0.9409054719919253,
+      "U": 14.353370863977194,
+      "V": 15.254848963297741,
+      "power_per_bs": [
+        0.14234574924413104,
+        0.24329685680901025
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.05244140625,
+      "epsilon_cert": 0.05244140625,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.05244140625,
+          0.052514648437500006
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019936087036483575
+      }
+    },
+    {
+      "index": 24,
+      "seed": 31059,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.6,
+      "design_gamma": 10.0,
+      "design_eps": 0.025,
+      "power_slack": 1.2,
+      "power_perturb": 0.1,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "3d144ec0de6a9aeacfc8f5e9e8ce83c7699651c498b0307bdb6ca4bb0cdc90dc",
+      "min_sinr_nominal": 16.390060747333937,
+      "wee": 1.467281607455249,
+      "U": 27.467337456884515,
+      "V": 18.719881253416617,
+      "power_per_bs": [
+        0.7376097331579123,
+        0.9586651431404024
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0973388671875,
+      "epsilon_cert": 0.0973388671875,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0973388671875,
+          0.097412109375
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019218733629726426
+      }
+    },
+    {
+      "index": 25,
+      "seed": 31070,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 1.0,
+      "design_gamma": 4.0,
+      "design_eps": 0.025,
+      "power_slack": 1.2,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "f16e90b1faeaa24748f6188e030f5f0c043f46a9ab67a6abe1d1bff678a4b2c0",
+      "min_sinr_nominal": 5.827247739257507,
+      "wee": 1.1365198749984953,
+      "U": 18.015621401768854,
+      "V": 15.851567401575538,
+      "power_per_bs": [
+        0.2748377971746832,
+        0.331477815424021
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0705322265625,
+      "epsilon_cert": 0.0705322265625,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0705322265625,
+          0.07060546875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          2
+        ],
+        "binding_margin": -0.0001990174271410891
+      }
+    },
+    {
+      "index": 26,
+      "seed": 31071,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 1.0,
+      "design_gamma": 6.0,
+      "design_eps": 0.0,
+      "power_slack": 1.5,
+      "power_perturb": 0.0,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "4b277ac9ea1cf8f40022cf3809f44af3e0462c2b2498dcde51288066d1271760",
+      "min_sinr_nominal": 8.999999999999996,
+      "wee": 1.2712203101630397,
+      "U": 19.93156856932417,
+      "V": 15.679082854464351,
+      "power_per_bs": [
+        0.32843942136860244,
+        0.21385206332785114
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.1048095703125,
+      "epsilon_cert": 0.1048095703125,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.1048095703125,
+          0.1048828125
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019122280589701978
+      }
+    },
+    {
+      "index": 27,
+      "seed": 31074,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 0.15,
+      "design_gamma": 3.0,
+      "design_eps": 0.025,
+      "power_slack": 1.3,
+      "power_perturb": 0.2,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "272063d9796ad5104e9def79abc1f2500ee06df5cb9f0f6a2110c0668b0abb1e",
+      "min_sinr_nominal": 5.5093367497502435,
+      "wee": 1.0901427001918889,
+      "U": 17.749241328403205,
+      "V": 16.281576095752374,
+      "power_per_bs": [
+        0.3021716190015938,
+        0.4675472973843089
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.05654296874999999,
+      "epsilon_cert": 0.05654296874999999,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.05654296874999999,
+          0.056616210937499994
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          2
+        ],
+        "binding_margin": -0.00019675107117516147
+      }
+    },
+    {
+      "index": 28,
+      "seed": 31075,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 1.0,
+      "design_gamma": 2.0,
+      "design_eps": 0.0,
+      "power_slack": 1.0,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "d5fe965caa0877f8608021c552062e927e630cde130a7bc8019a3a4af3e3f510",
+      "min_sinr_nominal": 2.0046625000105145,
+      "wee": 0.6583769996483181,
+      "U": 9.667707850164273,
+      "V": 14.68415186941285,
+      "power_per_bs": [
+        0.09243431985122387,
+        0.0626633905256586
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0030029296875,
+      "epsilon_cert": 0.0030029296875,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0030029296875,
+          0.003076171875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          2
+        ],
+        "binding_margin": -0.00019505367988420296
+      }
+    },
+    {
+      "index": 29,
+      "seed": 31077,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.6,
+      "align_jitter": 0.6,
+      "design_gamma": 2.0,
+      "design_eps": 0.0,
+      "power_slack": 1.0,
+      "power_perturb": 0.0,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "242c911933883bd5ee11d4eada4c25219acf434c5cb2d90270ab64e0d46e4779",
+      "min_sinr_nominal": 1.9999999999999996,
+      "wee": 0.6503060918732618,
+      "U": 9.509775004326936,
+      "V": 14.62353670551236,
+      "power_per_bs": [
+        0.07930758666735482,
+        0.07099636142734195
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0005859375,
+      "epsilon_cert": 0.0005859375,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0005859375,
+          0.0006591796875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          0
+        ],
+        "binding_margin": -0.00019519848085609935
+      }
+    },
+    {
+      "index": 30,
+      "seed": 31083,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.3,
+      "design_gamma": 4.0,
+      "design_eps": 0.025,
+      "power_slack": 1.0,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "d3c4f6666c15b149e6f57ea287c14041ccb4c61783142f49b1446b13564a3b89",
+      "min_sinr_nominal": 5.152962509133763,
+      "wee": 1.104536792083114,
+      "U": 16.79252130830853,
+      "V": 15.2032249434068,
+      "power_per_bs": [
+        0.15159024623541628,
+        0.2159552322591685
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.075,
+      "epsilon_cert": 0.075,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.075,
+          0.0750732421875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.0001943938750684081
+      }
+    },
+    {
+      "index": 31,
+      "seed": 31085,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.4,
+      "align_jitter": 1.0,
+      "design_gamma": 10.0,
+      "design_eps": 0.0,
+      "power_slack": 1.2,
+      "power_perturb": 0.0,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "5468ebac2e3740ac676ed8ef0461dc8911d522d4d2f0cff61cf6060ef6241613",
+      "min_sinr_nominal": 11.999999999999995,
+      "wee": 1.3248228917251943,
+      "U": 22.202638308846552,
+      "V": 16.75894826963181,
+      "power_per_bs": [
+        0.5845680012542436,
+        0.3741523412058441
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.06262207031249999,
+      "epsilon_cert": 0.06262207031249999,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.06262207031249999,
+          0.06269531249999999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.0001945693221496693
+      }
+    },
+    {
+      "index": 32,
+      "seed": 31090,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 0.3,
+      "design_gamma": 2.0,
+      "design_eps": 0.0,
+      "power_slack": 1.3,
+      "power_perturb": 0.2,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "e1db73e0da106a54d0ae0bdeb3239fb1f1ffd0191939e3354dedff919e88d5a0",
+      "min_sinr_nominal": 2.6194455041041813,
+      "wee": 0.7714533149298755,
+      "U": 11.676167757375577,
+      "V": 15.135287555847668,
+      "power_per_bs": [
+        0.10651058086569727,
+        0.21849869035641667
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0249755859375,
+      "epsilon_cert": 0.0249755859375,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0249755859375,
+          0.025048828125
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          0
+        ],
+        "binding_margin": -0.00019042153247395886
+      }
+    },
+    {
+      "index": 33,
+      "seed": 31093,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 1.0,
+      "design_gamma": 2.5,
+      "design_eps": 0.05,
+      "power_slack": 1.1,
+      "power_perturb": 0.0,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "78cbea80b53aa29404b2cf78509dd4df59f57cd0352dfd0bab950a329a7cbeb5",
+      "min_sinr_nominal": 4.374351587239717,
+      "wee": 1.1219090379077739,
+      "U": 17.150148546395343,
+      "V": 15.286576689299446,
+      "power_per_bs": [
+        0.2130614689079631,
+        0.17399767302582664
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.1024658203125,
+      "epsilon_cert": 0.1024658203125,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.1024658203125,
+          0.1025390625
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          2
+        ],
+        "binding_margin": -0.00019537394686236498
+      }
+    },
+    {
+      "index": 34,
+      "seed": 31094,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.0,
+      "align_jitter": 0.0,
+      "design_gamma": 10.0,
+      "design_eps": 0.0,
+      "power_slack": 1.0,
+      "power_perturb": 0.0,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "988623b4224f5a82bddfe9c902ecbb97dc3e9d71d7539cb5da0636b11f263776",
+      "min_sinr_nominal": 9.999999999999998,
+      "wee": 1.1952308535750094,
+      "U": 20.756589711823782,
+      "V": 17.36617629116546,
+      "power_per_bs": [
+        0.7284221923929333,
+        0.4397647982499414
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.056689453125,
+      "epsilon_cert": 0.056689453125,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.056689453125,
+          0.0567626953125
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019700314258797147
+      }
+    },
+    {
+      "index": 35,
+      "seed": 31097,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 1.0,
+      "align_jitter": 0.6,
+      "design_gamma": 2.0,
+      "design_eps": 0.025,
+      "power_slack": 1.1,
+      "power_perturb": 0.2,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "40c21f91a3ca4431b67210c9aabd96a4fa00bee40e3b39dedfe9256788405c18",
+      "min_sinr_nominal": 3.090523216223568,
+      "wee": 0.8892985762660639,
+      "U": 13.575811220185729,
+      "V": 15.265751663729262,
+      "power_per_bs": [
+        0.16975439688753174,
+        0.23523123532958776
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0404296875,
+      "epsilon_cert": 0.0404296875,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0404296875,
+          0.040502929687499994
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019455754800237063
+      }
+    },
+    {
+      "index": 36,
+      "seed": 31110,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.8,
+      "align_jitter": 0.0,
+      "design_gamma": 6.0,
+      "design_eps": 0.025,
+      "power_slack": 1.3,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "8b16a851dffd81f7aeb600ec2f6e2453de90b8be38a383b4bcf93c0d8d9da043",
+      "min_sinr_nominal": 10.848616799533403,
+      "wee": 1.4031159420466706,
+      "U": 24.97928123147122,
+      "V": 17.80272070391768,
+      "power_per_bs": [
+        0.4149828118261416,
+        0.9479710556625768
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.06181640624999998,
+      "epsilon_cert": 0.06181640624999998,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.06181640624999998,
+          0.061889648437499986
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019014191172856548
+      }
+    },
+    {
+      "index": 37,
+      "seed": 31114,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.8,
+      "align_jitter": 1.0,
+      "design_gamma": 10.0,
+      "design_eps": 0.0,
+      "power_slack": 1.1,
+      "power_perturb": 0.1,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "ab9db9778754f0f50bfa41966fdcda11d66ce30870a0cbd4899e5e4783401320",
+      "min_sinr_nominal": 10.999999999999998,
+      "wee": 1.1644720752143283,
+      "U": 21.50977500432694,
+      "V": 18.471696713180464,
+      "power_per_bs": [
+        0.632584368441157,
+        0.9906603825674181
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.031201171874999996,
+      "epsilon_cert": 0.031201171874999996,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.031201171874999996,
+          0.03127441406249999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.0001955966577875702
+      }
+    },
+    {
+      "index": 38,
+      "seed": 31117,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.6,
+      "align_jitter": 0.15,
+      "design_gamma": 6.0,
+      "design_eps": 0.025,
+      "power_slack": 1.3,
+      "power_perturb": 0.05,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "bcf556900960e5535d1ae3a66db1eafaaaf3a2f21e1fad9e274413d6e4c0f93b",
+      "min_sinr_nominal": 12.400378496037364,
+      "wee": 1.3494301076838868,
+      "U": 23.790516008081894,
+      "V": 17.63004684171089,
+      "power_per_bs": [
+        0.4313694801311087,
+        0.8598883197190283
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0692138671875,
+      "epsilon_cert": 0.0692138671875,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0692138671875,
+          0.06928710937499999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019353956990343646
+      }
+    },
+    {
+      "index": 39,
+      "seed": 31118,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.3,
+      "design_gamma": 2.0,
+      "design_eps": 0.0,
+      "power_slack": 1.1,
+      "power_perturb": 0.2,
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "configuration_signature": "e92541a27bbbf6ee7630ed5e53445ff9e873915374a67963562260a1ae406477",
+      "min_sinr_nominal": 2.262014933130296,
+      "wee": 0.7220087434380327,
+      "U": 10.652608045246497,
+      "V": 14.754126098973995,
+      "power_per_bs": [
+        0.12963087508743645,
+        0.07029704252268199
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.02197265625,
+      "epsilon_cert": 0.02197265625,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.02197265625,
+          0.0220458984375
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019857250914126875
+      }
+    }
+  ]
+}
