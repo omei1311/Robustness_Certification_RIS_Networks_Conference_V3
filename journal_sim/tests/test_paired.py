@@ -19,7 +19,7 @@ class PairedTests(unittest.TestCase):
         def empty(channel, cfg, seed, t):
             seen.append((t, id(channel), array_digest(channel.h_bu, channel.h_ru)))
             return [], empty_stats
-        with patch("journal_sim.dynamics.reconfiguration.build_candidate_pool", side_effect=empty):
+        with patch("journal_sim.design.pool_cache.build_candidate_pool", side_effect=empty):
             out = run_paired_policies(cfg, 60001, trajectory, estimates)
         self.assertEqual(len(out["records"]), len(cfg.policies) * cfg.time_steps)
         for t in range(cfg.time_steps):

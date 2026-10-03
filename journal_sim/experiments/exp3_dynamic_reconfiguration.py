@@ -1,24 +1,58 @@
 """Exp3: paired policies on shared physical trajectories and pilot noise."""
+import json
+from pathlib import Path
 from journal_sim.evaluation.dynamic import run_paired_policies
 from journal_sim.dynamics.offline_calibration import offline_radius
 from journal_sim.dynamics.calibration_guards import formal_calibration_guard
 import numpy as np
-from .common import execute, cli_config, pyplot, save_plot
+from .common import execute, cli_config, pyplot, save_plot, serializable
 
 
-def run_seed(cfg, seed):
+def run_mobility(cfg, seed, mobility):
+    """One mobility regime end to end: paired trajectory, all policies, shared pool cache."""
+    local = cfg.with_overrides(mobility_level=mobility)
+    result = run_paired_policies(local, seed)
+    return dict(
+        records=[dict(mobility=mobility, channel_correlation=local.correlation, **r) for r in result["records"]],
+        summaries=[dict(mobility=mobility, channel_correlation=local.correlation, **r) for r in result["summaries"]],
+        designs=[dict(mobility=mobility, **d) for d in result["designs"]],
+        arrays={mobility + "_" + key: value for key, value in result["arrays"].items()},
+        pool_cache=result.get("pool_cache", dict(candidate_pool_requests=0, candidate_pool_builds=0,
+                                                 candidate_pool_cache_hits=0, candidate_pool_cache_hit_rate=0.)),
+        end_to_end_runtime=result["end_to_end_runtime"])
+
+
+def _stage_mobility(staging_dir, seed, mobility, result):
+    """Atomic per-mobility checkpoint: only the worker's own staging is written."""
+    directory = Path(staging_dir) / f"seed_{seed}"
+    directory.mkdir(parents=True, exist_ok=True)
+    payload = {key: value for key, value in result.items() if key != "arrays"}
+    result_tmp = directory / f"{mobility}_result.json.tmp"
+    result_tmp.write_text(json.dumps(serializable(payload), ensure_ascii=False, allow_nan=False),
+                          encoding="utf-8")
+    result_tmp.replace(directory / f"{mobility}_result.json")
+    arrays_tmp = directory / f"{mobility}_arrays.tmp.npz"
+    np.savez_compressed(arrays_tmp, **result["arrays"])
+    arrays_tmp.replace(directory / f"{mobility}_arrays.npz")
+
+
+def run_seed(cfg, seed, staging_dir=None):
     offline_radius(cfg)  # Validate offline provenance before any redesign.
     records, summaries, designs, arrays = [], [], [], {}
     runtime = 0.
+    pool_stats = []
     for mobility in cfg.mobility_regimes:
-        local = cfg.with_overrides(mobility_level=mobility)
-        result = run_paired_policies(local, seed)
-        records.extend(dict(mobility=mobility, channel_correlation=local.correlation, **r) for r in result["records"])
-        summaries.extend(dict(mobility=mobility, channel_correlation=local.correlation, **r) for r in result["summaries"])
-        designs.extend(dict(mobility=mobility, **d) for d in result["designs"])
-        arrays.update({mobility + "_" + key: value for key, value in result["arrays"].items()})
+        result = run_mobility(cfg, seed, mobility)
+        records.extend(result["records"])
+        summaries.extend(result["summaries"])
+        designs.extend(result["designs"])
+        arrays.update(result["arrays"])
         runtime += result["end_to_end_runtime"]
-    return dict(records=records, summaries=summaries, designs=designs, arrays=arrays, end_to_end_runtime=runtime)
+        pool_stats.append(dict(mobility=mobility, **result["pool_cache"]))
+        if staging_dir is not None:
+            _stage_mobility(staging_dir, seed, mobility, result)
+    return dict(records=records, summaries=summaries, designs=designs, arrays=arrays,
+                pool_cache=pool_stats, end_to_end_runtime=runtime)
 
 
 def plot_trajectory(rows, details, output, cfg):

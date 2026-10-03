@@ -101,6 +101,28 @@ $drift = "journal_results\exp1b_drift\smoke\<run>\drift_rate.json"
 - manifest 记录 `git`（commit/dirty/method）+ `source_hashes` + 校准 artifact SHA256；
   formal 运行若工作区 dirty 会打印 WARNING，正式论文结果要求 clean tree。
 
+### 跨 policy 候选池缓存与 mobility 级 checkpoint
+
+- **池缓存**：同一 `(seed, mobility, time_index, observation_id, config_fingerprint)`
+  下的候选池（生成 + 认证）只执行一次，所有 policy 共享同一批只读候选；
+  trigger、selection、切换成本仍完全 policy 独立。缓存生命周期 = 一次
+  `run_paired_policies`（一个 seed × 一个 mobility），不跨 seed/mobility/运行。
+  cache hit 不重复计费（solver 调用与 runtime 记 0，原始构建成本单独保留审计），
+  summary/record 新增 `candidate_pool_{requests,builds,cache_hits,cache_hit_rate}`
+  与 `candidate_pool_cache_{hit,key,build_runtime,original_runtime}` 字段。
+- **mobility checkpoint**：exp3 的 seed worker 每完成一个 mobility 就把
+  `slow/medium/fast_result.json` + `*_arrays.npz` 原子写入
+  `_worker_staging/seed_<seed>/`；中断或失败后 staging 保留，manifest 的
+  seed 条目记录 `completed_mobility / pending_mobility`。
+  **当前不提供 `--resume`**：中断的 seed 需要整 seed 重跑（partial staging
+  仅用于诊断与证据保留），恢复运行必须满足指纹/artifact 完全一致前不会引入。
+- **`--mobility slow|medium|fast`** 显式指定时同时收窄 `mobility_regimes`，
+  真正只跑单档；不指定则默认三档全跑。
+- **workers 建议**（不要在代码中硬编码）：8C/16T → `--workers 4`；
+  12C/24T → `--workers 4~6`；16C/32T → `--workers 6~8`。注意 CVXPY/SCS 的
+  内存占用可能先于 CPU 成为瓶颈；正式运行期间不要在同一机器并行其他
+  numpy 重载任务（会触发 OpenBLAS 内存分配失败或严重缺页变慢）。
+
 ---
 
 ## 1.（会议论文 V3 框架说明，以下为原内容）

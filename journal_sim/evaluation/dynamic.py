@@ -8,6 +8,7 @@ from journal_sim.core.power import system_power
 from journal_sim.dynamics.channel_process import channel_trajectory, trajectory_id
 from journal_sim.dynamics.csi_estimation import estimate_physical, csi_observation_seed
 from journal_sim.dynamics.reconfiguration import PolicyRunner
+from journal_sim.design.pool_cache import CandidatePoolProvider
 from .metrics import long_term_metrics
 
 
@@ -38,11 +39,15 @@ def run_paired_policies(cfg, seed, trajectory=None, estimates=None):
         raise ValueError("paired trajectory and observations must span the full horizon")
     trajectory_digest, csi_digest = trajectory_id(trajectory), trajectory_id(estimates)
     records, summaries, designs, arrays = [], [], [], {}
+    # One pool cache per (seed, mobility) evaluation: every policy that
+    # redesigns at a given slot reuses the identical certified pool; only
+    # trigger/selection/transition costs stay policy-specific.
+    provider = CandidatePoolProvider()
     for name, sequence in (("true", trajectory), ("estimated", estimates)):
         for link in ("h_bu", "h_br", "h_ru"):
             arrays[name + "_" + link] = np.stack([getattr(c, link) for c in sequence])
     for policy in cfg.policies:
-        runner = PolicyRunner(policy, cfg, seed)
+        runner = PolicyRunner(policy, cfg, seed, pool_provider=provider)
         policy_records, ws, thetas = [], [], []
         for t in range(cfg.time_steps):
             # Shared observation is identical by object and contents; no error
@@ -62,5 +67,10 @@ def run_paired_policies(cfg, seed, trajectory=None, estimates=None):
         arrays[policy + "_w"] = np.stack(ws)
         arrays[policy + "_theta"] = np.stack(thetas)
         arrays.update({policy + "_" + k: v for k, v in runner.candidate_arrays.items()})
+    # Pool-cache totals are per (seed, mobility): stamp the same final values
+    # on every policy summary rather than cumulative snapshots.
+    for summary in summaries:
+        summary.update(provider.stats())
+    arrays.update(provider.collected_arrays())
     return dict(records=records, summaries=summaries, designs=designs, arrays=arrays,
-                end_to_end_runtime=perf_counter() - start)
+                pool_cache=provider.stats(), end_to_end_runtime=perf_counter() - start)

@@ -12,11 +12,15 @@ from .trigger import trigger_decision, reset_reference
 
 
 class PolicyRunner:
-    def __init__(self, policy, cfg, seed):
+    def __init__(self, policy, cfg, seed, pool_provider=None):
         self.policy, self.cfg, self.seed = policy, cfg, seed
         self.state = None
         self.design_records = []
         self.candidate_arrays = {}
+        # A shared provider lets every policy reuse the identical pool for the
+        # same (seed, mobility, time_index, observation); selection remains
+        # fully policy-local. Without one, the runner builds directly.
+        self.pool_provider = pool_provider
         self.epsilon_est, self.calibration_provenance = offline_radius(cfg)
         # Lifetime-predictor nu is resolved once per runner (artifact/manual/
         # legacy). It never touches the online trigger, which keeps using the
@@ -45,7 +49,9 @@ class PolicyRunner:
                      drift_calibration_sha256=self.drift_provenance.get("sha256"),
                      drift_calibration_quantile=self.drift_provenance.get("quantile"),
                      predicted_lifetime=None, predicted_reuse_slots=None,
-                     actual_reuse_time=None, actual_reuse_slots=None)
+                     actual_reuse_time=None, actual_reuse_slots=None,
+                     candidate_pool_cache_hit=None, candidate_pool_cache_key=None,
+                     candidate_pool_build_runtime=0., candidate_pool_original_runtime=0.)
         if decision.triggered and old is not None:
             # Diagnostics only: how long the replaced configuration was actually
             # reused. Never fed back into the predictor.
@@ -54,9 +60,22 @@ class PolicyRunner:
                          actual_reuse_slots=reused_slots)
         if decision.triggered:
             event["algorithm_calls"] = 1
-            pool, stats = build_candidate_pool(estimated_channel, self.cfg, self.seed, time_index)
-            for c in pool:
-                c.epsilon_est = self.epsilon_est
+            if self.pool_provider is None:
+                pool, stats = build_candidate_pool(estimated_channel, self.cfg, self.seed, time_index)
+                for c in pool:
+                    c.epsilon_est = self.epsilon_est
+                build_runtime = stats.get("end_to_end_runtime", 0.)
+                event.update(candidate_pool_cache_hit=False, candidate_pool_cache_key=None,
+                             candidate_pool_build_runtime=build_runtime,
+                             candidate_pool_original_runtime=build_runtime)
+            else:
+                supplied = self.pool_provider.get_or_build(estimated_channel, self.cfg, self.seed,
+                                                           time_index, epsilon_est=self.epsilon_est)
+                pool, stats = supplied.candidates, supplied.request_stats
+                event.update(candidate_pool_cache_hit=supplied.cache_hit,
+                             candidate_pool_cache_key=supplied.cache_key_repr,
+                             candidate_pool_build_runtime=supplied.request_stats.get("end_to_end_runtime", 0.),
+                             candidate_pool_original_runtime=supplied.original_stats.get("end_to_end_runtime", 0.))
             rule = self.cfg.selection_rule
             chooser = getattr(selection, "select_" + rule)
             outcome = (chooser(pool, old_theta, self.cfg, drift_rate_nu=self.drift_rate_nu)
@@ -80,14 +99,21 @@ class PolicyRunner:
             self.design_records.append(dict(seed=self.seed, time_index=time_index, policy=self.policy,
                                             stats=stats, selection_status=outcome.status, scores=outcome.scores,
                                             candidates=[c.to_record() for c in pool],
+                                            pool_cache=dict(cache_hit=event["candidate_pool_cache_hit"],
+                                                            cache_key=event["candidate_pool_cache_key"],
+                                                            build_runtime=event["candidate_pool_build_runtime"],
+                                                            original_runtime=event["candidate_pool_original_runtime"]),
                                             offline_calibration=self.calibration_provenance,
                                             drift_calibration=dict(nu=self.drift_rate_nu,
                                                                    **self.drift_provenance)))
-            for c in pool:
-                key = f"t{time_index}_c{c.index}"
-                self.candidate_arrays[key + "_w"] = c.configuration.w
-                self.candidate_arrays[key + "_theta"] = c.configuration.theta
-                self.candidate_arrays[key + "_H_hat"] = c.H_hat
+            if self.pool_provider is None:
+                # With a shared provider the candidate arrays are collected
+                # once per pool, not copied into every policy.
+                for c in pool:
+                    key = f"t{time_index}_c{c.index}"
+                    self.candidate_arrays[key + "_w"] = c.configuration.w
+                    self.candidate_arrays[key + "_theta"] = c.configuration.theta
+                    self.candidate_arrays[key + "_H_hat"] = c.H_hat
             for name in ("candidate_generation_runtime", "certificate_runtime", "strict_validation_runtime",
                          "fast_oracle_calls", "strict_oracle_calls",
                          "primary_solver_calls", "fallback_solver_calls",

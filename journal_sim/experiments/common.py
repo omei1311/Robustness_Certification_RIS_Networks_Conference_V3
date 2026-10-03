@@ -18,6 +18,7 @@ from concurrent.futures import ProcessPoolExecutor
 from csv import DictWriter
 from dataclasses import dataclass, fields
 from datetime import datetime, timezone, timedelta
+from inspect import signature
 import hashlib
 import json
 import multiprocessing
@@ -173,10 +174,15 @@ def cli_config(description):
             parser.error("n-seeds must be positive")
         overrides["seeds"] = tuple(range(cfg.seeds[0], cfg.seeds[0] + args.n_seeds))
     for arg, field in (("time_steps", "time_steps"), ("pool_size", "pool_size"),
-                       ("mobility", "mobility_level"), ("selection", "selection_rule"), ("output_root", "output_root")):
+                       ("selection", "selection_rule"), ("output_root", "output_root")):
         value = getattr(args, arg)
         if value is not None:
             overrides[field] = value
+    if args.mobility:
+        # An explicit --mobility must actually restrict the run: mobility_level
+        # alone would be ignored by experiments that iterate mobility_regimes.
+        overrides["mobility_level"] = args.mobility
+        overrides["mobility_regimes"] = (args.mobility,)
     if args.direct_intercell:
         overrides["include_direct_intercell"] = args.direct_intercell == "on"
     if args.epsilon_est is not None:
@@ -209,15 +215,27 @@ def _resolve_run_seed_module(run_seed):
     return spec.name
 
 
+def _invoke_run_seed(run_seed, cfg, seed, staging_dir):
+    """Call run_seed, passing the staging dir when the experiment supports it.
+
+    Experiments that checkpoint per mobility (exp3) accept staging_dir;
+    everything else keeps the plain (cfg, seed) contract.
+    """
+    if "staging_dir" in signature(run_seed).parameters:
+        return run_seed(cfg, seed, staging_dir=str(staging_dir))
+    return run_seed(cfg, seed)
+
+
 def _run_seed_worker(payload):
     """Spawn-side entry: rebuild the experiment callable, stage large arrays.
 
-    The worker only writes its own staging file; shared records/manifest/
+    The worker only writes its own staging files; shared records/manifest/
     arrays are written exclusively by the parent process.
     """
     import importlib
     module = importlib.import_module(payload["module_name"])
-    result = getattr(module, "run_seed")(payload["cfg"], payload["seed"])
+    result = _invoke_run_seed(getattr(module, "run_seed"), payload["cfg"], payload["seed"],
+                              payload.get("staging_dir", ""))
     arrays = result.pop("arrays", {}) or {}
     staging = Path(payload["staging_path"])
     staging.parent.mkdir(parents=True, exist_ok=True)
@@ -261,6 +279,9 @@ def execute(experiment, cfg, run_seed, plot, workers=1):
                     source_hashes=source_hashes(),
                     versions=dict(numpy=np.__version__, scipy=scipy.__version__, cvxpy=cvxpy.__version__),
                     execution=execution,
+                    candidate_pool_cache=(dict(enabled=True, scope="seed_mobility_time_observation",
+                                               shared_across_policies=True)
+                                          if experiment in ("exp3_dynamic", "exp4_runtime") else None),
                     note="Smoke results verify execution only. All requested seeds and failed/uncertain outcomes remain in raw records.")
     rows, details, extra, arrays = [], [], [], {}
     interrupted = False
@@ -281,19 +302,30 @@ def execute(experiment, cfg, run_seed, plot, workers=1):
         for key, value in result.get("arrays", {}).items():
             arrays[f"seed{seed}_{key}"] = value
 
+    def partial_mobility(seed):
+        """Completed-mobility evidence from the worker staging directory."""
+        directory = Path(staging_dir) / f"seed_{seed}"
+        if not directory.exists():
+            return {}
+        completed = [m for m in cfg.mobility_regimes if (directory / f"{m}_result.json").exists()]
+        return dict(completed_mobility=completed,
+                    pending_mobility=[m for m in cfg.mobility_regimes if m not in completed]) if completed else {}
+
     def record_failure(seed, exc):
         failure = dict(seed=seed, status="FAILED", error=f"{type(exc).__name__}: {exc}",
-                       traceback=traceback.format_exc())
+                       traceback=traceback.format_exc(), **partial_mobility(seed))
         rows.append(failure)
         details.append(failure)
 
     def mark_remaining_interrupted():
         # Keep already-finished seeds; cancelled ones are recorded, never dropped.
+        # Per-mobility staging shows exactly how far an interrupted seed got.
         done = {d.get("seed") for d in details}
         for seed in cfg.seeds:
             if seed not in done:
                 details.append(dict(seed=seed, status="INTERRUPTED",
-                                    error="KeyboardInterrupt: cancelled before completion"))
+                                    error="KeyboardInterrupt: cancelled before completion",
+                                    **partial_mobility(seed)))
 
     def checkpoint():
         save_csv(output / "records.csv", rows)
@@ -309,7 +341,7 @@ def execute(experiment, cfg, run_seed, plot, workers=1):
         try:
             for seed in cfg.seeds:
                 try:
-                    ingest(seed, run_seed(cfg, seed))
+                    ingest(seed, _invoke_run_seed(run_seed, cfg, seed, staging_dir))
                 except KeyboardInterrupt:
                     raise
                 except Exception as exc:
@@ -328,6 +360,7 @@ def execute(experiment, cfg, run_seed, plot, workers=1):
         try:
             futures = {seed: executor.submit(_run_seed_worker, dict(
                 module_name=module_name, cfg=cfg, seed=seed,
+                staging_dir=str(staging_dir),
                 staging_path=str(staging_dir / f"seed_{seed}_arrays.npz"))) for seed in cfg.seeds}
             # Collect strictly in cfg.seeds order; completion order cannot leak out.
             for seed in cfg.seeds:
