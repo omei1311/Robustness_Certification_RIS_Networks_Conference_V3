@@ -26,7 +26,7 @@ class JournalConfig:
     alpha_ru: float = 2.2
     rician_k: float = 3.0
     channel_scale: float = 1e5
-    direct_serving_attenuation: float = 0.25
+    direct_link_attenuation: float = 0.25
     include_direct_intercell: bool = True
     inter_ris_attenuation: float = 1.0
     ris_size_model: str = "growing_aperture"
@@ -58,7 +58,9 @@ class JournalConfig:
     certificate_max_iter: int = 60
     strict_shrink_factor: float = 0.98
     strict_shrink_steps: int = 40
-    pool_size: int = 40
+    pool_size: int = 12
+    static_pool_size: int = 40
+    validation_pool_size: int = 12
     pool_attempts: int = 200
     design_gamma_mult: tuple = (1.0, 1.25, 1.5, 2.0, 3.0, 5.0)
     power_slack_grid: tuple = (1.0, 1.1, 1.3, 1.8)
@@ -71,20 +73,28 @@ class JournalConfig:
     calibration_quantiles: tuple = (0.90, 0.95, 0.99)
     calibration_snr_grid: tuple = (10.0, 20.0, 30.0, 40.0)
     calibration_q: float = 0.99
+    calibration_phase_profiles: int = 4
+    calibration_cases: tuple = ()
+    csi_calibration_file: str | None = None
+    csi_calibration_sha256: str | None = None
+    epsilon_est: float | None = None
     time_steps: int = 100
     slot_duration: float = 0.1
     channel_correlation: float | None = None
     mobility_level: str = "slow"
+    mobility_regimes: tuple = ("slow", "medium", "fast")
     mobility_correlations: tuple = (0.9999, 0.995, 0.95)
     quasi_static_br: bool = True
     eta_trigger: float = 0.9
     T_period: int = 10
+    periodic_short: int = 5
+    periodic_long: int = 20
     drift_rate_nu: float = 0.002
     energy_per_bit_switch: float = 1e-5
     E_controller_fixed: float = 1e-3
-    policies: tuple = ("always_reconfigure", "periodic_reconfigure", "certificate_triggered", "static")
+    policies: tuple = ("always_reconfigure", "periodic_short", "periodic_long", "certificate_triggered", "static")
     selection_rule: str = "lifetime_aware"
-    seeds: tuple = (60001, 60002)
+    seeds: tuple = tuple(range(60001, 60011))
     channel_seed: int = 20260706
     pool_seed: int = 31001
     csi_seed: int = 51001
@@ -92,8 +102,7 @@ class JournalConfig:
     mc_seed: int = 41001
     mc_samples: int = 300
     alpha_grid: tuple = (0.25, 0.50, 0.90, 1.00, 1.10)
-    legacy_indices: tuple = (34, 6, 26)
-    legacy_fixture: str = "journal_sim/tests/fixtures/conference_representatives.npz"
+    validation_alpha_grid: tuple = (0.90, 1.00, 1.10)
     lambda_grid_points: int = 400
     scaling_cases: tuple = ((16, 2), (32, 2), (64, 2), (32, 3))
     runtime_time_steps: int = 10
@@ -124,7 +133,8 @@ class JournalConfig:
             raise ValueError("invalid channel correlation")
         if self.ris_size_model not in ("growing_aperture", "fixed_aperture"):
             raise ValueError("unknown aperture model")
-        if min(self.time_steps, self.T_period, self.pool_size, self.calibration_samples,
+        if min(self.time_steps, self.T_period, self.periodic_short, self.periodic_long,
+               self.pool_size, self.static_pool_size, self.validation_pool_size, self.calibration_phase_profiles, self.calibration_samples,
                self.mc_samples, self.solver_max_iter, self.certificate_max_iter, self.strict_shrink_steps) < 1:
             raise ValueError("positive experiment budgets required")
         if self.pool_attempts < self.pool_size or not self.seeds:
@@ -137,8 +147,14 @@ class JournalConfig:
             raise ValueError("invalid calibration quantile")
         if self.selection_rule not in ("lifetime_aware", "wee_only", "robustness_only", "stability_aware"):
             raise ValueError("unknown selection rule")
-        if not set(self.policies) <= {"always_reconfigure", "periodic_reconfigure", "certificate_triggered", "static"}:
+        if not set(self.policies) <= {"always_reconfigure", "periodic_reconfigure", "periodic_short", "periodic_long", "certificate_triggered", "static"}:
             raise ValueError("unknown policy")
+        if not self.mobility_regimes or not set(self.mobility_regimes) <= {"slow", "medium", "fast"}:
+            raise ValueError("invalid mobility regimes")
+        if self.epsilon_est is not None and (not math.isfinite(self.epsilon_est) or self.epsilon_est < 0):
+            raise ValueError("offline CSI radius must be finite and nonnegative")
+        if self.epsilon_est is not None and self.csi_calibration_file is not None:
+            raise ValueError("choose an explicit pre-calibrated radius or an Exp1 artifact")
         return self
 
     @property
@@ -164,6 +180,23 @@ def config_fingerprint(cfg):
     return hashlib.sha256(json.dumps(asdict(cfg), sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest()
 
 
+def certificate_context_fingerprint(cfg):
+    """Fixed-X aggregate-ball feasibility and numerical validation semantics.
+
+    Actual W, Theta and H_hat are hashed separately. Output paths, seeds,
+    motion, candidate-generation settings and calibration do not change this
+    fixed-X QoS problem. Tighter validation guards do change its acceptance.
+    """
+    payload = {name: getattr(cfg, name) for name in
+               ("L", "K", "M", "gamma", "radius_floor", "strict_eig_tol",
+                "strict_normalized_tol", "nominal_normalized_tol")}
+    payload.update(noise_power=cfg.noise_power, uncertainty_model="aggregate_complex_l2")
+    return hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":"), allow_nan=False).encode()).hexdigest()
+
+
 def smoke_config(**kwargs):
-    return JournalConfig(pool_size=4, pool_attempts=20, time_steps=6, runtime_time_steps=2,
-                         calibration_samples=100, mc_samples=50, seeds=(60001,), smoke=True).with_overrides(**kwargs)
+    return JournalConfig(pool_size=4, static_pool_size=4, validation_pool_size=4, pool_attempts=20,
+                         time_steps=3, runtime_time_steps=2, periodic_short=1, periodic_long=2,
+                         calibration_samples=100, calibration_phase_profiles=2,
+                         calibration_cases=((16, 2), (32, 2), (64, 2), (32, 3)),
+                         mc_samples=50, seeds=(60001,), smoke=True).with_overrides(**kwargs)

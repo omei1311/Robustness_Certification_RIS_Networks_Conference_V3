@@ -32,6 +32,7 @@ class ExperimentTests(unittest.TestCase):
 
     def test_successful_policies_reuse_and_energy(self):
         cfg = tiny_config(pool_size=2, pool_attempts=2, time_steps=3, T_period=2,
+                          policies=("always_reconfigure", "periodic_reconfigure", "certificate_triggered", "static"),
                           calibration_samples=10, noise_power_dbm=30, p_max_dbm=40,
                           estimation_snr_db=80, design_gamma_mult=(2.,), power_slack_grid=(1.,))
         c = generate_channel(cfg, 60001)

@@ -91,6 +91,8 @@ def cli_config(description):
     parser.add_argument("--mobility", choices=("slow", "medium", "fast"))
     parser.add_argument("--selection", choices=("lifetime_aware", "wee_only", "robustness_only", "stability_aware"))
     parser.add_argument("--output-root", type=str)
+    parser.add_argument("--csi-calibration", type=str, help="Exp1 joint_radius.json; hash is recorded in full config")
+    parser.add_argument("--epsilon-est", type=float, help="Explicit pre-calibrated radius; no online Monte Carlo")
     args = parser.parse_args()
     cfg = load_config(args.config) if args.config else smoke_config() if args.smoke else JournalConfig().validate()
     overrides = {}
@@ -107,7 +109,16 @@ def cli_config(description):
             overrides[field] = value
     if args.direct_intercell:
         overrides["include_direct_intercell"] = args.direct_intercell == "on"
-    return cfg.with_overrides(**overrides)
+    if args.epsilon_est is not None:
+        overrides.update(epsilon_est=args.epsilon_est, csi_calibration_file=None, csi_calibration_sha256=None)
+    cfg = cfg.with_overrides(**overrides)
+    if args.csi_calibration:
+        from journal_sim.dynamics.offline_calibration import bind_artifact
+        cfg = bind_artifact(cfg, args.csi_calibration)
+    elif cfg.csi_calibration_file and not cfg.csi_calibration_sha256:
+        from journal_sim.dynamics.offline_calibration import bind_artifact
+        cfg = bind_artifact(cfg, cfg.csi_calibration_file)
+    return cfg
 
 
 def execute(experiment, cfg, run_seed, plot):
@@ -166,7 +177,7 @@ def pyplot():
     return plt
 
 
-def save_plot(fig, output):
+def save_plot(fig, output, name="plot"):
     fig.tight_layout()
-    fig.savefig(output / "plot.png", dpi=200, bbox_inches="tight")
-    fig.savefig(output / "plot.pdf", bbox_inches="tight")
+    fig.savefig(output / (name + ".png"), dpi=200, bbox_inches="tight")
+    fig.savefig(output / (name + ".pdf"), bbox_inches="tight")

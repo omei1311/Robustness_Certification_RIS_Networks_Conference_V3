@@ -6,7 +6,7 @@ from journal_sim.core.channels import effective_channels
 from journal_sim.core.power import transition_energy
 from journal_sim.design.candidate_pool import build_candidate_pool
 from journal_sim.design import selection
-from .csi_estimation import calibrate_physical
+from .offline_calibration import offline_radius
 from .trigger import trigger_decision, reset_reference
 
 
@@ -16,6 +16,7 @@ class PolicyRunner:
         self.state = None
         self.design_records = []
         self.candidate_arrays = {}
+        self.epsilon_est, self.calibration_provenance = offline_radius(cfg)
 
     def step(self, estimated_channel, time_index):
         start = perf_counter()
@@ -35,16 +36,8 @@ class PolicyRunner:
         if decision.triggered:
             event["algorithm_calls"] = 1
             pool, stats = build_candidate_pool(estimated_channel, self.cfg, self.seed, time_index)
-            calibration_start = perf_counter()
-            calibration_records = []
             for c in pool:
-                # This is parametric calibration using observed CSI as a proxy.
-                # It does not inspect hidden pilot errors or current true links.
-                calib_seed = int(np.random.SeedSequence([self.cfg.calibration_seed, self.seed, time_index, c.index]).generate_state(1)[0])
-                calibration = calibrate_physical(estimated_channel, c.configuration.theta, self.cfg, calib_seed)
-                c.epsilon_est = calibration["epsilon_est"]
-                calibration_records.append({k: v for k, v in calibration.items() if not k.endswith("distribution")})
-            event["calibration_runtime"] = perf_counter() - calibration_start
+                c.epsilon_est = self.epsilon_est
             rule = self.cfg.selection_rule
             chooser = getattr(selection, "select_" + rule)
             outcome = chooser(pool, old_theta, self.cfg) if rule == "lifetime_aware" else chooser(pool, self.cfg)
@@ -62,7 +55,8 @@ class PolicyRunner:
                 event["new_configuration"] = old.configuration.configuration_id
             self.design_records.append(dict(seed=self.seed, time_index=time_index, policy=self.policy,
                                             stats=stats, selection_status=outcome.status, scores=outcome.scores,
-                                            candidates=[c.to_record() for c in pool], calibrations=calibration_records))
+                                            candidates=[c.to_record() for c in pool],
+                                            offline_calibration=self.calibration_provenance))
             for c in pool:
                 key = f"t{time_index}_c{c.index}"
                 self.candidate_arrays[key + "_w"] = c.configuration.w
@@ -73,6 +67,7 @@ class PolicyRunner:
                 event[name] = stats[name]
         state = self.state
         event.update(configuration_id=None if state is None else state.configuration.configuration_id,
+                     epsilon_est_offline=self.epsilon_est, offline_calibration=self.calibration_provenance,
                      epsilon_cert=0. if state is None else state.certificate.epsilon_cert,
                      epsilon_est_calibrated=None if state is None else state.epsilon_est_calibrated,
                      reference_time=None if state is None else state.reference_time,

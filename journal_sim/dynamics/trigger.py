@@ -16,6 +16,10 @@ class ReferenceState:
     channel_digest: str
 
     def valid_for(self, cfg):
+        try:
+            self.configuration.validate(cfg)
+        except ValueError:
+            return False
         return (self.certificate.reusable and
                 self.channel_digest == array_digest(self.H_hat_ref) and
                 self.certificate.matches(self.configuration.w, self.H_hat_ref, self.configuration.theta, cfg))
@@ -53,8 +57,10 @@ def trigger_decision(policy, state, H_hat_current, time_index, cfg):
         return TriggerDecision(True, "configuration_or_certificate_invalidated", rho, epsilon_est, total, threshold)
     if policy == "always_reconfigure":
         triggered, reason = True, "every_csi_update"
-    elif policy == "periodic_reconfigure":
-        triggered = (time_index - state.reference_time) >= cfg.T_period
+    elif policy in ("periodic_reconfigure", "periodic_short", "periodic_long"):
+        period = {"periodic_reconfigure": cfg.T_period, "periodic_short": cfg.periodic_short,
+                  "periodic_long": cfg.periodic_long}[policy]
+        triggered = (time_index - state.reference_time) >= period
         reason = "period_elapsed" if triggered else "period_pending"
     elif policy == "certificate_triggered":
         triggered = total >= threshold

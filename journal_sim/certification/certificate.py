@@ -1,7 +1,7 @@
 """Strictly validated numerical lower bounds, with full endpoint provenance."""
 from dataclasses import dataclass, asdict, field
 import numpy as np
-from journal_sim.config import config_fingerprint
+from journal_sim.config import certificate_context_fingerprint
 from journal_sim.core.models import array_digest
 from .oracle import FastOracle, StrictOracle, STRICT_FEASIBLE, STRICT_INFEASIBLE
 
@@ -13,7 +13,7 @@ NUMERICALLY_UNCERTAIN = "NUMERICALLY_UNCERTAIN"
 
 def context_id(w, H_hat, theta, cfg):
     return array_digest(np.asarray(w, complex), np.asarray(H_hat, complex),
-                        np.asarray([] if theta is None else theta, complex)) + config_fingerprint(cfg)
+                        np.asarray([] if theta is None else theta, complex)) + certificate_context_fingerprint(cfg)
 
 
 @dataclass

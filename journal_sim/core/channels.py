@@ -65,7 +65,7 @@ def generate_channel(cfg, seed):
             ru_std[l, k] = amp / np.sqrt(kf + 1)
             ru[l, k] = ru_mean[l, k] + ru_std[l, k] * complex_normal((cfg.N,), rng)
             for i in range(cfg.L):
-                bu_std[i, l, k] = cfg.channel_scale * cfg.direct_serving_attenuation * np.sqrt(loss(np.linalg.norm(bs[i] - positions[l, k]), cfg.alpha_bu))
+                bu_std[i, l, k] = cfg.channel_scale * cfg.direct_link_attenuation * np.sqrt(loss(np.linalg.norm(bs[i] - positions[l, k]), cfg.alpha_bu))
                 bu[i, l, k] = bu_std[i, l, k] * complex_normal((cfg.M,), rng)
     return PhysicalChannel(bu, br, ru, positions, np.zeros_like(bu), br_mean, ru_mean,
                            bu_std, br_std, ru_std)

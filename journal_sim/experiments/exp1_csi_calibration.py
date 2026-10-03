@@ -2,40 +2,73 @@
 import numpy as np
 from journal_sim.core.channels import generate_channel, effective_channels
 from journal_sim.dynamics.csi_estimation import calibrate_csi, calibrate_physical
-from .common import execute, cli_config, pyplot, save_plot
+from journal_sim.dynamics.offline_calibration import calibration_scope, scope_fingerprint
+from journal_sim.core.models import phase_set
+from .common import execute, cli_config, pyplot, save_plot, save_json
 
 
 def run_seed(cfg, seed):
-    channel = generate_channel(cfg, seed)
-    theta = np.ones(cfg.N, complex)
-    H = effective_channels(channel, theta, cfg)
-    rows, arrays = [], dict(h_bu=channel.h_bu, h_br=channel.h_br, h_ru=channel.h_ru, theta=theta)
-    for i, snr in enumerate(cfg.calibration_snr_grid):
-        local = cfg.with_overrides(estimation_snr_db=snr)
-        for estimator, function in (("isotropic_effective", calibrate_csi), ("physical_pilot", calibrate_physical)):
-            calibration_seed = int(np.random.SeedSequence([cfg.calibration_seed, seed, i]).generate_state(1)[0])
-            result = function(H, local, calibration_seed) if estimator == "isotropic_effective" else function(channel, theta, local, calibration_seed)
-            rows.append(dict(estimator=estimator, **{k: v for k, v in result.items() if not k.endswith("distribution")}))
-            arrays[f"snr{i}_{estimator}_relative_errors"] = result["relative_error_distribution"]
-            arrays[f"snr{i}_{estimator}_joint_relative_errors"] = result["joint_relative_error_distribution"]
+    rows, arrays = [], {}
+    for N, bits in cfg.calibration_cases or ((cfg.N, cfg.bits),):
+        base = cfg.with_overrides(N=N, bits=bits)
+        channel = generate_channel(base, seed)
+        prefix = f"N{N}_B{bits}"
+        arrays.update({prefix + "_" + link: getattr(channel, link) for link in ("h_bu", "h_br", "h_ru")})
+        for phase in range(cfg.calibration_phase_profiles):
+            phase_seed = int(np.random.SeedSequence([cfg.calibration_seed, seed, N, bits, phase]).generate_state(1)[0])
+            theta = np.ones(N, complex) if phase == 0 else phase_set(bits)[np.random.default_rng(phase_seed).integers(2 ** bits, size=N)]
+            H = effective_channels(channel, theta, base)
+            arrays[f"{prefix}_phase{phase}_theta"] = theta
+            for i, snr in enumerate(cfg.calibration_snr_grid):
+                local = base.with_overrides(estimation_snr_db=snr)
+                for estimator, function in (("isotropic_effective", calibrate_csi), ("physical_pilot", calibrate_physical)):
+                    calibration_seed = int(np.random.SeedSequence([phase_seed, i]).generate_state(1)[0])
+                    result = function(H, local, calibration_seed) if estimator == "isotropic_effective" else function(channel, theta, local, calibration_seed)
+                    rows.append(dict(estimator=estimator, N=N, bits=bits, phase_profile=phase,
+                                     phase_seed=phase_seed, scope=calibration_scope(local), scope_fingerprint=scope_fingerprint(local),
+                                     **{k: v for k, v in result.items() if not k.endswith("distribution")}))
+                    key = f"{prefix}_phase{phase}_snr{i}_{estimator}"
+                    arrays[key + "_relative_errors"] = result["relative_error_distribution"]
+                    arrays[key + "_joint_relative_errors"] = result["joint_relative_error_distribution"]
     return dict(records=rows, arrays=arrays)
 
 
 def plot(rows, details, output, cfg):
+    # Publish offline parameters once, after all requested calibration seeds.
+    # Taking the maximum observed per-profile joint quantile is a transparent
+    # conservative aggregation, not a universal deterministic error bound.
+    grouped = {}
+    for r in rows:
+        if r.get("estimator") == "physical_pilot":
+            grouped.setdefault(r["scope_fingerprint"], []).append(r)
+    entries = []
+    for fingerprint, group in grouped.items():
+        entry = dict(scope_fingerprint=fingerprint, scope=group[0]["scope"],
+                     calibration_seeds=sorted({r["seed"] for r in group}),
+                     profile_count=len(group), samples_per_profile=cfg.calibration_samples)
+        for q in cfg.calibration_quantiles:
+            key = f"epsilon_joint_{round(q * 100)}"
+            entry[key] = max(r[key] for r in group)
+        entries.append(entry)
+    save_json(output / "joint_radius.json", dict(schema="journal_offline_joint_radius_v1", entries=entries,
+              interpretation="Offline maximum of empirical all-user joint quantiles across declared calibration drops and phase profiles. Transfer to unseen trajectories/configurations is empirical; no deterministic or horizon guarantee.",
+              source="records.csv", config=cfg.to_dict(),
+              requested_seed_count=len(cfg.seeds), completed_seed_count=sum(d["status"] == "COMPLETED" for d in details),
+              complete=all(d["status"] == "COMPLETED" for d in details)))
     plt = pyplot()
     fig, axes = plt.subplots(1, 2, figsize=(10, 4), sharey=True)
     for ax, estimator in zip(axes, ("isotropic_effective", "physical_pilot")):
-        for q, color, marker in ((90, "#0072B2", "o"), (95, "#E69F00", "s"), (99, "#CC79A7", "^")):
-            for seed in cfg.seeds:
-                group = [r for r in rows if r.get("estimator") == estimator and r["seed"] == seed]
-                if group:
-                    ax.plot([r["estimation_snr_db"] for r in group], [r[f"epsilon_{q}"] for r in group],
-                            color=color, marker=marker, label=f"{q}% (seed {seed})")
+        for q, color, marker in ((95, "#0072B2", "o"), (99, "#E69F00", "s")):
+            group = [r for r in rows if r.get("estimator") == estimator and r["N"] == cfg.N and r["bits"] == cfg.bits]
+            snrs = sorted({r["estimation_snr_db"] for r in group})
+            if snrs:
+                ax.plot(snrs, [max(r[f"epsilon_joint_{q}"] for r in group if r["estimation_snr_db"] == snr) for snr in snrs],
+                        color=color, marker=marker, label=f"Joint {q}% (max across calibration profiles)")
         ax.set_title(estimator.replace("_", " "))
         ax.set_xlabel("Estimation SNR (dB)")
         ax.legend(fontsize=8)
         ax.set_yscale("log")
-    axes[0].set_ylabel("Empirical relative radius (per-user quantile)")
+    axes[0].set_ylabel("Empirical all-user joint relative radius")
     save_plot(fig, output)
     plt.close(fig)
 
