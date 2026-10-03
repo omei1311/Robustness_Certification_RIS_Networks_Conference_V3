@@ -1,0 +1,153 @@
+{
+  "source_npz_sha256": "21ac2c552d232bfad346ebeff91639fd32b62bddfcc8320e54ff02b2348c09f0",
+  "source_json_sha256": "61dd5f9f13339110bef15752bd9f3084aced00fb74fedddad6cea2bf6060c2d6",
+  "source_path": "results/pool_cache",
+  "indices": [
+    34,
+    6,
+    26
+  ],
+  "candidates": [
+    {
+      "index": 34,
+      "seed": 31110,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.8,
+      "align_jitter": 0.0,
+      "design_gamma": 6.0,
+      "design_eps": 0.025,
+      "power_slack": 1.3,
+      "power_perturb": 0.05,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "737d8b2ba54657791fe82e32598c766104ba00cfc1aa19154ed701aff55786ca",
+      "min_sinr_nominal": 10.837233381629812,
+      "wee": 1.2792320135377533,
+      "U": 23.280985303134504,
+      "V": 18.199189089045905,
+      "power_per_bs": [
+        0.7100246629982457,
+        0.7823071908391982
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0908935546875,
+      "epsilon_cert": 0.0908935546875,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0908935546875,
+          0.090966796875
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": -0.00019908065598858975
+      }
+    },
+    {
+      "index": 6,
+      "seed": 31020,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.2,
+      "align_jitter": 0.3,
+      "design_gamma": 3.0,
+      "design_eps": 0.05,
+      "power_slack": 1.5,
+      "power_perturb": 0.1,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "5b16c8273e7d0c31ee26dae69c2ff77176c73b715f2bd3ad1c6bc733e220bfa7",
+      "min_sinr_nominal": 8.2380083458834,
+      "wee": 1.2460197453193609,
+      "U": 23.21337605812263,
+      "V": 18.630022634330672,
+      "power_per_bs": [
+        0.8927537898344022,
+        0.7632948112112536
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.11396484374999999,
+      "epsilon_cert": 0.11396484374999999,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.11396484374999999,
+          0.11403808593749999
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": -0.0001887726640456
+      }
+    },
+    {
+      "index": 26,
+      "seed": 31077,
+      "bits": 2,
+      "direction_kind": "zf_full",
+      "align_frac": 0.6,
+      "align_jitter": 0.6,
+      "design_gamma": 2.0,
+      "design_eps": 0.0,
+      "power_slack": 1.0,
+      "power_perturb": 0.0,
+      "channel_seed": 20260706,
+      "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+      "configuration_signature": "58b29879cfba25777dd94e8f4efe5c69041b471d0d544d8315e592ef1bd654a3",
+      "min_sinr_nominal": 1.9999999999999987,
+      "wee": 0.6319332180288708,
+      "U": 9.509775004326936,
+      "V": 15.048702510037174,
+      "power_per_bs": [
+        0.17611601756884515,
+        0.12055093624528118
+      ],
+      "qos_feasible": true,
+      "r_cert": 0.0009521484374999999,
+      "epsilon_cert": 0.0009521484374999999,
+      "cert_info": {
+        "status": "EXACT_BRACKET",
+        "bracket": [
+          0.0009521484374999999,
+          0.0010253906249999998
+        ],
+        "n_bisection_iter": 13,
+        "n_feasibility_checks": 15,
+        "binding_user": [
+          0,
+          1
+        ],
+        "binding_margin": -0.00019278173203929327
+      }
+    }
+  ],
+  "meta": {
+    "pool_target_size": 40,
+    "channel_seed": 20260706,
+    "cfg_seed": 20260706,
+    "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+    "generation_stats": {
+      "attempts": 125,
+      "accepted": 40,
+      "rejected_unique": 0,
+      "rejected_qos_power": 85,
+      "reject_reasons": {
+        "power:diverged": 59,
+        "power:slack_budget": 5,
+        "power:power_budget_exceeded": 21
+      },
+      "unique_theta_count": 40,
+      "unique_configuration_count": 40
+    },
+    "n_oracle_calls": 600
+  },
+  "model_note": "Archived conference channels: direct intercell OFF. No new generation or recertification by legacy code."
+}

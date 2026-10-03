@@ -1,0 +1,239 @@
+{
+  "experiment": "exp1_csi",
+  "mode": "smoke",
+  "config": {
+    "L": 2,
+    "K": 3,
+    "M": 12,
+    "N": 32,
+    "bits": 2,
+    "gamma": 2.0,
+    "bs_x": [
+      -100.0,
+      100.0
+    ],
+    "bs_y": [
+      0.0,
+      0.0
+    ],
+    "ue_center_x": [
+      -15.0,
+      15.0
+    ],
+    "ue_center_y": [
+      0.0,
+      0.0
+    ],
+    "ue_radius": 7.0,
+    "ris_x": 0.0,
+    "ris_y": 0.0,
+    "c0_db": -30.0,
+    "alpha_bu": 4.5,
+    "alpha_br": 2.2,
+    "alpha_ru": 2.2,
+    "rician_k": 3.0,
+    "channel_scale": 100000.0,
+    "direct_serving_attenuation": 0.25,
+    "include_direct_intercell": true,
+    "inter_ris_attenuation": 1.0,
+    "ris_size_model": "growing_aperture",
+    "ris_reference_N": 32,
+    "noise_power_dbm": -100.0,
+    "p_max_dbm": 30.0,
+    "pa_efficiency": 0.38,
+    "p_bs": 6.0,
+    "p_ue": 0.1,
+    "p_loss": 0.5,
+    "p_ris_controller": 0.5,
+    "p_cell_idle": 0.001,
+    "p_diode_on": 0.004,
+    "bandwidth_hz": 10000000.0,
+    "radius_floor": 1e-10,
+    "strict_eig_tol": 1e-08,
+    "strict_normalized_tol": 1e-08,
+    "nominal_normalized_tol": 1e-12,
+    "solver": "CLARABEL",
+    "solver_tol": 1e-10,
+    "solver_max_iter": 200,
+    "fast_tol": 0.0,
+    "fast_lambda_cap": 10000000000.0,
+    "fast_search_tol": 1e-09,
+    "eps_hi": 0.2,
+    "eps_cap": 1.2,
+    "certificate_abs_tol": 1e-07,
+    "certificate_rel_tol": 0.0001,
+    "certificate_max_iter": 60,
+    "strict_shrink_factor": 0.98,
+    "strict_shrink_steps": 40,
+    "pool_size": 4,
+    "pool_attempts": 20,
+    "design_gamma_mult": [
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      3.0,
+      5.0
+    ],
+    "power_slack_grid": [
+      1.0,
+      1.1,
+      1.3,
+      1.8
+    ],
+    "power_control_tol": 1e-10,
+    "zf_rcond": 1e-12,
+    "epsilon_min": 0.05,
+    "estimation_snr_db": 40.0,
+    "nmse_db": null,
+    "calibration_samples": 100,
+    "calibration_quantiles": [
+      0.9,
+      0.95,
+      0.99
+    ],
+    "calibration_snr_grid": [
+      10.0,
+      20.0,
+      30.0,
+      40.0
+    ],
+    "calibration_q": 0.99,
+    "time_steps": 6,
+    "slot_duration": 0.1,
+    "channel_correlation": null,
+    "mobility_level": "slow",
+    "mobility_correlations": [
+      0.9999,
+      0.995,
+      0.95
+    ],
+    "quasi_static_br": true,
+    "eta_trigger": 0.9,
+    "T_period": 10,
+    "drift_rate_nu": 0.002,
+    "energy_per_bit_switch": 1e-05,
+    "E_controller_fixed": 0.001,
+    "policies": [
+      "always_reconfigure",
+      "periodic_reconfigure",
+      "certificate_triggered",
+      "static"
+    ],
+    "selection_rule": "lifetime_aware",
+    "seeds": [
+      60001
+    ],
+    "channel_seed": 20260706,
+    "pool_seed": 31001,
+    "csi_seed": 51001,
+    "calibration_seed": 52001,
+    "mc_seed": 41001,
+    "mc_samples": 50,
+    "alpha_grid": [
+      0.25,
+      0.5,
+      0.9,
+      1.0,
+      1.1
+    ],
+    "legacy_indices": [
+      34,
+      6,
+      26
+    ],
+    "legacy_fixture": "journal_sim/tests/fixtures/conference_representatives.npz",
+    "lambda_grid_points": 400,
+    "scaling_cases": [
+      [
+        16,
+        2
+      ],
+      [
+        32,
+        2
+      ],
+      [
+        64,
+        2
+      ],
+      [
+        32,
+        3
+      ]
+    ],
+    "output_root": "journal_results",
+    "smoke": true
+  },
+  "seeds": [
+    60001
+  ],
+  "fingerprint": "a81d794795fa6e389debb4c38a8d5b39316d9954868f867c84c3c8e58338b25d",
+  "timestamp": "2026-10-03T18:47:22.082016+08:00",
+  "git_commit": "cebd9b2c72fb25cede9434e18a0b0c0d004302a4",
+  "source_hashes": {
+    "journal_sim\\__init__.py": "9036bdf4a9295a6817831281dc334c50266df56cfe14da82774a09409266268c",
+    "journal_sim\\certification\\__init__.py": "8ca1e4e2f5a3bfa56c004dbfd46f068b5273d981cccad6007eb5de511b322a50",
+    "journal_sim\\certification\\certificate.py": "b3380f9a5cd9809cc3855714cf83792ae56f0a3408193d6bc30feed912a2e2ad",
+    "journal_sim\\certification\\lmi.py": "eda335cd46d39414fccd9b6ae7d62a03642590287f4d5c469b5abbff2b59c771",
+    "journal_sim\\certification\\oracle.py": "e88e589acd04fa5ad8711b407a260411601a6b4112df957b66427e36118bb964",
+    "journal_sim\\config.py": "5237333c1b247c2a2b87f3e35678bcfcbbdacc4a13b47c2714f27705776ec40a",
+    "journal_sim\\core\\__init__.py": "844699544ca801d0e5c1ae2c1a5a10a5bb034e1bb4a229ebfed8b1b1614e219d",
+    "journal_sim\\core\\channels.py": "9981e1a1797ffdb50a4a9cdc103c9d6cef29547321f4cde9437226413a053870",
+    "journal_sim\\core\\models.py": "7ad9fbc0c7f83838bdb5b95c0d43b770bda4d83d4235e5cf98518effed0f163e",
+    "journal_sim\\core\\power.py": "ba40d130ab6eb0302e7ed107f7662a430b3c3d74cbb741f9df724d58cf2b20ea",
+    "journal_sim\\core\\sinr.py": "cad006e5b310984246d2a47199aa4b7167b6ecc7ef7a441cd9e396139c9642b3",
+    "journal_sim\\core\\uncertainty.py": "00a676761c2824a99b1d3951c25865740fefc146b905ce2c7fa4f3c679243921",
+    "journal_sim\\design\\__init__.py": "859fd66255b9483d04405de3f0eb6bba4773c3bb3c64ef8d4ceb765e43885fad",
+    "journal_sim\\design\\candidate.py": "98fa403dd20654ef8336b7b6e35f368869611f66ed87dba43a4183ed4cad43c7",
+    "journal_sim\\design\\candidate_pool.py": "02aa285fb1521d51456361a3e4655cb78f62208bf7a474cbe22f21b58c3a42c3",
+    "journal_sim\\design\\selection.py": "14b6fb5497b33f4bf5dbacd0e212f6c38ab979f8b406734525c6f5d0556f664b",
+    "journal_sim\\dynamics\\__init__.py": "c79ecd7ecd8118b327bb60a2f5fe4b4b13b9f14a34100c25f3e733c36fa6e3cf",
+    "journal_sim\\dynamics\\channel_process.py": "5a6eb590807eee2232d169a582c2731824c2e4ea331a3ec068f9aad3024054b3",
+    "journal_sim\\dynamics\\csi_estimation.py": "5e780427ef4559ba886f03548811365f85c5fc7e85062502e1e267749f25776c",
+    "journal_sim\\dynamics\\reconfiguration.py": "8dcdd14606c2b58ba3e39736aa22e4a727ef9cf6e832a1e56e8249525449c02b",
+    "journal_sim\\dynamics\\trigger.py": "a29b6c68788c11c8614ea26993cba80d2390b91abb9c8d3b6621e0decc6582f2",
+    "journal_sim\\evaluation\\__init__.py": "2c56d1d90e4dcfc506ee66554b19a32b55aa70a0c4c768c5bfbc9df0d40e7f50",
+    "journal_sim\\evaluation\\dynamic.py": "5f88ed9963839eca04895cd8a849fd2c8bab91981329e802d2926bd6daed53ba",
+    "journal_sim\\evaluation\\metrics.py": "910a00796c9a24610004fe7c59ea9880c76302d97468d5f9ace4e982098b48d8",
+    "journal_sim\\evaluation\\monte_carlo.py": "cd503634753727157507707c03125221f284698da812dcb49b032979aa716916",
+    "journal_sim\\evaluation\\runtime.py": "4e635af3e17f330a68e2d0bfcb0edf827d6e6531f264671c7869388761e24865",
+    "journal_sim\\experiments\\__init__.py": "ed6c66b15bae79e510df9e0f02ea095e97a156cfa456239845e81c46c1354112",
+    "journal_sim\\experiments\\common.py": "7d2935839a174659967cf6345b1df0ee3de66c1855f9ba6a4a54e5288aaa70b0",
+    "journal_sim\\experiments\\exp0_oracle_validation.py": "4ab7ab004c6e7fce9cb9b9eafd52dfa3120567cca48e86c57b10df419f23bc6a",
+    "journal_sim\\experiments\\exp1_csi_calibration.py": "16b9b26ef4b910d32bdb3498eeebcd748be18f7ee8d264765debb08ddba4293c",
+    "journal_sim\\experiments\\exp2_static_certificate.py": "aaac8c29f57d92be60819410bd75976613128689b24dad007801669ba13b940d",
+    "journal_sim\\experiments\\exp3_dynamic_reconfiguration.py": "71fd527699cff7b7f001dfd7fcc8e1a83d6874b78d0f30e34d31c38d47665937",
+    "journal_sim\\tests\\__init__.py": "c23c2ff13a5801d276d03749eb69ba8448ea60b92645b2c6c4971c758255160b",
+    "journal_sim\\tests\\fixtures\\conference_representatives.json": "f124e84251b03031edc7c4d3a6e4126c8770c90e01eb7f47df3a9ae0f0a0444a",
+    "journal_sim\\tests\\fixtures\\conference_representatives.npz": "2fd56bdf267b4f33f54d7220340fa2af347b091b488ffe60d1898c393bbe18ac",
+    "journal_sim\\tests\\helpers.py": "87380210ea76a45368d302b341220bd0aca20a3e5deffaaf4f8c33771ebf0b96",
+    "journal_sim\\tests\\test_certificate.py": "7fd8d3f822e092d83a37ff5eb952474c62f7239a2b5b2286a431a45c2c46f52b",
+    "journal_sim\\tests\\test_channel_process.py": "f4d77f45d0635f47ed39d299d085fb970d77ec94f8b35b70928ac0c852af7a77",
+    "journal_sim\\tests\\test_dynamic.py": "e0fe0573cf67a25158879aa1d9c3908e7eac02aa36af94e55fe82ab79ee45812",
+    "journal_sim\\tests\\test_experiments.py": "2c87a3eaf7958fab71ad497dd57181ff8914662871e3e29fa1912c94f87876bd",
+    "journal_sim\\tests\\test_fragile.py": "063c7348df3de37f78a40986f23af5d4354b8e3565e38cdab23526f154f39a95",
+    "journal_sim\\tests\\test_model.py": "4c2872c3b15a1ed6c9f6aea874757c2c983bc7659a19ea1700c4035a30773a95",
+    "journal_sim\\tests\\test_oracle.py": "686c1a335755ffb75fb87421898253f228de1281f4033aa9e51fa8eedddf7beb",
+    "journal_sim\\tests\\test_paired.py": "30a6e3732b3c877cfd680427dd34b5c4fb4c2df6e83d3472834458799fbd0951",
+    "journal_sim\\tests\\test_reproducibility.py": "d5eb6caf65b6757ddf0545876619142257d235f401c510b1ab980a9e025f0acd",
+    "journal_sim\\tests\\test_transition_cost.py": "99a781a062be78db3472cb290d37e9599cd3fda0b6723805decb8638a2dba2e0",
+    "journal_sim\\tools\\extract_conference_fixture.py": "3ef8198e7b990ada5b6beea4ed356d8964c7c466b77d55e77d54e7439f26366b"
+  },
+  "versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "cvxpy": "1.7.5"
+  },
+  "note": "Smoke results verify execution only. All requested seeds and failed/uncertain outcomes remain in raw records.",
+  "seed_details": [
+    {
+      "seed": 60001,
+      "status": "COMPLETED",
+      "summary": null
+    }
+  ],
+  "details": [],
+  "run_complete": true,
+  "success": true
+}

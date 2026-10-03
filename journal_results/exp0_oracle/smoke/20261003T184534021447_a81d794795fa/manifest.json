@@ -1,0 +1,3011 @@
+{
+  "experiment": "exp0_oracle",
+  "mode": "smoke",
+  "config": {
+    "L": 2,
+    "K": 3,
+    "M": 12,
+    "N": 32,
+    "bits": 2,
+    "gamma": 2.0,
+    "bs_x": [
+      -100.0,
+      100.0
+    ],
+    "bs_y": [
+      0.0,
+      0.0
+    ],
+    "ue_center_x": [
+      -15.0,
+      15.0
+    ],
+    "ue_center_y": [
+      0.0,
+      0.0
+    ],
+    "ue_radius": 7.0,
+    "ris_x": 0.0,
+    "ris_y": 0.0,
+    "c0_db": -30.0,
+    "alpha_bu": 4.5,
+    "alpha_br": 2.2,
+    "alpha_ru": 2.2,
+    "rician_k": 3.0,
+    "channel_scale": 100000.0,
+    "direct_serving_attenuation": 0.25,
+    "include_direct_intercell": true,
+    "inter_ris_attenuation": 1.0,
+    "ris_size_model": "growing_aperture",
+    "ris_reference_N": 32,
+    "noise_power_dbm": -100.0,
+    "p_max_dbm": 30.0,
+    "pa_efficiency": 0.38,
+    "p_bs": 6.0,
+    "p_ue": 0.1,
+    "p_loss": 0.5,
+    "p_ris_controller": 0.5,
+    "p_cell_idle": 0.001,
+    "p_diode_on": 0.004,
+    "bandwidth_hz": 10000000.0,
+    "radius_floor": 1e-10,
+    "strict_eig_tol": 1e-08,
+    "strict_normalized_tol": 1e-08,
+    "nominal_normalized_tol": 1e-12,
+    "solver": "CLARABEL",
+    "solver_tol": 1e-10,
+    "solver_max_iter": 200,
+    "fast_tol": 0.0,
+    "fast_lambda_cap": 10000000000.0,
+    "fast_search_tol": 1e-09,
+    "eps_hi": 0.2,
+    "eps_cap": 1.2,
+    "certificate_abs_tol": 1e-07,
+    "certificate_rel_tol": 0.0001,
+    "certificate_max_iter": 60,
+    "strict_shrink_factor": 0.98,
+    "strict_shrink_steps": 40,
+    "pool_size": 4,
+    "pool_attempts": 20,
+    "design_gamma_mult": [
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      3.0,
+      5.0
+    ],
+    "power_slack_grid": [
+      1.0,
+      1.1,
+      1.3,
+      1.8
+    ],
+    "power_control_tol": 1e-10,
+    "zf_rcond": 1e-12,
+    "epsilon_min": 0.05,
+    "estimation_snr_db": 40.0,
+    "nmse_db": null,
+    "calibration_samples": 100,
+    "calibration_quantiles": [
+      0.9,
+      0.95,
+      0.99
+    ],
+    "calibration_snr_grid": [
+      10.0,
+      20.0,
+      30.0,
+      40.0
+    ],
+    "calibration_q": 0.99,
+    "time_steps": 6,
+    "slot_duration": 0.1,
+    "channel_correlation": null,
+    "mobility_level": "slow",
+    "mobility_correlations": [
+      0.9999,
+      0.995,
+      0.95
+    ],
+    "quasi_static_br": true,
+    "eta_trigger": 0.9,
+    "T_period": 10,
+    "drift_rate_nu": 0.002,
+    "energy_per_bit_switch": 1e-05,
+    "E_controller_fixed": 0.001,
+    "policies": [
+      "always_reconfigure",
+      "periodic_reconfigure",
+      "certificate_triggered",
+      "static"
+    ],
+    "selection_rule": "lifetime_aware",
+    "seeds": [
+      60001
+    ],
+    "channel_seed": 20260706,
+    "pool_seed": 31001,
+    "csi_seed": 51001,
+    "calibration_seed": 52001,
+    "mc_seed": 41001,
+    "mc_samples": 50,
+    "alpha_grid": [
+      0.25,
+      0.5,
+      0.9,
+      1.0,
+      1.1
+    ],
+    "legacy_indices": [
+      34,
+      6,
+      26
+    ],
+    "legacy_fixture": "journal_sim/tests/fixtures/conference_representatives.npz",
+    "lambda_grid_points": 400,
+    "scaling_cases": [
+      [
+        16,
+        2
+      ],
+      [
+        32,
+        2
+      ],
+      [
+        64,
+        2
+      ],
+      [
+        32,
+        3
+      ]
+    ],
+    "output_root": "journal_results",
+    "smoke": true
+  },
+  "seeds": [
+    60001
+  ],
+  "fingerprint": "a81d794795fa6e389debb4c38a8d5b39316d9954868f867c84c3c8e58338b25d",
+  "timestamp": "2026-10-03T18:45:34.021447+08:00",
+  "git_commit": "cebd9b2c72fb25cede9434e18a0b0c0d004302a4",
+  "source_hashes": {
+    "journal_sim\\__init__.py": "9036bdf4a9295a6817831281dc334c50266df56cfe14da82774a09409266268c",
+    "journal_sim\\certification\\__init__.py": "8ca1e4e2f5a3bfa56c004dbfd46f068b5273d981cccad6007eb5de511b322a50",
+    "journal_sim\\certification\\certificate.py": "b3380f9a5cd9809cc3855714cf83792ae56f0a3408193d6bc30feed912a2e2ad",
+    "journal_sim\\certification\\lmi.py": "eda335cd46d39414fccd9b6ae7d62a03642590287f4d5c469b5abbff2b59c771",
+    "journal_sim\\certification\\oracle.py": "e88e589acd04fa5ad8711b407a260411601a6b4112df957b66427e36118bb964",
+    "journal_sim\\config.py": "5237333c1b247c2a2b87f3e35678bcfcbbdacc4a13b47c2714f27705776ec40a",
+    "journal_sim\\core\\__init__.py": "844699544ca801d0e5c1ae2c1a5a10a5bb034e1bb4a229ebfed8b1b1614e219d",
+    "journal_sim\\core\\channels.py": "9981e1a1797ffdb50a4a9cdc103c9d6cef29547321f4cde9437226413a053870",
+    "journal_sim\\core\\models.py": "7ad9fbc0c7f83838bdb5b95c0d43b770bda4d83d4235e5cf98518effed0f163e",
+    "journal_sim\\core\\power.py": "ba40d130ab6eb0302e7ed107f7662a430b3c3d74cbb741f9df724d58cf2b20ea",
+    "journal_sim\\core\\sinr.py": "cad006e5b310984246d2a47199aa4b7167b6ecc7ef7a441cd9e396139c9642b3",
+    "journal_sim\\core\\uncertainty.py": "00a676761c2824a99b1d3951c25865740fefc146b905ce2c7fa4f3c679243921",
+    "journal_sim\\design\\__init__.py": "859fd66255b9483d04405de3f0eb6bba4773c3bb3c64ef8d4ceb765e43885fad",
+    "journal_sim\\design\\candidate.py": "98fa403dd20654ef8336b7b6e35f368869611f66ed87dba43a4183ed4cad43c7",
+    "journal_sim\\design\\candidate_pool.py": "02aa285fb1521d51456361a3e4655cb78f62208bf7a474cbe22f21b58c3a42c3",
+    "journal_sim\\design\\selection.py": "14b6fb5497b33f4bf5dbacd0e212f6c38ab979f8b406734525c6f5d0556f664b",
+    "journal_sim\\dynamics\\__init__.py": "c79ecd7ecd8118b327bb60a2f5fe4b4b13b9f14a34100c25f3e733c36fa6e3cf",
+    "journal_sim\\dynamics\\channel_process.py": "5a6eb590807eee2232d169a582c2731824c2e4ea331a3ec068f9aad3024054b3",
+    "journal_sim\\dynamics\\csi_estimation.py": "5e780427ef4559ba886f03548811365f85c5fc7e85062502e1e267749f25776c",
+    "journal_sim\\dynamics\\reconfiguration.py": "8dcdd14606c2b58ba3e39736aa22e4a727ef9cf6e832a1e56e8249525449c02b",
+    "journal_sim\\dynamics\\trigger.py": "a29b6c68788c11c8614ea26993cba80d2390b91abb9c8d3b6621e0decc6582f2",
+    "journal_sim\\evaluation\\__init__.py": "2c56d1d90e4dcfc506ee66554b19a32b55aa70a0c4c768c5bfbc9df0d40e7f50",
+    "journal_sim\\evaluation\\dynamic.py": "5f88ed9963839eca04895cd8a849fd2c8bab91981329e802d2926bd6daed53ba",
+    "journal_sim\\evaluation\\metrics.py": "910a00796c9a24610004fe7c59ea9880c76302d97468d5f9ace4e982098b48d8",
+    "journal_sim\\evaluation\\monte_carlo.py": "cd503634753727157507707c03125221f284698da812dcb49b032979aa716916",
+    "journal_sim\\evaluation\\runtime.py": "4e635af3e17f330a68e2d0bfcb0edf827d6e6531f264671c7869388761e24865",
+    "journal_sim\\experiments\\__init__.py": "ed6c66b15bae79e510df9e0f02ea095e97a156cfa456239845e81c46c1354112",
+    "journal_sim\\experiments\\common.py": "7d2935839a174659967cf6345b1df0ee3de66c1855f9ba6a4a54e5288aaa70b0",
+    "journal_sim\\experiments\\exp0_oracle_validation.py": "4ab7ab004c6e7fce9cb9b9eafd52dfa3120567cca48e86c57b10df419f23bc6a",
+    "journal_sim\\experiments\\exp1_csi_calibration.py": "16b9b26ef4b910d32bdb3498eeebcd748be18f7ee8d264765debb08ddba4293c",
+    "journal_sim\\experiments\\exp2_static_certificate.py": "aaac8c29f57d92be60819410bd75976613128689b24dad007801669ba13b940d",
+    "journal_sim\\experiments\\exp3_dynamic_reconfiguration.py": "71fd527699cff7b7f001dfd7fcc8e1a83d6874b78d0f30e34d31c38d47665937",
+    "journal_sim\\tests\\__init__.py": "c23c2ff13a5801d276d03749eb69ba8448ea60b92645b2c6c4971c758255160b",
+    "journal_sim\\tests\\fixtures\\conference_representatives.json": "f124e84251b03031edc7c4d3a6e4126c8770c90e01eb7f47df3a9ae0f0a0444a",
+    "journal_sim\\tests\\fixtures\\conference_representatives.npz": "2fd56bdf267b4f33f54d7220340fa2af347b091b488ffe60d1898c393bbe18ac",
+    "journal_sim\\tests\\helpers.py": "87380210ea76a45368d302b341220bd0aca20a3e5deffaaf4f8c33771ebf0b96",
+    "journal_sim\\tests\\test_certificate.py": "7fd8d3f822e092d83a37ff5eb952474c62f7239a2b5b2286a431a45c2c46f52b",
+    "journal_sim\\tests\\test_channel_process.py": "f4d77f45d0635f47ed39d299d085fb970d77ec94f8b35b70928ac0c852af7a77",
+    "journal_sim\\tests\\test_dynamic.py": "e0fe0573cf67a25158879aa1d9c3908e7eac02aa36af94e55fe82ab79ee45812",
+    "journal_sim\\tests\\test_fragile.py": "063c7348df3de37f78a40986f23af5d4354b8e3565e38cdab23526f154f39a95",
+    "journal_sim\\tests\\test_model.py": "4c2872c3b15a1ed6c9f6aea874757c2c983bc7659a19ea1700c4035a30773a95",
+    "journal_sim\\tests\\test_oracle.py": "686c1a335755ffb75fb87421898253f228de1281f4033aa9e51fa8eedddf7beb",
+    "journal_sim\\tests\\test_paired.py": "30a6e3732b3c877cfd680427dd34b5c4fb4c2df6e83d3472834458799fbd0951",
+    "journal_sim\\tests\\test_reproducibility.py": "d5eb6caf65b6757ddf0545876619142257d235f401c510b1ab980a9e025f0acd",
+    "journal_sim\\tests\\test_transition_cost.py": "99a781a062be78db3472cb290d37e9599cd3fda0b6723805decb8638a2dba2e0",
+    "journal_sim\\tools\\extract_conference_fixture.py": "3ef8198e7b990ada5b6beea4ed356d8964c7c466b77d55e77d54e7439f26366b"
+  },
+  "versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "cvxpy": "1.7.5"
+  },
+  "note": "Smoke results verify execution only. All requested seeds and failed/uncertain outcomes remain in raw records.",
+  "seed_details": [
+    {
+      "seed": 60001,
+      "status": "COMPLETED",
+      "summary": {
+        "counterexamples_inside_new_certificate": 0
+      }
+    }
+  ],
+  "details": [
+    {
+      "label": "tiny_fragile",
+      "local_config": {
+        "L": 1,
+        "K": 1,
+        "M": 1,
+        "N": 2,
+        "bits": 1,
+        "gamma": 1.0,
+        "bs_x": [
+          -100.0
+        ],
+        "bs_y": [
+          0.0
+        ],
+        "ue_center_x": [
+          15.0
+        ],
+        "ue_center_y": [
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 1.0,
+        "direct_serving_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "noise_power_dbm": 30.0,
+        "p_max_dbm": 40.0,
+        "pa_efficiency": 0.38,
+        "p_bs": 6.0,
+        "p_ue": 0.1,
+        "p_loss": 0.5,
+        "p_ris_controller": 0.5,
+        "p_cell_idle": 0.001,
+        "p_diode_on": 0.004,
+        "bandwidth_hz": 10000000.0,
+        "radius_floor": 1e-10,
+        "strict_eig_tol": 1e-08,
+        "strict_normalized_tol": 1e-08,
+        "nominal_normalized_tol": 1e-12,
+        "solver": "CLARABEL",
+        "solver_tol": 1e-10,
+        "solver_max_iter": 200,
+        "fast_tol": 0.0,
+        "fast_lambda_cap": 10000000000.0,
+        "fast_search_tol": 1e-09,
+        "eps_hi": 0.2,
+        "eps_cap": 1.2,
+        "certificate_abs_tol": 1e-07,
+        "certificate_rel_tol": 0.0001,
+        "certificate_max_iter": 60,
+        "strict_shrink_factor": 0.98,
+        "strict_shrink_steps": 40,
+        "pool_size": 4,
+        "pool_attempts": 20,
+        "design_gamma_mult": [
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          3.0,
+          5.0
+        ],
+        "power_slack_grid": [
+          1.0,
+          1.1,
+          1.3,
+          1.8
+        ],
+        "power_control_tol": 1e-10,
+        "zf_rcond": 1e-12,
+        "epsilon_min": 0.05,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null,
+        "calibration_samples": 100,
+        "calibration_quantiles": [
+          0.9,
+          0.95,
+          0.99
+        ],
+        "calibration_snr_grid": [
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ],
+        "calibration_q": 0.99,
+        "time_steps": 6,
+        "slot_duration": 0.1,
+        "channel_correlation": null,
+        "mobility_level": "slow",
+        "mobility_correlations": [
+          0.9999,
+          0.995,
+          0.95
+        ],
+        "quasi_static_br": true,
+        "eta_trigger": 0.9,
+        "T_period": 10,
+        "drift_rate_nu": 0.002,
+        "energy_per_bit_switch": 1e-05,
+        "E_controller_fixed": 0.001,
+        "policies": [
+          "always_reconfigure",
+          "periodic_reconfigure",
+          "certificate_triggered",
+          "static"
+        ],
+        "selection_rule": "lifetime_aware",
+        "seeds": [
+          60001
+        ],
+        "channel_seed": 20260706,
+        "pool_seed": 31001,
+        "csi_seed": 51001,
+        "calibration_seed": 52001,
+        "mc_seed": 41001,
+        "mc_samples": 50,
+        "alpha_grid": [
+          0.25,
+          0.5,
+          0.9,
+          1.0,
+          1.1
+        ],
+        "legacy_indices": [
+          34,
+          6,
+          26
+        ],
+        "legacy_fixture": "journal_sim/tests/fixtures/conference_representatives.npz",
+        "lambda_grid_points": 400,
+        "scaling_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "output_root": "journal_results",
+        "smoke": true
+      },
+      "certificate_before_evaluation": {
+        "epsilon_cert": 0.0004899177551269531,
+        "epsilon_lo": 0.0004899177551269531,
+        "epsilon_hi": 0.0005000114440917968,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": 2.014679185383182e-05,
+        "fast_oracle_calls": 22,
+        "strict_oracle_calls": 4,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "3d9407c45d73d786b9378ad5fbb386acd354b9ddced8e79f203f2dc6a741fc70f27590c5e23e1496e451a0497f0afd75f9fb1aca3350434ca44c3291b81dc317",
+        "upper_endpoint_status": "STRICT_INFEASIBLE",
+        "strict_validation_runtime": 0.021524700001464225,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0010007505003124528,
+            "normalized_min_eig": 0.0009997499999997656,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": 0.0009997499999997656,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0005000114440917968,
+            "status": "STRICT_INFEASIBLE",
+            "solver_status": "infeasible",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": null,
+            "reason": "solver reports infeasible",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "user": [
+              0,
+              0
+            ],
+            "epsilon": 0.0004999160766601563,
+            "warnings": [
+              "Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information."
+            ]
+          },
+          {
+            "epsilon": 0.0004999160766601563,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "optimal_inaccurate",
+            "lambda_value": 2001.0004117434476,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": null,
+            "reason": "non-optimal or inaccurate solve",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0004899177551269531,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 2034.10996604997,
+            "raw_min_eig": 2.0166953765859432e-05,
+            "normalized_min_eig": 2.014679185383182e-05,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": 2.014679185383202e-05,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "certificate": {
+        "epsilon_cert": 0.0004899177551269531,
+        "epsilon_lo": 0.0004899177551269531,
+        "epsilon_hi": 0.0005000114440917968,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": 2.014679185383182e-05,
+        "fast_oracle_calls": 22,
+        "strict_oracle_calls": 4,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "3d9407c45d73d786b9378ad5fbb386acd354b9ddced8e79f203f2dc6a741fc70f27590c5e23e1496e451a0497f0afd75f9fb1aca3350434ca44c3291b81dc317",
+        "upper_endpoint_status": "STRICT_INFEASIBLE",
+        "strict_validation_runtime": 0.021524700001464225,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0010007505003124528,
+            "normalized_min_eig": 0.0009997499999997656,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": 0.0009997499999997656,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0005000114440917968,
+            "status": "STRICT_INFEASIBLE",
+            "solver_status": "infeasible",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": null,
+            "reason": "solver reports infeasible",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "user": [
+              0,
+              0
+            ],
+            "epsilon": 0.0004999160766601563,
+            "warnings": [
+              "Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information."
+            ]
+          },
+          {
+            "epsilon": 0.0004999160766601563,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "optimal_inaccurate",
+            "lambda_value": 2001.0004117434476,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": null,
+            "reason": "non-optimal or inaccurate solve",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0004899177551269531,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 2034.10996604997,
+            "raw_min_eig": 2.0166953765859432e-05,
+            "normalized_min_eig": 2.014679185383182e-05,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": 2.014679185383202e-05,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "source": "analytic scalar"
+    },
+    {
+      "label": "conference_34",
+      "local_config": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "gamma": 2.0,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_serving_attenuation": 0.25,
+        "include_direct_intercell": false,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "noise_power_dbm": -100.0,
+        "p_max_dbm": 30.0,
+        "pa_efficiency": 0.38,
+        "p_bs": 6.0,
+        "p_ue": 0.1,
+        "p_loss": 0.5,
+        "p_ris_controller": 0.5,
+        "p_cell_idle": 0.001,
+        "p_diode_on": 0.004,
+        "bandwidth_hz": 10000000.0,
+        "radius_floor": 1e-10,
+        "strict_eig_tol": 1e-08,
+        "strict_normalized_tol": 1e-08,
+        "nominal_normalized_tol": 1e-12,
+        "solver": "CLARABEL",
+        "solver_tol": 1e-10,
+        "solver_max_iter": 200,
+        "fast_tol": 0.0,
+        "fast_lambda_cap": 10000000000.0,
+        "fast_search_tol": 1e-09,
+        "eps_hi": 0.2,
+        "eps_cap": 1.2,
+        "certificate_abs_tol": 1e-07,
+        "certificate_rel_tol": 0.0001,
+        "certificate_max_iter": 60,
+        "strict_shrink_factor": 0.98,
+        "strict_shrink_steps": 40,
+        "pool_size": 4,
+        "pool_attempts": 20,
+        "design_gamma_mult": [
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          3.0,
+          5.0
+        ],
+        "power_slack_grid": [
+          1.0,
+          1.1,
+          1.3,
+          1.8
+        ],
+        "power_control_tol": 1e-10,
+        "zf_rcond": 1e-12,
+        "epsilon_min": 0.05,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null,
+        "calibration_samples": 100,
+        "calibration_quantiles": [
+          0.9,
+          0.95,
+          0.99
+        ],
+        "calibration_snr_grid": [
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ],
+        "calibration_q": 0.99,
+        "time_steps": 6,
+        "slot_duration": 0.1,
+        "channel_correlation": null,
+        "mobility_level": "slow",
+        "mobility_correlations": [
+          0.9999,
+          0.995,
+          0.95
+        ],
+        "quasi_static_br": true,
+        "eta_trigger": 0.9,
+        "T_period": 10,
+        "drift_rate_nu": 0.002,
+        "energy_per_bit_switch": 1e-05,
+        "E_controller_fixed": 0.001,
+        "policies": [
+          "always_reconfigure",
+          "periodic_reconfigure",
+          "certificate_triggered",
+          "static"
+        ],
+        "selection_rule": "lifetime_aware",
+        "seeds": [
+          60001
+        ],
+        "channel_seed": 20260706,
+        "pool_seed": 31001,
+        "csi_seed": 51001,
+        "calibration_seed": 52001,
+        "mc_seed": 41001,
+        "mc_samples": 50,
+        "alpha_grid": [
+          0.25,
+          0.5,
+          0.9,
+          1.0,
+          1.1
+        ],
+        "legacy_indices": [
+          34,
+          6,
+          26
+        ],
+        "legacy_fixture": "journal_sim/tests/fixtures/conference_representatives.npz",
+        "lambda_grid_points": 400,
+        "scaling_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "output_root": "journal_results",
+        "smoke": true
+      },
+      "certificate_before_evaluation": {
+        "epsilon_cert": 0.08942260742187502,
+        "epsilon_lo": 0.08942260742187502,
+        "epsilon_hi": 0.08942871093750002,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": 1.0943988504302088e-06,
+        "fast_oracle_calls": 96,
+        "strict_oracle_calls": 18,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "a535fafc5817ed858ccb434f939e4fe6653b0f3067c004efbe56feb7f08455343174dabc5552a9df22be115c83af95317928e5383060bd5b9c9aeeeadc113b36",
+        "upper_endpoint_status": "NUMERICALLY_UNCERTAIN",
+        "strict_validation_runtime": 0.893639500000063,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.010500477062951012,
+            "normalized_min_eig": 0.021978761881491362,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.4777556224308348,
+            "raw_normalized_min_eig": 0.021978761881491362,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.010706795899066621,
+            "normalized_min_eig": 0.022253977717907707,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4811182987053544,
+            "raw_normalized_min_eig": 0.022253977717907707,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.008837233381629813,
+            "normalized_min_eig": 0.029303907088801096,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.30157184688205235,
+            "raw_normalized_min_eig": 0.029303907088801096,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.01180170862089597,
+            "normalized_min_eig": 0.02352101226524323,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5017517310823921,
+            "raw_normalized_min_eig": 0.02352101226524323,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.017346566226126924,
+            "normalized_min_eig": 0.015623136092618216,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.1103126877530698,
+            "raw_normalized_min_eig": 0.015623136092618216,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.012450290742981101,
+            "normalized_min_eig": 0.01998542560388651,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6229685066381537,
+            "raw_normalized_min_eig": 0.01998542560388651,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.118713907199018,
+            "raw_min_eig": 0.0030776919698336513,
+            "normalized_min_eig": 0.0064307116298559786,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.4777556224308348,
+            "raw_normalized_min_eig": 0.006441979592357832,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1193454448065623,
+            "raw_min_eig": 0.0031443203865155755,
+            "normalized_min_eig": 0.006524132274097316,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4811182987053544,
+            "raw_normalized_min_eig": 0.0065354412729190636,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1491773345097673,
+            "raw_min_eig": 0.004324633238596998,
+            "normalized_min_eig": 0.014308245269796238,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.30157184688205235,
+            "raw_normalized_min_eig": 0.014340308232712463,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9627943193662757,
+            "raw_min_eig": 0.002099439518902483,
+            "normalized_min_eig": 0.004176220206517054,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5017517310823921,
+            "raw_normalized_min_eig": 0.004184219782109204,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "SOLVER_ERROR",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.1103126877530698,
+            "raw_normalized_min_eig": null,
+            "reason": "SolverError: Solver 'CLARABEL' failed. Try another solver, or solve with verbose=True for more information.",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0382481575561495,
+            "raw_min_eig": 0.0024104344550058346,
+            "normalized_min_eig": 0.0038644836908067765,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6229685066381537,
+            "raw_normalized_min_eig": 0.0038692717678679,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1187332752647412,
+            "raw_min_eig": 0.0030783086996241105,
+            "normalized_min_eig": 0.006432000631352408,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.4777556224308348,
+            "raw_normalized_min_eig": 0.006443270482012507,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.119364711613029,
+            "raw_min_eig": 0.0031449419630448228,
+            "normalized_min_eig": 0.006525422333778064,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4811182987053544,
+            "raw_normalized_min_eig": 0.006536733214071416,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1491880440305795,
+            "raw_min_eig": 0.004325044982263826,
+            "normalized_min_eig": 0.01430960814459703,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.30157184688205235,
+            "raw_normalized_min_eig": 0.014341673557994266,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9628130795982269,
+            "raw_min_eig": 0.0021001814180578527,
+            "normalized_min_eig": 0.004177696496991812,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5017517310823921,
+            "raw_normalized_min_eig": 0.004185698400137625,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9065978373919893,
+            "raw_min_eig": 1.2097966620282924e-06,
+            "normalized_min_eig": 1.0943988504302088e-06,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.1103126877530698,
+            "raw_normalized_min_eig": 1.0895999616797565e-06,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0382669803152633,
+            "raw_min_eig": 0.0024113270264808813,
+            "normalized_min_eig": 0.003865915116326047,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6229685066381537,
+            "raw_normalized_min_eig": 0.0038707045392929974,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "certificate": {
+        "epsilon_cert": 0.08942260742187502,
+        "epsilon_lo": 0.08942260742187502,
+        "epsilon_hi": 0.08942871093750002,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": 1.0943988504302088e-06,
+        "fast_oracle_calls": 96,
+        "strict_oracle_calls": 18,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "a535fafc5817ed858ccb434f939e4fe6653b0f3067c004efbe56feb7f08455343174dabc5552a9df22be115c83af95317928e5383060bd5b9c9aeeeadc113b36",
+        "upper_endpoint_status": "NUMERICALLY_UNCERTAIN",
+        "strict_validation_runtime": 0.893639500000063,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.010500477062951012,
+            "normalized_min_eig": 0.021978761881491362,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.4777556224308348,
+            "raw_normalized_min_eig": 0.021978761881491362,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.010706795899066621,
+            "normalized_min_eig": 0.022253977717907707,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4811182987053544,
+            "raw_normalized_min_eig": 0.022253977717907707,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.008837233381629813,
+            "normalized_min_eig": 0.029303907088801096,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.30157184688205235,
+            "raw_normalized_min_eig": 0.029303907088801096,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.01180170862089597,
+            "normalized_min_eig": 0.02352101226524323,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5017517310823921,
+            "raw_normalized_min_eig": 0.02352101226524323,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.017346566226126924,
+            "normalized_min_eig": 0.015623136092618216,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.1103126877530698,
+            "raw_normalized_min_eig": 0.015623136092618216,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.012450290742981101,
+            "normalized_min_eig": 0.01998542560388651,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6229685066381537,
+            "raw_normalized_min_eig": 0.01998542560388651,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.118713907199018,
+            "raw_min_eig": 0.0030776919698336513,
+            "normalized_min_eig": 0.0064307116298559786,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.4777556224308348,
+            "raw_normalized_min_eig": 0.006441979592357832,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1193454448065623,
+            "raw_min_eig": 0.0031443203865155755,
+            "normalized_min_eig": 0.006524132274097316,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4811182987053544,
+            "raw_normalized_min_eig": 0.0065354412729190636,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1491773345097673,
+            "raw_min_eig": 0.004324633238596998,
+            "normalized_min_eig": 0.014308245269796238,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.30157184688205235,
+            "raw_normalized_min_eig": 0.014340308232712463,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9627943193662757,
+            "raw_min_eig": 0.002099439518902483,
+            "normalized_min_eig": 0.004176220206517054,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5017517310823921,
+            "raw_normalized_min_eig": 0.004184219782109204,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "SOLVER_ERROR",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.1103126877530698,
+            "raw_normalized_min_eig": null,
+            "reason": "SolverError: Solver 'CLARABEL' failed. Try another solver, or solve with verbose=True for more information.",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942871093750002,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0382481575561495,
+            "raw_min_eig": 0.0024104344550058346,
+            "normalized_min_eig": 0.0038644836908067765,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6229685066381537,
+            "raw_normalized_min_eig": 0.0038692717678679,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1187332752647412,
+            "raw_min_eig": 0.0030783086996241105,
+            "normalized_min_eig": 0.006432000631352408,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.4777556224308348,
+            "raw_normalized_min_eig": 0.006443270482012507,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.119364711613029,
+            "raw_min_eig": 0.0031449419630448228,
+            "normalized_min_eig": 0.006525422333778064,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4811182987053544,
+            "raw_normalized_min_eig": 0.006536733214071416,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1491880440305795,
+            "raw_min_eig": 0.004325044982263826,
+            "normalized_min_eig": 0.01430960814459703,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.30157184688205235,
+            "raw_normalized_min_eig": 0.014341673557994266,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9628130795982269,
+            "raw_min_eig": 0.0021001814180578527,
+            "normalized_min_eig": 0.004177696496991812,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5017517310823921,
+            "raw_normalized_min_eig": 0.004185698400137625,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9065978373919893,
+            "raw_min_eig": 1.2097966620282924e-06,
+            "normalized_min_eig": 1.0943988504302088e-06,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.1103126877530698,
+            "raw_normalized_min_eig": 1.0895999616797565e-06,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.08942260742187502,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0382669803152633,
+            "raw_min_eig": 0.0024113270264808813,
+            "normalized_min_eig": 0.003865915116326047,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6229685066381537,
+            "raw_normalized_min_eig": 0.0038707045392929974,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "source": {
+        "source_npz_sha256": "21ac2c552d232bfad346ebeff91639fd32b62bddfcc8320e54ff02b2348c09f0",
+        "source_json_sha256": "61dd5f9f13339110bef15752bd9f3084aced00fb74fedddad6cea2bf6060c2d6",
+        "source_path": "results/pool_cache",
+        "indices": [
+          34,
+          6,
+          26
+        ],
+        "candidates": [
+          {
+            "index": 34,
+            "seed": 31110,
+            "bits": 2,
+            "direction_kind": "zf_full",
+            "align_frac": 0.8,
+            "align_jitter": 0.0,
+            "design_gamma": 6.0,
+            "design_eps": 0.025,
+            "power_slack": 1.3,
+            "power_perturb": 0.05,
+            "channel_seed": 20260706,
+            "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+            "configuration_signature": "737d8b2ba54657791fe82e32598c766104ba00cfc1aa19154ed701aff55786ca",
+            "min_sinr_nominal": 10.837233381629812,
+            "wee": 1.2792320135377533,
+            "U": 23.280985303134504,
+            "V": 18.199189089045905,
+            "power_per_bs": [
+              0.7100246629982457,
+              0.7823071908391982
+            ],
+            "qos_feasible": true,
+            "r_cert": 0.0908935546875,
+            "epsilon_cert": 0.0908935546875,
+            "cert_info": {
+              "status": "EXACT_BRACKET",
+              "bracket": [
+                0.0908935546875,
+                0.090966796875
+              ],
+              "n_bisection_iter": 13,
+              "n_feasibility_checks": 15,
+              "binding_user": [
+                1,
+                1
+              ],
+              "binding_margin": -0.00019908065598858975
+            }
+          },
+          {
+            "index": 6,
+            "seed": 31020,
+            "bits": 2,
+            "direction_kind": "zf_full",
+            "align_frac": 0.2,
+            "align_jitter": 0.3,
+            "design_gamma": 3.0,
+            "design_eps": 0.05,
+            "power_slack": 1.5,
+            "power_perturb": 0.1,
+            "channel_seed": 20260706,
+            "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+            "configuration_signature": "5b16c8273e7d0c31ee26dae69c2ff77176c73b715f2bd3ad1c6bc733e220bfa7",
+            "min_sinr_nominal": 8.2380083458834,
+            "wee": 1.2460197453193609,
+            "U": 23.21337605812263,
+            "V": 18.630022634330672,
+            "power_per_bs": [
+              0.8927537898344022,
+              0.7632948112112536
+            ],
+            "qos_feasible": true,
+            "r_cert": 0.11396484374999999,
+            "epsilon_cert": 0.11396484374999999,
+            "cert_info": {
+              "status": "EXACT_BRACKET",
+              "bracket": [
+                0.11396484374999999,
+                0.11403808593749999
+              ],
+              "n_bisection_iter": 13,
+              "n_feasibility_checks": 15,
+              "binding_user": [
+                0,
+                0
+              ],
+              "binding_margin": -0.0001887726640456
+            }
+          },
+          {
+            "index": 26,
+            "seed": 31077,
+            "bits": 2,
+            "direction_kind": "zf_full",
+            "align_frac": 0.6,
+            "align_jitter": 0.6,
+            "design_gamma": 2.0,
+            "design_eps": 0.0,
+            "power_slack": 1.0,
+            "power_perturb": 0.0,
+            "channel_seed": 20260706,
+            "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+            "configuration_signature": "58b29879cfba25777dd94e8f4efe5c69041b471d0d544d8315e592ef1bd654a3",
+            "min_sinr_nominal": 1.9999999999999987,
+            "wee": 0.6319332180288708,
+            "U": 9.509775004326936,
+            "V": 15.048702510037174,
+            "power_per_bs": [
+              0.17611601756884515,
+              0.12055093624528118
+            ],
+            "qos_feasible": true,
+            "r_cert": 0.0009521484374999999,
+            "epsilon_cert": 0.0009521484374999999,
+            "cert_info": {
+              "status": "EXACT_BRACKET",
+              "bracket": [
+                0.0009521484374999999,
+                0.0010253906249999998
+              ],
+              "n_bisection_iter": 13,
+              "n_feasibility_checks": 15,
+              "binding_user": [
+                0,
+                1
+              ],
+              "binding_margin": -0.00019278173203929327
+            }
+          }
+        ],
+        "meta": {
+          "pool_target_size": 40,
+          "channel_seed": 20260706,
+          "cfg_seed": 20260706,
+          "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+          "generation_stats": {
+            "attempts": 125,
+            "accepted": 40,
+            "rejected_unique": 0,
+            "rejected_qos_power": 85,
+            "reject_reasons": {
+              "power:diverged": 59,
+              "power:slack_budget": 5,
+              "power:power_budget_exceeded": 21
+            },
+            "unique_theta_count": 40,
+            "unique_configuration_count": 40
+          },
+          "n_oracle_calls": 600
+        },
+        "model_note": "Archived conference channels: direct intercell OFF. No new generation or recertification by legacy code."
+      }
+    },
+    {
+      "label": "conference_6",
+      "local_config": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "gamma": 2.0,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_serving_attenuation": 0.25,
+        "include_direct_intercell": false,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "noise_power_dbm": -100.0,
+        "p_max_dbm": 30.0,
+        "pa_efficiency": 0.38,
+        "p_bs": 6.0,
+        "p_ue": 0.1,
+        "p_loss": 0.5,
+        "p_ris_controller": 0.5,
+        "p_cell_idle": 0.001,
+        "p_diode_on": 0.004,
+        "bandwidth_hz": 10000000.0,
+        "radius_floor": 1e-10,
+        "strict_eig_tol": 1e-08,
+        "strict_normalized_tol": 1e-08,
+        "nominal_normalized_tol": 1e-12,
+        "solver": "CLARABEL",
+        "solver_tol": 1e-10,
+        "solver_max_iter": 200,
+        "fast_tol": 0.0,
+        "fast_lambda_cap": 10000000000.0,
+        "fast_search_tol": 1e-09,
+        "eps_hi": 0.2,
+        "eps_cap": 1.2,
+        "certificate_abs_tol": 1e-07,
+        "certificate_rel_tol": 0.0001,
+        "certificate_max_iter": 60,
+        "strict_shrink_factor": 0.98,
+        "strict_shrink_steps": 40,
+        "pool_size": 4,
+        "pool_attempts": 20,
+        "design_gamma_mult": [
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          3.0,
+          5.0
+        ],
+        "power_slack_grid": [
+          1.0,
+          1.1,
+          1.3,
+          1.8
+        ],
+        "power_control_tol": 1e-10,
+        "zf_rcond": 1e-12,
+        "epsilon_min": 0.05,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null,
+        "calibration_samples": 100,
+        "calibration_quantiles": [
+          0.9,
+          0.95,
+          0.99
+        ],
+        "calibration_snr_grid": [
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ],
+        "calibration_q": 0.99,
+        "time_steps": 6,
+        "slot_duration": 0.1,
+        "channel_correlation": null,
+        "mobility_level": "slow",
+        "mobility_correlations": [
+          0.9999,
+          0.995,
+          0.95
+        ],
+        "quasi_static_br": true,
+        "eta_trigger": 0.9,
+        "T_period": 10,
+        "drift_rate_nu": 0.002,
+        "energy_per_bit_switch": 1e-05,
+        "E_controller_fixed": 0.001,
+        "policies": [
+          "always_reconfigure",
+          "periodic_reconfigure",
+          "certificate_triggered",
+          "static"
+        ],
+        "selection_rule": "lifetime_aware",
+        "seeds": [
+          60001
+        ],
+        "channel_seed": 20260706,
+        "pool_seed": 31001,
+        "csi_seed": 51001,
+        "calibration_seed": 52001,
+        "mc_seed": 41001,
+        "mc_samples": 50,
+        "alpha_grid": [
+          0.25,
+          0.5,
+          0.9,
+          1.0,
+          1.1
+        ],
+        "legacy_indices": [
+          34,
+          6,
+          26
+        ],
+        "legacy_fixture": "journal_sim/tests/fixtures/conference_representatives.npz",
+        "lambda_grid_points": 400,
+        "scaling_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "output_root": "journal_results",
+        "smoke": true
+      },
+      "certificate_before_evaluation": {
+        "epsilon_cert": 0.112860107421875,
+        "epsilon_lo": 0.112860107421875,
+        "epsilon_hi": 0.11286621093749999,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": 1.7415080599825217e-07,
+        "fast_oracle_calls": 96,
+        "strict_oracle_calls": 18,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "a5f9ae185fcf3a56ba576119edca45d84319f2641c62970c2bfce7ef039946753174dabc5552a9df22be115c83af95317928e5383060bd5b9c9aeeeadc113b36",
+        "upper_endpoint_status": "NUMERICALLY_UNCERTAIN",
+        "strict_validation_runtime": 1.3947016000001895,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.015611235417320094,
+            "normalized_min_eig": 0.021265980260663533,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.7340943246428556,
+            "raw_normalized_min_eig": 0.021265980260663533,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.010263356140518166,
+            "normalized_min_eig": 0.02541181097401284,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4038813349829296,
+            "raw_normalized_min_eig": 0.02541181097401284,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.01532577961957265,
+            "normalized_min_eig": 0.01956442651446255,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.783349290010797,
+            "raw_normalized_min_eig": 0.01956442651446255,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.006238008345883407,
+            "normalized_min_eig": 0.03105071276728196,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.2008974284305762,
+            "raw_normalized_min_eig": 0.03105071276728196,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.019813980202662944,
+            "normalized_min_eig": 0.020793743403852243,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.9528818268956908,
+            "raw_normalized_min_eig": 0.020793743403852243,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.007201217096947392,
+            "normalized_min_eig": 0.027311164821415167,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.263673012265694,
+            "raw_normalized_min_eig": 0.027311164821415167,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "SOLVER_ERROR",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.7340943246428556,
+            "raw_normalized_min_eig": null,
+            "reason": "SolverError: Solver 'CLARABEL' failed. Try another solver, or solve with verbose=True for more information.",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.250916312450198,
+            "raw_min_eig": 0.0006480928903758176,
+            "normalized_min_eig": 0.0015964990445628269,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4038813349829296,
+            "raw_normalized_min_eig": 0.0016046616524212733,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1939493136305903,
+            "raw_min_eig": 0.0005200094888841156,
+            "normalized_min_eig": 0.0006628051564970538,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.783349290010797,
+            "raw_normalized_min_eig": 0.000663828378368669,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3731361360064778,
+            "raw_min_eig": 0.0021946603538947757,
+            "normalized_min_eig": 0.010888386663922112,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.2008974284305762,
+            "raw_normalized_min_eig": 0.010924282958918913,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.127141673128649,
+            "raw_min_eig": 0.00029022346082331965,
+            "normalized_min_eig": 0.00030440700850768027,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.9528818268956908,
+            "raw_normalized_min_eig": 0.0003045744526042783,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3558078871556607,
+            "raw_min_eig": 0.0014966748646029343,
+            "normalized_min_eig": 0.005648658191980502,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.263673012265694,
+            "raw_normalized_min_eig": 0.005676253522278525,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0129440987548575,
+            "raw_min_eig": 1.2822286621361198e-07,
+            "normalized_min_eig": 1.7415080599825217e-07,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.7340943246428556,
+            "raw_normalized_min_eig": 1.746681072299445e-07,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2509673545445799,
+            "raw_min_eig": 0.0006486922687815033,
+            "normalized_min_eig": 0.00159797656551941,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4038813349829296,
+            "raw_normalized_min_eig": 0.0016061456982381244,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1940227088539035,
+            "raw_min_eig": 0.0005208813072611063,
+            "normalized_min_eig": 0.000663916958050792,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.783349290010797,
+            "raw_normalized_min_eig": 0.0006649413153280919,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3731534709829376,
+            "raw_min_eig": 0.0021949880004299843,
+            "normalized_min_eig": 0.010890014030971618,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.2008974284305762,
+            "raw_normalized_min_eig": 0.010925913873449619,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1272499129111482,
+            "raw_min_eig": 0.0002908783246475116,
+            "normalized_min_eig": 0.00030509390275393344,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.9528818268956908,
+            "raw_normalized_min_eig": 0.0003052616981846934,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.355831191230418,
+            "raw_min_eig": 0.0014970998543071962,
+            "normalized_min_eig": 0.005650264088051166,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.263673012265694,
+            "raw_normalized_min_eig": 0.005677865328130819,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "certificate": {
+        "epsilon_cert": 0.112860107421875,
+        "epsilon_lo": 0.112860107421875,
+        "epsilon_hi": 0.11286621093749999,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": 1.7415080599825217e-07,
+        "fast_oracle_calls": 96,
+        "strict_oracle_calls": 18,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "a5f9ae185fcf3a56ba576119edca45d84319f2641c62970c2bfce7ef039946753174dabc5552a9df22be115c83af95317928e5383060bd5b9c9aeeeadc113b36",
+        "upper_endpoint_status": "NUMERICALLY_UNCERTAIN",
+        "strict_validation_runtime": 1.3947016000001895,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.015611235417320094,
+            "normalized_min_eig": 0.021265980260663533,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.7340943246428556,
+            "raw_normalized_min_eig": 0.021265980260663533,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.010263356140518166,
+            "normalized_min_eig": 0.02541181097401284,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4038813349829296,
+            "raw_normalized_min_eig": 0.02541181097401284,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.01532577961957265,
+            "normalized_min_eig": 0.01956442651446255,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.783349290010797,
+            "raw_normalized_min_eig": 0.01956442651446255,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.006238008345883407,
+            "normalized_min_eig": 0.03105071276728196,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.2008974284305762,
+            "raw_normalized_min_eig": 0.03105071276728196,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.019813980202662944,
+            "normalized_min_eig": 0.020793743403852243,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.9528818268956908,
+            "raw_normalized_min_eig": 0.020793743403852243,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.007201217096947392,
+            "normalized_min_eig": 0.027311164821415167,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.263673012265694,
+            "raw_normalized_min_eig": 0.027311164821415167,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "SOLVER_ERROR",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.7340943246428556,
+            "raw_normalized_min_eig": null,
+            "reason": "SolverError: Solver 'CLARABEL' failed. Try another solver, or solve with verbose=True for more information.",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.250916312450198,
+            "raw_min_eig": 0.0006480928903758176,
+            "normalized_min_eig": 0.0015964990445628269,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4038813349829296,
+            "raw_normalized_min_eig": 0.0016046616524212733,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1939493136305903,
+            "raw_min_eig": 0.0005200094888841156,
+            "normalized_min_eig": 0.0006628051564970538,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.783349290010797,
+            "raw_normalized_min_eig": 0.000663828378368669,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3731361360064778,
+            "raw_min_eig": 0.0021946603538947757,
+            "normalized_min_eig": 0.010888386663922112,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.2008974284305762,
+            "raw_normalized_min_eig": 0.010924282958918913,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.127141673128649,
+            "raw_min_eig": 0.00029022346082331965,
+            "normalized_min_eig": 0.00030440700850768027,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.9528818268956908,
+            "raw_normalized_min_eig": 0.0003045744526042783,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.11286621093749999,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3558078871556607,
+            "raw_min_eig": 0.0014966748646029343,
+            "normalized_min_eig": 0.005648658191980502,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.263673012265694,
+            "raw_normalized_min_eig": 0.005676253522278525,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0129440987548575,
+            "raw_min_eig": 1.2822286621361198e-07,
+            "normalized_min_eig": 1.7415080599825217e-07,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.7340943246428556,
+            "raw_normalized_min_eig": 1.746681072299445e-07,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2509673545445799,
+            "raw_min_eig": 0.0006486922687815033,
+            "normalized_min_eig": 0.00159797656551941,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.4038813349829296,
+            "raw_normalized_min_eig": 0.0016061456982381244,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1940227088539035,
+            "raw_min_eig": 0.0005208813072611063,
+            "normalized_min_eig": 0.000663916958050792,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.783349290010797,
+            "raw_normalized_min_eig": 0.0006649413153280919,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3731534709829376,
+            "raw_min_eig": 0.0021949880004299843,
+            "normalized_min_eig": 0.010890014030971618,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.2008974284305762,
+            "raw_normalized_min_eig": 0.010925913873449619,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1272499129111482,
+            "raw_min_eig": 0.0002908783246475116,
+            "normalized_min_eig": 0.00030509390275393344,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.9528818268956908,
+            "raw_normalized_min_eig": 0.0003052616981846934,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.112860107421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.355831191230418,
+            "raw_min_eig": 0.0014970998543071962,
+            "normalized_min_eig": 0.005650264088051166,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.263673012265694,
+            "raw_normalized_min_eig": 0.005677865328130819,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "source": {
+        "source_npz_sha256": "21ac2c552d232bfad346ebeff91639fd32b62bddfcc8320e54ff02b2348c09f0",
+        "source_json_sha256": "61dd5f9f13339110bef15752bd9f3084aced00fb74fedddad6cea2bf6060c2d6",
+        "source_path": "results/pool_cache",
+        "indices": [
+          34,
+          6,
+          26
+        ],
+        "candidates": [
+          {
+            "index": 34,
+            "seed": 31110,
+            "bits": 2,
+            "direction_kind": "zf_full",
+            "align_frac": 0.8,
+            "align_jitter": 0.0,
+            "design_gamma": 6.0,
+            "design_eps": 0.025,
+            "power_slack": 1.3,
+            "power_perturb": 0.05,
+            "channel_seed": 20260706,
+            "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+            "configuration_signature": "737d8b2ba54657791fe82e32598c766104ba00cfc1aa19154ed701aff55786ca",
+            "min_sinr_nominal": 10.837233381629812,
+            "wee": 1.2792320135377533,
+            "U": 23.280985303134504,
+            "V": 18.199189089045905,
+            "power_per_bs": [
+              0.7100246629982457,
+              0.7823071908391982
+            ],
+            "qos_feasible": true,
+            "r_cert": 0.0908935546875,
+            "epsilon_cert": 0.0908935546875,
+            "cert_info": {
+              "status": "EXACT_BRACKET",
+              "bracket": [
+                0.0908935546875,
+                0.090966796875
+              ],
+              "n_bisection_iter": 13,
+              "n_feasibility_checks": 15,
+              "binding_user": [
+                1,
+                1
+              ],
+              "binding_margin": -0.00019908065598858975
+            }
+          },
+          {
+            "index": 6,
+            "seed": 31020,
+            "bits": 2,
+            "direction_kind": "zf_full",
+            "align_frac": 0.2,
+            "align_jitter": 0.3,
+            "design_gamma": 3.0,
+            "design_eps": 0.05,
+            "power_slack": 1.5,
+            "power_perturb": 0.1,
+            "channel_seed": 20260706,
+            "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+            "configuration_signature": "5b16c8273e7d0c31ee26dae69c2ff77176c73b715f2bd3ad1c6bc733e220bfa7",
+            "min_sinr_nominal": 8.2380083458834,
+            "wee": 1.2460197453193609,
+            "U": 23.21337605812263,
+            "V": 18.630022634330672,
+            "power_per_bs": [
+              0.8927537898344022,
+              0.7632948112112536
+            ],
+            "qos_feasible": true,
+            "r_cert": 0.11396484374999999,
+            "epsilon_cert": 0.11396484374999999,
+            "cert_info": {
+              "status": "EXACT_BRACKET",
+              "bracket": [
+                0.11396484374999999,
+                0.11403808593749999
+              ],
+              "n_bisection_iter": 13,
+              "n_feasibility_checks": 15,
+              "binding_user": [
+                0,
+                0
+              ],
+              "binding_margin": -0.0001887726640456
+            }
+          },
+          {
+            "index": 26,
+            "seed": 31077,
+            "bits": 2,
+            "direction_kind": "zf_full",
+            "align_frac": 0.6,
+            "align_jitter": 0.6,
+            "design_gamma": 2.0,
+            "design_eps": 0.0,
+            "power_slack": 1.0,
+            "power_perturb": 0.0,
+            "channel_seed": 20260706,
+            "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+            "configuration_signature": "58b29879cfba25777dd94e8f4efe5c69041b471d0d544d8315e592ef1bd654a3",
+            "min_sinr_nominal": 1.9999999999999987,
+            "wee": 0.6319332180288708,
+            "U": 9.509775004326936,
+            "V": 15.048702510037174,
+            "power_per_bs": [
+              0.17611601756884515,
+              0.12055093624528118
+            ],
+            "qos_feasible": true,
+            "r_cert": 0.0009521484374999999,
+            "epsilon_cert": 0.0009521484374999999,
+            "cert_info": {
+              "status": "EXACT_BRACKET",
+              "bracket": [
+                0.0009521484374999999,
+                0.0010253906249999998
+              ],
+              "n_bisection_iter": 13,
+              "n_feasibility_checks": 15,
+              "binding_user": [
+                0,
+                1
+              ],
+              "binding_margin": -0.00019278173203929327
+            }
+          }
+        ],
+        "meta": {
+          "pool_target_size": 40,
+          "channel_seed": 20260706,
+          "cfg_seed": 20260706,
+          "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+          "generation_stats": {
+            "attempts": 125,
+            "accepted": 40,
+            "rejected_unique": 0,
+            "rejected_qos_power": 85,
+            "reject_reasons": {
+              "power:diverged": 59,
+              "power:slack_budget": 5,
+              "power:power_budget_exceeded": 21
+            },
+            "unique_theta_count": 40,
+            "unique_configuration_count": 40
+          },
+          "n_oracle_calls": 600
+        },
+        "model_note": "Archived conference channels: direct intercell OFF. No new generation or recertification by legacy code."
+      }
+    },
+    {
+      "label": "conference_26",
+      "local_config": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "gamma": 2.0,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_serving_attenuation": 0.25,
+        "include_direct_intercell": false,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "noise_power_dbm": -100.0,
+        "p_max_dbm": 30.0,
+        "pa_efficiency": 0.38,
+        "p_bs": 6.0,
+        "p_ue": 0.1,
+        "p_loss": 0.5,
+        "p_ris_controller": 0.5,
+        "p_cell_idle": 0.001,
+        "p_diode_on": 0.004,
+        "bandwidth_hz": 10000000.0,
+        "radius_floor": 1e-10,
+        "strict_eig_tol": 1e-08,
+        "strict_normalized_tol": 1e-08,
+        "nominal_normalized_tol": 1e-12,
+        "solver": "CLARABEL",
+        "solver_tol": 1e-10,
+        "solver_max_iter": 200,
+        "fast_tol": 0.0,
+        "fast_lambda_cap": 10000000000.0,
+        "fast_search_tol": 1e-09,
+        "eps_hi": 0.2,
+        "eps_cap": 1.2,
+        "certificate_abs_tol": 1e-07,
+        "certificate_rel_tol": 0.0001,
+        "certificate_max_iter": 60,
+        "strict_shrink_factor": 0.98,
+        "strict_shrink_steps": 40,
+        "pool_size": 4,
+        "pool_attempts": 20,
+        "design_gamma_mult": [
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          3.0,
+          5.0
+        ],
+        "power_slack_grid": [
+          1.0,
+          1.1,
+          1.3,
+          1.8
+        ],
+        "power_control_tol": 1e-10,
+        "zf_rcond": 1e-12,
+        "epsilon_min": 0.05,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null,
+        "calibration_samples": 100,
+        "calibration_quantiles": [
+          0.9,
+          0.95,
+          0.99
+        ],
+        "calibration_snr_grid": [
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ],
+        "calibration_q": 0.99,
+        "time_steps": 6,
+        "slot_duration": 0.1,
+        "channel_correlation": null,
+        "mobility_level": "slow",
+        "mobility_correlations": [
+          0.9999,
+          0.995,
+          0.95
+        ],
+        "quasi_static_br": true,
+        "eta_trigger": 0.9,
+        "T_period": 10,
+        "drift_rate_nu": 0.002,
+        "energy_per_bit_switch": 1e-05,
+        "E_controller_fixed": 0.001,
+        "policies": [
+          "always_reconfigure",
+          "periodic_reconfigure",
+          "certificate_triggered",
+          "static"
+        ],
+        "selection_rule": "lifetime_aware",
+        "seeds": [
+          60001
+        ],
+        "channel_seed": 20260706,
+        "pool_seed": 31001,
+        "csi_seed": 51001,
+        "calibration_seed": 52001,
+        "mc_seed": 41001,
+        "mc_samples": 50,
+        "alpha_grid": [
+          0.25,
+          0.5,
+          0.9,
+          1.0,
+          1.1
+        ],
+        "legacy_indices": [
+          34,
+          6,
+          26
+        ],
+        "legacy_fixture": "journal_sim/tests/fixtures/conference_representatives.npz",
+        "lambda_grid_points": 400,
+        "scaling_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "output_root": "journal_results",
+        "smoke": true
+      },
+      "certificate_before_evaluation": {
+        "epsilon_cert": 0.0,
+        "epsilon_lo": 0.0,
+        "epsilon_hi": 0.0,
+        "binding_user": null,
+        "binding_margin": null,
+        "fast_oracle_calls": 0,
+        "strict_oracle_calls": 6,
+        "strict_validation_passed": false,
+        "status": "NUMERICALLY_UNCERTAIN",
+        "context_id": "8db44317d52249651e110ccaf426a409c2bf2e932d10932da087d8413ac7c6ab3174dabc5552a9df22be115c83af95317928e5383060bd5b9c9aeeeadc113b36",
+        "upper_endpoint_status": "UNVERIFIED_FAST_PROPOSAL",
+        "strict_validation_runtime": 0.0008622000041214051,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": -1.734723475976807e-18,
+            "normalized_min_eig": -2.0239355082306156e-17,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.08571041265506299,
+            "raw_normalized_min_eig": -2.0239355082306156e-17,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 8.673617379884035e-19,
+            "normalized_min_eig": 1.6899176476659523e-17,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.05132568082156959,
+            "raw_normalized_min_eig": 1.6899176476659523e-17,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 4.336808689942018e-19,
+            "normalized_min_eig": 1.0527516628621451e-18,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.41194983042357924,
+            "raw_normalized_min_eig": 1.0527516628621451e-18,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": -1.734723475976807e-18,
+            "normalized_min_eig": -6.5448127526692245e-18,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.26505318662773364,
+            "raw_normalized_min_eig": -6.5448127526692245e-18,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": -8.673617379884035e-19,
+            "normalized_min_eig": -2.455696514565633e-18,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.35320396182661995,
+            "raw_normalized_min_eig": -2.455696514565633e-18,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": -8.673617379884035e-19,
+            "normalized_min_eig": -7.386894256535836e-18,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.11741900017330993,
+            "raw_normalized_min_eig": -7.386894256535836e-18,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          }
+        ],
+        "note": "nominal QoS lies within numerical guard; no positive radius asserted"
+      },
+      "certificate": {
+        "epsilon_cert": 0.0,
+        "epsilon_lo": 0.0,
+        "epsilon_hi": 0.0,
+        "binding_user": null,
+        "binding_margin": null,
+        "fast_oracle_calls": 0,
+        "strict_oracle_calls": 6,
+        "strict_validation_passed": false,
+        "status": "NUMERICALLY_UNCERTAIN",
+        "context_id": "8db44317d52249651e110ccaf426a409c2bf2e932d10932da087d8413ac7c6ab3174dabc5552a9df22be115c83af95317928e5383060bd5b9c9aeeeadc113b36",
+        "upper_endpoint_status": "UNVERIFIED_FAST_PROPOSAL",
+        "strict_validation_runtime": 0.0008622000041214051,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": -1.734723475976807e-18,
+            "normalized_min_eig": -2.0239355082306156e-17,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.08571041265506299,
+            "raw_normalized_min_eig": -2.0239355082306156e-17,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 8.673617379884035e-19,
+            "normalized_min_eig": 1.6899176476659523e-17,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.05132568082156959,
+            "raw_normalized_min_eig": 1.6899176476659523e-17,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 4.336808689942018e-19,
+            "normalized_min_eig": 1.0527516628621451e-18,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.41194983042357924,
+            "raw_normalized_min_eig": 1.0527516628621451e-18,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": -1.734723475976807e-18,
+            "normalized_min_eig": -6.5448127526692245e-18,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.26505318662773364,
+            "raw_normalized_min_eig": -6.5448127526692245e-18,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": -8.673617379884035e-19,
+            "normalized_min_eig": -2.455696514565633e-18,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.35320396182661995,
+            "raw_normalized_min_eig": -2.455696514565633e-18,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": -8.673617379884035e-19,
+            "normalized_min_eig": -7.386894256535836e-18,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.11741900017330993,
+            "raw_normalized_min_eig": -7.386894256535836e-18,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          }
+        ],
+        "note": "nominal QoS lies within numerical guard; no positive radius asserted"
+      },
+      "source": {
+        "source_npz_sha256": "21ac2c552d232bfad346ebeff91639fd32b62bddfcc8320e54ff02b2348c09f0",
+        "source_json_sha256": "61dd5f9f13339110bef15752bd9f3084aced00fb74fedddad6cea2bf6060c2d6",
+        "source_path": "results/pool_cache",
+        "indices": [
+          34,
+          6,
+          26
+        ],
+        "candidates": [
+          {
+            "index": 34,
+            "seed": 31110,
+            "bits": 2,
+            "direction_kind": "zf_full",
+            "align_frac": 0.8,
+            "align_jitter": 0.0,
+            "design_gamma": 6.0,
+            "design_eps": 0.025,
+            "power_slack": 1.3,
+            "power_perturb": 0.05,
+            "channel_seed": 20260706,
+            "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+            "configuration_signature": "737d8b2ba54657791fe82e32598c766104ba00cfc1aa19154ed701aff55786ca",
+            "min_sinr_nominal": 10.837233381629812,
+            "wee": 1.2792320135377533,
+            "U": 23.280985303134504,
+            "V": 18.199189089045905,
+            "power_per_bs": [
+              0.7100246629982457,
+              0.7823071908391982
+            ],
+            "qos_feasible": true,
+            "r_cert": 0.0908935546875,
+            "epsilon_cert": 0.0908935546875,
+            "cert_info": {
+              "status": "EXACT_BRACKET",
+              "bracket": [
+                0.0908935546875,
+                0.090966796875
+              ],
+              "n_bisection_iter": 13,
+              "n_feasibility_checks": 15,
+              "binding_user": [
+                1,
+                1
+              ],
+              "binding_margin": -0.00019908065598858975
+            }
+          },
+          {
+            "index": 6,
+            "seed": 31020,
+            "bits": 2,
+            "direction_kind": "zf_full",
+            "align_frac": 0.2,
+            "align_jitter": 0.3,
+            "design_gamma": 3.0,
+            "design_eps": 0.05,
+            "power_slack": 1.5,
+            "power_perturb": 0.1,
+            "channel_seed": 20260706,
+            "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+            "configuration_signature": "5b16c8273e7d0c31ee26dae69c2ff77176c73b715f2bd3ad1c6bc733e220bfa7",
+            "min_sinr_nominal": 8.2380083458834,
+            "wee": 1.2460197453193609,
+            "U": 23.21337605812263,
+            "V": 18.630022634330672,
+            "power_per_bs": [
+              0.8927537898344022,
+              0.7632948112112536
+            ],
+            "qos_feasible": true,
+            "r_cert": 0.11396484374999999,
+            "epsilon_cert": 0.11396484374999999,
+            "cert_info": {
+              "status": "EXACT_BRACKET",
+              "bracket": [
+                0.11396484374999999,
+                0.11403808593749999
+              ],
+              "n_bisection_iter": 13,
+              "n_feasibility_checks": 15,
+              "binding_user": [
+                0,
+                0
+              ],
+              "binding_margin": -0.0001887726640456
+            }
+          },
+          {
+            "index": 26,
+            "seed": 31077,
+            "bits": 2,
+            "direction_kind": "zf_full",
+            "align_frac": 0.6,
+            "align_jitter": 0.6,
+            "design_gamma": 2.0,
+            "design_eps": 0.0,
+            "power_slack": 1.0,
+            "power_perturb": 0.0,
+            "channel_seed": 20260706,
+            "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+            "configuration_signature": "58b29879cfba25777dd94e8f4efe5c69041b471d0d544d8315e592ef1bd654a3",
+            "min_sinr_nominal": 1.9999999999999987,
+            "wee": 0.6319332180288708,
+            "U": 9.509775004326936,
+            "V": 15.048702510037174,
+            "power_per_bs": [
+              0.17611601756884515,
+              0.12055093624528118
+            ],
+            "qos_feasible": true,
+            "r_cert": 0.0009521484374999999,
+            "epsilon_cert": 0.0009521484374999999,
+            "cert_info": {
+              "status": "EXACT_BRACKET",
+              "bracket": [
+                0.0009521484374999999,
+                0.0010253906249999998
+              ],
+              "n_bisection_iter": 13,
+              "n_feasibility_checks": 15,
+              "binding_user": [
+                0,
+                1
+              ],
+              "binding_margin": -0.00019278173203929327
+            }
+          }
+        ],
+        "meta": {
+          "pool_target_size": 40,
+          "channel_seed": 20260706,
+          "cfg_seed": 20260706,
+          "config_fingerprint": "d169a9589873541623dc99df4b35ce501d894ca8f33152bbffea23d0a00d1012",
+          "generation_stats": {
+            "attempts": 125,
+            "accepted": 40,
+            "rejected_unique": 0,
+            "rejected_qos_power": 85,
+            "reject_reasons": {
+              "power:diverged": 59,
+              "power:slack_budget": 5,
+              "power:power_budget_exceeded": 21
+            },
+            "unique_theta_count": 40,
+            "unique_configuration_count": 40
+          },
+          "n_oracle_calls": 600
+        },
+        "model_note": "Archived conference channels: direct intercell OFF. No new generation or recertification by legacy code."
+      }
+    }
+  ],
+  "run_complete": true,
+  "success": true
+}
