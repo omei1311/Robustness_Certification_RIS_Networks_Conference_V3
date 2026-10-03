@@ -7,6 +7,7 @@ from journal_sim.core.power import transition_energy
 from journal_sim.design.candidate_pool import build_candidate_pool
 from journal_sim.design import selection
 from .offline_calibration import offline_radius
+from .drift_calibration import effective_drift_rate
 from .trigger import trigger_decision, reset_reference
 
 
@@ -17,6 +18,10 @@ class PolicyRunner:
         self.design_records = []
         self.candidate_arrays = {}
         self.epsilon_est, self.calibration_provenance = offline_radius(cfg)
+        # Lifetime-predictor nu is resolved once per runner (artifact/manual/
+        # legacy). It never touches the online trigger, which keeps using the
+        # actually observed rho_total versus eta * epsilon_cert.
+        self.drift_rate_nu, self.drift_provenance = effective_drift_rate(cfg)
 
     def step(self, estimated_channel, time_index):
         start = perf_counter()
@@ -34,7 +39,19 @@ class PolicyRunner:
                      primary_solver_calls=0, fallback_solver_calls=0,
                      solver_error_count=0, solver_inaccurate_count=0,
                      candidate_generation_runtime=0., certificate_runtime=0., strict_validation_runtime=0.,
-                     calibration_runtime=0.)
+                     calibration_runtime=0.,
+                     drift_rate_nu=self.drift_rate_nu,
+                     drift_calibration_source=self.drift_provenance.get("source"),
+                     drift_calibration_sha256=self.drift_provenance.get("sha256"),
+                     drift_calibration_quantile=self.drift_provenance.get("quantile"),
+                     predicted_lifetime=None, predicted_reuse_slots=None,
+                     actual_reuse_time=None, actual_reuse_slots=None)
+        if decision.triggered and old is not None:
+            # Diagnostics only: how long the replaced configuration was actually
+            # reused. Never fed back into the predictor.
+            reused_slots = time_index - old.reference_time
+            event.update(actual_reuse_time=reused_slots * self.cfg.slot_duration,
+                         actual_reuse_slots=reused_slots)
         if decision.triggered:
             event["algorithm_calls"] = 1
             pool, stats = build_candidate_pool(estimated_channel, self.cfg, self.seed, time_index)
@@ -42,14 +59,19 @@ class PolicyRunner:
                 c.epsilon_est = self.epsilon_est
             rule = self.cfg.selection_rule
             chooser = getattr(selection, "select_" + rule)
-            outcome = chooser(pool, old_theta, self.cfg) if rule == "lifetime_aware" else chooser(pool, self.cfg)
+            outcome = (chooser(pool, old_theta, self.cfg, drift_rate_nu=self.drift_rate_nu)
+                       if rule == "lifetime_aware" else chooser(pool, self.cfg))
             c = outcome.candidate
             event["design_status"] = outcome.status
             if c is not None:
                 self.state = reset_reference(c.configuration, c.certificate, c.H_hat,
                                              time_index, c.epsilon_est, self.cfg)
                 transition = transition_energy(old_theta, c.configuration.theta, self.cfg)
+                winner = next(s for s in outcome.scores if s["candidate_index"] == c.index)
                 event.update(installed=True, reconfigured=old is not None,
+                             predicted_lifetime=winner["predicted_lifetime"],
+                             predicted_reuse_slots=(None if winner["predicted_lifetime"] is None else
+                                                    winner["predicted_lifetime"] / self.cfg.slot_duration),
                              **asdict(transition), new_configuration=c.configuration.configuration_id)
             elif old is not None:
                 # Keep the physical old X, but record the failed redesign and
@@ -58,7 +80,9 @@ class PolicyRunner:
             self.design_records.append(dict(seed=self.seed, time_index=time_index, policy=self.policy,
                                             stats=stats, selection_status=outcome.status, scores=outcome.scores,
                                             candidates=[c.to_record() for c in pool],
-                                            offline_calibration=self.calibration_provenance))
+                                            offline_calibration=self.calibration_provenance,
+                                            drift_calibration=dict(nu=self.drift_rate_nu,
+                                                                   **self.drift_provenance)))
             for c in pool:
                 key = f"t{time_index}_c{c.index}"
                 self.candidate_arrays[key + "_w"] = c.configuration.w

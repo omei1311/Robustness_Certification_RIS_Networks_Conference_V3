@@ -35,35 +35,55 @@ def run_seed(cfg, seed):
 
 def plot(rows, details, output, cfg):
     # Publish offline parameters once, after all requested calibration seeds.
-    # Taking the maximum observed per-profile joint quantile is a transparent
-    # conservative aggregation, not a universal deterministic error bound.
+    # System-level value = max over calibration seeds of the per-seed joint
+    # quantile (per-seed value = max over phase profiles). Averaging would
+    # dilute the safety budget and is deliberately not used.
     grouped = {}
     for r in rows:
         if r.get("estimator") == "physical_pilot":
             grouped.setdefault(r["scope_fingerprint"], []).append(r)
     entries = []
     for fingerprint, group in grouped.items():
+        seeds = sorted({r["seed"] for r in group})
         entry = dict(scope_fingerprint=fingerprint, scope=group[0]["scope"],
-                     calibration_seeds=sorted({r["seed"] for r in group}),
-                     profile_count=len(group), samples_per_profile=cfg.calibration_samples)
-        for q in cfg.calibration_quantiles:
-            key = f"epsilon_joint_{round(q * 100)}"
-            entry[key] = max(r[key] for r in group)
+                     mode="smoke" if cfg.smoke else "formal",
+                     calibration_seeds=seeds, profile_count=len(group) // len(seeds),
+                     samples_per_profile=cfg.calibration_samples)
+        per_seed = []
+        for seed in seeds:
+            record = dict(seed=seed)
+            for q in cfg.calibration_quantiles:
+                key = f"epsilon_joint_{round(q * 100)}"
+                record[key] = max(r[key] for r in group if r["seed"] == seed)
+            per_seed.append(record)
+        aggregate = {k: max(record[k] for record in per_seed)
+                     for k in per_seed[0] if k != "seed"}
+        entry["per_seed"] = per_seed
+        entry["aggregate"] = aggregate
+        entry.update(aggregate)  # flat keys kept for the offline_radius reader
         entries.append(entry)
     save_json(output / "joint_radius.json", dict(schema="journal_offline_joint_radius_v1", entries=entries,
-              interpretation="Offline maximum of empirical all-user joint quantiles across declared calibration drops and phase profiles. Transfer to unseen trajectories/configurations is empirical; no deterministic or horizon guarantee.",
-              source="records.csv", config=cfg.to_dict(),
+              interpretation="Offline maximum over calibration seeds of empirical all-user joint relative-error quantiles (per seed: max over phase profiles). This is an empirical offline calibration radius based on finite calibration drops; it is not a deterministic future-horizon guarantee and not a robust certificate.",
+              source="records.csv", mode="smoke" if cfg.smoke else "formal", config=cfg.to_dict(),
               requested_seed_count=len(cfg.seeds), completed_seed_count=sum(d["status"] == "COMPLETED" for d in details),
               complete=all(d["status"] == "COMPLETED" for d in details)))
     plt = pyplot()
     fig, axes = plt.subplots(1, 2, figsize=(10, 4), sharey=True)
+    styles = {90: ("#009E73", "^"), 95: ("#0072B2", "o"), 99: ("#E69F00", "s")}
     for ax, estimator in zip(axes, ("isotropic_effective", "physical_pilot")):
-        for q, color, marker in ((95, "#0072B2", "o"), (99, "#E69F00", "s")):
-            group = [r for r in rows if r.get("estimator") == estimator and r["N"] == cfg.N and r["bits"] == cfg.bits]
-            snrs = sorted({r["estimation_snr_db"] for r in group})
-            if snrs:
-                ax.plot(snrs, [max(r[f"epsilon_joint_{q}"] for r in group if r["estimation_snr_db"] == snr) for snr in snrs],
-                        color=color, marker=marker, label=f"Joint {q}% (max across calibration profiles)")
+        group = [r for r in rows if r.get("estimator") == estimator and r["N"] == cfg.N and r["bits"] == cfg.bits]
+        snrs = sorted({r["estimation_snr_db"] for r in group})
+        for q, (color, marker) in styles.items():
+            if snrs and any(f"epsilon_joint_{q}" in r for r in group):
+                ax.plot(snrs, [max(r[f"epsilon_joint_{q}"] for r in group if r["estimation_snr_db"] == snr)
+                               for snr in snrs], color=color, marker=marker, label=f"joint {q}% (max over drops)")
+        if estimator == "physical_pilot" and snrs:
+            q = round(cfg.calibration_q * 100)
+            operating = [max(r[f"epsilon_joint_{q}"] for r in group if r["estimation_snr_db"] == snr)
+                         for snr in snrs]
+            ax.plot(snrs, operating, color="#CC79A7", marker="*", ms=13, ls="none",
+                    label=f"operating point (joint {q}%)")
+            ax.axvline(cfg.estimation_snr_db, color="#999999", lw=1, ls="--")
         ax.set_title(estimator.replace("_", " "))
         ax.set_xlabel("Estimation SNR (dB)")
         ax.legend(fontsize=8)
@@ -75,5 +95,10 @@ def plot(rows, details, output, cfg):
 
 if __name__ == "__main__":
     cfg, execution = cli_config(__doc__)
+    # Calibration never touches evaluation seeds: exp1 always runs on the
+    # dedicated CSI calibration seed set (--n-seeds selects its prefix).
+    count = len(cfg.seeds)
+    seeds = cfg.calibration_seeds if count >= len(cfg.calibration_seeds) else cfg.calibration_seeds[:count]
+    cfg = cfg.with_overrides(seeds=seeds)
     _, success = execute("exp1_csi", cfg, run_seed, plot, workers=execution.workers)
     raise SystemExit(0 if success else 1)

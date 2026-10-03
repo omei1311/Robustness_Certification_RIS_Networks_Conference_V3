@@ -6,14 +6,14 @@ from journal_sim.core.models import array_digest
 from journal_sim.core.sinr import compute_sinr, rate
 from journal_sim.core.power import system_power
 from journal_sim.dynamics.channel_process import channel_trajectory, trajectory_id
-from journal_sim.dynamics.csi_estimation import estimate_physical
+from journal_sim.dynamics.csi_estimation import estimate_physical, csi_observation_seed
 from journal_sim.dynamics.reconfiguration import PolicyRunner
 from .metrics import long_term_metrics
 
 
 def paired_observations(cfg, seed):
     trajectory = channel_trajectory(cfg, seed)
-    estimates = tuple(estimate_physical(c, cfg, int(np.random.SeedSequence([cfg.csi_seed, seed, t]).generate_state(1)[0]))
+    estimates = tuple(estimate_physical(c, cfg, csi_observation_seed(cfg, seed, t))
                       for t, c in enumerate(trajectory))
     return trajectory, estimates
 
@@ -51,7 +51,7 @@ def run_paired_policies(cfg, seed, trajectory=None, estimates=None):
             event.update(evaluate_configuration(X, trajectory[t], cfg),
                          trajectory_id=trajectory_digest, csi_trajectory_id=csi_digest,
                          observation_id=array_digest(estimates[t].h_bu, estimates[t].h_ru, estimates[t].h_br))
-            event["csi_noise_seed"] = int(np.random.SeedSequence([cfg.csi_seed, seed, t]).generate_state(1)[0])
+            event["csi_noise_seed"] = csi_observation_seed(cfg, seed, t)
             policy_records.append(event)
             ws.append(np.zeros((cfg.L, cfg.K, cfg.M), complex) if X is None else X.w)
             thetas.append(np.ones(cfg.N, complex) if X is None else X.theta)

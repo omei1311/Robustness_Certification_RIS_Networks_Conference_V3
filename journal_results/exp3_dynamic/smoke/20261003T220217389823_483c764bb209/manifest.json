@@ -1,0 +1,323 @@
+{
+  "experiment": "exp3_dynamic",
+  "mode": "smoke",
+  "config": {
+    "L": 2,
+    "K": 3,
+    "M": 12,
+    "N": 32,
+    "bits": 2,
+    "gamma": 2.0,
+    "bs_x": [
+      -100.0,
+      100.0
+    ],
+    "bs_y": [
+      0.0,
+      0.0
+    ],
+    "ue_center_x": [
+      -15.0,
+      15.0
+    ],
+    "ue_center_y": [
+      0.0,
+      0.0
+    ],
+    "ue_radius": 7.0,
+    "ris_x": 0.0,
+    "ris_y": 0.0,
+    "c0_db": -30.0,
+    "alpha_bu": 4.5,
+    "alpha_br": 2.2,
+    "alpha_ru": 2.2,
+    "rician_k": 3.0,
+    "channel_scale": 100000.0,
+    "direct_link_attenuation": 0.25,
+    "include_direct_intercell": true,
+    "inter_ris_attenuation": 1.0,
+    "ris_size_model": "growing_aperture",
+    "ris_reference_N": 32,
+    "noise_power_dbm": -100.0,
+    "p_max_dbm": 30.0,
+    "pa_efficiency": 0.38,
+    "p_bs": 6.0,
+    "p_ue": 0.1,
+    "p_loss": 0.5,
+    "p_ris_controller": 0.5,
+    "p_cell_idle": 0.001,
+    "p_diode_on": 0.004,
+    "bandwidth_hz": 10000000.0,
+    "radius_floor": 1e-10,
+    "strict_eig_tol": 1e-08,
+    "strict_normalized_tol": 1e-08,
+    "nominal_normalized_tol": 1e-12,
+    "solver": "SCS",
+    "solver_tol": 1e-06,
+    "solver_max_iter": 1500,
+    "fallback_solver": null,
+    "fallback_solver_tol": 1e-06,
+    "fallback_solver_max_iter": 5000,
+    "strict_recovery_factors": [
+      1.0,
+      0.95,
+      0.9,
+      0.8,
+      0.7,
+      0.6,
+      0.5
+    ],
+    "strict_refinement_steps": 2,
+    "fast_tol": 0.0,
+    "fast_lambda_cap": 10000000000.0,
+    "fast_search_tol": 1e-09,
+    "eps_hi": 0.2,
+    "eps_cap": 1.2,
+    "certificate_abs_tol": 1e-07,
+    "certificate_rel_tol": 0.0001,
+    "certificate_max_iter": 60,
+    "pool_size": 6,
+    "static_pool_size": 4,
+    "validation_pool_size": 4,
+    "pool_attempts": 24,
+    "design_gamma_mult": [
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      3.0,
+      5.0
+    ],
+    "power_slack_grid": [
+      1.0,
+      1.1,
+      1.3,
+      1.8
+    ],
+    "power_control_tol": 1e-10,
+    "zf_rcond": 1e-12,
+    "epsilon_min": 0.05,
+    "estimation_snr_db": 40.0,
+    "nmse_db": null,
+    "calibration_samples": 100,
+    "calibration_quantiles": [
+      0.9,
+      0.95,
+      0.99
+    ],
+    "calibration_snr_grid": [
+      10.0,
+      20.0,
+      30.0,
+      40.0
+    ],
+    "calibration_q": 0.99,
+    "calibration_phase_profiles": 2,
+    "calibration_cases": [
+      [
+        16,
+        2
+      ],
+      [
+        32,
+        2
+      ],
+      [
+        64,
+        2
+      ],
+      [
+        32,
+        3
+      ]
+    ],
+    "calibration_seeds": [
+      52001
+    ],
+    "csi_calibration_file": "journal_results\\exp1_csi\\smoke\\20261003T215134958149_e258dc1b485d\\joint_radius.json",
+    "csi_calibration_sha256": "e367c659e9ff5c33ba76b5aed776e6d356dae00502ac867535f609958ff26a8f",
+    "epsilon_est": null,
+    "time_steps": 10,
+    "slot_duration": 0.1,
+    "channel_correlation": null,
+    "mobility_level": "slow",
+    "mobility_regimes": [
+      "slow",
+      "medium",
+      "fast"
+    ],
+    "mobility_correlations": [
+      0.9999,
+      0.995,
+      0.95
+    ],
+    "quasi_static_br": true,
+    "eta_trigger": 0.9,
+    "T_period": 10,
+    "periodic_short": 5,
+    "periodic_long": 20,
+    "drift_rate_nu": 0.002,
+    "drift_rate_nu_by_mobility": null,
+    "drift_calibration_seeds": [
+      53001
+    ],
+    "drift_calibration_q": 0.95,
+    "drift_calibration_slots": 12,
+    "drift_reference_stride": 4,
+    "drift_horizon_slots": [
+      1,
+      2,
+      4
+    ],
+    "drift_calibration_file": "journal_results\\exp1b_drift\\smoke\\20261003T215138172054_5ea5a964067d\\drift_rate.json",
+    "drift_calibration_sha256": "bf7a0983fca86a56b860b8c44b7dce0596baa834595c63fc63116beffb05b90c",
+    "energy_per_bit_switch": 1e-05,
+    "E_controller_fixed": 0.001,
+    "policies": [
+      "certificate_triggered",
+      "static"
+    ],
+    "selection_rule": "lifetime_aware",
+    "seeds": [
+      60001
+    ],
+    "channel_seed": 20260706,
+    "pool_seed": 31001,
+    "csi_seed": 51001,
+    "calibration_seed": 52001,
+    "mc_seed": 41001,
+    "mc_samples": 50,
+    "alpha_grid": [
+      0.25,
+      0.5,
+      0.9,
+      1.0,
+      1.1
+    ],
+    "validation_alpha_grid": [
+      0.9,
+      1.0,
+      1.1
+    ],
+    "lambda_grid_points": 400,
+    "scaling_cases": [
+      [
+        16,
+        2
+      ],
+      [
+        32,
+        2
+      ],
+      [
+        64,
+        2
+      ],
+      [
+        32,
+        3
+      ]
+    ],
+    "runtime_time_steps": 2,
+    "runtime_policies": [
+      "certificate_triggered"
+    ],
+    "output_root": "journal_results",
+    "smoke": true
+  },
+  "seeds": [
+    60001
+  ],
+  "fingerprint": "483c764bb20963ba56f752bdb59eb831a639335cd0d981a11752a1ca6c2a69eb",
+  "timestamp": "2026-10-03T22:02:17.389823+08:00",
+  "git_commit": "dfe0028530f3d8bb57d059879917c358199c48d4",
+  "git": {
+    "commit": "dfe0028530f3d8bb57d059879917c358199c48d4",
+    "dirty": null,
+    "method": "git_unavailable"
+  },
+  "source_hashes": {
+    "journal_sim\\__init__.py": "9036bdf4a9295a6817831281dc334c50266df56cfe14da82774a09409266268c",
+    "journal_sim\\certification\\__init__.py": "8ca1e4e2f5a3bfa56c004dbfd46f068b5273d981cccad6007eb5de511b322a50",
+    "journal_sim\\certification\\certificate.py": "6bc6f729db018814d5779db257ce8a949178c3670ca45066e8b30b943b7102aa",
+    "journal_sim\\certification\\lmi.py": "eda335cd46d39414fccd9b6ae7d62a03642590287f4d5c469b5abbff2b59c771",
+    "journal_sim\\certification\\oracle.py": "f90457c4c474664fec541f4418f7db4ec594d8d9d120cad2e30b7144750df45d",
+    "journal_sim\\config.py": "1a3545b5c126992dff04d4f7bcb32b05398829b89a699f40d065a1beaca5dec6",
+    "journal_sim\\core\\__init__.py": "844699544ca801d0e5c1ae2c1a5a10a5bb034e1bb4a229ebfed8b1b1614e219d",
+    "journal_sim\\core\\channels.py": "c613404b23d87100b20185eec6bb4aef7742301f8fea77d32e40ff70efccecb5",
+    "journal_sim\\core\\models.py": "7ad9fbc0c7f83838bdb5b95c0d43b770bda4d83d4235e5cf98518effed0f163e",
+    "journal_sim\\core\\power.py": "ba40d130ab6eb0302e7ed107f7662a430b3c3d74cbb741f9df724d58cf2b20ea",
+    "journal_sim\\core\\sinr.py": "cad006e5b310984246d2a47199aa4b7167b6ecc7ef7a441cd9e396139c9642b3",
+    "journal_sim\\core\\uncertainty.py": "00a676761c2824a99b1d3951c25865740fefc146b905ce2c7fa4f3c679243921",
+    "journal_sim\\design\\__init__.py": "859fd66255b9483d04405de3f0eb6bba4773c3bb3c64ef8d4ceb765e43885fad",
+    "journal_sim\\design\\candidate.py": "98fa403dd20654ef8336b7b6e35f368869611f66ed87dba43a4183ed4cad43c7",
+    "journal_sim\\design\\candidate_pool.py": "896c9d21c5347a56c88f636fe1a2a78a9aea40940d49fb99c43db8a8b97553de",
+    "journal_sim\\design\\selection.py": "bf1bbe774b7efcc25e56b3e611a6eb32fbcb69b97172da4cc85098414c1c847f",
+    "journal_sim\\dynamics\\__init__.py": "c79ecd7ecd8118b327bb60a2f5fe4b4b13b9f14a34100c25f3e733c36fa6e3cf",
+    "journal_sim\\dynamics\\calibration_guards.py": "702e72fcd80e599e50a3a5ef956c5cf0922d5d0e1505847e78b93de385ccf6a2",
+    "journal_sim\\dynamics\\channel_process.py": "5a6eb590807eee2232d169a582c2731824c2e4ea331a3ec068f9aad3024054b3",
+    "journal_sim\\dynamics\\csi_estimation.py": "c916d382b14364ba17b323a747287024161bd68a6b75e1fc465c0f7f755b1ea9",
+    "journal_sim\\dynamics\\drift_calibration.py": "93391ad8bab49b859fbc0e1c531f04e18292eeccfc350dc6832077779754812a",
+    "journal_sim\\dynamics\\offline_calibration.py": "16ce74f2c5766da2f6af53ceb75faa0a6db5641190fa77dff7435e07723b121d",
+    "journal_sim\\dynamics\\reconfiguration.py": "d666f325641ed6903026195b2041f76b865481119d39f273de3aa1f6d550cce2",
+    "journal_sim\\dynamics\\trigger.py": "96b479fd723b7104f55fb322f583b501b12dc61aa74acf67a310f0b91ed34302",
+    "journal_sim\\evaluation\\__init__.py": "2c56d1d90e4dcfc506ee66554b19a32b55aa70a0c4c768c5bfbc9df0d40e7f50",
+    "journal_sim\\evaluation\\dynamic.py": "961a229c80880b03b729b56ee201cfc2e79bb6327dcd2a32e6e14941ab2eaf64",
+    "journal_sim\\evaluation\\metrics.py": "6933987bf60a7b730a2e69ffce4fa1937d543155649e793203ef95c994e94f64",
+    "journal_sim\\evaluation\\monte_carlo.py": "cd503634753727157507707c03125221f284698da812dcb49b032979aa716916",
+    "journal_sim\\evaluation\\runtime.py": "4e635af3e17f330a68e2d0bfcb0edf827d6e6531f264671c7869388761e24865",
+    "journal_sim\\experiments\\__init__.py": "ed6c66b15bae79e510df9e0f02ea095e97a156cfa456239845e81c46c1354112",
+    "journal_sim\\experiments\\common.py": "1154ba1618b060e6323a5d37f312d4a019581bb91cc1552bfc1ef6ff574edfd1",
+    "journal_sim\\experiments\\exp0_oracle_validation.py": "ebea20dc2c9d1c965a336e466a27afe29c352edbbf27299343e7b0d4b5274218",
+    "journal_sim\\experiments\\exp1_csi_calibration.py": "dac4166a2279bcf302e23103683c9a1902a9487f917d47d620eba656dc33884b",
+    "journal_sim\\experiments\\exp1b_drift_calibration.py": "f492acd22849808c70322b6e35adbeed81514931649749cb87e3cca8fe49a290",
+    "journal_sim\\experiments\\exp2_static_certificate.py": "9941b83ff9ba684632240d2f3a9af06d1b3d9406903939e915c8cd8caac64457",
+    "journal_sim\\experiments\\exp3_dynamic_reconfiguration.py": "c029a652685a07e214580bab331f551a106527cce166d38eeda53573f57380d8",
+    "journal_sim\\experiments\\exp4_runtime_scaling.py": "efaf49db423bf34d7cdd924d1e276f2e6243123109d5c9d150b0d5c9810fe145",
+    "journal_sim\\tests\\__init__.py": "c23c2ff13a5801d276d03749eb69ba8448ea60b92645b2c6c4971c758255160b",
+    "journal_sim\\tests\\fixtures\\conference_representatives.json": "f124e84251b03031edc7c4d3a6e4126c8770c90e01eb7f47df3a9ae0f0a0444a",
+    "journal_sim\\tests\\fixtures\\conference_representatives.npz": "2fd56bdf267b4f33f54d7220340fa2af347b091b488ffe60d1898c393bbe18ac",
+    "journal_sim\\tests\\helpers.py": "49cf2761faa28a8a1606599ccd91a678ba8b319b7ec6708017faf052840e16e6",
+    "journal_sim\\tests\\test_certificate.py": "61f976e2aff066059a395ddb9531f5936777c7a23e38bfd7046992b0036316b7",
+    "journal_sim\\tests\\test_channel_process.py": "f4d77f45d0635f47ed39d299d085fb970d77ec94f8b35b70928ac0c852af7a77",
+    "journal_sim\\tests\\test_drift_calibration.py": "fe713ba470de7bbb246fe715baaf747439e251aff5e982a15658ee916afe0f31",
+    "journal_sim\\tests\\test_dynamic.py": "e0fe0573cf67a25158879aa1d9c3908e7eac02aa36af94e55fe82ab79ee45812",
+    "journal_sim\\tests\\test_experiments.py": "5ee56a72981edc655429974cbaf6c4d6e004cddf2fa64b3a49b894e876449933",
+    "journal_sim\\tests\\test_formal_guards.py": "1fb6d11c7911218e57a76f150518f0051333a743638204ff737ac81b2c1c8098",
+    "journal_sim\\tests\\test_fragile.py": "063c7348df3de37f78a40986f23af5d4354b8e3565e38cdab23526f154f39a95",
+    "journal_sim\\tests\\test_journal_revision.py": "0a36f3ea2adaaf46d79b9d2d8852621d4845d08ed6090e416a633a6eebf950d6",
+    "journal_sim\\tests\\test_model.py": "4c2872c3b15a1ed6c9f6aea874757c2c983bc7659a19ea1700c4035a30773a95",
+    "journal_sim\\tests\\test_oracle.py": "184d4213bd948af195691629be9d5f3c5e46c65a84e39f4e62b538bb5a4951cc",
+    "journal_sim\\tests\\test_paired.py": "30a6e3732b3c877cfd680427dd34b5c4fb4c2df6e83d3472834458799fbd0951",
+    "journal_sim\\tests\\test_parallel_execution.py": "b2ee408d3df93109e66626d6d26a3be8e338ba020985e20604005db4304ba5a6",
+    "journal_sim\\tests\\test_reproducibility.py": "d5eb6caf65b6757ddf0545876619142257d235f401c510b1ab980a9e025f0acd",
+    "journal_sim\\tests\\test_runtime.py": "8c352d31b7327c4b2a8cfd130ad89e4cdfa9ce415bc1449fd27c320db48072a1",
+    "journal_sim\\tests\\test_selection_trigger.py": "ea6b75f180c332cf3de75428f4448ea8ab42a6f5346a2bee9dedea62cacd61b3",
+    "journal_sim\\tests\\test_solver_fallback.py": "988e0caabf0212560ed2f0b33e785bad9b417c19c390f865632c0980bdf54923",
+    "journal_sim\\tests\\test_strict_recovery.py": "f56b6fe995f263038232fa6a1b681d02de2c50bb1d84e175c3410aa4aa9e72b8",
+    "journal_sim\\tests\\test_transition_cost.py": "b0837ec3d1df2446de79c5d2b0f2fd68da8fdd5e7a659ce1f5062d511e6327d5",
+    "journal_sim\\tools\\extract_conference_fixture.py": "3ef8198e7b990ada5b6beea4ed356d8964c7c466b77d55e77d54e7439f26366b"
+  },
+  "versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "cvxpy": "1.7.5"
+  },
+  "execution": {
+    "parallel": false,
+    "workers_requested": 1,
+    "workers_effective": 1,
+    "multiprocessing_context": null,
+    "runtime_measurement_valid": true,
+    "blas_thread_env": {
+      "OMP_NUM_THREADS": null,
+      "MKL_NUM_THREADS": null,
+      "OPENBLAS_NUM_THREADS": null,
+      "NUMEXPR_NUM_THREADS": null
+    }
+  },
+  "note": "Smoke results verify execution only. All requested seeds and failed/uncertain outcomes remain in raw records.",
+  "seed_details": [],
+  "details": [],
+  "run_complete": false
+}

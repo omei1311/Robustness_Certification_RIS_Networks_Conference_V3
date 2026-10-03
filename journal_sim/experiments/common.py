@@ -23,7 +23,9 @@ import json
 import multiprocessing
 import os
 import shutil
+import subprocess
 import sys
+import time
 import traceback
 from pathlib import Path
 import numpy as np
@@ -66,7 +68,16 @@ def serializable(value):
 def save_json(path, payload):
     tmp = path.with_suffix(".json.tmp")
     tmp.write_text(json.dumps(serializable(payload), ensure_ascii=False, indent=2, allow_nan=False), encoding="utf-8")
-    tmp.replace(path)
+    # Windows briefly locks freshly written files (defender/indexer); retry
+    # the atomic replace a few times before giving up.
+    for attempt in range(6):
+        try:
+            tmp.replace(path)
+            return
+        except PermissionError:
+            if attempt == 5:
+                raise
+            time.sleep(0.2 * (attempt + 1))
 
 
 def save_csv(path, rows):
@@ -102,6 +113,25 @@ def source_hashes():
     return {str(p.relative_to(ROOT)): hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(paths)}
 
 
+def working_tree_status():
+    """(dirty, method): True/False when git is usable, (None, reason) if not.
+
+    Formal paper results require dirty=false; when git is unavailable the
+    manifest records null and source_hashes remain the authoritative state.
+    """
+    git = shutil.which("git")
+    if git is None:
+        return None, "git_unavailable"
+    try:
+        status = subprocess.run([git, "status", "--porcelain"], cwd=ROOT,
+                                capture_output=True, text=True, timeout=30)
+    except (OSError, subprocess.SubprocessError):
+        return None, "git_error"
+    if status.returncode != 0:
+        return None, "git_error"
+    return bool(status.stdout.strip()), "git_status_porcelain"
+
+
 def load_config(path):
     payload = json.loads(Path(path).read_text(encoding="utf-8"))
     if "config" in payload:
@@ -129,6 +159,7 @@ def cli_config(description):
     parser.add_argument("--selection", choices=("lifetime_aware", "wee_only", "robustness_only", "stability_aware"))
     parser.add_argument("--output-root", type=str)
     parser.add_argument("--csi-calibration", type=str, help="Exp1 joint_radius.json; hash is recorded in full config")
+    parser.add_argument("--drift-calibration", type=str, help="Exp1b drift_rate.json; hash is recorded in full config")
     parser.add_argument("--epsilon-est", type=float, help="Explicit pre-calibrated radius; no online Monte Carlo")
     args = parser.parse_args()
     if args.workers < 1:
@@ -157,6 +188,12 @@ def cli_config(description):
     elif cfg.csi_calibration_file and not cfg.csi_calibration_sha256:
         from journal_sim.dynamics.offline_calibration import bind_artifact
         cfg = bind_artifact(cfg, cfg.csi_calibration_file)
+    if args.drift_calibration:
+        from journal_sim.dynamics.drift_calibration import bind_drift_artifact
+        cfg = bind_drift_artifact(cfg, args.drift_calibration)
+    elif cfg.drift_calibration_file and not cfg.drift_calibration_sha256:
+        from journal_sim.dynamics.drift_calibration import bind_drift_artifact
+        cfg = bind_drift_artifact(cfg, cfg.drift_calibration_file)
     return cfg, ExecutionOptions(workers=args.workers).validate()
 
 
@@ -212,9 +249,16 @@ def execute(experiment, cfg, run_seed, plot, workers=1):
                      runtime_measurement_valid=not parallel,
                      blas_thread_env={name: os.environ.get(name) for name in BLAS_THREAD_ENV})
     staging_dir = output / "_worker_staging"
+    dirty, dirty_method = working_tree_status()
+    if mode == "formal" and dirty:
+        print("WARNING: formal run started from a dirty working tree.\n"
+              "git_commit alone does not uniquely identify source state; "
+              "final paper results require a clean tree.", flush=True)
     manifest = dict(experiment=experiment, mode=mode, config=cfg.to_dict(),
                     seeds=cfg.seeds, fingerprint=fingerprint, timestamp=timestamp.isoformat(),
-                    git_commit=commit_id(), source_hashes=source_hashes(),
+                    git_commit=commit_id(),
+                    git=dict(commit=commit_id(), dirty=dirty, method=dirty_method),
+                    source_hashes=source_hashes(),
                     versions=dict(numpy=np.__version__, scipy=scipy.__version__, cvxpy=cvxpy.__version__),
                     execution=execution,
                     note="Smoke results verify execution only. All requested seeds and failed/uncertain outcomes remain in raw records.")

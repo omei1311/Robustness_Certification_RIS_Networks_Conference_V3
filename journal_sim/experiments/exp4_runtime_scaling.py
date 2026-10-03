@@ -2,6 +2,7 @@
 import numpy as np
 from journal_sim.config import config_fingerprint
 from journal_sim.evaluation.dynamic import run_paired_policies
+from journal_sim.dynamics.calibration_guards import formal_calibration_guard
 from .common import execute, cli_config, pyplot, save_plot
 
 
@@ -60,6 +61,7 @@ def main():
         # Wall-clock numbers are the deliverable of this experiment; CPU
         # contention from sibling workers would invalidate them.
         raise SystemExit("exp4_runtime is a serial benchmark and requires --workers 1")
+    formal_calibration_guard(cfg, "exp4")  # formal runtime runs need formal CSI + drift artifacts
     _, success = execute("exp4_runtime", cfg, run_seed, plot, workers=1)
     raise SystemExit(0 if success else 1)
 

@@ -3,6 +3,8 @@ import numpy as np
 from journal_sim.core.channels import generate_channel
 from journal_sim.dynamics.csi_estimation import estimate_physical
 from journal_sim.dynamics.offline_calibration import offline_radius
+from journal_sim.dynamics.drift_calibration import effective_drift_rate
+from journal_sim.dynamics.calibration_guards import formal_calibration_guard
 from journal_sim.design.candidate_pool import build_candidate_pool
 from journal_sim.design.selection import select_wee_only, select_robustness_only, select_stability_aware, select_lifetime_aware
 from .common import execute, cli_config, pyplot, save_plot
@@ -11,6 +13,7 @@ from .common import execute, cli_config, pyplot, save_plot
 def run_seed(cfg, seed):
     cfg = cfg.with_overrides(pool_size=cfg.static_pool_size)
     epsilon_est, provenance = offline_radius(cfg)
+    drift_rate_nu, drift_provenance = effective_drift_rate(cfg)
     true = generate_channel(cfg, seed)
     estimated = estimate_physical(true, cfg, cfg.csi_seed + seed)
     pool, stats = build_candidate_pool(estimated, cfg, seed)
@@ -22,12 +25,14 @@ def run_seed(cfg, seed):
         arrays[f"c{c.index}_theta"] = c.configuration.theta
         arrays[f"c{c.index}_H_hat"] = c.H_hat
     outcomes = [select_wee_only(pool, cfg), select_robustness_only(pool, cfg), select_stability_aware(pool, cfg),
-                select_lifetime_aware(pool, np.ones(cfg.N, complex), cfg)]
+                select_lifetime_aware(pool, np.ones(cfg.N, complex), cfg, drift_rate_nu=drift_rate_nu)]
     rows = [dict(row_type="candidate", **c.to_record(), selected_by=[o.rule for o in outcomes if o.candidate is c]) for c in pool]
     rows.extend(dict(row_type="attempt", **a) for a in stats["attempts"])
     rows.extend(dict(row_type="selection", rule=o.rule, selection_status=o.status,
                      selected_index=None if o.candidate is None else o.candidate.index, scores=o.scores) for o in outcomes)
-    return dict(records=rows, arrays=arrays, details=[dict(stats=stats, offline_calibration=provenance, local_config=cfg.to_dict())],
+    return dict(records=rows, arrays=arrays, details=[dict(stats=stats, offline_calibration=provenance,
+                                                           drift_calibration=dict(nu=drift_rate_nu, **drift_provenance),
+                                                           local_config=cfg.to_dict())],
                 summary=dict(pool_size=len(pool), selections={o.rule: None if o.candidate is None else o.candidate.index for o in outcomes},
                              statuses={o.rule: o.status for o in outcomes}))
 
@@ -54,5 +59,8 @@ def plot(rows, details, output, cfg):
 
 if __name__ == "__main__":
     cfg, execution = cli_config(__doc__)
+    # Exp2's lifetime column is illustrative; the drift artifact is optional
+    # here (warning if absent) and mandatory for the dynamic exp3/exp4.
+    formal_calibration_guard(cfg, "exp2", drift="soft")
     _, success = execute("exp2_static", cfg, run_seed, plot, workers=execution.workers)
     raise SystemExit(0 if success else 1)

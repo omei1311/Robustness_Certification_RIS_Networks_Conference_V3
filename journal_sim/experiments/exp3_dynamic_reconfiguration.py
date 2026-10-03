@@ -1,6 +1,7 @@
 """Exp3: paired policies on shared physical trajectories and pilot noise."""
 from journal_sim.evaluation.dynamic import run_paired_policies
 from journal_sim.dynamics.offline_calibration import offline_radius
+from journal_sim.dynamics.calibration_guards import formal_calibration_guard
 import numpy as np
 from .common import execute, cli_config, pyplot, save_plot
 
@@ -93,5 +94,6 @@ def plot(rows, details, output, cfg):
 
 if __name__ == "__main__":
     cfg, execution = cli_config(__doc__)
+    formal_calibration_guard(cfg, "exp3")  # formal runs need formal CSI + drift artifacts
     _, success = execute("exp3_dynamic", cfg, run_seed, plot, workers=execution.workers)
     raise SystemExit(0 if success else 1)

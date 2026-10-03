@@ -10,6 +10,16 @@ def error_ratio(cfg):
     return float(10 ** (db / 10))
 
 
+def csi_observation_seed(cfg, seed, t):
+    """Single source of truth for the per-slot CSI noise seed convention.
+
+    The online paired pipeline and the offline drift calibration must draw
+    identical pilot noise for the same (experiment seed, slot); keeping one
+    helper prevents the two pipelines from silently diverging.
+    """
+    return int(np.random.SeedSequence([cfg.csi_seed, seed, t]).generate_state(1)[0])
+
+
 def estimate_effective(H_true, cfg, seed):
     """Per-user isotropic stacked effective-channel noise for calibration."""
     rng = np.random.default_rng(seed)

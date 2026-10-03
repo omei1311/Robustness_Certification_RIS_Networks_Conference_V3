@@ -41,6 +41,18 @@ def _read_artifact(path, expected_sha256):
     return payload
 
 
+def read_calibration_artifact(cfg):
+    """SHA-verified CSI artifact payload; scope resolution happens per read."""
+    if cfg.csi_calibration_file is None or cfg.csi_calibration_sha256 is None:
+        raise ValueError("no CSI calibration artifact bound (file and SHA256 required)")
+    return _read_artifact(str(artifact_path(cfg.csi_calibration_file)), cfg.csi_calibration_sha256)
+
+
+def artifact_mode(payload):
+    """Artifacts that predate explicit mode marking count as smoke-only."""
+    return payload.get("mode", "smoke")
+
+
 def offline_radius(cfg):
     if cfg.epsilon_est is not None:
         return float(cfg.epsilon_est), dict(source="explicit_precalibrated_parameter", quantile=cfg.calibration_q)

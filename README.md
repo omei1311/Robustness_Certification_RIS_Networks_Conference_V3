@@ -22,21 +22,69 @@ CLARABEL 主求解器 / SCS 回退 + 独立 eigvalsh 验证）→ lifetime-aware
 - **求解器回退可审计**：primary/fallback 调用数、solver error / optimal_inaccurate
   计数随 candidate 统计与 manifest 落盘。
 
-### 运行（单位测试请用 `python -m unittest`，spawn 并行依赖可导入的 `__main__`）
+### 两阶段离线校准（正式实验前置）
+
+```text
+Exp1  formal CSI calibration   (calibration_seeds 52001-52005, 2000 samples,
+                                4 phase profiles) -> joint_radius.json
+                                  -> epsilon_est = max over seeds of joint 99%
+Exp1b formal drift calibration (drift_calibration_seeds 53001-53005,
+                                60-slot trajectories, references every 10 slots,
+                                horizons 1/2/5/10/20) -> drift_rate.json
+                                  -> nu_slow / nu_medium / nu_fast (q=95%, 1/s)
+```
+
+- Exp1b 复用**在线管线本身**（真实 Gauss-Markov 信道 → 物理导频估计 → 估计等效信道），
+  并直接调用 trigger 的 `relative_drift()`（不另立公式）；`nu` 只来自离线校准轨迹，
+  与正式 evaluation seeds（60001–60010）、CSI 校准 seeds 完全隔离。
+- 三种量**不可混淆**：`epsilon_cert` 是 configuration-specific 的 deterministic robust
+  lower bound；`epsilon_est` 是有限样本 empirical CSI 误差半径；`nu_m` 是仅用于
+  lifetime prediction 的 empirical drift proxy。`epsilon_est / nu / T_pred` 都不是
+  deterministic guarantee。
+- **在线 trigger 永远只用实际观测**：`rho_total = epsilon_est*(1+rho_obs)+rho_obs` 与
+  `eta_trigger*epsilon_cert` 比较；drift calibration 不进入 trigger，也不改变证书定义。
+- formal Exp3/Exp4 启动时由 `formal_calibration_guard` 防呆：必须绑定 **formal** 模式的
+  CSI 与 drift artifact（SHA256 + scope fingerprint + 三 mobility 齐全），传 smoke
+  artifact、缺 artifact、或 evaluation seeds 与校准 seeds 重叠都会**直接拒绝**；
+  smoke 模式允许手工 `epsilon_est` / `drift_rate_nu` 便于调试。
+
+### 正式实验顺序
 
 ```powershell
-# 全部单元测试
+# 0. 工作区必须干净（正式结果要求 manifest 中 git.dirty=false）
+git status --porcelain
+
+# 1. 单元测试（spawn 并行依赖可导入的 __main__，请用 unittest 入口）
 .venv\Scripts\python.exe -m unittest discover -s journal_sim\tests -t . -v
 
-# 串行最小 smoke（1 seed / slow / 2 slots / 2 candidates / cert+static）
-$calib = "journal_results\exp1_csi\smoke\<run>\joint_radius.json"
-.venv\Scripts\python.exe -m journal_sim.experiments.exp3_dynamic_reconfiguration --smoke --workers 1 --config .\smoke_fast.json --csi-calibration "$calib"
+# 2. formal CSI calibration（--workers 只并行独立校准 seed）
+.venv\Scripts\python.exe -m journal_sim.experiments.exp1_csi_calibration --workers 4
 
-# 正式实验：仅按独立 seed 并行（spawn；workers 不进入任何科学指纹）
-.venv\Scripts\python.exe -m journal_sim.experiments.exp3_dynamic_reconfiguration --workers 4 --csi-calibration "$calib"
+# 3. formal drift calibration
+.venv\Scripts\python.exe -m journal_sim.experiments.exp1b_drift_calibration --workers 4
 
-# 论文 runtime/scaling 基准：强制串行，--workers > 1 直接拒绝
-.venv\Scripts\python.exe -m journal_sim.experiments.exp4_runtime_scaling --workers 1 --csi-calibration "$calib"
+# 4. 证书边界验证（无需校准 artifact）
+.venv\Scripts\python.exe -m journal_sim.experiments.exp0_oracle_validation --workers 1
+
+# 5. 静态池 / 选择规则对比（CSI artifact 必需；drift artifact 软性要求）
+.venv\Scripts\python.exe -m journal_sim.experiments.exp2_static_certificate --workers 4 --csi-calibration "<formal joint_radius.json>"
+
+# 6. Exp3 formal（CSI + drift artifact 均为硬性要求）
+.venv\Scripts\python.exe -m journal_sim.experiments.exp3_dynamic_reconfiguration --workers 4 --csi-calibration "<formal joint_radius.json>" --drift-calibration "<formal drift_rate.json>"
+
+# 7. Exp4 runtime 基准（强制串行）
+.venv\Scripts\python.exe -m journal_sim.experiments.exp4_runtime_scaling --workers 1 --csi-calibration "<formal joint_radius.json>" --drift-calibration "<formal drift_rate.json>"
+```
+
+Smoke 示例（模式由 `--smoke` 或 config 的 `smoke` 字段决定）：
+
+```powershell
+$csi = "journal_results\exp1_csi\smoke\<run>\joint_radius.json"
+$drift = "journal_results\exp1b_drift\smoke\<run>\drift_rate.json"
+.venv\Scripts\python.exe -m journal_sim.experiments.exp1_csi_calibration --smoke --workers 1
+.venv\Scripts\python.exe -m journal_sim.experiments.exp1b_drift_calibration --smoke --workers 1
+.venv\Scripts\python.exe -m journal_sim.experiments.exp3_dynamic_reconfiguration --smoke --workers 1 --config .\smoke_fast.json --csi-calibration "$csi" --drift-calibration "$drift"
+.venv\Scripts\python.exe -m journal_sim.experiments.exp3_dynamic_reconfiguration --smoke --workers 1 --config .\smoke_trend.json --csi-calibration "$csi" --drift-calibration "$drift"
 ```
 
 说明：
@@ -50,6 +98,8 @@ $calib = "journal_results\exp1_csi\smoke\<run>\joint_radius.json"
 - 大型 arrays 由 worker 写入 `_worker_staging/seed_<seed>_arrays.npz`，parent 合并；
   失败/中断时保留 staging 以便排查；Ctrl+C 不被吞掉，已完成 seed 的记录保留，
   `run_complete=false`、`success` 不会伪造为 true。
+- manifest 记录 `git`（commit/dirty/method）+ `source_hashes` + 校准 artifact SHA256；
+  formal 运行若工作区 dirty 会打印 WARNING，正式论文结果要求 clean tree。
 
 ---
 

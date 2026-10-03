@@ -45,7 +45,9 @@ for r in rows:
           f"rho_total={r.get('rho_total_after')} thr={r.get('trigger_threshold')} "
           f"inst={r.get('installed')} cfg={str(r.get('configuration_id'))[:8]} "
           f"trigHold={r.get('trigger_budget_hold')} certHold={r.get('certified_budget_hold')} "
-          f"sinr={r.get('sinr_min')} qos={r.get('qos_hold')}")
+          f"sinr={r.get('sinr_min')} qos={r.get('qos_hold')} "
+          f"nu={r.get('drift_rate_nu')} "
+          f"Tpred={r.get('predicted_reuse_slots')}slots Tactual={r.get('actual_reuse_slots')}slots")
 
 print("\n--- summaries ---")
 for sd in m.get("seed_details", []):

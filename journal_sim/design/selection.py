@@ -38,12 +38,16 @@ def certified_lifetime(epsilon_cert, epsilon_est, nu, eta_trigger):
     return budget / ((1.0 + epsilon_est) * nu)
 
 
-def _select(pool, rule, cfg, theta_old=None, epsilon_est=None):
+def _select(pool, rule, cfg, theta_old=None, epsilon_est=None, drift_rate_nu=None):
+    # nu is resolved by the runner (artifact/manual/legacy) and passed in;
+    # selection never reads calibration artifacts itself. A None falls back
+    # to the legacy constant purely for direct/smoke usage of the primitives.
+    nu = cfg.drift_rate_nu if drift_rate_nu is None else drift_rate_nu
     scores = []
     eligible = []
     for c in pool:
         q = c.epsilon_est if epsilon_est is None else epsilon_est
-        lifetime = certified_lifetime(c.epsilon_cert, q, cfg.drift_rate_nu, cfg.eta_trigger)
+        lifetime = certified_lifetime(c.epsilon_cert, q, nu, cfg.eta_trigger)
         energy = 0. if theta_old is None else transition_energy(theta_old, c.configuration.theta, cfg).total
         ee_life = c.rate * lifetime / (c.system_power * lifetime + energy) if lifetime > 0 else None
         valid = c.valid_certificate
@@ -68,8 +72,8 @@ def _select(pool, rule, cfg, theta_old=None, epsilon_est=None):
     return SelectionResult(rule, winner, scores, "SELECTED" if winner is not None else "NO_ELIGIBLE_CANDIDATE")
 
 
-def select_lifetime_aware(pool, theta_old, cfg, epsilon_est=None):
-    return _select(pool, "lifetime_aware", cfg, theta_old, epsilon_est)
+def select_lifetime_aware(pool, theta_old, cfg, epsilon_est=None, drift_rate_nu=None):
+    return _select(pool, "lifetime_aware", cfg, theta_old, epsilon_est, drift_rate_nu)
 
 
 def select_wee_only(pool, cfg):

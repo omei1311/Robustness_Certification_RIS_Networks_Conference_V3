@@ -78,6 +78,7 @@ class JournalConfig:
     calibration_q: float = 0.99
     calibration_phase_profiles: int = 4
     calibration_cases: tuple = ()
+    calibration_seeds: tuple = (52001, 52002, 52003, 52004, 52005)
     csi_calibration_file: str | None = None
     csi_calibration_sha256: str | None = None
     epsilon_est: float | None = None
@@ -93,6 +94,14 @@ class JournalConfig:
     periodic_short: int = 5
     periodic_long: int = 20
     drift_rate_nu: float = 0.002
+    drift_rate_nu_by_mobility: tuple | None = None
+    drift_calibration_seeds: tuple = (53001, 53002, 53003, 53004, 53005)
+    drift_calibration_q: float = 0.95
+    drift_calibration_slots: int = 60
+    drift_reference_stride: int = 10
+    drift_horizon_slots: tuple = (1, 2, 5, 10, 20)
+    drift_calibration_file: str | None = None
+    drift_calibration_sha256: str | None = None
     energy_per_bit_switch: float = 1e-5
     E_controller_fixed: float = 1e-3
     policies: tuple = ("always_reconfigure", "periodic_short", "periodic_long", "certificate_triggered", "static")
@@ -160,6 +169,21 @@ class JournalConfig:
             raise ValueError("nonnegative powers, energies and threshold required")
         if any(not 0 < x < 1 for x in (*self.calibration_quantiles, self.calibration_q)):
             raise ValueError("invalid calibration quantile")
+        if not self.calibration_seeds or not self.drift_calibration_seeds:
+            raise ValueError("nonempty CSI and drift calibration seed sets required")
+        if set(self.calibration_seeds) & set(self.drift_calibration_seeds):
+            raise ValueError("CSI and drift calibration seed sets must be disjoint")
+        if not 0 < self.drift_calibration_q < 1:
+            raise ValueError("drift calibration quantile must lie in (0, 1)")
+        if not self.drift_horizon_slots or any(h < 1 for h in self.drift_horizon_slots):
+            raise ValueError("positive drift calibration horizons required")
+        if self.drift_reference_stride < 1 or self.drift_calibration_slots < max(self.drift_horizon_slots) + 1:
+            raise ValueError("drift calibration slots must span the reference stride and largest horizon")
+        if self.drift_rate_nu_by_mobility is not None and (
+                len(self.drift_rate_nu_by_mobility) != 3 or any(v <= 0 for v in self.drift_rate_nu_by_mobility)):
+            raise ValueError("manual per-mobility drift rates need three positive values (slow, medium, fast)")
+        if self.drift_calibration_file is not None and self.drift_rate_nu_by_mobility is not None:
+            raise ValueError("choose a drift artifact or manual per-mobility rates, not both")
         if self.selection_rule not in ("lifetime_aware", "wee_only", "robustness_only", "stability_aware"):
             raise ValueError("unknown selection rule")
         if not set(self.policies) <= {"always_reconfigure", "periodic_reconfigure", "periodic_short", "periodic_long", "certificate_triggered", "static"}:
@@ -214,4 +238,6 @@ def smoke_config(**kwargs):
                          time_steps=3, runtime_time_steps=2, periodic_short=1, periodic_long=2,
                          calibration_samples=100, calibration_phase_profiles=2,
                          calibration_cases=((16, 2), (32, 2), (64, 2), (32, 3)),
+                         calibration_seeds=(52001,), drift_calibration_seeds=(53001,),
+                         drift_calibration_slots=12, drift_reference_stride=4, drift_horizon_slots=(1, 2, 4),
                          mc_samples=50, seeds=(60001,), smoke=True).with_overrides(**kwargs)
