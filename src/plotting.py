@@ -225,3 +225,55 @@ def plot_exp3(
     path = save_fig(fig, out_name, subdir=subdir)
     plt.close(fig)
     return path
+
+
+def plot_generalization(rows, epsilon_design, fracs, n_requested):
+    """Paired raw observations and median/IQR curves; retain every outlier."""
+    valid = [r for r in rows if r.get("seed_status") == "valid"]
+    fixed = [r for r in valid if r["threshold_type"] != "normalized"]
+    policies = ("wee_only", "proposed", "robustness_only")
+    labels = ("WEE-only", f"Proposed @ {epsilon_design:g}", "Robustness-only")
+    colors = (C_ORANGE, C_RED, C_GREEN)
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.8))
+    for ax, field, ylabel in zip(axes, ("selected_wee", "selected_epsilon_cert"),
+                                ("WEE (bit/s/Hz/W)", r"$\varepsilon_{\rm cert}$")):
+        for seed in sorted({r["channel_seed"] for r in fixed}):
+            group = {r["policy"]: r for r in fixed if r["channel_seed"] == seed}
+            y = [group[p][field] if group[p][field] is not None else np.nan for p in policies]
+            ax.plot(range(3), y, color=C_GREY, alpha=0.35, lw=0.8, zorder=1)
+        for i, (policy, color) in enumerate(zip(policies, colors)):
+            y = [r[field] for r in fixed if r["policy"] == policy and r[field] is not None]
+            ax.scatter([i]*len(y), y, s=22, color=color, alpha=0.8, zorder=2)
+        ax.set_xticks(range(3), labels)
+        ax.set_ylabel(ylabel)
+    axes[1].axhline(epsilon_design, color=C_BLACK, ls=":", lw=1, label="design requirement")
+    axes[1].legend(fontsize=8)
+    n_valid = len({r["channel_seed"] for r in fixed})
+    n_prop = sum(r["policy"] == "proposed" and r["selected_wee"] is not None for r in fixed)
+    fig.suptitle(f"Paired selection: {n_valid}/{n_requested} valid seeds; proposed feasible {n_prop}/{n_valid}")
+    fig.tight_layout()
+    first = save_fig(fig, "exp3_generalization_policy_comparison")
+    plt.close(fig)
+    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.7))
+    for ax, field, ylabel, color in zip(axes, ("wee_retention_ratio", "selected_epsilon_ratio"),
+                                      ("WEE retention", r"Selected $\varepsilon_{\rm cert}/\varepsilon_{\max}$"),
+                                      (C_BLUE, C_GREEN)):
+        quantiles = []
+        counts = []
+        for frac in fracs:
+            y = [r[field] for r in valid if r["threshold_type"] == "normalized" and
+                 r["eps_min_frac"] == frac and r[field] is not None and np.isfinite(r[field])]
+            counts.append(len(y))
+            quantiles.append(np.percentile(y, [25, 50, 75]) if y else [np.nan]*3)
+        q = np.asarray(quantiles)
+        ax.plot(fracs, q[:, 1], "o-", color=color, lw=1.6, ms=4, label="median")
+        ax.fill_between(fracs, q[:, 0], q[:, 2], color=color, alpha=0.2, label="25%-75% quantiles")
+        ax.set_xticks(fracs, [f"{f:g}" for f in fracs], rotation=40, ha="right", fontsize=9)
+        ax.set_xlabel(r"$\varepsilon_{\min}/\varepsilon_{\max}$")
+        ax.set_ylabel(ylabel)
+        ax.set_title("Valid ratios per threshold: " + ", ".join(map(str, counts)), fontsize=9)
+        ax.legend(fontsize=8)
+    fig.tight_layout()
+    second = save_fig(fig, "exp3_threshold_sensitivity")
+    plt.close(fig)
+    return first, second

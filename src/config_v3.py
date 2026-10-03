@@ -92,7 +92,9 @@ class CertConfig:
     # Experiment 3 generalization check (independent channel seeds)       #
     # ------------------------------------------------------------------ #
     gen_check_seed_base: int = 60001
-    gen_check_n_seeds: int = 12
+    gen_check_n_seeds: int = 20
+    generalization_mc_samples: int = 100
+    generalization_mc_seed_base: int = 90000
 
     def validate(self) -> "CertConfig":
         if self.pool_target_size <= 0 or self.pool_max_attempts < self.pool_target_size:
@@ -103,6 +105,12 @@ class CertConfig:
             raise ValueError("epsilon_design must be nonnegative")
         if self.drift_rate_nu <= 0.0:
             raise ValueError("drift_rate_nu must be positive")
+        if self.gen_check_n_seeds <= 0 or self.generalization_mc_samples <= 0:
+            raise ValueError("generalization seed/sample counts must be positive")
+        if any(not 0 <= x <= 1 for x in self.eps_min_fracs):
+            raise ValueError("eps_min_fracs must lie in [0, 1]")
+        if tuple(sorted(self.eps_min_fracs)) != self.eps_min_fracs:
+            raise ValueError("eps_min_fracs must be sorted")
         return self
 
     def with_overrides(self, **kwargs: Any) -> "CertConfig":

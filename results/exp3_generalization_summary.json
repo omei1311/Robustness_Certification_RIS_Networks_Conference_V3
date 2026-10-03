@@ -1,39 +1,681 @@
 {
-  "manifest": {
-    "experiment": "exp3_generalization",
-    "created": "2026-09-24T19:12:33"
-  },
-  "valid_seed_count": 12,
-  "n_seeds_requested": 12,
+  "experiment": "exp3_generalization_check",
+  "n_requested_seeds": 2,
+  "seed_base": 60001,
+  "channel_seeds": [
+    60001,
+    60002
+  ],
+  "n_processed_seeds": 2,
+  "valid_seed_count": 2,
   "epsilon_design": 0.05,
-  "pool_size": {
-    "mean": 40.0,
-    "median": 40.0,
-    "std": 0.0
+  "eps_min_fracs": [
+    0.0,
+    0.25,
+    0.5,
+    0.75,
+    0.9,
+    0.95
+  ],
+  "drift_rate_nu": 0.002,
+  "pool_statistics": {
+    "mean_pool_size": 40.0,
+    "min_pool_size": 40,
+    "max_pool_size": 40,
+    "failed_seed_count": 0,
+    "short_pool_seeds": []
   },
-  "n_pareto": {
-    "mean": 2.1666666666666665,
-    "median": 2.0,
-    "std": 0.7993052538854533
+  "fixed_threshold": {
+    "wee_only": {
+      "valid_seed_count": 2,
+      "wee": {
+        "n": 2,
+        "mean": 1.4895486449798956,
+        "median": 1.4895486449798956,
+        "std": 0.022267037524646538
+      },
+      "epsilon_cert": {
+        "n": 2,
+        "mean": 0.11854248046875002,
+        "median": 0.11854248046875002,
+        "std": 0.021203613281250012
+      },
+      "t_cert": {
+        "n": 2,
+        "mean": 59.27124023437501,
+        "median": 59.27124023437501,
+        "std": 10.601806640625007
+      }
+    },
+    "proposed": {
+      "valid_seed_count": 2,
+      "wee": {
+        "n": 2,
+        "mean": 1.4895486449798956,
+        "median": 1.4895486449798956,
+        "std": 0.022267037524646538
+      },
+      "epsilon_cert": {
+        "n": 2,
+        "mean": 0.11854248046875002,
+        "median": 0.11854248046875002,
+        "std": 0.021203613281250012
+      },
+      "t_cert": {
+        "n": 2,
+        "mean": 59.27124023437501,
+        "median": 59.27124023437501,
+        "std": 10.601806640625007
+      },
+      "feasible_seed_count": 2,
+      "infeasible_seed_count": 0,
+      "feasibility_rate": 1.0,
+      "feasible_fraction_requested": 1.0,
+      "selection_changed_count": 0,
+      "selection_changed_rate": 0.0
+    },
+    "robustness_only": {
+      "valid_seed_count": 2,
+      "wee": {
+        "n": 2,
+        "mean": 1.3083479028846836,
+        "median": 1.3083479028846836,
+        "std": 0.03808249804353281
+      },
+      "epsilon_cert": {
+        "n": 2,
+        "mean": 0.13758544921875,
+        "median": 0.13758544921875,
+        "std": 0.019006347656250006
+      },
+      "t_cert": {
+        "n": 2,
+        "mean": 68.792724609375,
+        "median": 68.792724609375,
+        "std": 9.503173828125004
+      }
+    },
+    "paired_vs_wee_only": {
+      "delta_wee_vs_wee_only": {
+        "n": 2,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "delta_wee_percent_vs_wee_only": {
+        "n": 2,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "delta_epsilon_vs_wee_only": {
+        "n": 2,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "delta_epsilon_percent_vs_wee_only": {
+        "n": 2,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "n_pairs": 2
+    }
   },
-  "selected_wee_proposed": {
-    "mean": 1.4062521275361195,
-    "median": 1.3939345648154986,
-    "std": 0.09629820070536416
+  "threshold_sensitivity": {
+    "0.00": {
+      "valid_seed_count": 2,
+      "wee": {
+        "n": 2,
+        "mean": 1.4895486449798956,
+        "median": 1.4895486449798956,
+        "std": 0.022267037524646538
+      },
+      "epsilon_cert": {
+        "n": 2,
+        "mean": 0.11854248046875002,
+        "median": 0.11854248046875002,
+        "std": 0.021203613281250012
+      },
+      "t_cert": {
+        "n": 2,
+        "mean": 59.27124023437501,
+        "median": 59.27124023437501,
+        "std": 10.601806640625007
+      },
+      "n_valid_seeds": 2,
+      "n_feasible_seeds": 2,
+      "wee_retention_ratio": {
+        "n": 2,
+        "mean": 1.0,
+        "median": 1.0,
+        "std": 0.0
+      },
+      "absolute_epsilon_gain": {
+        "n": 2,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "selected_epsilon_ratio": {
+        "n": 2,
+        "mean": 0.8566499548451476,
+        "median": 0.8566499548451476,
+        "std": 0.03577287022501163
+      },
+      "selection_changed_rate": 0.0
+    },
+    "0.25": {
+      "valid_seed_count": 2,
+      "wee": {
+        "n": 2,
+        "mean": 1.4895486449798956,
+        "median": 1.4895486449798956,
+        "std": 0.022267037524646538
+      },
+      "epsilon_cert": {
+        "n": 2,
+        "mean": 0.11854248046875002,
+        "median": 0.11854248046875002,
+        "std": 0.021203613281250012
+      },
+      "t_cert": {
+        "n": 2,
+        "mean": 59.27124023437501,
+        "median": 59.27124023437501,
+        "std": 10.601806640625007
+      },
+      "n_valid_seeds": 2,
+      "n_feasible_seeds": 2,
+      "wee_retention_ratio": {
+        "n": 2,
+        "mean": 1.0,
+        "median": 1.0,
+        "std": 0.0
+      },
+      "absolute_epsilon_gain": {
+        "n": 2,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "selected_epsilon_ratio": {
+        "n": 2,
+        "mean": 0.8566499548451476,
+        "median": 0.8566499548451476,
+        "std": 0.03577287022501163
+      },
+      "selection_changed_rate": 0.0
+    },
+    "0.50": {
+      "valid_seed_count": 2,
+      "wee": {
+        "n": 2,
+        "mean": 1.4895486449798956,
+        "median": 1.4895486449798956,
+        "std": 0.022267037524646538
+      },
+      "epsilon_cert": {
+        "n": 2,
+        "mean": 0.11854248046875002,
+        "median": 0.11854248046875002,
+        "std": 0.021203613281250012
+      },
+      "t_cert": {
+        "n": 2,
+        "mean": 59.27124023437501,
+        "median": 59.27124023437501,
+        "std": 10.601806640625007
+      },
+      "n_valid_seeds": 2,
+      "n_feasible_seeds": 2,
+      "wee_retention_ratio": {
+        "n": 2,
+        "mean": 1.0,
+        "median": 1.0,
+        "std": 0.0
+      },
+      "absolute_epsilon_gain": {
+        "n": 2,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "selected_epsilon_ratio": {
+        "n": 2,
+        "mean": 0.8566499548451476,
+        "median": 0.8566499548451476,
+        "std": 0.03577287022501163
+      },
+      "selection_changed_rate": 0.0
+    },
+    "0.75": {
+      "valid_seed_count": 2,
+      "wee": {
+        "n": 2,
+        "mean": 1.4895486449798956,
+        "median": 1.4895486449798956,
+        "std": 0.022267037524646538
+      },
+      "epsilon_cert": {
+        "n": 2,
+        "mean": 0.11854248046875002,
+        "median": 0.11854248046875002,
+        "std": 0.021203613281250012
+      },
+      "t_cert": {
+        "n": 2,
+        "mean": 59.27124023437501,
+        "median": 59.27124023437501,
+        "std": 10.601806640625007
+      },
+      "n_valid_seeds": 2,
+      "n_feasible_seeds": 2,
+      "wee_retention_ratio": {
+        "n": 2,
+        "mean": 1.0,
+        "median": 1.0,
+        "std": 0.0
+      },
+      "absolute_epsilon_gain": {
+        "n": 2,
+        "mean": 0.0,
+        "median": 0.0,
+        "std": 0.0
+      },
+      "selected_epsilon_ratio": {
+        "n": 2,
+        "mean": 0.8566499548451476,
+        "median": 0.8566499548451476,
+        "std": 0.03577287022501163
+      },
+      "selection_changed_rate": 0.0
+    },
+    "0.90": {
+      "valid_seed_count": 2,
+      "wee": {
+        "n": 2,
+        "mean": 1.3083479028846836,
+        "median": 1.3083479028846836,
+        "std": 0.03808249804353281
+      },
+      "epsilon_cert": {
+        "n": 2,
+        "mean": 0.13758544921875,
+        "median": 0.13758544921875,
+        "std": 0.019006347656250006
+      },
+      "t_cert": {
+        "n": 2,
+        "mean": 68.792724609375,
+        "median": 68.792724609375,
+        "std": 9.503173828125004
+      },
+      "n_valid_seeds": 2,
+      "n_feasible_seeds": 2,
+      "wee_retention_ratio": {
+        "n": 2,
+        "mean": 0.8781659665072552,
+        "median": 0.8781659665072552,
+        "std": 0.01243889790165148
+      },
+      "absolute_epsilon_gain": {
+        "n": 2,
+        "mean": 0.01904296874999998,
+        "median": 0.01904296874999998,
+        "std": 0.002197265625000007
+      },
+      "selected_epsilon_ratio": {
+        "n": 2,
+        "mean": 1.0,
+        "median": 1.0,
+        "std": 0.0
+      },
+      "selection_changed_rate": 1.0
+    },
+    "0.95": {
+      "valid_seed_count": 2,
+      "wee": {
+        "n": 2,
+        "mean": 1.3083479028846836,
+        "median": 1.3083479028846836,
+        "std": 0.03808249804353281
+      },
+      "epsilon_cert": {
+        "n": 2,
+        "mean": 0.13758544921875,
+        "median": 0.13758544921875,
+        "std": 0.019006347656250006
+      },
+      "t_cert": {
+        "n": 2,
+        "mean": 68.792724609375,
+        "median": 68.792724609375,
+        "std": 9.503173828125004
+      },
+      "n_valid_seeds": 2,
+      "n_feasible_seeds": 2,
+      "wee_retention_ratio": {
+        "n": 2,
+        "mean": 0.8781659665072552,
+        "median": 0.8781659665072552,
+        "std": 0.01243889790165148
+      },
+      "absolute_epsilon_gain": {
+        "n": 2,
+        "mean": 0.01904296874999998,
+        "median": 0.01904296874999998,
+        "std": 0.002197265625000007
+      },
+      "selected_epsilon_ratio": {
+        "n": 2,
+        "mean": 1.0,
+        "median": 1.0,
+        "std": 0.0
+      },
+      "selection_changed_rate": 1.0
+    }
   },
-  "selected_epsilon_cert_proposed": {
-    "mean": 0.10868530273437498,
-    "median": 0.11304931640624999,
-    "std": 0.02287309968460341
+  "sanity_checks": {
+    "tolerance": 1e-09,
+    "failed_check_count": 0,
+    "failures": [],
+    "checked_seed_count": 2
   },
-  "epsilon_cert_wee_only": {
-    "mean": 0.10868530273437498,
-    "median": 0.11304931640624999,
-    "std": 0.02287309968460341
+  "failed_seeds": [],
+  "seed_details": [
+    {
+      "channel_seed": 60001,
+      "config_fingerprint": "788a1c5f8f7e7ab550c892b2884b8c2a321572dfa00dbeef7289004cbbcdcc11",
+      "status": "valid",
+      "pool_size": 40,
+      "checks_completed": true,
+      "sanity_failures": [],
+      "generation_stats": {
+        "attempts": 113,
+        "accepted": 40,
+        "rejected_unique": 0,
+        "rejected_qos_power": 73,
+        "reject_reasons": {
+          "power:power_budget_exceeded": 23,
+          "power:diverged": 48,
+          "power:slack_budget": 2
+        },
+        "unique_theta_count": 40,
+        "unique_configuration_count": 40
+      },
+      "configuration_signatures": [
+        "f4ca6c52dae6f74246abfa2a913b93e4316b1e031e75cd84d0ee668f3eb9fc84",
+        "6514011b962641845f49a3e23a387b5ec3f2499307b14538871f64b013f5a67c",
+        "ca1af6dc4bb2fb772cfedc0a88d88f3ab46e8b1d07b6d80d33e0d670c9c32db7",
+        "f81e649aa0f9c56f2794db6334853a66ffd345281bd2db086b4b75321935f301",
+        "87fd7ba098228e42772dc31c0f332472267993a5d1ec4ee2c7c56dde5e7a33df",
+        "92d0bc0cde3ea7d490adc39282331fb83dc7437f6e52071989a26f89f93912b4",
+        "0ede6d8aa47235fe77826455063cfd7643600577003fa7340e3ff26b816e035b",
+        "765ed65ea7a7e7391cc5b526b8efae51f1e29dc1a66f871f647405a8edfa8ec3",
+        "55cb7e092ae9144d4dcde4ebb0c66068f58365a4d97326425f8eb7b6bfce28a9",
+        "405f54c7830323b618258877b260a09baaf5707869aa203ba75559de9ce98a69",
+        "e22be42d62bc58508bcbffabacfa5935a69b9c6f7fb55ffbc9156a9088b8b463",
+        "de5ff6519e8eb7318b07c2e8eb21edc889f96f923eb7c49d1b4729d2427c9d6b",
+        "d504a6d41618018d6ca914deb2b5dff37b44abff12adf7f47d1d563c15b10bde",
+        "f256a8801f2447dfe7f8ff7e767067727ea28bc114d9ba0cdcbf4a03bad399d4",
+        "01de33ef43157f06ddd52d95f5498a31dc5e37b51342e560e8853e9e8e189f8a",
+        "314eab59bcdd19d1466264d935bd52a289ea068631a7189a012e6d7e39c8ae9f",
+        "7f1da9a57bb636241575030f4b841ba0c174833b02d9192fd33985f47c82a93d",
+        "67ae590d3538ab71918b81f08c4bcdb198e953fa760b083decdc24cfb6a930e8",
+        "e44fd5ddb2a9382696aec73fb448cad52a56d21bb8242009102487228173945c",
+        "8919ffa3973f9753cb0ff50b7af5043bbc6643897df01c79f9a9bf62e5e27630",
+        "99bb96241a3f52009c990d1ce09b2f472713b64cc4937a9b01ab7ece1bb07331",
+        "fbcffe57a5f1442c832b2b8ba320fdc882fbab0bfe44c4654607f804df07bb09",
+        "e0d5a707e9695eb8dfbc7c7f242497a85e58429033e30dfcc1a8668c116a7c35",
+        "b81455d907517ab4c8965ec6ec17d8c258eb1d3147092ddfb2877094ed6493b1",
+        "610781951c04f328a9b820cf808c68e93acb8be34ff3576ae9554b23d9f92d3c",
+        "858cc14e3198507ee7ea6bbcf3041b8b1936a478d564263369704f6f165c5b60",
+        "fa5c5641cd5d29aeafa4166ed9eaf2e8c6af42162bad6367ccb6886c8a066ab9",
+        "dcbae1f0784d1552289b887dcc9fefb1138f367b6b11b897f52e596a912fca27",
+        "a89a5fcd83a37742aaa5becc6e1b7fd37f16ac391c73d5b4ce3d99bdf2742534",
+        "32f6a255177e9557434adc9f7b7e6c95170c6753f9184ba3cce2950baf7d3dd4",
+        "40cbadf10f4bbfc4f19048b59610bb281e51e004eca17799176269e4889f7034",
+        "3f50ed9923dd490d434a3421870ea69eb9a8a06a017e29f63fb32f16e14defaa",
+        "0b9ada081d3721d53647e24de2b5cbdb9d6fd66f955b68b7fe6cab1064243867",
+        "e8c53a6db57b5b9f90b2f1b6d13cab33903e0635b8e9caf94a26fb3e91ed6552",
+        "1c9fb5a05e2f36d46ab4e55086fd1b1771d2b3749a70a9b849de16936c56384e",
+        "534738966e8ca6b1a8b10e5e2c7e68435d219204800a1ded99103b406d90a6b5",
+        "aa6ef03dd23d3f44e9441415188a1bbb3b5736d88eb11ac390ae827153be1557",
+        "9d542af2f5ae184128c873c6ff6c55fad5887b367b1e19ca3a8cb69ba3f6b806",
+        "4ea5e3a8c045abd20224442082cc8e6bae5749c15e8f4711a1ed5b65239857a2",
+        "b324b67ae72964dbf3236e5176e2ea4b190cdd3fd8a6155a733a48d7c14100ea"
+      ],
+      "cache_prefix": "D:\\myworkspace-python\\PythonProject\\Robustness_Certification_RIS_Networks_Conference_V3\\results\\generalization_cache\\seed_60001_788a1c5f8f7e7ab550c892b2884b8c2a321572dfa00dbeef7289004cbbcdcc11",
+      "mc_issues": []
+    },
+    {
+      "channel_seed": 60002,
+      "config_fingerprint": "b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "status": "valid",
+      "pool_size": 40,
+      "checks_completed": true,
+      "sanity_failures": [],
+      "generation_stats": {
+        "attempts": 117,
+        "accepted": 40,
+        "rejected_unique": 0,
+        "rejected_qos_power": 77,
+        "reject_reasons": {
+          "power:diverged": 59,
+          "power:power_budget_exceeded": 15,
+          "power:slack_budget": 3
+        },
+        "unique_theta_count": 39,
+        "unique_configuration_count": 40
+      },
+      "configuration_signatures": [
+        "dd952b753a18cddad209e8bd63a0ab79366f0938c7b1fb4247ace99776ce6e0b",
+        "2e2f55c462859d6ff0ca2aa5d1694f601063f7aed93b7160bc26281604459ee6",
+        "ef897950d258c77de236946172e5e11f30d9b3f6420233ecef2ef8be4e6119f6",
+        "96500bd948e62263c6cf2124ae70086bc0aa407e5568b75bc15adcdee998ff06",
+        "af3f976ce325d1ea3409d05967541dea9bfd34808b902ddfa6191972e1705abe",
+        "1ac6404577d718a002d40e9ebe8a33c988eff5f357d253797586451a6488186c",
+        "fbb7470eaeacee97424d5d8592536f4030340032e784b58d573651d444d8dc09",
+        "30821e9f459bf4323cf7e237f7fa2d84f12aae5b815cdc1bf92060cd25d2c46b",
+        "b37f3d068aefce961bb452a2d2a0150f3a9204a798f029bcf9f8c613284bf04c",
+        "7ad26faea2fb260951a644b9c0cc2d6baa0929e2357734d803e8e1438278de1c",
+        "d063bace00a5e102ee5ef21b557b9218f7ea7b5a1814b37ee85bab240d7343ae",
+        "8e8e6651f2ecd9df65e87085a0a3887080698ead6e2e872e2f6843b44ae2d41e",
+        "94bb0ec279adc5be4e94a956f509d493d3838e1f295a11112aad61ee4da9865e",
+        "814fe82a4e42915a368400bafdd6b5367d4251330063241b84abedaf419ebd17",
+        "7a782351999498281f5e5ffb868e926bd0235b5ac6b51108f31e75828cd6a8a4",
+        "41e648fffd4fdcaf934191fab743acaeb17b4f00f34efb7a495eb153028caf89",
+        "dd180609612f056711223f9e695a512138f1bc2381e4c1f7a91ad3ebcabb9439",
+        "8acf5035863599540ddeb65763cb6d36c37b2202c7730c4c45a05dc7f218c3cb",
+        "c86536348628c26088a5cc0ef7e5b467173f1c1711735ea09dc82ec61bb9be13",
+        "2aa2c45c866f547633913ce73f9211459896e77b5a0d18f4e3d1cd65051c50f4",
+        "b4db308a3a6802d52666c29a82965fbe77b2fc955cf957f478f9ec1ab43064a7",
+        "3fdd2494b716cf30c7ff317fb62d25f20af58da18cb275f9cccff88938f5b414",
+        "3fd84b3704181624e172969ca39dad75dd908aa92827ed2f89c3e343b961b01b",
+        "a47ca7ca95f7b12c4c89dd3a9124a8da2512bce97715126d1329da51c418372c",
+        "3d144ec0de6a9aeacfc8f5e9e8ce83c7699651c498b0307bdb6ca4bb0cdc90dc",
+        "f16e90b1faeaa24748f6188e030f5f0c043f46a9ab67a6abe1d1bff678a4b2c0",
+        "4b277ac9ea1cf8f40022cf3809f44af3e0462c2b2498dcde51288066d1271760",
+        "272063d9796ad5104e9def79abc1f2500ee06df5cb9f0f6a2110c0668b0abb1e",
+        "d5fe965caa0877f8608021c552062e927e630cde130a7bc8019a3a4af3e3f510",
+        "242c911933883bd5ee11d4eada4c25219acf434c5cb2d90270ab64e0d46e4779",
+        "d3c4f6666c15b149e6f57ea287c14041ccb4c61783142f49b1446b13564a3b89",
+        "5468ebac2e3740ac676ed8ef0461dc8911d522d4d2f0cff61cf6060ef6241613",
+        "e1db73e0da106a54d0ae0bdeb3239fb1f1ffd0191939e3354dedff919e88d5a0",
+        "78cbea80b53aa29404b2cf78509dd4df59f57cd0352dfd0bab950a329a7cbeb5",
+        "988623b4224f5a82bddfe9c902ecbb97dc3e9d71d7539cb5da0636b11f263776",
+        "40c21f91a3ca4431b67210c9aabd96a4fa00bee40e3b39dedfe9256788405c18",
+        "8b16a851dffd81f7aeb600ec2f6e2453de90b8be38a383b4bcf93c0d8d9da043",
+        "ab9db9778754f0f50bfa41966fdcda11d66ce30870a0cbd4899e5e4783401320",
+        "bcf556900960e5535d1ae3a66db1eafaaaf3a2f21e1fad9e274413d6e4c0f93b",
+        "e92541a27bbbf6ee7630ed5e53445ff9e873915374a67963562260a1ae406477"
+      ],
+      "cache_prefix": "D:\\myworkspace-python\\PythonProject\\Robustness_Certification_RIS_Networks_Conference_V3\\results\\generalization_cache\\seed_60002_b9118f71a67c2af6595d6d1dc2c68ffffdb218fe8b1bb15a80132173bf5eeb89",
+      "mc_issues": []
+    }
+  ],
+  "interpretation": {
+    "t_cert": "Derived conditional interpretation under relative drift rho(t)=nu*t; not actual QoS failure time.",
+    "statistics": "Population std (ddof=0); finite observations only; each block reports n.",
+    "rate_denominators": "Feasibility rate: valid seeds. Selection change rate: feasible valid pairs. Failed seeds separate; feasible_fraction_requested includes all requested seeds.",
+    "certificate": "LOWER_BOUND_CENSORED values remain lower bounds; normalized sweep uses maximum reported certificate, not an uncensored boundary.",
+    "percentage_denominator_min": 1e-08,
+    "selection": "Certificate-aware constraint controls selection; Pareto preprocessing does not improve the constrained max-WEE objective."
   },
-  "selection_same_count": 12,
-  "selection_changed_count": 0,
-  "n_seeds_no_eligible_candidate": 0,
-  "note": "Compact holdout validation on independent channel seeds; per-seed Pareto frontiers are never merged into one plot. Reference results for the paper come from the single nominal channel; this check is separate.",
-  "selection_changed_rate": 0.0
+  "manifest": {
+    "experiment": "exp3_generalization_check",
+    "created": "2026-10-03T16:06:10"
+  },
+  "config": {
+    "pool_seed": 31001,
+    "pool_target_size": 40,
+    "pool_max_attempts": 400,
+    "channel_seed": 20260706,
+    "direction_choices": [
+      "zf_full"
+    ],
+    "align_frac_grid": [
+      0.0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1.0
+    ],
+    "align_jitter_grid": [
+      0.0,
+      0.15,
+      0.3,
+      0.6,
+      1.0
+    ],
+    "bits_grid": [
+      2
+    ],
+    "design_gamma_mult": [
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      3.0,
+      5.0,
+      7.0
+    ],
+    "design_eps_grid": [
+      0.0,
+      0.025,
+      0.05,
+      0.075,
+      0.1
+    ],
+    "power_slack_grid": [
+      1.0,
+      1.1,
+      1.2,
+      1.3,
+      1.5,
+      1.8
+    ],
+    "power_perturb_grid": [
+      0.0,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "epsilon_design": 0.05,
+    "pc_max_iter": 400,
+    "pc_tol": 1e-10,
+    "bisection_eps_hi": 0.6,
+    "bisection_eps_hi_max": 1.2,
+    "bisection_tol": 0.0001,
+    "bisection_max_iter": 40,
+    "exp1_n_configs": 4,
+    "exp1_radius_extend": 3.0,
+    "exp1_radius_points": 25,
+    "exp1_mc_samples": 300,
+    "exp1_seed": 41001,
+    "eps_min_fracs": [
+      0.0,
+      0.25,
+      0.5,
+      0.75,
+      0.9,
+      0.95
+    ],
+    "drift_rate_nu": 0.002,
+    "exp3_check_samples": 500,
+    "exp3_seed": 43001,
+    "gen_check_seed_base": 60001,
+    "gen_check_n_seeds": 2,
+    "generalization_mc_samples": 100,
+    "generalization_mc_seed_base": 90000
+  },
+  "system_config": {
+    "seed": 20260706,
+    "L": 2,
+    "K": 3,
+    "M": 12,
+    "N": 32,
+    "bs_x": [
+      -100.0,
+      100.0
+    ],
+    "bs_y": [
+      0.0,
+      0.0
+    ],
+    "ue_center_x": [
+      -15.0,
+      15.0
+    ],
+    "ue_center_y": [
+      0.0,
+      0.0
+    ],
+    "ue_radius": 7.0,
+    "ris_x": 0.0,
+    "ris_y": 0.0,
+    "c0_db": -30.0,
+    "alpha_bu": 4.5,
+    "alpha_br": 2.2,
+    "alpha_ru": 2.2,
+    "rician_k": 3.0,
+    "channel_scale": 100000.0,
+    "direct_serving_attenuation": 0.25,
+    "include_direct_intercell": false,
+    "inter_ris_attenuation": 1.0,
+    "ris_size_model": "growing_aperture",
+    "ris_reference_N": 32,
+    "noise_power_dbm": -100.0,
+    "p_max_dbm": 30.0,
+    "pa_efficiency": 0.38,
+    "p_bs": 6.0,
+    "p_ue": 0.1,
+    "p_loss": 0.5,
+    "p_ris_controller": 0.5,
+    "p_cell_idle": 0.001,
+    "p_diode_on": 0.004,
+    "ue_power_per_user": true,
+    "ris_power_model": "state_dependent",
+    "bits": 2,
+    "gamma": 2.0,
+    "omega_eta": 0.5,
+    "bandwidth_hz": 10000000.0,
+    "uncertainty_model": "equivalent_aggregate_l2",
+    "relative_radius": true,
+    "radius_floor": 1e-10,
+    "eps_list": [
+      0.0,
+      0.1,
+      0.2,
+      0.25,
+      0.3
+    ],
+    "feasibility_tol": 0.0002,
+    "init_power_fraction": 0.7
+  },
+  "with_mc": true,
+  "run_complete": true
 }

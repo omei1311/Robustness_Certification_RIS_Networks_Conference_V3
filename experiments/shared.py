@@ -14,8 +14,8 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src import SimConfig, default_cert_config  # noqa: E402
-from src.candidate_pool import build_pool, load_pool, save_pool  # noqa: E402
-from src.certificate import r_cert_bisection  # noqa: E402
+from src.candidate_pool import build_pool, load_pool, save_pool, configuration_signature  # noqa: E402
+from src.certificate import epsilon_cert_bisection  # noqa: E402
 from src.config_v3 import config_fingerprint  # noqa: E402
 from src.io_utils import RESULTS_DIR, ensure_dirs  # noqa: E402
 from src.ris_base import generate_channel_drop  # noqa: E402
@@ -44,18 +44,30 @@ def build_and_certify(
     cert_cfg,
     rebuild: bool = False,
     log=print,
+    cache_prefix=None,
+    allow_empty: bool = False,
 ) -> Tuple[List, Dict]:
     """Build the candidate pool, certify every member, cache to results/."""
     ensure_dirs()
+    prefix = str(cache_prefix) if cache_prefix is not None else POOL_PREFIX
     fingerprint = config_fingerprint(cfg, cert_cfg)
     cache_ok = False
-    if not rebuild and Path(POOL_PREFIX + ".npz").exists():
+    if not rebuild and Path(prefix + ".npz").exists():
         try:
-            pool, meta = load_pool(POOL_PREFIX)
+            pool, meta = load_pool(prefix)
             if (
                 meta.get("config_fingerprint") == fingerprint
                 and meta.get("channel_seed") == cert_cfg.channel_seed
-                and all(np.isfinite(c.r_cert) for c in pool)
+                and all(
+                    np.isfinite(c.epsilon_cert)
+                    and c.channel_seed == cert_cfg.channel_seed
+                    and c.config_fingerprint == fingerprint
+                    and c.configuration_signature == configuration_signature(c.w, c.theta, c.bits)
+                    and c.cert_info.get("status") in {
+                        "EXACT_BRACKET", "LOWER_BOUND_CENSORED", "NOMINAL_INFEASIBLE"
+                    }
+                    for c in pool
+                )
                 and len(pool) > 0
             ):
                 cache_ok = True
@@ -72,6 +84,9 @@ def build_and_certify(
         t0 = time.time()
         drop = nominal_drop(cfg, cert_cfg.channel_seed)
         pool, stats = build_pool(drop, cfg, cert_cfg)
+        if not pool and allow_empty:
+            return [], {"channel_seed": cert_cfg.channel_seed,
+                        "config_fingerprint": fingerprint, "generation_stats": stats}
         if not pool:
             raise RuntimeError(
                 "candidate pool is empty: loosen the generation protocol"
@@ -81,7 +96,7 @@ def build_and_certify(
         t0 = time.time()
         n_checks = 0
         for c in pool:
-            res = r_cert_bisection(
+            res = epsilon_cert_bisection(
                 c.w, c.H, cfg,
                 eps_hi=cert_cfg.bisection_eps_hi,
                 eps_hi_max=cert_cfg.bisection_eps_hi_max,
@@ -108,7 +123,7 @@ def build_and_certify(
             "generation_stats": stats,
             "n_oracle_calls": n_checks,
         }
-        npz, jsn = save_pool(POOL_PREFIX, pool, meta)
+        npz, jsn = save_pool(prefix, pool, meta)
         log(f"[pool] cached -> {npz}, {jsn}")
 
     return pool, meta

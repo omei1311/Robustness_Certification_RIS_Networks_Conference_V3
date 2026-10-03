@@ -308,6 +308,141 @@ def test_robust_design_guarantee():
     assert found >= 1, "no robust-designed candidate generated in 120 attempts"
 
 
+def toy_pool():
+    from types import SimpleNamespace
+    return [SimpleNamespace(index=i, wee=w, epsilon_cert=e,
+                            configuration_signature=chr(65+i), config_fingerprint="test",
+                            cert_info={"status": "EXACT_BRACKET"})
+            for i, (w, e) in enumerate(((10, .02), (9, .06), (7, .10)))]
+
+
+def test_generalization_thresholds():
+    from src.generalization import compare_pool
+    for threshold, expected in ((0, 0), (.05, 1), (.08, 2), (.20, None)):
+        cc = default_cert_config().with_overrides(epsilon_design=threshold)
+        rows, failures = compare_pool(toy_pool(), cc, {})
+        row = next(r for r in rows if r["threshold_type"] == "fixed")
+        assert row["selected_candidate_index"] == expected
+        assert row["proposed_feasible"] == (expected is not None)
+        assert not failures
+
+
+def test_generalization_normalized():
+    from src.generalization import compare_pool
+    rows, failures = compare_pool(toy_pool(), default_cert_config(), {})
+    sweep = [r for r in rows if r["threshold_type"] == "normalized"]
+    assert sweep[0]["selected_wee"] == rows[0]["selected_wee"] == 10
+    assert all(a["selected_wee"] >= b["selected_wee"] for a, b in zip(sweep, sweep[1:]))
+    assert not failures
+
+
+def test_generalization_same_pool():
+    from unittest.mock import patch
+    import src.generalization as g
+    seen = []
+    def wrapper(fn):
+        def call(wee, eps, *args, **kwargs):
+            seen.append((id(wee), id(eps), tuple(zip(wee, eps))))
+            return fn(wee, eps, *args, **kwargs)
+        return call
+    pool = toy_pool()
+    with patch.object(g, "select_wee_only", wrapper(g.select_wee_only)), \
+         patch.object(g, "select_robustness_only", wrapper(g.select_robustness_only)), \
+         patch.object(g, "select_stability_aware", wrapper(g.select_stability_aware)):
+        rows, _ = g.compare_pool(pool, default_cert_config(), {})
+    assert len(seen) == 9 and len(set(seen)) == 1
+    assert len({r["pool_signature"] for r in rows}) == 1
+    assert {r["configuration_signature"] for r in rows} <= {c.configuration_signature for c in pool}
+
+
+def test_generalization_missing_aggregation():
+    from src.generalization import aggregate, compare_pool, stats
+    cc = default_cert_config().with_overrides(epsilon_design=.20)
+    rows, _ = compare_pool(toy_pool(), cc, {})
+    empty, _ = compare_pool([], cc.with_overrides(channel_seed=cc.channel_seed+1), {}, error="empty")
+    rows[0]["t_cert"] = float("nan")
+    details = [{"channel_seed": cc.channel_seed, "pool_size": 3, "status": "valid"},
+               {"channel_seed": cc.channel_seed+1, "pool_size": 0, "status": "failed"}]
+    summary = aggregate(rows+empty, details, cc, [cc.channel_seed, cc.channel_seed+1])
+    assert summary["fixed_threshold"]["proposed"]["infeasible_seed_count"] == 1
+    assert summary["fixed_threshold"]["proposed"]["feasibility_rate"] == 0
+    assert summary["fixed_threshold"]["paired_vs_wee_only"]["n_pairs"] == 0
+    assert summary["pool_statistics"]["failed_seed_count"] == 1
+    assert stats([None, float("nan")])["mean"] is None
+    assert aggregate([], [], cc, []) ["valid_seed_count"] == 0
+
+
+def test_generalization_cache_isolation():
+    from tempfile import TemporaryDirectory
+    from unittest.mock import patch
+    from experiments.shared import build_and_certify
+    from src.candidate_pool import save_pool
+    cfg, pool = make_pool(1)
+    cc = default_cert_config().with_overrides(channel_seed=pool[0].channel_seed)
+    fp = config_fingerprint(cfg, cc)
+    pool[0].config_fingerprint = fp
+    pool[0].r_cert = .1
+    pool[0].cert_info = {"status": "EXACT_BRACKET"}
+    with TemporaryDirectory() as tmp:
+        prefix = str(Path(tmp)/"pool")
+        save_pool(prefix, pool, {"channel_seed": cc.channel_seed, "config_fingerprint": fp})
+        with patch("experiments.shared.build_pool", return_value=([], {"attempts": 400})) as build:
+            loaded, _ = build_and_certify(cfg, cc, cache_prefix=prefix, log=lambda _: None)
+            assert len(loaded) == 1 and build.call_count == 0
+            other, meta = build_and_certify(cfg, cc.with_overrides(channel_seed=60002),
+                                           cache_prefix=prefix, allow_empty=True, log=lambda _: None)
+            assert not other and build.call_count == 1
+            assert meta["channel_seed"] == 60002
+        pool[0].configuration_signature = "corrupted"
+        save_pool(prefix, pool, {"channel_seed": cc.channel_seed, "config_fingerprint": fp})
+        with patch("experiments.shared.build_pool", return_value=([], {})) as build:
+            build_and_certify(cfg, cc, cache_prefix=prefix, allow_empty=True, log=lambda _: None)
+            assert build.call_count == 1
+
+
+def test_generalization_zero_and_ties():
+    from src.generalization import compare_pool, ratio
+    pool = toy_pool()
+    pool[1].wee = pool[0].wee
+    pool[0].epsilon_cert = 0
+    rows, failures = compare_pool(pool, default_cert_config(), {})
+    assert not failures
+    assert rows[2]["delta_epsilon_percent_vs_wee_only"] is None
+    assert ratio(1, 1e-10) is None
+    for c in pool:
+        c.epsilon_cert = 0
+    rows, failures = compare_pool(pool, default_cert_config(), {})
+    assert not failures
+    assert all(r["selected_epsilon_ratio"] is None for r in rows)
+
+
+def test_generalization_failure_continuation():
+    from unittest.mock import patch
+    import warnings
+    from experiments import exp3_generalization_check as exp
+    # First seed raises, second has a short (nonempty) pool, third is empty.
+    cc = default_cert_config()
+    pool = toy_pool()
+    outputs = [RuntimeError("injected failure"), (pool, {"generation_stats": {
+        "attempts": 400, "accepted": 3, "unique_theta_count": 3, "unique_configuration_count": 3}}),
+        ([], {"generation_stats": {"attempts": 400, "accepted": 0}})]
+    with patch.object(exp, "build_and_certify", side_effect=outputs) as build, \
+         patch.object(exp, "save_csv") as csv, patch.object(exp, "save_json"), \
+         patch.object(exp, "save_tables"), patch.object(exp, "plot_generalization", return_value=[]), \
+         patch("builtins.print"), warnings.catch_warnings():
+        warnings.simplefilter("ignore")
+        result = exp.main(n_seeds=3)
+    assert build.call_count == 3 and csv.call_count == 3
+    assert result["run_complete"] and result["valid_seed_count"] == 1
+    assert len(result["failed_seeds"]) == 2
+    assert result["pool_statistics"]["short_pool_seeds"] == [60002, 60003]
+    assert result["channel_seeds"] == [60001, 60002, 60003]
+    records = csv.call_args.args[1]
+    assert len(records) == 27
+    assert records[0]["pool_size"] is None  # unknown, not a fabricated empty pool
+    assert records[-1]["pool_size"] == 0
+
+
 def main() -> None:
     print("=== certification framework tests ===")
     check("t_cert arithmetic", test_t_cert)
@@ -320,6 +455,13 @@ def main() -> None:
     check("bisection vs grid boundary", test_bisection_matches_grid)
     check("LMI eig vs cvxpy SDP", test_lmi_cvxpy_crosscheck)
     check("robust-design guarantee", test_robust_design_guarantee)
+    check("generalization fixed thresholds + infeasibility", test_generalization_thresholds)
+    check("generalization normalized zero + monotonicity", test_generalization_normalized)
+    check("generalization same-pool calls", test_generalization_same_pool)
+    check("generalization missing/NaN/infeasible aggregation", test_generalization_missing_aggregation)
+    check("generalization cache seed + signature isolation", test_generalization_cache_isolation)
+    check("generalization zero denominators + ties", test_generalization_zero_and_ties)
+    check("generalization failure checkpoint + continuation", test_generalization_failure_continuation)
     print(f"\n{len(PASSED)} passed, {len(FAILED)} failed")
     if FAILED:
         for name, msg in FAILED:

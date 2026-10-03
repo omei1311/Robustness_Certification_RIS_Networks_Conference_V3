@@ -1,36 +1,16 @@
-"""Experiment 3 -- generalization (holdout) check across channel seeds.
+"""Exp3: paired multi-channel policy comparison (standalone, not run_all).
 
-Compact holdout validation, NOT a new main experiment and NOT a redefinition
-of the paper contribution: it verifies that the WEE / epsilon_cert / Pareto /
-stability-aware-selection behaviour observed on the single nominal channel of
-the main experiments is not an artifact of that one realization.
-
-Per independent channel seed (seed = gen_check_seed_base + i, fixed system
-parameters, fixed candidate-generation protocol, B = 2):
-  1. generate_channel_drop(...)
-  2. build candidate pool (record the ACTUAL pool size; never fabricate 40)
-  3. certify every candidate (epsilon_cert by deterministic LMI bisection)
-  4. compute pareto_mask
-  5. WEE-only selection (full pool)
-  6. proposed stability-aware selection:
-     Pareto -> epsilon_cert >= epsilon_design (= 0.05) -> max WEE
-
-No seed tuning, no candidate removal, no selective reporting.  Per-seed
-Pareto frontiers are never merged into one WEE-epsilon_cert plot (each seed
-is a different channel realization), so the outputs are machine-readable
-tables only:
-    results/exp3_generalization_records.csv
-    results/exp3_generalization_summary.json
-
-Run standalone (deliberately NOT part of run_all.py):
-    .venv\\Scripts\\python.exe experiments\\exp3_generalization_check.py
+Seeds and thresholds are fixed in CertConfig. Every seed uses one certified
+pool shared by all policies. T_cert is conditional on rho(t)=nu*t, never an
+empirically measured QoS failure time. See --help for smoke/MC options.
 """
-
 from __future__ import annotations
 
-import sys
-import time
+import argparse
+from dataclasses import replace
 from pathlib import Path
+import sys
+import warnings
 
 import numpy as np
 
@@ -38,188 +18,161 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.io_utils import manifest, save_csv, save_json  # noqa: E402
-from src.pareto import pareto_mask  # noqa: E402
-from src.certificate import epsilon_cert_bisection  # noqa: E402
-from src.selection import (  # noqa: E402
-    select_stability_aware,
-    select_wee_only,
-)
-from src.candidate_pool import build_pool  # noqa: E402
-from shared import make_system, nominal_drop  # noqa: E402
+from experiments.shared import build_and_certify, make_system
+from src.config_v3 import config_fingerprint
+from src.generalization import aggregate, compare_pool, POLICIES
+from src.io_utils import RESULTS_DIR, manifest, save_csv, save_json
+from src.plotting import plot_generalization
+from src.ris_base import sample_complex_unit_ball, sinr_under_error_samples
+from src.uncertainty_helpers import uncertainty_shape
 
 
-def certify_pool(pool, cfg, cc):
-    for c in pool:
-        res = epsilon_cert_bisection(
-            c.w, c.H, cfg,
-            eps_hi=cc.bisection_eps_hi,
-            eps_hi_max=cc.bisection_eps_hi_max,
-            tol=cc.bisection_tol,
-            max_iter=cc.bisection_max_iter,
-        )
-        c.r_cert = res.r_cert
-        c.cert_info = {
-            "status": res.status,
-            "bracket": list(res.bracket),
-            "n_bisection_iter": res.n_bisection_iter,
-            "n_feasibility_checks": res.n_feasibility_checks,
-            "binding_user": list(res.binding_user) if res.binding_user else None,
-            "binding_margin": res.binding_margin,
-        }
-    return pool
-
-
-def _stats_block(x: np.ndarray) -> dict:
-    if x.size == 0:
-        return {"mean": None, "median": None, "std": None}
-    return {
-        "mean": float(np.mean(x)),
-        "median": float(np.median(x)),
-        "std": float(np.std(x)),
-    }
-
-
-def main() -> dict:
-    cfg, cc = make_system()
-    assert cc.bits_grid == (2,), "generalization check requires fixed B=2"
-    nu = cc.drift_rate_nu
-    eps_min = cc.epsilon_design
-    seeds = list(
-        range(cc.gen_check_seed_base, cc.gen_check_seed_base + cc.gen_check_n_seeds)
-    )
-
-    rows = []
-    t0 = time.time()
-    for seed in seeds:
-        drop = nominal_drop(cfg, seed)
-        pool, gen_stats = build_pool(drop, cfg, cc)
-        if not pool:
-            rows.append(
-                {
-                    "channel_seed": seed, "pool_size": 0, "n_pareto": 0,
-                    "wee_only_index": None, "wee_only_wee": float("nan"),
-                    "wee_only_epsilon_cert": float("nan"),
-                    "proposed_index": None, "proposed_wee": float("nan"),
-                    "proposed_epsilon_cert": float("nan"),
-                    "selection_same": None,
-                    "epsilon_design": eps_min,
-                    "n_after_rmin": 0, "r_max": float("nan"),
-                    "unique_theta": 0, "unique_X": 0,
-                }
-            )
-            print(f"[gen seed {seed}] empty pool, recorded as invalid")
+def add_mc(rows, pool, cfg, cc):
+    """Independent RNG from pool generation; common errors pair the policies."""
+    seed = cc.generalization_mc_seed_base + cc.channel_seed
+    dirs = sample_complex_unit_ball(cc.generalization_mc_samples, uncertainty_shape(cfg),
+                                    np.random.default_rng(seed))
+    by_index = {c.index: c for c in pool}
+    checked = {}
+    issues = []
+    for row in rows:
+        idx = row["selected_candidate_index"]
+        if row["threshold_type"] == "normalized" or idx is None:
             continue
-        certify_pool(pool, cfg, cc)
-        wee = np.array([c.wee for c in pool])
-        rcert = np.array([c.r_cert for c in pool])
-        mask = pareto_mask(wee, rcert)
-        r_max = float(rcert.max())
+        if idx not in checked:
+            c = by_index[idx]
+            sinr = sinr_under_error_samples(c.w, c.H, cc.epsilon_design, dirs, cfg)
+            margins = sinr.min(axis=(1, 2)) - cfg.gamma
+            count = int(np.sum(margins >= 0))
+            checked[idx] = dict(mc_seed=seed, mc_samples=len(margins), qos_hold_count=count,
+                                qos_violation_count=len(margins)-count, qos_hold_rate=count/len(margins),
+                                worst_margin=float(margins.min()))
+            if c.epsilon_cert >= cc.epsilon_design and count != len(margins):
+                issues.append(dict(check="MC_violation_inside_reported_certificate", candidate_index=idx,
+                                   note="Empirical discrepancy; inspect numerical oracle tolerance. Certificate unchanged."))
+        row.update(checked[idx])
+    return issues
 
-        out_wee = select_wee_only(wee, rcert, nu, nondominated=mask)
-        try:
-            out_prop = select_stability_aware(wee, rcert, eps_min, nu,
-                                              nondominated=mask)
-            prop = {
-                "proposed_index": out_prop.index,
-                "proposed_wee": out_prop.wee,
-                "proposed_epsilon_cert": out_prop.rcert,
-                "n_after_rmin": out_prop.n_after_rmin,
-            }
-            same = bool(out_prop.index == out_wee.index)
-        except ValueError:
-            # No nondominated candidate meets eps_min on this realization.
-            prop = {
-                "proposed_index": None,
-                "proposed_wee": float("nan"),
-                "proposed_epsilon_cert": float("nan"),
-                "n_after_rmin": 0,
-            }
-            same = None
-        rows.append(
-            {
-                "channel_seed": seed,
-                "pool_size": len(pool),
-                "n_pareto": int(mask.sum()),
-                "wee_only_index": out_wee.index,
-                "wee_only_wee": out_wee.wee,
-                "wee_only_epsilon_cert": out_wee.rcert,
-                **prop,
-                "selection_same": same,
-                "epsilon_design": eps_min,
-                "r_max": r_max,
-                "unique_theta": gen_stats.get("unique_theta_count", len(pool)),
-                "unique_X": gen_stats.get("unique_configuration_count", len(pool)),
-            }
-        )
-        print(f"[gen seed {seed}] pool={len(pool)} pareto={int(mask.sum())} "
-              f"eps_max={r_max:.4f} | wee_only idx={out_wee.index} "
-              f"WEE={out_wee.wee:.4f} eps_cert={out_wee.rcert:.4f} | "
-              f"proposed idx={prop['proposed_index']} "
-              f"WEE={prop['proposed_wee']:.4f} "
-              f"eps_cert={prop['proposed_epsilon_cert']:.4f} "
-              f"n_after_rmin={prop['n_after_rmin']} same={same}")
 
-    # ---------------- aggregate statistics ---------------- #
-    valid = [r for r in rows if r["pool_size"] > 0]
-    decided = [r for r in valid if r["selection_same"] is not None]
-    sel_wee = np.array([r["proposed_wee"] for r in decided], dtype=float)
-    sel_eps = np.array([r["proposed_epsilon_cert"] for r in decided], dtype=float)
-    wee_eps = np.array([r["wee_only_epsilon_cert"] for r in valid], dtype=float)
-    same_flags = [bool(r["selection_same"]) for r in decided]
+def save_tables(summary):
+    table = []
+    labels = {"wee_only": "WEE-only", "proposed": f"Proposed @ {summary['epsilon_design']}",
+              "robustness_only": "Robustness-only"}
+    for policy in POLICIES:
+        b = summary["fixed_threshold"][policy]
+        row = {"Policy": labels[policy], "Valid seeds": b["valid_seed_count"]}
+        for metric, name in (("wee", "WEE"), ("epsilon_cert", "epsilon_cert"), ("t_cert", "T_cert")):
+            for stat in ("mean", "median", "std"):
+                row[f"{stat.title()} {name}"] = b[metric][stat]
+        row["Feasibility rate"] = b.get("feasibility_rate")
+        row["Selection change rate"] = b.get("selection_changed_rate")
+        table.append(row)
+    save_csv("exp3_generalization_table", table)
+    def fmt(x):
+        return "N/A" if x is None else f"{x:.6g}" if isinstance(x, float) else str(x)
+    headers = list(table[0])
+    lines = ["| " + " | ".join(headers) + " |", "| " + " | ".join(["---"]*len(headers)) + " |"]
+    lines += ["| " + " | ".join(fmt(row[h]) for h in headers) + " |" for row in table]
+    lines += ["", f"Requested seeds: {summary['n_requested_seeds']}; processed: {summary['n_processed_seeds']}; "
+              f"failed: {summary['pool_statistics']['failed_seed_count']}.",
+              "WEE: bit/s/Hz/W. epsilon_cert: dimensionless. Std: population (ddof=0).",
+              summary["interpretation"]["rate_denominators"], summary["interpretation"]["t_cert"]]
+    (RESULTS_DIR / "exp3_generalization_table.md").write_text("\n".join(lines)+"\n", encoding="utf-8")
 
-    summary = {
-        "valid_seed_count": len(valid),
-        "n_seeds_requested": len(seeds),
-        "epsilon_design": eps_min,
-        "pool_size": _stats_block(np.array([r["pool_size"] for r in valid], dtype=float)),
-        "n_pareto": _stats_block(np.array([r["n_pareto"] for r in valid], dtype=float)),
-        "selected_wee_proposed": _stats_block(sel_wee),
-        "selected_epsilon_cert_proposed": _stats_block(sel_eps),
-        "epsilon_cert_wee_only": _stats_block(wee_eps),
-        "selection_same_count": int(np.sum(same_flags)) if same_flags else 0,
-        "selection_changed_count": int(len(same_flags) - np.sum(same_flags)) if same_flags else 0,
-        "n_seeds_no_eligible_candidate": len(valid) - len(decided),
-        "note": (
-            "Compact holdout validation on independent channel seeds; "
-            "per-seed Pareto frontiers are never merged into one plot. "
-            "Reference results for the paper come from the single nominal "
-            "channel; this check is separate."
-        ),
-    }
-    summary["selection_changed_rate"] = (
-        float(summary["selection_changed_count"]) / float(len(same_flags))
-        if same_flags else None
-    )
 
+def checkpoint(rows, details, cc, seeds, cfg, with_mc):
+    summary = aggregate(rows, details, cc, seeds)
+    summary.update(manifest=manifest("exp3_generalization_check"),
+                   config=cc.to_dict(), system_config=cfg.to_dict(), with_mc=with_mc,
+                   run_complete=len(details) == len(seeds))
     save_csv("exp3_generalization_records", rows)
-    save_json(
-        "exp3_generalization_summary",
-        {"manifest": manifest("exp3_generalization"), **summary},
-    )
+    save_json("exp3_generalization_summary", summary)
+    save_tables(summary)
+    return summary
 
-    print("\n=== Experiment 3 generalization (holdout) check ===")
-    print(f"valid seeds: {summary['valid_seed_count']}/{summary['n_seeds_requested']}")
-    print(f"pool_size : mean={summary['pool_size']['mean']:.2f} "
-          f"median={summary['pool_size']['median']:.1f} std={summary['pool_size']['std']:.2f}")
-    print(f"n_pareto  : mean={summary['n_pareto']['mean']:.2f} "
-          f"median={summary['n_pareto']['median']:.1f} std={summary['n_pareto']['std']:.2f}")
-    print(f"proposed selected WEE      : mean={summary['selected_wee_proposed']['mean']:.4f} "
-          f"median={summary['selected_wee_proposed']['median']:.4f} "
-          f"std={summary['selected_wee_proposed']['std']:.4f}")
-    print(f"proposed selected eps_cert : mean={summary['selected_epsilon_cert_proposed']['mean']:.4f} "
-          f"median={summary['selected_epsilon_cert_proposed']['median']:.4f} "
-          f"std={summary['selected_epsilon_cert_proposed']['std']:.4f}")
-    print(f"WEE-only eps_cert          : mean={summary['epsilon_cert_wee_only']['mean']:.4f} "
-          f"median={summary['epsilon_cert_wee_only']['median']:.4f} "
-          f"std={summary['epsilon_cert_wee_only']['std']:.4f}")
-    print(f"selection same/changed     : {summary['selection_same_count']}/"
-          f"{summary['selection_changed_count']} "
-          f"(changed rate {summary['selection_changed_rate']})")
-    print(f"seeds with no eligible candidate: {summary['n_seeds_no_eligible_candidate']}")
-    print(f"total time: {time.time() - t0:.1f}s")
+
+def main(n_seeds=None, with_mc=False, rebuild=False):
+    cfg, cc = make_system()
+    if n_seeds is not None:
+        cc = replace(cc, gen_check_n_seeds=n_seeds).validate()
+    if cfg.bits != 2 or cc.bits_grid != (2,) or not cfg.relative_radius:
+        raise ValueError("This experiment requires B=2 and relative uncertainty")
+    seeds = list(range(cc.gen_check_seed_base, cc.gen_check_seed_base + cc.gen_check_n_seeds))
+    rows, details = [], []
+    for number, seed in enumerate(seeds, 1):
+        seed_cc = replace(cc, channel_seed=seed).validate()
+        fingerprint = config_fingerprint(cfg, seed_cc)
+        prefix = RESULTS_DIR / "generalization_cache" / f"seed_{seed}_{fingerprint}"
+        pool, meta = [], {}
+        detail = dict(channel_seed=seed, config_fingerprint=fingerprint, status="valid", pool_size=None,
+                      checks_completed=False, sanity_failures=[])
+        seed_rows = []
+        try:
+            pool, meta = build_and_certify(cfg, seed_cc, rebuild=rebuild,
+                                          log=lambda _: None, cache_prefix=prefix, allow_empty=True)
+            gen = meta["generation_stats"]
+            detail.update(pool_size=len(pool), generation_stats=gen,
+                          configuration_signatures=[c.configuration_signature for c in pool],
+                          cache_prefix=str(prefix))
+            if len(pool) < cc.pool_target_size:
+                warnings.warn(f"seed={seed}: actual pool={len(pool)}, target={cc.pool_target_size}")
+            seed_rows, failures = compare_pool(pool, seed_cc, gen)
+            detail["sanity_failures"] = failures
+            detail["checks_completed"] = bool(pool)
+            if not pool:
+                raise RuntimeError("empty candidate pool")
+            if failures:
+                raise AssertionError(f"selection sanity failures: {failures}")
+            if with_mc:
+                mc_issues = add_mc(seed_rows, pool, cfg, seed_cc)
+                detail["mc_issues"] = mc_issues
+                if mc_issues:
+                    warnings.warn(f"seed={seed}: {mc_issues}")
+        except Exception as exc:
+            detail.update(status="failed", error=f"{type(exc).__name__}: {exc}")
+            warnings.warn(f"seed={seed}: {detail['error']}; retaining seed and continuing")
+            if not seed_rows:
+                seed_rows, _ = compare_pool(pool, seed_cc, meta.get("generation_stats", {}), error=detail["error"])
+            for row in seed_rows:
+                row.update(seed_status="failed", error=detail["error"], pool_size=detail["pool_size"])
+        for row in seed_rows:
+            row["config_fingerprint"] = fingerprint
+        rows.extend(seed_rows)
+        details.append(detail)
+        summary = checkpoint(rows, details, cc, seeds, cfg, with_mc)
+        fixed = [r for r in seed_rows if r["threshold_type"] != "normalized"]
+        parts = []
+        for r in fixed:
+            val = (f"WEE={r['selected_wee']:.6f}, eps={r['selected_epsilon_cert']:.6f}"
+                   if r["selected_wee"] is not None else "no selection")
+            parts.append(f"{r['policy']}: {val}, changed={r['selection_changed_vs_wee_only']}")
+        print(f"[{number:02d}/{len(seeds)}] seed={seed} pool={detail['pool_size']} "
+              f"status={detail['status']} | " + " | ".join(parts), flush=True)
+    paths = plot_generalization(rows, cc.epsilon_design, cc.eps_min_fracs, len(seeds))
+    print("\n=== Generalization Summary ===")
+    print(f"Valid seeds: {summary['valid_seed_count']}; failed seeds: {summary['pool_statistics']['failed_seed_count']}")
+    print(f"Fixed epsilon_min = {cc.epsilon_design}")
+    for policy in POLICIES:
+        b = summary["fixed_threshold"][policy]
+        print(f"{policy}: n={b['valid_seed_count']}; WEE {b['wee']}; epsilon_cert {b['epsilon_cert']}")
+        if policy == "proposed":
+            print(f"  feasible rate={b['feasibility_rate']}; selection changed rate={b['selection_changed_rate']}")
+    print("Paired proposed vs WEE-only:", summary["fixed_threshold"]["paired_vs_wee_only"])
+    print(summary["interpretation"]["t_cert"])
+    print("Results saved to:")
+    for name in ("records.csv", "summary.json", "table.csv", "table.md"):
+        print(RESULTS_DIR / ("exp3_generalization_" + name))
+    for path in paths:
+        print(path)
     return summary
 
 
 if __name__ == "__main__":
-    main()
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--n-seeds", type=int, default=None, help="Consecutive seeds from config seed base (default 20)")
+    parser.add_argument("--with-mc", action="store_true", help="Independent 100-sample sanity check at epsilon_design")
+    parser.add_argument("--rebuild", action="store_true", help="Rebuild the same predetermined pools")
+    args = parser.parse_args()
+    result = main(args.n_seeds, args.with_mc, args.rebuild)
+    if result["failed_seeds"]:
+        sys.exit(1)  # All seeds were processed and results saved before signaling failure.

@@ -74,10 +74,12 @@ uv pip install --python .venv\Scripts\python.exe -r requirements.txt
 ## 3. 运行
 
 ```powershell
-.venv\Scripts\python.exe tests\run_tests.py                    # 10 项测试
+.venv\Scripts\python.exe tests\run_tests.py                    # 17 项测试
 .venv\Scripts\python.exe experiments\run_all.py                # 主实验（缓存池）
 .venv\Scripts\python.exe experiments\run_all.py --rebuild      # 强制重建池
-.venv\Scripts\python.exe experiments\exp3_generalization_check.py   # 独立 holdout（~4 min，不进 run_all）
+.venv\Scripts\python.exe experiments\exp3_generalization_check.py --n-seeds 2   # smoke test
+.venv\Scripts\python.exe experiments\exp3_generalization_check.py --n-seeds 20  # 正式多信道实验
+.venv\Scripts\python.exe experiments\exp3_generalization_check.py --n-seeds 20 --with-mc  # 可选独立 MC
 ```
 
 exp2 是建池/认证入口（写入 `results/pool_cache.*`），exp1/exp3 从缓存加载；缓存由全参数 sha256 指纹门禁（`config_fingerprint`），任何参数不一致自动重建。
@@ -102,12 +104,13 @@ src/                 认证层
   candidate_pool.py  候选池：configuration_signature(X=(W,Θ))、生成协议、缓存
   pareto.py          支配过滤 / Pareto 前沿
   selection.py       Pareto-first 选择规则 + 敏感性扫描 + T_cert
+  generalization.py  同池多策略 long-format 记录、边界检查与 paired 汇总
   robust_oracle.py   cvxpy SDP 交叉验证（测试用）
   plotting.py io_utils.py uncertainty_helpers.py
 
 experiments/         shared(建池+指纹缓存) exp1 exp2 exp3 run_all
                      exp3_generalization_check.py（独立 holdout）
-tests/run_tests.py   10 项测试
+tests/run_tests.py   17 项测试（10 项原有 + 7 项多信道测试）
 results/ figures/    JSON/CSV/NPZ + 300dpi PNG
 ```
 
@@ -117,7 +120,7 @@ results/ figures/    JSON/CSV/NPZ + 300dpi PNG
 
 ## 5. 候选池生成协议（与代码一致）
 
-**固定**：L=2, K=3, M=12, N=32, **B=2（相位分辨率不是多样性旋钮）**、同一硬件功耗模型、同一信道实现（`channel_seed=20260706`）。
+**固定**：L=2, K=3, M=12, N=32, **B=2（相位分辨率不是多样性旋钮）**、同一硬件功耗模型。单信道实验使用 `channel_seed=20260706`；多信道实验逐 seed 更换 realization，同 seed 的全部策略共享同一信道与 candidate pool。
 
 **波束方向**：`direction_choices=("zf_full",)` —— 集中式 ZF（本区零强迫 + 跨区泄漏置零）。共享 RIS 使两小区全强度耦合，MRT/RZF 方向族结构性干扰受限、功率控制发散，因此不在采样集合中（其实现保留于 `unit_directions` 作为 legacy 路径）。
 
@@ -144,7 +147,39 @@ results/ figures/    JSON/CSV/NPZ + 300dpi PNG
 - **Exp2 景观**：40 候选 (WEE, ε_cert) 平面、Pareto 前沿、支配过滤、三选择点、ε_design 参考线、Spearman 相关。
 - **Exp3 选择敏感性**：三规则（同一池）+ ε_min ∈ {0,0.25,0.50,0.75,0.90,0.95}×ε_max 扫描，逐档输出 selected_id / WEE / ε_cert / n_total / n_pareto / n_after_rmin + ε_design 独立样本检查。
 
-**Exp3 泛化检查**（`exp3_generalization_check.py`，独立 holdout，非第四主实验）：12 个独立信道种子（60001+i），每种子完整执行建池→认证→Pareto→两策略选择，统计 pool_size/n_pareto/选中 WEE/选中与 WEE-only 的 ε_cert 的 mean/median/std 与 selection_changed_rate。**逐种子 Pareto 前沿绝不合并成一张图**；输出 `results/exp3_generalization_records.csv` + `exp3_generalization_summary.json`。
+实验层次：
+
+```text
+Exp1: Certificate validation
+Exp2: WEE–robustness landscape and Pareto analysis
+Exp3: Stability-aware selection
+  ├─ single-channel illustrative comparison
+  └─ multi-channel generalization check
+```
+
+**Exp3 多信道验证**（`exp3_generalization_check.py`，仍属于 Exp3）：正式默认使用 **20 independent channel realizations**，连续种子 **60001–60020**，由 `CertConfig.gen_check_seed_base/gen_check_n_seeds` 管理。每个 realization 仅生成一次目标为 40 的 candidate pool、认证一次，WEE-only、robustness-only 和 proposed 共享同一池。系统参数、B=2、候选生成协议完全相同；使用 `dataclasses.replace` 写入当前 channel seed。robustness-only 是 robustness extreme 辅助参考。
+
+- **固定需求**：所有 seed 均使用 `epsilon_design=0.05`；无 eligible candidate 时记录 `proposed_feasible=False` 和空选择，不 fallback、不降低阈值。
+- **normalized threshold sensitivity**：预先固定 `epsilon_min/epsilon_max = (0, 0.25, 0.50, 0.75, 0.90, 0.95)`。报告 WEE retention、绝对 epsilon_cert 增益和 selection change rate，不根据结果调阈值。
+- 逐 seed paired comparison 报告 ΔWEE、Δepsilon_cert 及百分比；分母绝对值不大于 `1e-8` 时百分比缺失。主指标为 WEE 和 epsilon_cert；T_cert 仅为线性 relative drift 模型下的条件推论，不是真实 QoS failure time。
+- Pareto filtering 是预处理；constrained max-WEE 的选择变化来自 certificate-aware stability constraint，不把性能变化归因于 Pareto filtering。
+- 实际 pool 不足 40 时警告并保留；空池/异常 seed 保留失败记录，其余 seed 继续。每个 seed 后保存 CSV、JSON 和表格。summary 保存 attempts、accepted、去重统计、拒绝原因和全部 configuration signatures。失败运行最终返回非零退出码，但已完成记录保留。
+- 缓存位于 `results/generalization_cache/seed_<seed>_<fingerprint>.*`，复用现有建池/认证接口。加载校验 channel seed、config fingerprint、每个配置签名和证书状态。`--rebuild` 可重新计算同一预定实验；不会搜索替代 seed。
+- `--with-mc` 在固定 ε=0.05 下使用独立 RNG `90000+channel_seed`，默认 100 个复球样本，同 seed 的策略共享误差方向。记录 QoS hold/violation count/rate 与 `worst_margin=min(SINR)-gamma`；采样不替代证书，发现证书内采样违例会警告并原样记录。
+- mean/median/std 使用有限值，std 为总体标准差（ddof=0）。feasibility rate 分母为有效 seed；selection change rate 分母为可行 paired seed；失败 seed 单列，同时报告以全部请求 seed 为分母的 feasible fraction。各指标报告有效样本数。censored certificate 保留为下界，normalized sweep 使用报告值的最大值；epsilon_max 为零时归一化比值缺失。
+
+输出（每次运行更新，smoke test 不代表正式结果）：
+
+```text
+results/exp3_generalization_records.csv
+results/exp3_generalization_summary.json
+results/exp3_generalization_table.csv
+results/exp3_generalization_table.md
+figures/exp3_generalization_policy_comparison.png
+figures/exp3_threshold_sensitivity.png
+```
+
+Figure A 分两个 panel 显示 WEE 与 epsilon_cert，同 seed 配对连线；不可行选择留空。Figure B 分两个 panel 显示 WEE retention 与 selected epsilon_cert/epsilon_max 的 median 和 25%–75% 分位区间，不删除 outlier。`run_all.py` 保持原有 Exp1/Exp2/Exp3 single-channel 行为，多信道实验需单独运行。正式结论由实际 20-seed summary 支持后填写，此处不预设 selection_changed_rate 或提升结论。
 
 ---
 
@@ -170,7 +205,7 @@ results/ figures/    JSON/CSV/NPZ + 300dpi PNG
 
 **Exp3 敏感性**：0 / 0.25 / 0.50 / 0.75·ε_max → idx 34；0.90 / 0.95·ε_max → idx 6。
 
-**Exp1 一致性**：α≤1.00 全部 feasible（α=1.00 处 margin ≈ −1.9e-4，在 feasibility_tol=2e-4 内，保守下端点语义）；首个不可行网格点在 α=1.01–1.05。MC 经验验证：两个高证书代表（max-WEE idx34、max-ε_cert idx6）的首个采样违例出现在约 **1.9–2.0×ε_cert**；低证书代表（low-ε_cert idx26，ε_cert≈0.000952）在 **α≈0.13** 即出现采样违例——直观体现其脆弱性（per-representative 数值由 `exp1_summary.json` 的 `mc_first_sampled_violation` 字段记录，不手工维护）。
+**Exp1 一致性**：α≤1.00 全部 feasible（α=1.00 处 margin ≈ −1.9e-4，在 feasibility_tol=2e-4 内，保守下端点语义）；首个不可行网格点在 α=1.01–1.05。当前 `exp1_summary.json` 的 `mc_first_sampled_violation` 显示：高证书代表 max-WEE idx34 和 max-ε_cert idx6 首个采样违例分别在 α=**2.0** 和 **1.875**；fragile low-ε_cert idx26 则在 α=**0.125** 已出现违例。因此不能笼统说所有配置都到 1.9–2.1 才违例。Monte Carlo 仅作经验 sanity check，不定义 certificate boundary；低证书配置的采样结果应结合 oracle 数值容差解读。
 
 **说明**：当前参考结果来自**单一信道实现**；多种子泛化结论以独立的 holdout 检查为准（见 §6）。证书认证开销：40 配置 ≈ 600 次 oracle 调用 ≈ 18 s（复杂度对应论文 Eq.(21)–(23)）。
 
