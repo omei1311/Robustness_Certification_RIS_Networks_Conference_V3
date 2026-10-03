@@ -1,0 +1,3410 @@
+{
+  "experiment": "exp0_oracle",
+  "mode": "smoke",
+  "config": {
+    "L": 2,
+    "K": 3,
+    "M": 12,
+    "N": 32,
+    "bits": 2,
+    "gamma": 2.0,
+    "bs_x": [
+      -100.0,
+      100.0
+    ],
+    "bs_y": [
+      0.0,
+      0.0
+    ],
+    "ue_center_x": [
+      -15.0,
+      15.0
+    ],
+    "ue_center_y": [
+      0.0,
+      0.0
+    ],
+    "ue_radius": 7.0,
+    "ris_x": 0.0,
+    "ris_y": 0.0,
+    "c0_db": -30.0,
+    "alpha_bu": 4.5,
+    "alpha_br": 2.2,
+    "alpha_ru": 2.2,
+    "rician_k": 3.0,
+    "channel_scale": 100000.0,
+    "direct_link_attenuation": 0.25,
+    "include_direct_intercell": true,
+    "inter_ris_attenuation": 1.0,
+    "ris_size_model": "growing_aperture",
+    "ris_reference_N": 32,
+    "noise_power_dbm": -100.0,
+    "p_max_dbm": 30.0,
+    "pa_efficiency": 0.38,
+    "p_bs": 6.0,
+    "p_ue": 0.1,
+    "p_loss": 0.5,
+    "p_ris_controller": 0.5,
+    "p_cell_idle": 0.001,
+    "p_diode_on": 0.004,
+    "bandwidth_hz": 10000000.0,
+    "radius_floor": 1e-10,
+    "strict_eig_tol": 1e-08,
+    "strict_normalized_tol": 1e-08,
+    "nominal_normalized_tol": 1e-12,
+    "solver": "CLARABEL",
+    "solver_tol": 1e-10,
+    "solver_max_iter": 200,
+    "fast_tol": 0.0,
+    "fast_lambda_cap": 10000000000.0,
+    "fast_search_tol": 1e-09,
+    "eps_hi": 0.2,
+    "eps_cap": 1.2,
+    "certificate_abs_tol": 1e-07,
+    "certificate_rel_tol": 0.0001,
+    "certificate_max_iter": 60,
+    "strict_shrink_factor": 0.98,
+    "strict_shrink_steps": 40,
+    "pool_size": 4,
+    "static_pool_size": 4,
+    "validation_pool_size": 4,
+    "pool_attempts": 20,
+    "design_gamma_mult": [
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      3.0,
+      5.0
+    ],
+    "power_slack_grid": [
+      1.0,
+      1.1,
+      1.3,
+      1.8
+    ],
+    "power_control_tol": 1e-10,
+    "zf_rcond": 1e-12,
+    "epsilon_min": 0.05,
+    "estimation_snr_db": 40.0,
+    "nmse_db": null,
+    "calibration_samples": 100,
+    "calibration_quantiles": [
+      0.9,
+      0.95,
+      0.99
+    ],
+    "calibration_snr_grid": [
+      10.0,
+      20.0,
+      30.0,
+      40.0
+    ],
+    "calibration_q": 0.99,
+    "calibration_phase_profiles": 2,
+    "calibration_cases": [
+      [
+        16,
+        2
+      ],
+      [
+        32,
+        2
+      ],
+      [
+        64,
+        2
+      ],
+      [
+        32,
+        3
+      ]
+    ],
+    "csi_calibration_file": null,
+    "csi_calibration_sha256": null,
+    "epsilon_est": null,
+    "time_steps": 3,
+    "slot_duration": 0.1,
+    "channel_correlation": null,
+    "mobility_level": "slow",
+    "mobility_regimes": [
+      "slow",
+      "medium",
+      "fast"
+    ],
+    "mobility_correlations": [
+      0.9999,
+      0.995,
+      0.95
+    ],
+    "quasi_static_br": true,
+    "eta_trigger": 0.9,
+    "T_period": 10,
+    "periodic_short": 1,
+    "periodic_long": 2,
+    "drift_rate_nu": 0.002,
+    "energy_per_bit_switch": 1e-05,
+    "E_controller_fixed": 0.001,
+    "policies": [
+      "always_reconfigure",
+      "periodic_short",
+      "periodic_long",
+      "certificate_triggered",
+      "static"
+    ],
+    "selection_rule": "lifetime_aware",
+    "seeds": [
+      60001
+    ],
+    "channel_seed": 20260706,
+    "pool_seed": 31001,
+    "csi_seed": 51001,
+    "calibration_seed": 52001,
+    "mc_seed": 41001,
+    "mc_samples": 50,
+    "alpha_grid": [
+      0.25,
+      0.5,
+      0.9,
+      1.0,
+      1.1
+    ],
+    "validation_alpha_grid": [
+      0.9,
+      1.0,
+      1.1
+    ],
+    "lambda_grid_points": 400,
+    "scaling_cases": [
+      [
+        16,
+        2
+      ],
+      [
+        32,
+        2
+      ],
+      [
+        64,
+        2
+      ],
+      [
+        32,
+        3
+      ]
+    ],
+    "runtime_time_steps": 2,
+    "runtime_policies": [
+      "certificate_triggered"
+    ],
+    "output_root": "journal_results",
+    "smoke": true
+  },
+  "seeds": [
+    60001
+  ],
+  "fingerprint": "e829ba08df53cf8e569aa1adda07aac825c6594d35bfe0ab18f403dba01a9119",
+  "timestamp": "2026-10-03T19:29:15.244154+08:00",
+  "git_commit": "3b6a924c751fb22f81ecf03df49f9075888da062",
+  "source_hashes": {
+    "journal_sim\\__init__.py": "9036bdf4a9295a6817831281dc334c50266df56cfe14da82774a09409266268c",
+    "journal_sim\\certification\\__init__.py": "8ca1e4e2f5a3bfa56c004dbfd46f068b5273d981cccad6007eb5de511b322a50",
+    "journal_sim\\certification\\certificate.py": "6d0ab88c886e4a94c1a2c5adabc1a222f87b2e3505d37d8d55b7bea80da28780",
+    "journal_sim\\certification\\lmi.py": "eda335cd46d39414fccd9b6ae7d62a03642590287f4d5c469b5abbff2b59c771",
+    "journal_sim\\certification\\oracle.py": "454c23b00c74f02c662f3cf51837cea7c89df34162a0abe04c6adad10f5c0096",
+    "journal_sim\\config.py": "fea1315b098c2dfd1a0b37cc7e17cf154428ca182ec4df519361cbf51f655c52",
+    "journal_sim\\core\\__init__.py": "844699544ca801d0e5c1ae2c1a5a10a5bb034e1bb4a229ebfed8b1b1614e219d",
+    "journal_sim\\core\\channels.py": "c613404b23d87100b20185eec6bb4aef7742301f8fea77d32e40ff70efccecb5",
+    "journal_sim\\core\\models.py": "7ad9fbc0c7f83838bdb5b95c0d43b770bda4d83d4235e5cf98518effed0f163e",
+    "journal_sim\\core\\power.py": "ba40d130ab6eb0302e7ed107f7662a430b3c3d74cbb741f9df724d58cf2b20ea",
+    "journal_sim\\core\\sinr.py": "cad006e5b310984246d2a47199aa4b7167b6ecc7ef7a441cd9e396139c9642b3",
+    "journal_sim\\core\\uncertainty.py": "00a676761c2824a99b1d3951c25865740fefc146b905ce2c7fa4f3c679243921",
+    "journal_sim\\design\\__init__.py": "859fd66255b9483d04405de3f0eb6bba4773c3bb3c64ef8d4ceb765e43885fad",
+    "journal_sim\\design\\candidate.py": "98fa403dd20654ef8336b7b6e35f368869611f66ed87dba43a4183ed4cad43c7",
+    "journal_sim\\design\\candidate_pool.py": "02aa285fb1521d51456361a3e4655cb78f62208bf7a474cbe22f21b58c3a42c3",
+    "journal_sim\\design\\selection.py": "14b6fb5497b33f4bf5dbacd0e212f6c38ab979f8b406734525c6f5d0556f664b",
+    "journal_sim\\dynamics\\__init__.py": "c79ecd7ecd8118b327bb60a2f5fe4b4b13b9f14a34100c25f3e733c36fa6e3cf",
+    "journal_sim\\dynamics\\channel_process.py": "5a6eb590807eee2232d169a582c2731824c2e4ea331a3ec068f9aad3024054b3",
+    "journal_sim\\dynamics\\csi_estimation.py": "e3a9cb5ad349a7f361d6bbb6240ec9065b86a6063e9b11792c36152d32ee21a1",
+    "journal_sim\\dynamics\\offline_calibration.py": "29aea3e17ad4510653c162bf8fda75fdee151dd4dffbf38d22c50491c6c6dbd2",
+    "journal_sim\\dynamics\\reconfiguration.py": "ed780a84e4a0637da1b094d6232c05608410ce678000777059a7c3e8369fd332",
+    "journal_sim\\dynamics\\trigger.py": "96b479fd723b7104f55fb322f583b501b12dc61aa74acf67a310f0b91ed34302",
+    "journal_sim\\evaluation\\__init__.py": "2c56d1d90e4dcfc506ee66554b19a32b55aa70a0c4c768c5bfbc9df0d40e7f50",
+    "journal_sim\\evaluation\\dynamic.py": "397014def15750a3ef3a72dd9379c3ab2933d76d5af2fb42a7e53dd732a8d834",
+    "journal_sim\\evaluation\\metrics.py": "910a00796c9a24610004fe7c59ea9880c76302d97468d5f9ace4e982098b48d8",
+    "journal_sim\\evaluation\\monte_carlo.py": "cd503634753727157507707c03125221f284698da812dcb49b032979aa716916",
+    "journal_sim\\evaluation\\runtime.py": "4e635af3e17f330a68e2d0bfcb0edf827d6e6531f264671c7869388761e24865",
+    "journal_sim\\experiments\\__init__.py": "ed6c66b15bae79e510df9e0f02ea095e97a156cfa456239845e81c46c1354112",
+    "journal_sim\\experiments\\common.py": "a16c5bf7e50d7d6a76300629e9e3729c3cd830d572d6fc064d1e803141bd7baa",
+    "journal_sim\\experiments\\exp0_oracle_validation.py": "f1a3047331d6f57010cd596deb2f83b182d25387acf5460c497193c760a0c932",
+    "journal_sim\\experiments\\exp1_csi_calibration.py": "8a8d622de008097555b676a92c08e403d0cf98d19a4503c12a4c1bb057c7b9c8",
+    "journal_sim\\experiments\\exp2_static_certificate.py": "8b84b097732b7a8f21ddb572745c8e259a09dda855bcdabbe320ffe1846bbc7e",
+    "journal_sim\\experiments\\exp3_dynamic_reconfiguration.py": "4802bb82fab5b65ce77b26efabadbd93dbe378b33182088ac390a453a9dff30f",
+    "journal_sim\\experiments\\exp4_runtime_scaling.py": "c2144c9c6709f32da14deb07007898710e555f3f203849a4729bdd451b11dd04",
+    "journal_sim\\tests\\__init__.py": "c23c2ff13a5801d276d03749eb69ba8448ea60b92645b2c6c4971c758255160b",
+    "journal_sim\\tests\\fixtures\\conference_representatives.json": "f124e84251b03031edc7c4d3a6e4126c8770c90e01eb7f47df3a9ae0f0a0444a",
+    "journal_sim\\tests\\fixtures\\conference_representatives.npz": "2fd56bdf267b4f33f54d7220340fa2af347b091b488ffe60d1898c393bbe18ac",
+    "journal_sim\\tests\\helpers.py": "49cf2761faa28a8a1606599ccd91a678ba8b319b7ec6708017faf052840e16e6",
+    "journal_sim\\tests\\test_certificate.py": "7fd8d3f822e092d83a37ff5eb952474c62f7239a2b5b2286a431a45c2c46f52b",
+    "journal_sim\\tests\\test_channel_process.py": "f4d77f45d0635f47ed39d299d085fb970d77ec94f8b35b70928ac0c852af7a77",
+    "journal_sim\\tests\\test_dynamic.py": "e0fe0573cf67a25158879aa1d9c3908e7eac02aa36af94e55fe82ab79ee45812",
+    "journal_sim\\tests\\test_experiments.py": "5ee56a72981edc655429974cbaf6c4d6e004cddf2fa64b3a49b894e876449933",
+    "journal_sim\\tests\\test_fragile.py": "063c7348df3de37f78a40986f23af5d4354b8e3565e38cdab23526f154f39a95",
+    "journal_sim\\tests\\test_journal_revision.py": "0a36f3ea2adaaf46d79b9d2d8852621d4845d08ed6090e416a633a6eebf950d6",
+    "journal_sim\\tests\\test_model.py": "4c2872c3b15a1ed6c9f6aea874757c2c983bc7659a19ea1700c4035a30773a95",
+    "journal_sim\\tests\\test_oracle.py": "0a4e79f585417d20bc99abbed148b51475a0568a58994bb9cf64e3e71b52269c",
+    "journal_sim\\tests\\test_paired.py": "30a6e3732b3c877cfd680427dd34b5c4fb4c2df6e83d3472834458799fbd0951",
+    "journal_sim\\tests\\test_reproducibility.py": "d5eb6caf65b6757ddf0545876619142257d235f401c510b1ab980a9e025f0acd",
+    "journal_sim\\tests\\test_runtime.py": "8c352d31b7327c4b2a8cfd130ad89e4cdfa9ce415bc1449fd27c320db48072a1",
+    "journal_sim\\tests\\test_transition_cost.py": "99a781a062be78db3472cb290d37e9599cd3fda0b6723805decb8638a2dba2e0",
+    "journal_sim\\tools\\extract_conference_fixture.py": "3ef8198e7b990ada5b6beea4ed356d8964c7c466b77d55e77d54e7439f26366b"
+  },
+  "versions": {
+    "numpy": "2.2.6",
+    "scipy": "1.15.3",
+    "cvxpy": "1.7.5"
+  },
+  "note": "Smoke results verify execution only. All requested seeds and failed/uncertain outcomes remain in raw records.",
+  "seed_details": [
+    {
+      "seed": 60001,
+      "status": "COMPLETED",
+      "summary": {
+        "counterexamples_or_strict_recheck_failures": 0,
+        "representative_indices": {
+          "journal_fragile": 0,
+          "journal_medium": 1,
+          "journal_robust": 2
+        }
+      }
+    }
+  ],
+  "details": [
+    {
+      "label": "tiny_fragile",
+      "local_config": {
+        "L": 1,
+        "K": 1,
+        "M": 1,
+        "N": 2,
+        "bits": 1,
+        "gamma": 1.0,
+        "bs_x": [
+          -100.0
+        ],
+        "bs_y": [
+          0.0
+        ],
+        "ue_center_x": [
+          15.0
+        ],
+        "ue_center_y": [
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 1.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "noise_power_dbm": 30.0,
+        "p_max_dbm": 40.0,
+        "pa_efficiency": 0.38,
+        "p_bs": 6.0,
+        "p_ue": 0.1,
+        "p_loss": 0.5,
+        "p_ris_controller": 0.5,
+        "p_cell_idle": 0.001,
+        "p_diode_on": 0.004,
+        "bandwidth_hz": 10000000.0,
+        "radius_floor": 1e-10,
+        "strict_eig_tol": 1e-08,
+        "strict_normalized_tol": 1e-08,
+        "nominal_normalized_tol": 1e-12,
+        "solver": "CLARABEL",
+        "solver_tol": 1e-10,
+        "solver_max_iter": 200,
+        "fast_tol": 0.0,
+        "fast_lambda_cap": 10000000000.0,
+        "fast_search_tol": 1e-09,
+        "eps_hi": 0.2,
+        "eps_cap": 1.2,
+        "certificate_abs_tol": 1e-07,
+        "certificate_rel_tol": 0.0001,
+        "certificate_max_iter": 60,
+        "strict_shrink_factor": 0.98,
+        "strict_shrink_steps": 40,
+        "pool_size": 4,
+        "static_pool_size": 4,
+        "validation_pool_size": 4,
+        "pool_attempts": 20,
+        "design_gamma_mult": [
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          3.0,
+          5.0
+        ],
+        "power_slack_grid": [
+          1.0,
+          1.1,
+          1.3,
+          1.8
+        ],
+        "power_control_tol": 1e-10,
+        "zf_rcond": 1e-12,
+        "epsilon_min": 0.05,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null,
+        "calibration_samples": 100,
+        "calibration_quantiles": [
+          0.9,
+          0.95,
+          0.99
+        ],
+        "calibration_snr_grid": [
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ],
+        "calibration_q": 0.99,
+        "calibration_phase_profiles": 2,
+        "calibration_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "csi_calibration_file": null,
+        "csi_calibration_sha256": null,
+        "epsilon_est": null,
+        "time_steps": 3,
+        "slot_duration": 0.1,
+        "channel_correlation": null,
+        "mobility_level": "slow",
+        "mobility_regimes": [
+          "slow",
+          "medium",
+          "fast"
+        ],
+        "mobility_correlations": [
+          0.9999,
+          0.995,
+          0.95
+        ],
+        "quasi_static_br": true,
+        "eta_trigger": 0.9,
+        "T_period": 10,
+        "periodic_short": 1,
+        "periodic_long": 2,
+        "drift_rate_nu": 0.002,
+        "energy_per_bit_switch": 1e-05,
+        "E_controller_fixed": 0.001,
+        "policies": [
+          "always_reconfigure",
+          "periodic_short",
+          "periodic_long",
+          "certificate_triggered",
+          "static"
+        ],
+        "selection_rule": "lifetime_aware",
+        "seeds": [
+          60001
+        ],
+        "channel_seed": 20260706,
+        "pool_seed": 31001,
+        "csi_seed": 51001,
+        "calibration_seed": 52001,
+        "mc_seed": 41001,
+        "mc_samples": 50,
+        "alpha_grid": [
+          0.25,
+          0.5,
+          0.9,
+          1.0,
+          1.1
+        ],
+        "validation_alpha_grid": [
+          0.9,
+          1.0,
+          1.1
+        ],
+        "lambda_grid_points": 400,
+        "scaling_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "runtime_time_steps": 2,
+        "runtime_policies": [
+          "certificate_triggered"
+        ],
+        "output_root": "journal_results",
+        "smoke": true
+      },
+      "certificate_before_evaluation": {
+        "epsilon_cert": 0.0004899177551269531,
+        "epsilon_lo": 0.0004899177551269531,
+        "epsilon_hi": 0.0005000114440917968,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": 2.014679185383182e-05,
+        "fast_oracle_calls": 22,
+        "strict_oracle_calls": 4,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "3d9407c45d73d786b9378ad5fbb386acd354b9ddced8e79f203f2dc6a741fc703c357ec61b96ecc3a75c063ce832337420aea918f2dc489d11f9dfabee797815",
+        "upper_endpoint_status": "STRICT_INFEASIBLE",
+        "strict_validation_runtime": 0.02223729999786883,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0010007505003124528,
+            "normalized_min_eig": 0.0009997499999997656,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": 0.0009997499999997656,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0005000114440917968,
+            "status": "STRICT_INFEASIBLE",
+            "solver_status": "infeasible",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": null,
+            "reason": "solver reports infeasible",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "user": [
+              0,
+              0
+            ],
+            "epsilon": 0.0004999160766601563,
+            "warnings": [
+              "Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information."
+            ]
+          },
+          {
+            "epsilon": 0.0004999160766601563,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "optimal_inaccurate",
+            "lambda_value": 2001.0004117434476,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": null,
+            "reason": "non-optimal or inaccurate solve",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0004899177551269531,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 2034.10996604997,
+            "raw_min_eig": 2.0166953765859432e-05,
+            "normalized_min_eig": 2.014679185383182e-05,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": 2.014679185383202e-05,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "certificate": {
+        "epsilon_cert": 0.0004899177551269531,
+        "epsilon_lo": 0.0004899177551269531,
+        "epsilon_hi": 0.0005000114440917968,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": 2.014679185383182e-05,
+        "fast_oracle_calls": 22,
+        "strict_oracle_calls": 4,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "3d9407c45d73d786b9378ad5fbb386acd354b9ddced8e79f203f2dc6a741fc703c357ec61b96ecc3a75c063ce832337420aea918f2dc489d11f9dfabee797815",
+        "upper_endpoint_status": "STRICT_INFEASIBLE",
+        "strict_validation_runtime": 0.02223729999786883,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0010007505003124528,
+            "normalized_min_eig": 0.0009997499999997656,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": 0.0009997499999997656,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0005000114440917968,
+            "status": "STRICT_INFEASIBLE",
+            "solver_status": "infeasible",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": null,
+            "reason": "solver reports infeasible",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "user": [
+              0,
+              0
+            ],
+            "epsilon": 0.0004999160766601563,
+            "warnings": [
+              "Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information."
+            ]
+          },
+          {
+            "epsilon": 0.0004999160766601563,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "optimal_inaccurate",
+            "lambda_value": 2001.0004117434476,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": null,
+            "reason": "non-optimal or inaccurate solve",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0004899177551269531,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 2034.10996604997,
+            "raw_min_eig": 2.0166953765859432e-05,
+            "normalized_min_eig": 2.014679185383182e-05,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.0010007505003125,
+            "raw_normalized_min_eig": 2.014679185383202e-05,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "source": "analytic scalar"
+    },
+    {
+      "label": "journal_pool",
+      "stats": {
+        "attempts": [
+          {
+            "attempt": 0,
+            "candidate_seed": 3137060839,
+            "seed": 60001,
+            "time_index": 0,
+            "config_fingerprint": "e829ba08df53cf8e569aa1adda07aac825c6594d35bfe0ab18f403dba01a9119",
+            "status": "VALIDATED",
+            "candidate_index": 0,
+            "configuration_id": "47a082ce09bef43e60a9e07d698543ef2f35b9b821bbf4b07c1bdf95a27bc232",
+            "nominal_feasible": true
+          },
+          {
+            "attempt": 1,
+            "candidate_seed": 3466792048,
+            "seed": 60001,
+            "time_index": 0,
+            "config_fingerprint": "e829ba08df53cf8e569aa1adda07aac825c6594d35bfe0ab18f403dba01a9119",
+            "status": "VALIDATED",
+            "candidate_index": 1,
+            "configuration_id": "a64213d70ff358a826ece89f1e13c6e0a08805654d190d7ac50530a47dbb99cb",
+            "nominal_feasible": true
+          },
+          {
+            "attempt": 2,
+            "candidate_seed": 2452809221,
+            "seed": 60001,
+            "time_index": 0,
+            "config_fingerprint": "e829ba08df53cf8e569aa1adda07aac825c6594d35bfe0ab18f403dba01a9119",
+            "status": "VALIDATED",
+            "candidate_index": 2,
+            "configuration_id": "8e7e514acdcceaf4315158017b9223f44ea1a6235d85b087ecd22caed333e967",
+            "nominal_feasible": true
+          },
+          {
+            "attempt": 3,
+            "candidate_seed": 3142761576,
+            "seed": 60001,
+            "time_index": 0,
+            "config_fingerprint": "e829ba08df53cf8e569aa1adda07aac825c6594d35bfe0ab18f403dba01a9119",
+            "status": "VALIDATED",
+            "candidate_index": 3,
+            "configuration_id": "31ac41ec52124c12e3308257ac8c9998f538a3e407ae8b6f2ce6cb9bab1c200e",
+            "nominal_feasible": true
+          }
+        ],
+        "actual_pool_size": 4,
+        "target_pool_size": 4,
+        "short_pool": false,
+        "candidate_generation_runtime": 0.003575299999283743,
+        "certificate_runtime": 12.694357899999886,
+        "strict_validation_runtime": 10.048438099998748,
+        "end_to_end_runtime": 12.70009410000057,
+        "fast_oracle_calls": 414,
+        "strict_oracle_calls": 78
+      },
+      "csi_noise_seed": 232208054,
+      "local_config": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "gamma": 2.0,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "noise_power_dbm": -100.0,
+        "p_max_dbm": 30.0,
+        "pa_efficiency": 0.38,
+        "p_bs": 6.0,
+        "p_ue": 0.1,
+        "p_loss": 0.5,
+        "p_ris_controller": 0.5,
+        "p_cell_idle": 0.001,
+        "p_diode_on": 0.004,
+        "bandwidth_hz": 10000000.0,
+        "radius_floor": 1e-10,
+        "strict_eig_tol": 1e-08,
+        "strict_normalized_tol": 1e-08,
+        "nominal_normalized_tol": 1e-12,
+        "solver": "CLARABEL",
+        "solver_tol": 1e-10,
+        "solver_max_iter": 200,
+        "fast_tol": 0.0,
+        "fast_lambda_cap": 10000000000.0,
+        "fast_search_tol": 1e-09,
+        "eps_hi": 0.2,
+        "eps_cap": 1.2,
+        "certificate_abs_tol": 1e-07,
+        "certificate_rel_tol": 0.0001,
+        "certificate_max_iter": 60,
+        "strict_shrink_factor": 0.98,
+        "strict_shrink_steps": 40,
+        "pool_size": 4,
+        "static_pool_size": 4,
+        "validation_pool_size": 4,
+        "pool_attempts": 20,
+        "design_gamma_mult": [
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          3.0,
+          5.0
+        ],
+        "power_slack_grid": [
+          1.0,
+          1.1,
+          1.3,
+          1.8
+        ],
+        "power_control_tol": 1e-10,
+        "zf_rcond": 1e-12,
+        "epsilon_min": 0.05,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null,
+        "calibration_samples": 100,
+        "calibration_quantiles": [
+          0.9,
+          0.95,
+          0.99
+        ],
+        "calibration_snr_grid": [
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ],
+        "calibration_q": 0.99,
+        "calibration_phase_profiles": 2,
+        "calibration_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "csi_calibration_file": null,
+        "csi_calibration_sha256": null,
+        "epsilon_est": null,
+        "time_steps": 3,
+        "slot_duration": 0.1,
+        "channel_correlation": null,
+        "mobility_level": "slow",
+        "mobility_regimes": [
+          "slow",
+          "medium",
+          "fast"
+        ],
+        "mobility_correlations": [
+          0.9999,
+          0.995,
+          0.95
+        ],
+        "quasi_static_br": true,
+        "eta_trigger": 0.9,
+        "T_period": 10,
+        "periodic_short": 1,
+        "periodic_long": 2,
+        "drift_rate_nu": 0.002,
+        "energy_per_bit_switch": 1e-05,
+        "E_controller_fixed": 0.001,
+        "policies": [
+          "always_reconfigure",
+          "periodic_short",
+          "periodic_long",
+          "certificate_triggered",
+          "static"
+        ],
+        "selection_rule": "lifetime_aware",
+        "seeds": [
+          60001
+        ],
+        "channel_seed": 20260706,
+        "pool_seed": 31001,
+        "csi_seed": 51001,
+        "calibration_seed": 52001,
+        "mc_seed": 41001,
+        "mc_samples": 50,
+        "alpha_grid": [
+          0.25,
+          0.5,
+          0.9,
+          1.0,
+          1.1
+        ],
+        "validation_alpha_grid": [
+          0.9,
+          1.0,
+          1.1
+        ],
+        "lambda_grid_points": 400,
+        "scaling_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "runtime_time_steps": 2,
+        "runtime_policies": [
+          "certificate_triggered"
+        ],
+        "output_root": "journal_results",
+        "smoke": true
+      }
+    },
+    {
+      "label": "journal_fragile",
+      "local_config": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "gamma": 2.0,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "noise_power_dbm": -100.0,
+        "p_max_dbm": 30.0,
+        "pa_efficiency": 0.38,
+        "p_bs": 6.0,
+        "p_ue": 0.1,
+        "p_loss": 0.5,
+        "p_ris_controller": 0.5,
+        "p_cell_idle": 0.001,
+        "p_diode_on": 0.004,
+        "bandwidth_hz": 10000000.0,
+        "radius_floor": 1e-10,
+        "strict_eig_tol": 1e-08,
+        "strict_normalized_tol": 1e-08,
+        "nominal_normalized_tol": 1e-12,
+        "solver": "CLARABEL",
+        "solver_tol": 1e-10,
+        "solver_max_iter": 200,
+        "fast_tol": 0.0,
+        "fast_lambda_cap": 10000000000.0,
+        "fast_search_tol": 1e-09,
+        "eps_hi": 0.2,
+        "eps_cap": 1.2,
+        "certificate_abs_tol": 1e-07,
+        "certificate_rel_tol": 0.0001,
+        "certificate_max_iter": 60,
+        "strict_shrink_factor": 0.98,
+        "strict_shrink_steps": 40,
+        "pool_size": 4,
+        "static_pool_size": 4,
+        "validation_pool_size": 4,
+        "pool_attempts": 20,
+        "design_gamma_mult": [
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          3.0,
+          5.0
+        ],
+        "power_slack_grid": [
+          1.0,
+          1.1,
+          1.3,
+          1.8
+        ],
+        "power_control_tol": 1e-10,
+        "zf_rcond": 1e-12,
+        "epsilon_min": 0.05,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null,
+        "calibration_samples": 100,
+        "calibration_quantiles": [
+          0.9,
+          0.95,
+          0.99
+        ],
+        "calibration_snr_grid": [
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ],
+        "calibration_q": 0.99,
+        "calibration_phase_profiles": 2,
+        "calibration_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "csi_calibration_file": null,
+        "csi_calibration_sha256": null,
+        "epsilon_est": null,
+        "time_steps": 3,
+        "slot_duration": 0.1,
+        "channel_correlation": null,
+        "mobility_level": "slow",
+        "mobility_regimes": [
+          "slow",
+          "medium",
+          "fast"
+        ],
+        "mobility_correlations": [
+          0.9999,
+          0.995,
+          0.95
+        ],
+        "quasi_static_br": true,
+        "eta_trigger": 0.9,
+        "T_period": 10,
+        "periodic_short": 1,
+        "periodic_long": 2,
+        "drift_rate_nu": 0.002,
+        "energy_per_bit_switch": 1e-05,
+        "E_controller_fixed": 0.001,
+        "policies": [
+          "always_reconfigure",
+          "periodic_short",
+          "periodic_long",
+          "certificate_triggered",
+          "static"
+        ],
+        "selection_rule": "lifetime_aware",
+        "seeds": [
+          60001
+        ],
+        "channel_seed": 20260706,
+        "pool_seed": 31001,
+        "csi_seed": 51001,
+        "calibration_seed": 52001,
+        "mc_seed": 41001,
+        "mc_samples": 50,
+        "alpha_grid": [
+          0.25,
+          0.5,
+          0.9,
+          1.0,
+          1.1
+        ],
+        "validation_alpha_grid": [
+          0.9,
+          1.0,
+          1.1
+        ],
+        "lambda_grid_points": 400,
+        "scaling_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "runtime_time_steps": 2,
+        "runtime_policies": [
+          "certificate_triggered"
+        ],
+        "output_root": "journal_results",
+        "smoke": true
+      },
+      "certificate_before_evaluation": {
+        "epsilon_cert": 0.02996063232421875,
+        "epsilon_lo": 0.02996063232421875,
+        "epsilon_hi": 0.029962158203125,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": 1.690456422389078e-07,
+        "fast_oracle_calls": 108,
+        "strict_oracle_calls": 18,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "68bb7bcf86c18f4b19834680821dd5c8082fce1d36f16d6d88fd4b84dd79c6adce112a431576b29e4026ee23d532a515a292398380b467ad2041a26e82956c37",
+        "upper_endpoint_status": "NUMERICALLY_UNCERTAIN",
+        "strict_validation_runtime": 2.878664400001071,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.005799999999999976,
+            "normalized_min_eig": 0.0015518477843289606,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 3.737479963286459,
+            "raw_normalized_min_eig": 0.0015518477843289606,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.005799999999999992,
+            "normalized_min_eig": 0.006108509066853277,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.9494951937572862,
+            "raw_normalized_min_eig": 0.006108509066853277,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0058,
+            "normalized_min_eig": 0.02675019057180621,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.21682088523559911,
+            "raw_normalized_min_eig": 0.02675019057180621,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0058,
+            "normalized_min_eig": 0.031449455432175824,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.18442290717905535,
+            "raw_normalized_min_eig": 0.031449455432175824,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.005799999999999974,
+            "normalized_min_eig": 0.003192536371105245,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.8167373291324582,
+            "raw_normalized_min_eig": 0.003192536371105245,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.005800000000000023,
+            "normalized_min_eig": 0.009654223425714002,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6007733345544641,
+            "raw_normalized_min_eig": 0.009654223425714002,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.8639506743357859,
+            "raw_min_eig": 0.0018908304293569782,
+            "normalized_min_eig": 0.0005059548749559804,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 3.737479963286459,
+            "raw_normalized_min_eig": 0.0005059105193688648,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9639261769446972,
+            "raw_min_eig": 0.004095687473864726,
+            "normalized_min_eig": 0.00431406878437118,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.9494951937572862,
+            "raw_normalized_min_eig": 0.0043135420808793285,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9806050441239907,
+            "raw_min_eig": 0.0050348923840030585,
+            "normalized_min_eig": 0.023192361890214876,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.21682088523559911,
+            "raw_normalized_min_eig": 0.02322143634148578,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9823125340172765,
+            "raw_min_eig": 0.004684812784564645,
+            "normalized_min_eig": 0.02530982946405169,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.18442290717905535,
+            "raw_normalized_min_eig": 0.025402553599354023,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "SOLVER_ERROR",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.8167373291324582,
+            "raw_normalized_min_eig": null,
+            "reason": "SolverError: Solver 'CLARABEL' failed. Try another solver, or solve with verbose=True for more information.",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.646276707439596,
+            "raw_min_eig": 0.0011815132085279526,
+            "normalized_min_eig": 0.0019730055147997583,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6007733345544641,
+            "raw_normalized_min_eig": 0.0019666538785450046,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.8639648001403704,
+            "raw_min_eig": 0.0018911590836065688,
+            "normalized_min_eig": 0.0005060428157303224,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 3.737479963286459,
+            "raw_normalized_min_eig": 0.0005059984540876644,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9639289205985246,
+            "raw_min_eig": 0.0040957964356063544,
+            "normalized_min_eig": 0.0043141835532106996,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.9494951937572862,
+            "raw_normalized_min_eig": 0.004313656838428756,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9806055937908003,
+            "raw_min_eig": 0.005034918162033938,
+            "normalized_min_eig": 0.023192480660114766,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.21682088523559911,
+            "raw_normalized_min_eig": 0.02322155523238898,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9823130090953612,
+            "raw_min_eig": 0.004684835526493698,
+            "normalized_min_eig": 0.02530995250364365,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.18442290717905535,
+            "raw_normalized_min_eig": 0.025402676913368536,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.8453608486502194,
+            "raw_min_eig": 3.060639609367465e-07,
+            "normalized_min_eig": 1.690456422389078e-07,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.8167373291324582,
+            "raw_normalized_min_eig": 1.6846902192674184e-07,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.646271508409134,
+            "raw_min_eig": 0.0011816529693028863,
+            "normalized_min_eig": 0.0019732390172685077,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6007733345544641,
+            "raw_normalized_min_eig": 0.001966886513329032,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "certificate": {
+        "epsilon_cert": 0.02996063232421875,
+        "epsilon_lo": 0.02996063232421875,
+        "epsilon_hi": 0.029962158203125,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": 1.690456422389078e-07,
+        "fast_oracle_calls": 108,
+        "strict_oracle_calls": 18,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "68bb7bcf86c18f4b19834680821dd5c8082fce1d36f16d6d88fd4b84dd79c6adce112a431576b29e4026ee23d532a515a292398380b467ad2041a26e82956c37",
+        "upper_endpoint_status": "NUMERICALLY_UNCERTAIN",
+        "strict_validation_runtime": 2.878664400001071,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.005799999999999976,
+            "normalized_min_eig": 0.0015518477843289606,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 3.737479963286459,
+            "raw_normalized_min_eig": 0.0015518477843289606,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.005799999999999992,
+            "normalized_min_eig": 0.006108509066853277,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.9494951937572862,
+            "raw_normalized_min_eig": 0.006108509066853277,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0058,
+            "normalized_min_eig": 0.02675019057180621,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.21682088523559911,
+            "raw_normalized_min_eig": 0.02675019057180621,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0058,
+            "normalized_min_eig": 0.031449455432175824,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.18442290717905535,
+            "raw_normalized_min_eig": 0.031449455432175824,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.005799999999999974,
+            "normalized_min_eig": 0.003192536371105245,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.8167373291324582,
+            "raw_normalized_min_eig": 0.003192536371105245,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.005800000000000023,
+            "normalized_min_eig": 0.009654223425714002,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6007733345544641,
+            "raw_normalized_min_eig": 0.009654223425714002,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.8639506743357859,
+            "raw_min_eig": 0.0018908304293569782,
+            "normalized_min_eig": 0.0005059548749559804,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 3.737479963286459,
+            "raw_normalized_min_eig": 0.0005059105193688648,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9639261769446972,
+            "raw_min_eig": 0.004095687473864726,
+            "normalized_min_eig": 0.00431406878437118,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.9494951937572862,
+            "raw_normalized_min_eig": 0.0043135420808793285,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9806050441239907,
+            "raw_min_eig": 0.0050348923840030585,
+            "normalized_min_eig": 0.023192361890214876,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.21682088523559911,
+            "raw_normalized_min_eig": 0.02322143634148578,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9823125340172765,
+            "raw_min_eig": 0.004684812784564645,
+            "normalized_min_eig": 0.02530982946405169,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.18442290717905535,
+            "raw_normalized_min_eig": 0.025402553599354023,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "SOLVER_ERROR",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.8167373291324582,
+            "raw_normalized_min_eig": null,
+            "reason": "SolverError: Solver 'CLARABEL' failed. Try another solver, or solve with verbose=True for more information.",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.029962158203125,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.646276707439596,
+            "raw_min_eig": 0.0011815132085279526,
+            "normalized_min_eig": 0.0019730055147997583,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6007733345544641,
+            "raw_normalized_min_eig": 0.0019666538785450046,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.8639648001403704,
+            "raw_min_eig": 0.0018911590836065688,
+            "normalized_min_eig": 0.0005060428157303224,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 3.737479963286459,
+            "raw_normalized_min_eig": 0.0005059984540876644,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9639289205985246,
+            "raw_min_eig": 0.0040957964356063544,
+            "normalized_min_eig": 0.0043141835532106996,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 0.9494951937572862,
+            "raw_normalized_min_eig": 0.004313656838428756,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9806055937908003,
+            "raw_min_eig": 0.005034918162033938,
+            "normalized_min_eig": 0.023192480660114766,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.21682088523559911,
+            "raw_normalized_min_eig": 0.02322155523238898,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9823130090953612,
+            "raw_min_eig": 0.004684835526493698,
+            "normalized_min_eig": 0.02530995250364365,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.18442290717905535,
+            "raw_normalized_min_eig": 0.025402676913368536,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.8453608486502194,
+            "raw_min_eig": 3.060639609367465e-07,
+            "normalized_min_eig": 1.690456422389078e-07,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 1.8167373291324582,
+            "raw_normalized_min_eig": 1.6846902192674184e-07,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.02996063232421875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.646271508409134,
+            "raw_min_eig": 0.0011816529693028863,
+            "normalized_min_eig": 0.0019732390172685077,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.6007733345544641,
+            "raw_normalized_min_eig": 0.001966886513329032,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "source": "journal estimated-CSI pool, direct intercell ON"
+    },
+    {
+      "label": "journal_medium",
+      "local_config": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "gamma": 2.0,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "noise_power_dbm": -100.0,
+        "p_max_dbm": 30.0,
+        "pa_efficiency": 0.38,
+        "p_bs": 6.0,
+        "p_ue": 0.1,
+        "p_loss": 0.5,
+        "p_ris_controller": 0.5,
+        "p_cell_idle": 0.001,
+        "p_diode_on": 0.004,
+        "bandwidth_hz": 10000000.0,
+        "radius_floor": 1e-10,
+        "strict_eig_tol": 1e-08,
+        "strict_normalized_tol": 1e-08,
+        "nominal_normalized_tol": 1e-12,
+        "solver": "CLARABEL",
+        "solver_tol": 1e-10,
+        "solver_max_iter": 200,
+        "fast_tol": 0.0,
+        "fast_lambda_cap": 10000000000.0,
+        "fast_search_tol": 1e-09,
+        "eps_hi": 0.2,
+        "eps_cap": 1.2,
+        "certificate_abs_tol": 1e-07,
+        "certificate_rel_tol": 0.0001,
+        "certificate_max_iter": 60,
+        "strict_shrink_factor": 0.98,
+        "strict_shrink_steps": 40,
+        "pool_size": 4,
+        "static_pool_size": 4,
+        "validation_pool_size": 4,
+        "pool_attempts": 20,
+        "design_gamma_mult": [
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          3.0,
+          5.0
+        ],
+        "power_slack_grid": [
+          1.0,
+          1.1,
+          1.3,
+          1.8
+        ],
+        "power_control_tol": 1e-10,
+        "zf_rcond": 1e-12,
+        "epsilon_min": 0.05,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null,
+        "calibration_samples": 100,
+        "calibration_quantiles": [
+          0.9,
+          0.95,
+          0.99
+        ],
+        "calibration_snr_grid": [
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ],
+        "calibration_q": 0.99,
+        "calibration_phase_profiles": 2,
+        "calibration_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "csi_calibration_file": null,
+        "csi_calibration_sha256": null,
+        "epsilon_est": null,
+        "time_steps": 3,
+        "slot_duration": 0.1,
+        "channel_correlation": null,
+        "mobility_level": "slow",
+        "mobility_regimes": [
+          "slow",
+          "medium",
+          "fast"
+        ],
+        "mobility_correlations": [
+          0.9999,
+          0.995,
+          0.95
+        ],
+        "quasi_static_br": true,
+        "eta_trigger": 0.9,
+        "T_period": 10,
+        "periodic_short": 1,
+        "periodic_long": 2,
+        "drift_rate_nu": 0.002,
+        "energy_per_bit_switch": 1e-05,
+        "E_controller_fixed": 0.001,
+        "policies": [
+          "always_reconfigure",
+          "periodic_short",
+          "periodic_long",
+          "certificate_triggered",
+          "static"
+        ],
+        "selection_rule": "lifetime_aware",
+        "seeds": [
+          60001
+        ],
+        "channel_seed": 20260706,
+        "pool_seed": 31001,
+        "csi_seed": 51001,
+        "calibration_seed": 52001,
+        "mc_seed": 41001,
+        "mc_samples": 50,
+        "alpha_grid": [
+          0.25,
+          0.5,
+          0.9,
+          1.0,
+          1.1
+        ],
+        "validation_alpha_grid": [
+          0.9,
+          1.0,
+          1.1
+        ],
+        "lambda_grid_points": 400,
+        "scaling_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "runtime_time_steps": 2,
+        "runtime_policies": [
+          "certificate_triggered"
+        ],
+        "output_root": "journal_results",
+        "smoke": true
+      },
+      "certificate_before_evaluation": {
+        "epsilon_cert": 0.04112548828125001,
+        "epsilon_lo": 0.04112548828125001,
+        "epsilon_hi": 0.04112854003906251,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": 1.840205835993987e-07,
+        "fast_oracle_calls": 102,
+        "strict_oracle_calls": 18,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "32ddb0ae5bb62ee20af409dda608594ab4857c663363e13e87f0995acbce08f4ce112a431576b29e4026ee23d532a515a292398380b467ad2041a26e82956c37",
+        "upper_endpoint_status": "NUMERICALLY_UNCERTAIN",
+        "strict_validation_runtime": 3.272530399994139,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.003200000000000003,
+            "normalized_min_eig": 0.00513964927499885,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.6226105768667881,
+            "raw_normalized_min_eig": 0.00513964927499885,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.003200000000000005,
+            "normalized_min_eig": 0.0020180711603827624,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.5856725287095768,
+            "raw_normalized_min_eig": 0.0020180711603827624,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0031999999999999945,
+            "normalized_min_eig": 0.009925377171219708,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.32240588390725644,
+            "raw_normalized_min_eig": 0.009925377171219708,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0032000000000000015,
+            "normalized_min_eig": 0.009034010145738196,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.35421700312231824,
+            "raw_normalized_min_eig": 0.009034010145738196,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0031999999999999963,
+            "normalized_min_eig": 0.004929191231152088,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.6491937216345465,
+            "raw_normalized_min_eig": 0.004929191231152088,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0031999999999999997,
+            "normalized_min_eig": 0.015046526290619883,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.2126736721946848,
+            "raw_normalized_min_eig": 0.015046526290619883,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3181212857969142,
+            "raw_min_eig": 0.001310475899606663,
+            "normalized_min_eig": 0.0021039249974261556,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.6226105768667881,
+            "raw_normalized_min_eig": 0.002104808283536514,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0890000488910365,
+            "raw_min_eig": 0.0002407860357186986,
+            "normalized_min_eig": 0.0001518630274854882,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.5856725287095768,
+            "raw_normalized_min_eig": 0.00015185104828337458,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3924128453916969,
+            "raw_min_eig": 0.0014620474868909013,
+            "normalized_min_eig": 0.004528161485481637,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.32240588390725644,
+            "raw_normalized_min_eig": 0.004534803984258163,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3251375785563222,
+            "raw_min_eig": 0.0015033812392323403,
+            "normalized_min_eig": 0.004235722694612691,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.35421700312231824,
+            "raw_normalized_min_eig": 0.004244237927542943,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "SOLVER_ERROR",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.6491937216345465,
+            "raw_normalized_min_eig": null,
+            "reason": "SolverError: Solver 'CLARABEL' failed. Try another solver, or solve with verbose=True for more information.",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2593667579292527,
+            "raw_min_eig": 0.0013034909586113746,
+            "normalized_min_eig": 0.006106050817492474,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.2126736721946848,
+            "raw_normalized_min_eig": 0.006129065930728551,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.318138302367796,
+            "raw_min_eig": 0.0013106662886671486,
+            "normalized_min_eig": 0.002104230695343358,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.6226105768667881,
+            "raw_normalized_min_eig": 0.0021051140750979803,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0890624774292375,
+            "raw_min_eig": 0.00024105499193505242,
+            "normalized_min_eig": 0.00015203265447174283,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.5856725287095768,
+            "raw_normalized_min_eig": 0.00015202066477825872,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.392422414089459,
+            "raw_min_eig": 0.0014621565082997337,
+            "normalized_min_eig": 0.0045284992205192115,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.32240588390725644,
+            "raw_normalized_min_eig": 0.004535142133821413,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3251424152747413,
+            "raw_min_eig": 0.0015035160255539998,
+            "normalized_min_eig": 0.004236102607502408,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.35421700312231824,
+            "raw_normalized_min_eig": 0.004244618446604624,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2214623630829506,
+            "raw_min_eig": 1.1949246074772304e-07,
+            "normalized_min_eig": 1.840205835993987e-07,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.6491937216345465,
+            "raw_normalized_min_eig": 1.8406287178326945e-07,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2593681120835776,
+            "raw_min_eig": 0.0013035817153216856,
+            "normalized_min_eig": 0.006106476024385164,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.2126736721946848,
+            "raw_normalized_min_eig": 0.006129492672362222,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "certificate": {
+        "epsilon_cert": 0.04112548828125001,
+        "epsilon_lo": 0.04112548828125001,
+        "epsilon_hi": 0.04112854003906251,
+        "binding_user": [
+          1,
+          1
+        ],
+        "binding_margin": 1.840205835993987e-07,
+        "fast_oracle_calls": 102,
+        "strict_oracle_calls": 18,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "32ddb0ae5bb62ee20af409dda608594ab4857c663363e13e87f0995acbce08f4ce112a431576b29e4026ee23d532a515a292398380b467ad2041a26e82956c37",
+        "upper_endpoint_status": "NUMERICALLY_UNCERTAIN",
+        "strict_validation_runtime": 3.272530399994139,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.003200000000000003,
+            "normalized_min_eig": 0.00513964927499885,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.6226105768667881,
+            "raw_normalized_min_eig": 0.00513964927499885,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.003200000000000005,
+            "normalized_min_eig": 0.0020180711603827624,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.5856725287095768,
+            "raw_normalized_min_eig": 0.0020180711603827624,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0031999999999999945,
+            "normalized_min_eig": 0.009925377171219708,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.32240588390725644,
+            "raw_normalized_min_eig": 0.009925377171219708,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0032000000000000015,
+            "normalized_min_eig": 0.009034010145738196,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.35421700312231824,
+            "raw_normalized_min_eig": 0.009034010145738196,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0031999999999999963,
+            "normalized_min_eig": 0.004929191231152088,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.6491937216345465,
+            "raw_normalized_min_eig": 0.004929191231152088,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0031999999999999997,
+            "normalized_min_eig": 0.015046526290619883,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.2126736721946848,
+            "raw_normalized_min_eig": 0.015046526290619883,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3181212857969142,
+            "raw_min_eig": 0.001310475899606663,
+            "normalized_min_eig": 0.0021039249974261556,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.6226105768667881,
+            "raw_normalized_min_eig": 0.002104808283536514,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0890000488910365,
+            "raw_min_eig": 0.0002407860357186986,
+            "normalized_min_eig": 0.0001518630274854882,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.5856725287095768,
+            "raw_normalized_min_eig": 0.00015185104828337458,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3924128453916969,
+            "raw_min_eig": 0.0014620474868909013,
+            "normalized_min_eig": 0.004528161485481637,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.32240588390725644,
+            "raw_normalized_min_eig": 0.004534803984258163,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3251375785563222,
+            "raw_min_eig": 0.0015033812392323403,
+            "normalized_min_eig": 0.004235722694612691,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.35421700312231824,
+            "raw_normalized_min_eig": 0.004244237927542943,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "SOLVER_ERROR",
+            "lambda_value": null,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.6491937216345465,
+            "raw_normalized_min_eig": null,
+            "reason": "SolverError: Solver 'CLARABEL' failed. Try another solver, or solve with verbose=True for more information.",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112854003906251,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2593667579292527,
+            "raw_min_eig": 0.0013034909586113746,
+            "normalized_min_eig": 0.006106050817492474,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.2126736721946848,
+            "raw_normalized_min_eig": 0.006129065930728551,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.318138302367796,
+            "raw_min_eig": 0.0013106662886671486,
+            "normalized_min_eig": 0.002104230695343358,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 0.6226105768667881,
+            "raw_normalized_min_eig": 0.0021051140750979803,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0890624774292375,
+            "raw_min_eig": 0.00024105499193505242,
+            "normalized_min_eig": 0.00015203265447174283,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.5856725287095768,
+            "raw_normalized_min_eig": 0.00015202066477825872,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.392422414089459,
+            "raw_min_eig": 0.0014621565082997337,
+            "normalized_min_eig": 0.0045284992205192115,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 0.32240588390725644,
+            "raw_normalized_min_eig": 0.004535142133821413,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.3251424152747413,
+            "raw_min_eig": 0.0015035160255539998,
+            "normalized_min_eig": 0.004236102607502408,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.35421700312231824,
+            "raw_normalized_min_eig": 0.004244618446604624,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2214623630829506,
+            "raw_min_eig": 1.1949246074772304e-07,
+            "normalized_min_eig": 1.840205835993987e-07,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.6491937216345465,
+            "raw_normalized_min_eig": 1.8406287178326945e-07,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.04112548828125001,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2593681120835776,
+            "raw_min_eig": 0.0013035817153216856,
+            "normalized_min_eig": 0.006106476024385164,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.2126736721946848,
+            "raw_normalized_min_eig": 0.006129492672362222,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "source": "journal estimated-CSI pool, direct intercell ON"
+    },
+    {
+      "label": "journal_robust",
+      "local_config": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "gamma": 2.0,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "noise_power_dbm": -100.0,
+        "p_max_dbm": 30.0,
+        "pa_efficiency": 0.38,
+        "p_bs": 6.0,
+        "p_ue": 0.1,
+        "p_loss": 0.5,
+        "p_ris_controller": 0.5,
+        "p_cell_idle": 0.001,
+        "p_diode_on": 0.004,
+        "bandwidth_hz": 10000000.0,
+        "radius_floor": 1e-10,
+        "strict_eig_tol": 1e-08,
+        "strict_normalized_tol": 1e-08,
+        "nominal_normalized_tol": 1e-12,
+        "solver": "CLARABEL",
+        "solver_tol": 1e-10,
+        "solver_max_iter": 200,
+        "fast_tol": 0.0,
+        "fast_lambda_cap": 10000000000.0,
+        "fast_search_tol": 1e-09,
+        "eps_hi": 0.2,
+        "eps_cap": 1.2,
+        "certificate_abs_tol": 1e-07,
+        "certificate_rel_tol": 0.0001,
+        "certificate_max_iter": 60,
+        "strict_shrink_factor": 0.98,
+        "strict_shrink_steps": 40,
+        "pool_size": 4,
+        "static_pool_size": 4,
+        "validation_pool_size": 4,
+        "pool_attempts": 20,
+        "design_gamma_mult": [
+          1.0,
+          1.25,
+          1.5,
+          2.0,
+          3.0,
+          5.0
+        ],
+        "power_slack_grid": [
+          1.0,
+          1.1,
+          1.3,
+          1.8
+        ],
+        "power_control_tol": 1e-10,
+        "zf_rcond": 1e-12,
+        "epsilon_min": 0.05,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null,
+        "calibration_samples": 100,
+        "calibration_quantiles": [
+          0.9,
+          0.95,
+          0.99
+        ],
+        "calibration_snr_grid": [
+          10.0,
+          20.0,
+          30.0,
+          40.0
+        ],
+        "calibration_q": 0.99,
+        "calibration_phase_profiles": 2,
+        "calibration_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "csi_calibration_file": null,
+        "csi_calibration_sha256": null,
+        "epsilon_est": null,
+        "time_steps": 3,
+        "slot_duration": 0.1,
+        "channel_correlation": null,
+        "mobility_level": "slow",
+        "mobility_regimes": [
+          "slow",
+          "medium",
+          "fast"
+        ],
+        "mobility_correlations": [
+          0.9999,
+          0.995,
+          0.95
+        ],
+        "quasi_static_br": true,
+        "eta_trigger": 0.9,
+        "T_period": 10,
+        "periodic_short": 1,
+        "periodic_long": 2,
+        "drift_rate_nu": 0.002,
+        "energy_per_bit_switch": 1e-05,
+        "E_controller_fixed": 0.001,
+        "policies": [
+          "always_reconfigure",
+          "periodic_short",
+          "periodic_long",
+          "certificate_triggered",
+          "static"
+        ],
+        "selection_rule": "lifetime_aware",
+        "seeds": [
+          60001
+        ],
+        "channel_seed": 20260706,
+        "pool_seed": 31001,
+        "csi_seed": 51001,
+        "calibration_seed": 52001,
+        "mc_seed": 41001,
+        "mc_samples": 50,
+        "alpha_grid": [
+          0.25,
+          0.5,
+          0.9,
+          1.0,
+          1.1
+        ],
+        "validation_alpha_grid": [
+          0.9,
+          1.0,
+          1.1
+        ],
+        "lambda_grid_points": 400,
+        "scaling_cases": [
+          [
+            16,
+            2
+          ],
+          [
+            32,
+            2
+          ],
+          [
+            64,
+            2
+          ],
+          [
+            32,
+            3
+          ]
+        ],
+        "runtime_time_steps": 2,
+        "runtime_policies": [
+          "certificate_triggered"
+        ],
+        "output_root": "journal_results",
+        "smoke": true
+      },
+      "certificate_before_evaluation": {
+        "epsilon_cert": 0.0519744873046875,
+        "epsilon_lo": 0.0519744873046875,
+        "epsilon_hi": 0.0519775390625,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": 9.797676290658773e-08,
+        "fast_oracle_calls": 102,
+        "strict_oracle_calls": 18,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "366fc241f2a4a36da40ec17eddea95bfd70de60013e03606e668ed1679de95bdce112a431576b29e4026ee23d532a515a292398380b467ad2041a26e82956c37",
+        "upper_endpoint_status": "NUMERICALLY_UNCERTAIN",
+        "strict_validation_runtime": 0.6876433999987057,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.004599999999999984,
+            "normalized_min_eig": 0.002875703224316356,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.599608736083518,
+            "raw_normalized_min_eig": 0.002875703224316356,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.004599999999999998,
+            "normalized_min_eig": 0.004311462125332884,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.066923439492081,
+            "raw_normalized_min_eig": 0.004311462125332884,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0046,
+            "normalized_min_eig": 0.004286877003875863,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 1.0730422160097048,
+            "raw_normalized_min_eig": 0.004286877003875863,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.004600000000000001,
+            "normalized_min_eig": 0.008585995207916123,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5357561806881617,
+            "raw_normalized_min_eig": 0.008585995207916123,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0046,
+            "normalized_min_eig": 0.013102711936822647,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.35107235984274265,
+            "raw_normalized_min_eig": 0.013102711936822647,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0045999999999999965,
+            "normalized_min_eig": 0.026408773699425257,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.17418453625887625,
+            "raw_normalized_min_eig": 0.026408773699425257,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "user": [
+              0,
+              0
+            ],
+            "epsilon": 0.0519775390625,
+            "warnings": [
+              "Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information."
+            ]
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "optimal_inaccurate",
+            "lambda_value": 1.029615680104004,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.599608736083518,
+            "raw_normalized_min_eig": null,
+            "reason": "non-optimal or inaccurate solve",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.157661905432155,
+            "raw_min_eig": 0.0010853436044698794,
+            "normalized_min_eig": 0.0010172731115296596,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.066923439492081,
+            "raw_normalized_min_eig": 0.001017264748618296,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.15539238874981,
+            "raw_min_eig": 0.0010203734034536847,
+            "normalized_min_eig": 0.0009509273332318086,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 1.0730422160097048,
+            "raw_normalized_min_eig": 0.0009509163649200325,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2597043020156449,
+            "raw_min_eig": 0.0019705272933623554,
+            "normalized_min_eig": 0.0036738774021128607,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5357561806881617,
+            "raw_normalized_min_eig": 0.0036780299777993716,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1049656852204814,
+            "raw_min_eig": 0.0008345322363726651,
+            "normalized_min_eig": 0.0023726786013385276,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.35107235984274265,
+            "raw_normalized_min_eig": 0.00237709467286596,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9865674435061422,
+            "raw_min_eig": 0.0008875191035940268,
+            "normalized_min_eig": 0.00508310377874723,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.17418453625887625,
+            "raw_normalized_min_eig": 0.005095280687115529,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0273923410337804,
+            "raw_min_eig": 1.567092743046109e-07,
+            "normalized_min_eig": 9.797676290658773e-08,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.599608736083518,
+            "raw_normalized_min_eig": 9.796725334740161e-08,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.157688280447652,
+            "raw_min_eig": 0.0010856567844217402,
+            "normalized_min_eig": 0.0010175666491234363,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.066923439492081,
+            "raw_normalized_min_eig": 0.0010175582841619613,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1554197747712742,
+            "raw_min_eig": 0.0010206863000665242,
+            "normalized_min_eig": 0.0009512189337639715,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 1.0730422160097048,
+            "raw_normalized_min_eig": 0.0009512079625926786,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2597132236378579,
+            "raw_min_eig": 0.00197074452040255,
+            "normalized_min_eig": 0.0036742826054729674,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5357561806881617,
+            "raw_normalized_min_eig": 0.003678435436565924,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1049633559895904,
+            "raw_min_eig": 0.0008347427745443411,
+            "normalized_min_eig": 0.002373277149134448,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.35107235984274265,
+            "raw_normalized_min_eig": 0.0023776943730866506,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9865546946299731,
+            "raw_min_eig": 0.0008876678304326925,
+            "normalized_min_eig": 0.0050839551941794054,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.17418453625887625,
+            "raw_normalized_min_eig": 0.005096134533512345,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "certificate": {
+        "epsilon_cert": 0.0519744873046875,
+        "epsilon_lo": 0.0519744873046875,
+        "epsilon_hi": 0.0519775390625,
+        "binding_user": [
+          0,
+          0
+        ],
+        "binding_margin": 9.797676290658773e-08,
+        "fast_oracle_calls": 102,
+        "strict_oracle_calls": 18,
+        "strict_validation_passed": true,
+        "status": "VALIDATED",
+        "context_id": "366fc241f2a4a36da40ec17eddea95bfd70de60013e03606e668ed1679de95bdce112a431576b29e4026ee23d532a515a292398380b467ad2041a26e82956c37",
+        "upper_endpoint_status": "NUMERICALLY_UNCERTAIN",
+        "strict_validation_runtime": 0.6876433999987057,
+        "validation_history": [
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.004599999999999984,
+            "normalized_min_eig": 0.002875703224316356,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.599608736083518,
+            "raw_normalized_min_eig": 0.002875703224316356,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.004599999999999998,
+            "normalized_min_eig": 0.004311462125332884,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.066923439492081,
+            "raw_normalized_min_eig": 0.004311462125332884,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0046,
+            "normalized_min_eig": 0.004286877003875863,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 1.0730422160097048,
+            "raw_normalized_min_eig": 0.004286877003875863,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.004600000000000001,
+            "normalized_min_eig": 0.008585995207916123,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5357561806881617,
+            "raw_normalized_min_eig": 0.008585995207916123,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0046,
+            "normalized_min_eig": 0.013102711936822647,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.35107235984274265,
+            "raw_normalized_min_eig": 0.013102711936822647,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "epsilon": 0.0,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "NOMINAL_DIRECT",
+            "lambda_value": null,
+            "raw_min_eig": 0.0045999999999999965,
+            "normalized_min_eig": 0.026408773699425257,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.17418453625887625,
+            "raw_normalized_min_eig": 0.026408773699425257,
+            "reason": "singleton uncertainty set",
+            "solver_name": ""
+          },
+          {
+            "user": [
+              0,
+              0
+            ],
+            "epsilon": 0.0519775390625,
+            "warnings": [
+              "Solution may be inaccurate. Try another solver, adjusting the solver settings, or solve with verbose=True for more information."
+            ]
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "NUMERICALLY_UNCERTAIN",
+            "solver_status": "optimal_inaccurate",
+            "lambda_value": 1.029615680104004,
+            "raw_min_eig": null,
+            "normalized_min_eig": null,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.599608736083518,
+            "raw_normalized_min_eig": null,
+            "reason": "non-optimal or inaccurate solve",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.157661905432155,
+            "raw_min_eig": 0.0010853436044698794,
+            "normalized_min_eig": 0.0010172731115296596,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.066923439492081,
+            "raw_normalized_min_eig": 0.001017264748618296,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.15539238874981,
+            "raw_min_eig": 0.0010203734034536847,
+            "normalized_min_eig": 0.0009509273332318086,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 1.0730422160097048,
+            "raw_normalized_min_eig": 0.0009509163649200325,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2597043020156449,
+            "raw_min_eig": 0.0019705272933623554,
+            "normalized_min_eig": 0.0036738774021128607,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5357561806881617,
+            "raw_normalized_min_eig": 0.0036780299777993716,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1049656852204814,
+            "raw_min_eig": 0.0008345322363726651,
+            "normalized_min_eig": 0.0023726786013385276,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.35107235984274265,
+            "raw_normalized_min_eig": 0.00237709467286596,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519775390625,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9865674435061422,
+            "raw_min_eig": 0.0008875191035940268,
+            "normalized_min_eig": 0.00508310377874723,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.17418453625887625,
+            "raw_normalized_min_eig": 0.005095280687115529,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.0273923410337804,
+            "raw_min_eig": 1.567092743046109e-07,
+            "normalized_min_eig": 9.797676290658773e-08,
+            "user_index": [
+              0,
+              0
+            ],
+            "scale": 1.599608736083518,
+            "raw_normalized_min_eig": 9.796725334740161e-08,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.157688280447652,
+            "raw_min_eig": 0.0010856567844217402,
+            "normalized_min_eig": 0.0010175666491234363,
+            "user_index": [
+              0,
+              1
+            ],
+            "scale": 1.066923439492081,
+            "raw_normalized_min_eig": 0.0010175582841619613,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1554197747712742,
+            "raw_min_eig": 0.0010206863000665242,
+            "normalized_min_eig": 0.0009512189337639715,
+            "user_index": [
+              0,
+              2
+            ],
+            "scale": 1.0730422160097048,
+            "raw_normalized_min_eig": 0.0009512079625926786,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.2597132236378579,
+            "raw_min_eig": 0.00197074452040255,
+            "normalized_min_eig": 0.0036742826054729674,
+            "user_index": [
+              1,
+              0
+            ],
+            "scale": 0.5357561806881617,
+            "raw_normalized_min_eig": 0.003678435436565924,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 1.1049633559895904,
+            "raw_min_eig": 0.0008347427745443411,
+            "normalized_min_eig": 0.002373277149134448,
+            "user_index": [
+              1,
+              1
+            ],
+            "scale": 0.35107235984274265,
+            "raw_normalized_min_eig": 0.0023776943730866506,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          },
+          {
+            "epsilon": 0.0519744873046875,
+            "status": "STRICT_FEASIBLE",
+            "solver_status": "optimal",
+            "lambda_value": 0.9865546946299731,
+            "raw_min_eig": 0.0008876678304326925,
+            "normalized_min_eig": 0.0050839551941794054,
+            "user_index": [
+              1,
+              2
+            ],
+            "scale": 0.17418453625887625,
+            "raw_normalized_min_eig": 0.005096134533512345,
+            "reason": "independent eigvalsh passed",
+            "solver_name": "CLARABEL"
+          }
+        ],
+        "note": "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
+      },
+      "source": "journal estimated-CSI pool, direct intercell ON"
+    }
+  ],
+  "run_complete": true,
+  "success": true
+}

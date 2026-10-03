@@ -1,0 +1,221 @@
+Validated Robustness Certification and Event-Triggered Reconfigurationfor Energy-Efficient Discrete RIS-Assisted Multi-Cell Networks
+Manuscript draft targeted to IET Communications
+Abstract—Robust reconfigurable intelligent surface (RIS) design is commonly formulated for a prescribed channel-state-information (CSI) uncertainty set. Such a formulation can guarantee feasibility for a selected uncertainty radius, but it does not directly tell a controller how much additional channel variation a deployed configuration can tolerate or when an expensive discrete RIS redesign is necessary. This paper develops a configuration-specific robustness certification framework for discrete RIS-assisted multi-cell downlink networks. For a fixed active/passive configuration, the robustness certificate is defined as the largest relative CSI uncertainty factor for which all worst-case quality-of-service (QoS) constraints remain feasible. A statewise S-procedure converts the semi-infinite QoS constraints into finite linear-matrix inequalities, and a validated numerical procedure combines a fast search oracle with strict semidefinite-programming and eigenvalue-residual checks to obtain a conservative lower certificate. The uncertainty factor is calibrated to CSI-estimation error through empirical relative-error statistics. The validated certificate is then embedded into an event-triggered reconfiguration policy: the current configuration is reused while the accumulated estimation error and observed channel drift remain inside a safety-scaled certified region, and redesign is triggered only when the boundary is approached. A Gray-code-dependent switching-energy model is further incorporated into long-term energy-efficiency accounting. The proposed framework therefore turns a static robust-feasibility margin into an operational decision variable for reducing unnecessary RIS reconfiguration while maintaining QoS reliability.
+Keywords—reconfigurable intelligent surface, robustness certification, CSI uncertainty, discrete phase shifts, event-triggered reconfiguration, energy efficiency.
+1. Introduction
+Reconfigurable intelligent surfaces (RISs) provide a programmable mechanism for shaping wireless propagation through a large number of low-power reflecting elements. In multi-cell downlink systems, an RIS can strengthen desired links and reshape inter-cell interference, which makes it attractive for energy-efficient and coverage-oriented wireless design. Practical RIS operation, however, is constrained by finite-resolution phase states, non-negligible controller power, imperfect CSI, and the cost of repeatedly updating a large number of reflecting elements.
+A large portion of robust RIS literature asks whether a design remains feasible for a prescribed uncertainty set. This is useful at the design stage, but it leaves an operational question unanswered: once a discrete RIS configuration and active beamformer have been installed, how much additional channel deviation can the configuration tolerate before redesign becomes necessary? Re-optimizing at every CSI update can be computationally expensive and may also introduce non-negligible switching energy. Conversely, keeping an outdated configuration for too long can cause QoS violations.
+This work treats the residual robust margin of a fixed configuration as a quantity that can be certified and used for configuration management. For a fixed configuration X=(W,Θ), the proposed certificate is the largest relative uncertainty factor for which all worst-case QoS constraints remain feasible. The certificate is configuration specific: any change of the active beamformer or RIS state invalidates the previous certificate. This distinction allows the robust-feasibility margin to be carried from an offline design stage into a dynamic reuse-and-redesign policy.
+The manuscript is deliberately centered on certification and low-overhead dynamic operation rather than on constructing another globally optimal mixed discrete-continuous RIS optimizer. A finite candidate generator is used only to provide feasible operating points. The proposed layer then evaluates their certified robustness, calibrates the uncertainty scale to CSI-estimation quality, and determines when a selected configuration should be retained or replaced.
+The main contributions are summarized as follows.
+• A configuration-specific robustness certificate is defined for a fixed discrete RIS and active-beamforming configuration. Under the standard S-procedure regularity condition, the worst-case QoS constraints admit an exact statewise linear-matrix-inequality reformulation, enabling monotone certificate search.
+• A conservative numerical certification procedure is developed. A fast one-dimensional multiplier search is used for bracketing and bisection, whereas the final feasible endpoint is accepted only after independent semidefinite-programming and minimum-eigenvalue residual validation.
+• The dimensionless uncertainty factor is linked to estimation quality through an empirical CSI-error calibration procedure. The calibrated estimation radius and observed channel drift are combined into a total uncertainty budget used by the dynamic controller.
+• A certificate-triggered reconfiguration rule and a transition-aware long-term energy-efficiency metric are introduced. The method reuses a certified configuration while the total deviation remains inside a safety-scaled certificate and accounts for Gray-code-dependent RIS switching energy when redesign occurs.
+2. System Model
+2.1 Multi-Cell Downlink with a Discrete RIS
+Consider a coordinated downlink with L cells, K single-antenna users per cell, and M transmit antennas at each base station (BS). A common RIS with N reflecting elements is located near the cell boundary. Let w_lk ∈ C^M denote the active beamformer used by BS l for user (l,k), and let Θ=diag(θ_1,…,θ_N) denote the RIS reflection matrix.
+θ_n ∈ Q_B = { exp(j2πq/2^B) : q = 0,1,…,2^B−1 },    n=1,…,N.        (1)
+Both direct and RIS-assisted inter-cell links are included. The equivalent channel from BS i to user (l,k) is written as
+h_{i→lk}(Θ) = h_{i,lk}^{dir} + h_{i,lk}^{RIS}(Θ).                         (2)
+The received SINR of user (l,k) is
+γ_lk = |h_{l→lk}^H w_lk|^2 / [ Σ_{j≠k}|h_{l→lk}^H w_lj|^2 + Σ_{i≠l}Σ_j|h_{i→lk}^H w_ij|^2 + σ_lk^2 ].   (3)
+2.2 Relative CSI Uncertainty
+For certification, all BS-specific equivalent channels associated with one user are stacked into a common vector h_lk. For a fixed configuration X=(W,Θ), the nominal channel is ĥ_lk(X), and the actual channel is
+h_lk = ĥ_lk(X) + Δh_lk.                                                   (4)
+The relative norm-bounded uncertainty set is
+U_lk(X,ε) = { Δh_lk : ||Δh_lk||_2 ≤ ε · max(||ĥ_lk(X)||_2, r_min) }.       (5)
+The robust QoS requirement is γ_lk(X,ĥ_lk+Δh_lk) ≥ γ̄_lk for every Δh_lk in U_lk(X,ε) and for every user.
+2.3 RIS Operating and Switching Energy
+Each physical RIS phase index s_n is mapped to a Gray-code control word. A simple state-dependent operating-power model is
+P_RIS(Θ) = P_ctrl + Σ_n [ P_idle + P_on c(s_n) ],                           (6)
+where c(s_n) is the number of active control bits. The total communication-system power is
+P_sys(X) = Σ_l (1/η_l)Σ_k ||w_lk||_2^2 + P_static + P_RIS(Θ).               (7)
+For a transition from Θ_a to Θ_b, the switching energy is modeled as
+E_sw(Θ_a,Θ_b) = E_ctrl + E_bit Σ_n d_H(Gray(s_n^a), Gray(s_n^b)).            (8)
+This switching-energy model is used as an accounting mechanism. Absolute hardware-level energy claims require measured or manufacturer-calibrated coefficients.
+3. Baseline Configuration Generation and Problem Structure
+The proposed certification layer requires feasible candidate configurations but does not depend on one unique candidate-generation algorithm. In the numerical study, a finite candidate pool is generated by a baseline robust energy-efficiency design with transmit-power constraints, discrete RIS states, and worst-case QoS requirements.
+maximize_{W,Θ}   R(W,Θ,ĥ) / P_sys(W,Θ)                                       (9)
+subject to       worst-case QoS,  Σ_k||w_lk||_2^2 ≤ P_l^max,  Θ ∈ Q_B^N.     (10)
+The mixed problem is non-convex because the rate is fractional, the SINRs contain coupled quadratic forms, the RIS alphabet is discrete, and the robust QoS constraints are semi-infinite before reformulation. This paper therefore does not claim a globally optimal mixed discrete-continuous solution. The candidate generator only supplies feasible configurations to the certification and dynamic-management stages.
+4. Statewise Exact Robust QoS Reformulation
+For fixed X, define a Hermitian matrix A_lk(X) that collects the desired beam and all intra/inter-cell interfering beams after zero-padding into the stacked channel space. The robust QoS condition can be written as
+(ĥ+Δh)^H A_lk(X)(ĥ+Δh) − γ̄_lk σ_lk^2 ≥ 0.                               (11)
+For ε>0, the uncertainty ball has a strict interior when r_min>0. Under the standard S-procedure regularity condition, the semi-infinite constraint is equivalent to the existence of λ_lk≥0 such that
+M_lk(X,ε,λ_lk) = [[A_lk+λ_lk I, A_lk ĥ], [ĥ^H A_lk, ĥ^H A_lk ĥ−γ̄_lkσ_lk^2−λ_lk r_lk^2]] ⪰ 0.   (12)
+At ε=0, nominal feasibility is checked directly. Equation (12) is exact only for the fixed configuration being certified; it does not establish global optimality of the underlying mixed optimization problem.
+5. Validated Configuration-Specific Robustness Certificate
+5.1 Certificate Definition
+Let F_X(ε)=1 if all users satisfy the robust QoS constraints for fixed X at uncertainty factor ε and F_X(ε)=0 otherwise. The exact robustness certificate is
+ε_cert(X) = sup { ε ≥ 0 : F_X(ε)=1 }.                                      (13)
+Because the uncertainty balls are nested, F_X(ε) is non-increasing. A feasible/infeasible bracket can therefore be refined by bisection.
+5.2 Fast Search and Strict Validation
+A fast oracle is used to construct the bracket and support intermediate bisection decisions. For each user, it searches over λ_lk≥0 and evaluates the normalized minimum eigenvalue of the LMI matrix. Since the certificate is a boundary quantity, the final feasible endpoint is not accepted solely from a permissive numerical tolerance.
+The final lower endpoint is re-checked using a semidefinite-programming feasibility solve. The returned multiplier is substituted back into the independently constructed LMI, and both the raw and normalized minimum eigenvalues are recomputed. Solver statuses indicating numerical uncertainty, or residuals outside a strict tolerance, are not treated as certified feasibility.
+ε_cert^val(X) ≤ ε_cert(X),                                                   (14)
+where ε_cert^val(X) denotes the conservative validated lower certificate used by the dynamic controller.
+5.3 Certification Procedure
+Step
+Operation
+1
+Check nominal QoS feasibility; return NOMINAL_INFEASIBLE if it fails.
+2
+Use the fast oracle to locate an infeasible upper uncertainty bound or reach a predeclared search cap.
+3
+Run bisection with the fast oracle to obtain provisional lower and upper endpoints.
+4
+Strictly validate the provisional lower endpoint for all users with the SDP oracle and independent eigenvalue residuals.
+5
+If strict validation fails, reduce the lower endpoint until strict feasibility is established or label the case NUMERICALLY_UNCERTAIN.
+6
+Return the largest strictly validated lower endpoint as ε_cert^val.
+6. CSI-Error Calibration and Dynamic Channel Evolution
+6.1 Calibration of the Relative Uncertainty Factor
+To connect ε to an estimation setting, let h_true denote a generated physical channel and let ĥ=h_true+e, where the estimation error e is generated according to a selected NMSE or estimation-SNR level. For each realization, define
+ζ_lk = ||h_true,lk − ĥ_lk||_2 / max(||ĥ_lk||_2, r_min).                    (15)
+The empirical q-th percentile ε_q is obtained from the distribution of ζ. The numerical study reports ε_95 as the primary operating calibration and optionally ε_90 and ε_99 in the same figure or table. The percentile calibration is an empirical bridge to estimation quality; it is not itself a universal deterministic worst-case guarantee.
+6.2 Time-Correlated Channel Evolution
+The UE-related direct and RIS-UE links evolve according to a first-order Gauss-Markov process, while the BS-RIS link is treated as quasi-static over the considered horizon:
+h(t+1) = β h(t) + √(1−β²) z(t).                                             (16)
+Different β values represent slow, medium, and fast channel variation while preserving the same average channel power.
+6.3 Configuration-Referenced Drift
+Suppose configuration X_r=(W_r,Θ_r) is certified at reference time t_r. While it is reused, the observed relative drift is
+ρ_obs(t) = max_{l,k} ||ĥ_lk(X_r,t)−ĥ_lk(X_r,t_r)||_2 / max(||ĥ_lk(X_r,t_r)||_2,r_min).   (17)
+With a calibrated estimation radius ε_est, the controller uses the conservative total budget
+ρ_total(t) = ε_est + ρ_obs(t).                                               (18)
+Any change of W or Θ invalidates the previous certificate. The primary policy therefore reuses the complete configuration X_r between reconfiguration events.
+7. Certificate-Triggered Reconfiguration and Long-Term Energy Efficiency
+7.1 Trigger Rule
+Let η_tr∈(0,1] be a safety factor. The current configuration is reused while
+ρ_total(t) < η_tr ε_cert^val(X_r),                                          (19)
+and a redesign is triggered when
+ρ_total(t) ≥ η_tr ε_cert^val(X_r).                                          (20)
+If the uncertainty accounting upper-bounds the actual equivalent-channel error and ε_cert^val is a valid lower certificate, reuse before the trigger remains inside the certified robust region.
+7.2 Transition-Aware Candidate Selection
+At a redesign event, let C_t denote the finite set of feasible candidate configurations. For candidate X_i, a conditional reuse-time proxy is
+T_i^pred = max{0, [ε_cert^val(X_i) − ε_est]/ν },                             (21)
+where ν is a predeclared drift-rate parameter used only for candidate comparison. The transition-aware predicted efficiency is
+EE_i^pred = R_i T_i^pred / [ P_sys(X_i)T_i^pred + E_sw(Θ_prev,Θ_i) ].        (22)
+The selector chooses the candidate with the largest EE_i^pred among candidates with positive predicted reuse duration. A WEE-only selector and a certificate-only selector are retained as lightweight selection baselines.
+7.3 Dynamic Long-Term Metric
+For a trajectory of T slots with duration Δt, long-term energy efficiency is
+EE_LT = [Σ_t R(X_t,h(t))Δt] / [Σ_t P_sys(X_t)Δt + Σ_{m∈R}E_sw(Θ_{m−1},Θ_m)].   (23)
+The reconfiguration set R contains the slots at which a new RIS state is installed. Algorithmic runtime is reported separately and is not converted into physical energy.
+8. Numerical Evaluation
+This section is intentionally structured around the minimum evidence needed to validate the proposed certification and dynamic-operation claims. No numerical value is reported before the corresponding experiment has been completed and saved.
+8.1 Common Setup
+Parameter
+Baseline
+Use in this manuscript
+Cells / users
+L=2, K=3
+Main dynamic experiments
+BS antennas
+M=12
+Fixed
+RIS elements
+N=32
+Main setting; N=16/64 only for minimal scaling check
+Phase resolution
+B=2
+Main setting; one B=3 scaling point
+QoS target
+γ̄=2 (representative)
+One fixed main target; optional one sensitivity point
+Direct inter-cell links
+Enabled
+Included in all main experiments
+Candidate pool
+J=40
+Fixed across compared policies
+Dynamic regimes
+slow / medium / fast
+Three β values fixed before runs
+Trigger factor
+η_tr baseline
+One main value; small 3-point sensitivity only if needed
+8.2 Experiment 1: Certificate Correctness and Boundary Validation — REQUIRED
+Purpose: establish that the reported certificate is numerically credible. First, use a tiny deterministic system (for example L=1, K=1, N=2 or 4, B=1) to cross-check dense multiplier search, the fast oracle, the SDP oracle, and direct sampled QoS evaluation. Then select three representative configurations from the main L=2, K=3, N=32 setting: one high-certificate case, one medium case, and one fragile near-boundary case.
+Required outputs: (i) feasible/infeasible decisions around the final boundary, (ii) strict minimum-eigenvalue residuals, and (iii) sampled minimum SINR immediately below and above the reported certificate. This experiment replaces a large oracle-ablation suite; the objective is correctness, not exhaustive numerical benchmarking.
+8.3 Experiment 2: CSI Calibration — REQUIRED
+Purpose: connect the relative uncertainty factor to estimation quality. For a small set of predeclared NMSE or estimation-SNR levels, generate independent estimation errors and compute ζ in (15). Report ε_95 as the primary calibrated radius, with ε_90 and ε_99 shown in the same plot or table when available.
+Required output: one calibration figure showing the monotone relationship between estimation quality and empirical relative-error radius. A separate estimator-comparison study is not required for the target manuscript.
+8.4 Experiment 3: Dynamic Reconfiguration — REQUIRED AND PRIMARY
+Purpose: demonstrate the operational value of the certificate. Run all policies on identical channel trajectories and CSI-error realizations. The required baselines are: (i) always reconfigure, (ii) periodic reconfigure with two fixed periods, (iii) static configuration, and (iv) certificate-triggered reconfiguration. Candidate generation, candidate-pool size, and random seeds must be shared wherever applicable.
+Required metrics: QoS outage probability, long-term energy efficiency EE_LT, number of reconfigurations, mean reuse interval, switching energy, and end-to-end wall-clock runtime. Report results for slow, medium, and fast channel regimes. The main claim should be based on paired trajectory-level comparisons rather than separate Monte Carlo runs.
+Optional compact addition: compare WEE-only and certificate-only candidate selection against the transition-aware selector at redesign events. If this addition materially increases runtime, it may be limited to one mobility regime.
+8.5 Experiment 4: Minimal Runtime and Scaling Check — REQUIRED BUT SMALL
+Purpose: rule out the impression that the proposed mechanism is only evaluated at one tiny setting. Use N∈{16,32,64} with B=2 for end-to-end redesign/certification timing, and add one B=3 point at N=32. Report candidate-generation time, certification time, and total redesign-event time.
+A complete Cartesian sweep over all N and B combinations is intentionally unnecessary for this target journal. The dynamic experiment already reports total wall-clock runtime over full trajectories.
+8.6 Recommended Main Figures and Tables
+• Fig. 1: System model and dynamic certificate-trigger timeline.
+• Fig. 2: Certificate boundary validation for representative configurations.
+• Fig. 3: CSI-estimation quality versus calibrated ε_95 (optionally ε_90 and ε_99).
+• Fig. 4: Example dynamic trajectory showing ρ_total(t), trigger threshold, reconfiguration events, and minimum user SINR.
+• Fig. 5: QoS outage and long-term EE for the four dynamic policies across three mobility regimes.
+• Fig. 6: Reconfiguration count / switching energy / mean reuse interval across mobility regimes.
+• Table I: Main system and algorithm parameters.
+• Table II: End-to-end runtime and minimal N/B scaling results.
+9. Complexity and Practical Interpretation
+Let C_pool be the cost of generating one candidate pool, J the pool size, C_fast one fast-oracle call, C_strict one strict validation call, and I_bis the number of bisection iterations. The approximate certification cost per redesign event is
+C_cert ≈ J [ I_bis C_fast + C_strict ].                                      (24)
+If a policy triggers N_reconf redesign events over T slots, the dominant computational cost is approximately
+C_total ≈ N_reconf (C_pool + C_cert) + T C_drift.                            (25)
+The certificate-triggered framework does not claim to make one robust discrete design intrinsically cheap. Its practical objective is to reduce how often the expensive design-and-certify pipeline is executed while preserving a controlled QoS margin. This is why the primary numerical comparison reports end-to-end wall-clock time and redesign counts rather than only per-sweep complexity.
+10. Discussion
+The core distinction of the proposed method is between optimization quality and configuration management. A configuration with a large instantaneous energy-efficiency value may have little certified robustness reserve, whereas a slightly less efficient configuration may be reused for substantially longer. The certificate exposes this hidden dimension to the controller.
+The trigger should not be interpreted as a universal prediction of the exact time of future QoS failure. Its guarantee is conditional on the adopted uncertainty accounting. When ε_est is derived from an empirical percentile, the resulting reliability interpretation is empirical. When a deterministic upper bound on channel error is available, the same certificate can be used with a deterministic interpretation.
+The Gray-code switching model captures one practical control-energy component and allows policies with different reconfiguration frequencies to be compared consistently. Processor energy is deliberately excluded because converting runtime to Joules would require platform-specific power measurements.
+11. Limitations
+• The relative uncertainty ball is an equivalent-channel abstraction. CSI calibration improves interpretability but does not convert an empirical percentile into a universal worst-case bound.
+• The Gauss-Markov process is a controlled channel-aging model rather than a full geometry- and Doppler-consistent mobility simulator.
+• The finite candidate generator does not establish global optimality of the mixed discrete-continuous robust energy-efficiency problem.
+• Strict SDP validation increases per-redesign computation; the proposed dynamic layer seeks to amortize this cost by avoiding unnecessary redesigns.
+• Absolute switching-energy savings depend on hardware-specific E_ctrl and E_bit coefficients.
+12. Conclusion
+This paper develops a validated configuration-specific robustness certification framework for energy-efficient discrete RIS-assisted multi-cell networks. The certificate quantifies the largest relative CSI uncertainty factor that preserves all worst-case QoS constraints for a fixed active/passive configuration. A strict numerical validation procedure is used to avoid tolerance-induced overstatement near the feasibility boundary, and the uncertainty scale is connected to CSI-estimation quality through empirical calibration. The validated certificate is then used as an event-trigger threshold for dynamic configuration reuse, while Gray-code switching energy is incorporated into long-term energy-efficiency accounting. The resulting framework shifts the focus from repeatedly solving a static robust design problem to deciding when a deployed configuration remains sufficiently reliable to be reused.
+References
+Reference list to be completed after final literature verification. The final version should cover: (i) robust RIS optimization and S-procedure-based CSI uncertainty, (ii) discrete RIS optimization, (iii) RIS hardware/state-dependent power consumption, (iv) channel aging / CSI update intervals, and (v) low-overhead or event-triggered RIS reconfiguration. Only verified bibliographic entries should be inserted.
+Author Work Note — Minimum Experimental Package for the IET Communications Submission
+This page is an internal drafting note and should be removed before submission.
+Item
+Decision
+Reason
+Certificate boundary validation
+MUST DO
+The central contribution is a certificate; numerical correctness must be demonstrated.
+CSI error calibration
+MUST DO
+Provides the practical bridge from dimensionless ε to estimation quality.
+Dynamic policy comparison
+MUST DO
+Primary evidence for the event-triggered contribution.
+Minimal N/B runtime scaling
+MUST DO
+Addresses practicality without a large scaling campaign.
+Static WEE-versus-certificate landscape
+CUT from main paper
+Useful intuition but not necessary once dynamic results are strong.
+Full N×B Cartesian scaling grid
+CUT
+High runtime cost with limited incremental evidence.
+Pareto-filtering study
+CUT
+Not a core innovation and can distract from the certification story.
+Direct-intercell OFF ablation
+CUT
+Main model already includes direct inter-cell links; no need to spend a full experiment on the old simplification.
+Dense η_tr sweep
+CUT
+Use one main value; at most 3-point sensitivity if a reviewer asks.
+Multiple QoS-target sweeps
+CUT / optional
+One main target plus at most one sensitivity point is sufficient for a streamlined submission.
+Estimator-to-estimator comparison
+CUT
+Calibration, not estimator design, is the paper's purpose.
+Processor-energy conversion
+CUT
+Requires hardware-specific measurements and is outside scope.
+Suggested submission logic: do not wait for every optional ablation. Complete the four mandatory experiment blocks, verify that the dynamic policy shows a clear reliability/overhead trade-off on paired trajectories, then finalize the abstract, results discussion, and references. Optional studies should be added only when the main evidence is weak or a reviewer explicitly asks for them.

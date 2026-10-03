@@ -1,0 +1,1025 @@
+{
+  "schema": "journal_offline_joint_radius_v1",
+  "entries": [
+    {
+      "scope_fingerprint": "f84586cf0e75dce9cdfc73e5ee9fd75f6d49493f83cac747dce1927cabbb6b42",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 16,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 10.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.6395374223331985,
+      "epsilon_joint_95": 0.6693772086033827,
+      "epsilon_joint_99": 0.7875135415698229
+    },
+    {
+      "scope_fingerprint": "0b24e2ad40584d516a21c4997f15844484571d6d6dfe08e1fcf2079d765d7971",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 16,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 20.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.23169030514272837,
+      "epsilon_joint_95": 0.24940110730012957,
+      "epsilon_joint_99": 0.2885717532742302
+    },
+    {
+      "scope_fingerprint": "85f1020a51f320b8d8d56cf4283be5a42995c68ecce03ef56fdc254a24a523fb",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 16,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 30.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.07023242192878663,
+      "epsilon_joint_95": 0.0727197731743045,
+      "epsilon_joint_99": 0.07900274626176079
+    },
+    {
+      "scope_fingerprint": "bcd89cb1027b3224e13fc33b09029a995c1290223427b7687b781c4fac8a4f67",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 16,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.023236067696424258,
+      "epsilon_joint_95": 0.024053488714422228,
+      "epsilon_joint_99": 0.033241182467195374
+    },
+    {
+      "scope_fingerprint": "07d58baf677568b6408a12178b03b7f2717b1255adf53503c918072c8e8148d7",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 10.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.6203641879599651,
+      "epsilon_joint_95": 0.6732105596049703,
+      "epsilon_joint_99": 0.8232677887027111
+    },
+    {
+      "scope_fingerprint": "345040f061628437e8991ccd8739e4b7528854e57c2ec00c828e1c08d015dc49",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 20.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.22410788184765829,
+      "epsilon_joint_95": 0.23523018700361165,
+      "epsilon_joint_99": 0.2569099488684012
+    },
+    {
+      "scope_fingerprint": "6015bb61bf9007951c65e44e9d000cfca71bbafb116223581c68e5af0ccce872",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 30.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.07882231338475268,
+      "epsilon_joint_95": 0.08888683757625149,
+      "epsilon_joint_99": 0.09833669208516639
+    },
+    {
+      "scope_fingerprint": "3080a6c61690f2af638ad0b379044abc6a35745d85d5738086bc4095287eae88",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.02484553597211556,
+      "epsilon_joint_95": 0.027128561448143095,
+      "epsilon_joint_99": 0.02864677547826849
+    },
+    {
+      "scope_fingerprint": "c104936e55561bbaea7b7fe1017d5615a0e06e902118068ee9a1e169849e04f6",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 64,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 10.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.7427978413046743,
+      "epsilon_joint_95": 0.782860243476849,
+      "epsilon_joint_99": 0.9210868870071931
+    },
+    {
+      "scope_fingerprint": "785227d5e1de9d0a8f78419cec4f35b031f7f8b240fe53708fe6b07b798bd583",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 64,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 20.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.2333898829648665,
+      "epsilon_joint_95": 0.24786714877494992,
+      "epsilon_joint_99": 0.26166420540062474
+    },
+    {
+      "scope_fingerprint": "7881a4e3219cdbfa0c035c46628e6da9d4aa390af87a579821e910a816dad7dd",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 64,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 30.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.07827248204201855,
+      "epsilon_joint_95": 0.0819408287552842,
+      "epsilon_joint_99": 0.08788839084615599
+    },
+    {
+      "scope_fingerprint": "45bb90d95bfa9f89b65013396f4bde7e68dec10051707001dab80c66d7795ef0",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 64,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.025663148719056793,
+      "epsilon_joint_95": 0.028671923052498088,
+      "epsilon_joint_99": 0.03138085082336272
+    },
+    {
+      "scope_fingerprint": "95aea9ad12ef8e307ddc654972bd820b83eb0a88942b40b05636f9920b9241f0",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 3,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 10.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.6705622449078967,
+      "epsilon_joint_95": 0.6838030190418194,
+      "epsilon_joint_99": 0.8444674894724234
+    },
+    {
+      "scope_fingerprint": "bd161d92e5402a52b967f41e15b02a8962ba1945295b1e7ec05f0b529717e0c3",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 3,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 20.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.22874860396707106,
+      "epsilon_joint_95": 0.2364762088679178,
+      "epsilon_joint_99": 0.26983387051975827
+    },
+    {
+      "scope_fingerprint": "eb6bc8601d44bd3e7faa1cafcd9fc5b8de17e3f6d0da6c71baa7a42efee0c125",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 3,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 30.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.07987583439593267,
+      "epsilon_joint_95": 0.09411075842487039,
+      "epsilon_joint_99": 0.10773276073394812
+    },
+    {
+      "scope_fingerprint": "e6930af435039246c823340b1300c31ce59dba30be8e68baeb661d0d0468822b",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 3,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null
+      },
+      "calibration_seeds": [
+        60001
+      ],
+      "profile_count": 2,
+      "samples_per_profile": 100,
+      "epsilon_joint_90": 0.023908115685645093,
+      "epsilon_joint_95": 0.024996095098232966,
+      "epsilon_joint_99": 0.028746843716739075
+    }
+  ],
+  "interpretation": "Offline maximum of empirical all-user joint quantiles across declared calibration drops and phase profiles. Transfer to unseen trajectories/configurations is empirical; no deterministic or horizon guarantee.",
+  "source": "records.csv",
+  "config": {
+    "L": 2,
+    "K": 3,
+    "M": 12,
+    "N": 32,
+    "bits": 2,
+    "gamma": 2.0,
+    "bs_x": [
+      -100.0,
+      100.0
+    ],
+    "bs_y": [
+      0.0,
+      0.0
+    ],
+    "ue_center_x": [
+      -15.0,
+      15.0
+    ],
+    "ue_center_y": [
+      0.0,
+      0.0
+    ],
+    "ue_radius": 7.0,
+    "ris_x": 0.0,
+    "ris_y": 0.0,
+    "c0_db": -30.0,
+    "alpha_bu": 4.5,
+    "alpha_br": 2.2,
+    "alpha_ru": 2.2,
+    "rician_k": 3.0,
+    "channel_scale": 100000.0,
+    "direct_link_attenuation": 0.25,
+    "include_direct_intercell": true,
+    "inter_ris_attenuation": 1.0,
+    "ris_size_model": "growing_aperture",
+    "ris_reference_N": 32,
+    "noise_power_dbm": -100.0,
+    "p_max_dbm": 30.0,
+    "pa_efficiency": 0.38,
+    "p_bs": 6.0,
+    "p_ue": 0.1,
+    "p_loss": 0.5,
+    "p_ris_controller": 0.5,
+    "p_cell_idle": 0.001,
+    "p_diode_on": 0.004,
+    "bandwidth_hz": 10000000.0,
+    "radius_floor": 1e-10,
+    "strict_eig_tol": 1e-08,
+    "strict_normalized_tol": 1e-08,
+    "nominal_normalized_tol": 1e-12,
+    "solver": "CLARABEL",
+    "solver_tol": 1e-10,
+    "solver_max_iter": 200,
+    "fast_tol": 0.0,
+    "fast_lambda_cap": 10000000000.0,
+    "fast_search_tol": 1e-09,
+    "eps_hi": 0.2,
+    "eps_cap": 1.2,
+    "certificate_abs_tol": 1e-07,
+    "certificate_rel_tol": 0.0001,
+    "certificate_max_iter": 60,
+    "strict_shrink_factor": 0.98,
+    "strict_shrink_steps": 40,
+    "pool_size": 4,
+    "static_pool_size": 4,
+    "validation_pool_size": 4,
+    "pool_attempts": 20,
+    "design_gamma_mult": [
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      3.0,
+      5.0
+    ],
+    "power_slack_grid": [
+      1.0,
+      1.1,
+      1.3,
+      1.8
+    ],
+    "power_control_tol": 1e-10,
+    "zf_rcond": 1e-12,
+    "epsilon_min": 0.05,
+    "estimation_snr_db": 40.0,
+    "nmse_db": null,
+    "calibration_samples": 100,
+    "calibration_quantiles": [
+      0.9,
+      0.95,
+      0.99
+    ],
+    "calibration_snr_grid": [
+      10.0,
+      20.0,
+      30.0,
+      40.0
+    ],
+    "calibration_q": 0.99,
+    "calibration_phase_profiles": 2,
+    "calibration_cases": [
+      [
+        16,
+        2
+      ],
+      [
+        32,
+        2
+      ],
+      [
+        64,
+        2
+      ],
+      [
+        32,
+        3
+      ]
+    ],
+    "csi_calibration_file": null,
+    "csi_calibration_sha256": null,
+    "epsilon_est": null,
+    "time_steps": 3,
+    "slot_duration": 0.1,
+    "channel_correlation": null,
+    "mobility_level": "slow",
+    "mobility_regimes": [
+      "slow",
+      "medium",
+      "fast"
+    ],
+    "mobility_correlations": [
+      0.9999,
+      0.995,
+      0.95
+    ],
+    "quasi_static_br": true,
+    "eta_trigger": 0.9,
+    "T_period": 10,
+    "periodic_short": 1,
+    "periodic_long": 2,
+    "drift_rate_nu": 0.002,
+    "energy_per_bit_switch": 1e-05,
+    "E_controller_fixed": 0.001,
+    "policies": [
+      "always_reconfigure",
+      "periodic_short",
+      "periodic_long",
+      "certificate_triggered",
+      "static"
+    ],
+    "selection_rule": "lifetime_aware",
+    "seeds": [
+      60001
+    ],
+    "channel_seed": 20260706,
+    "pool_seed": 31001,
+    "csi_seed": 51001,
+    "calibration_seed": 52001,
+    "mc_seed": 41001,
+    "mc_samples": 50,
+    "alpha_grid": [
+      0.25,
+      0.5,
+      0.9,
+      1.0,
+      1.1
+    ],
+    "validation_alpha_grid": [
+      0.9,
+      1.0,
+      1.1
+    ],
+    "lambda_grid_points": 400,
+    "scaling_cases": [
+      [
+        16,
+        2
+      ],
+      [
+        32,
+        2
+      ],
+      [
+        64,
+        2
+      ],
+      [
+        32,
+        3
+      ]
+    ],
+    "runtime_time_steps": 2,
+    "runtime_policies": [
+      "certificate_triggered"
+    ],
+    "output_root": "journal_results",
+    "smoke": true
+  },
+  "requested_seed_count": 1,
+  "completed_seed_count": 1,
+  "complete": true
+}
