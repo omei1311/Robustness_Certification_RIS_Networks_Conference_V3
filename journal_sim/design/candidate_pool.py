@@ -100,5 +100,9 @@ def build_candidate_pool(estimated_channel, cfg, channel_seed, time_index=0):
                  certificate_runtime=certificate_time, strict_validation_runtime=strict_time,
                  end_to_end_runtime=perf_counter() - start,
                  fast_oracle_calls=sum(c.certificate.fast_oracle_calls for c in pool),
-                 strict_oracle_calls=sum(c.certificate.strict_oracle_calls for c in pool))
+                 strict_oracle_calls=sum(c.certificate.strict_oracle_calls for c in pool),
+                 primary_solver_calls=sum(c.certificate.primary_solver_calls for c in pool),
+                 fallback_solver_calls=sum(c.certificate.fallback_solver_calls for c in pool),
+                 solver_error_count=sum(c.certificate.solver_error_count for c in pool),
+                 solver_inaccurate_count=sum(c.certificate.solver_inaccurate_count for c in pool))
     return pool, stats

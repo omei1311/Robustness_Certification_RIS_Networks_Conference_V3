@@ -2,6 +2,59 @@
 
 **V3 会议论文数值实验框架（论文提交版）**
 
+---
+
+## 0. journal_sim（IET Communications 期刊修订框架）
+
+`journal_sim/` 是面向期刊稿（Validated Robustness Certification and Event-Triggered
+Reconfiguration）的独立仿真框架：离线 CSI 校准 → 候选生成 → 证书（fast oracle 提议 +
+CLARABEL 主求解器 / SCS 回退 + 独立 eigvalsh 验证）→ lifetime-aware 选择 → 证书触发
+重配置 → 真信道评估 → CSV/manifest/arrays。
+
+### 关键一致性约定
+
+- **选择与触发同一套账目**：触发器在 `rho_total = eps_est*(1+rho)+rho >= eta*eps_cert`
+  时重设计；`certified_lifetime = (eta*eps_cert - eps_est)/((1+eps_est)*nu)` 由同一公式
+  反解，`eps_est >= eta*eps_cert` 的候选 predicted_lifetime=0、不可入选（不放宽）。
+- **证书永远保守**：`NUMERICALLY_UNCERTAIN` 不当作不可行证明；接受端点必须通过
+  全用户、非 fail-fast 的独立 eigvalsh 复检；bounded recovery
+  （`strict_recovery_factors` + `strict_refinement_steps`）取代旧的 40×0.98 收缩。
+- **求解器回退可审计**：primary/fallback 调用数、solver error / optimal_inaccurate
+  计数随 candidate 统计与 manifest 落盘。
+
+### 运行（单位测试请用 `python -m unittest`，spawn 并行依赖可导入的 `__main__`）
+
+```powershell
+# 全部单元测试
+.venv\Scripts\python.exe -m unittest discover -s journal_sim\tests -t . -v
+
+# 串行最小 smoke（1 seed / slow / 2 slots / 2 candidates / cert+static）
+$calib = "journal_results\exp1_csi\smoke\<run>\joint_radius.json"
+.venv\Scripts\python.exe -m journal_sim.experiments.exp3_dynamic_reconfiguration --smoke --workers 1 --config .\smoke_fast.json --csi-calibration "$calib"
+
+# 正式实验：仅按独立 seed 并行（spawn；workers 不进入任何科学指纹）
+.venv\Scripts\python.exe -m journal_sim.experiments.exp3_dynamic_reconfiguration --workers 4 --csi-calibration "$calib"
+
+# 论文 runtime/scaling 基准：强制串行，--workers > 1 直接拒绝
+.venv\Scripts\python.exe -m journal_sim.experiments.exp4_runtime_scaling --workers 1 --csi-calibration "$calib"
+```
+
+说明：
+
+- `workers` 只改变执行并行度，**不改变随机种子、scientific config 或 fingerprint**
+  （它位于 `ExecutionOptions`，不在 `JournalConfig` 内）；`workers=1` 走原始串行路径。
+  每个 seed 的全部 mobility/policy/候选/SDP 在单个 worker 内顺序完成；结果严格按
+  `cfg.seeds` 顺序汇总，worker 完成顺序不影响输出顺序。
+- **并行 Exp3 的 runtime 字段仅供 debug**（manifest 中 `execution.runtime_measurement_valid=false`）；
+  论文 runtime 数据一律来自串行 `Exp4 --workers 1`。
+- 大型 arrays 由 worker 写入 `_worker_staging/seed_<seed>_arrays.npz`，parent 合并；
+  失败/中断时保留 staging 以便排查；Ctrl+C 不被吞掉，已完成 seed 的记录保留，
+  `run_complete=false`、`success` 不会伪造为 true。
+
+---
+
+## 1.（会议论文 V3 框架说明，以下为原内容）
+
 > 定位：在已生成的 QoS 可行 RIS 配置（beamforming + 离散相位）之上，增加**配置级鲁棒性认证**与**稳定性感知选择**层。本框架**不是**鲁棒 WEE 优化器；第一篇论文的优化器不在此重新实现——其信道/SINR/WEE/相位/S-procedure LMI 模块以同源精简方式复用（`src/ris_base/`）。
 
 ---

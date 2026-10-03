@@ -24,6 +24,10 @@ def long_term_metrics(records, cfg):
                 algorithm_calls=sum(r.get("algorithm_calls", 0) for r in records),
                 fast_oracle_calls=sum(r.get("fast_oracle_calls", 0) for r in records),
                 strict_oracle_calls=sum(r.get("strict_oracle_calls", 0) for r in records),
+                primary_solver_calls=sum(r.get("primary_solver_calls", 0) for r in records),
+                fallback_solver_calls=sum(r.get("fallback_solver_calls", 0) for r in records),
+                solver_error_count=sum(r.get("solver_error_count", 0) for r in records),
+                solver_inaccurate_count=sum(r.get("solver_inaccurate_count", 0) for r in records),
                 runtime=sum(r["runtime"] for r in records),
                 failed_design_steps=sum(r.get("design_status") == "NO_ELIGIBLE_CANDIDATE" for r in records),
                 empty_configuration_steps=sum(r["configuration_id"] is None for r in records))

@@ -51,7 +51,7 @@ class OracleTests(unittest.TestCase):
 
     def test_solver_failure_preserved(self):
         cfg, w, H = scalar_case()
-        oracle = StrictOracle(cfg.with_overrides(solver="UNAVAILABLE"))
+        oracle = StrictOracle(cfg.with_overrides(solver="UNAVAILABLE", fallback_solver=None))
         self.assertEqual(oracle.check_user(w, H, .1, (0, 0)).status, NUMERICALLY_UNCERTAIN)
         self.assertEqual(len(oracle.history), 1)
 

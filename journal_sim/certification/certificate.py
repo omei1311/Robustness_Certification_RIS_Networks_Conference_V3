@@ -1,4 +1,11 @@
-"""Strictly validated numerical lower bounds, with full endpoint provenance."""
+"""Strictly validated numerical lower bounds, with full endpoint provenance.
+
+Recovery from a numerically uncertain endpoint uses a small fixed ladder of
+conservative retreat factors plus at most `strict_refinement_steps`
+deterministic bisection refinements; the search may stop at the first
+failing user, but the accepted endpoint is always re-checked on every user.
+NUMERICALLY_UNCERTAIN is never treated as a proof of infeasibility.
+"""
 from dataclasses import dataclass, asdict, field
 import numpy as np
 from journal_sim.config import certificate_context_fingerprint
@@ -25,6 +32,11 @@ class CertificateResult:
     binding_margin: float | None = None
     fast_oracle_calls: int = 0
     strict_oracle_calls: int = 0
+    primary_solver_calls: int = 0
+    fallback_solver_calls: int = 0
+    solver_error_count: int = 0
+    solver_inaccurate_count: int = 0
+    strict_trial_count: int = 0
     strict_validation_passed: bool = False
     status: str = NUMERICALLY_UNCERTAIN
     context_id: str = ""
@@ -49,17 +61,29 @@ def certificate_bisection(w, H_hat, cfg, theta=None, fast=None, strict=None):
     fast = fast or FastOracle(cfg)
     strict = strict or StrictOracle(cfg)
     f0, s0, r0 = fast.calls, strict.calls, strict.runtime
+    p0 = getattr(strict, "primary_solver_calls", 0)
+    fb0 = getattr(strict, "fallback_solver_calls", 0)
+    se0 = getattr(strict, "solver_error_count", 0)
+    si0 = getattr(strict, "solver_inaccurate_count", 0)
     history0 = len(strict.history)
     result = CertificateResult(context_id=context_id(w, H_hat, theta, cfg))
 
     def finish():
         result.fast_oracle_calls = fast.calls - f0
         result.strict_oracle_calls = strict.calls - s0
+        result.primary_solver_calls = getattr(strict, "primary_solver_calls", 0) - p0
+        result.fallback_solver_calls = getattr(strict, "fallback_solver_calls", 0) - fb0
+        result.solver_error_count = getattr(strict, "solver_error_count", 0) - se0
+        result.solver_inaccurate_count = getattr(strict, "solver_inaccurate_count", 0) - si0
         result.strict_validation_runtime = strict.runtime - r0
         result.validation_history = strict.history[history0:]
         return result
 
-    nominal = strict.check(w, H_hat, 0.)
+    def strict_round(eps, fail_fast):
+        # Recovery search may fail fast; final acceptance never does.
+        return strict.check(w, H_hat, eps, fail_fast=fail_fast)
+
+    nominal = strict_round(0., False)
     if any(r.status == STRICT_INFEASIBLE for r in nominal):
         result.status = NOMINAL_INFEASIBLE
         result.note = "nominal quadratic QoS fails"
@@ -90,22 +114,52 @@ def certificate_bisection(w, H_hat, cfg, theta=None, fast=None, strict=None):
                 hi = mid
     result.epsilon_hi = hi
     # A fast upper endpoint is a search proposal, not an infeasibility proof.
-    upper = strict.check(w, H_hat, hi)
+    upper = strict_round(hi, False)
     result.upper_endpoint_status = (STRICT_INFEASIBLE if any(r.status == STRICT_INFEASIBLE for r in upper) else
                                     STRICT_FEASIBLE if all(r.status == STRICT_FEASIBLE for r in upper) else NUMERICALLY_UNCERTAIN)
-    trial = lo
-    for _ in range(cfg.strict_shrink_steps):
+
+    # Bounded conservative recovery: fixed factor ladder, then at most
+    # strict_refinement_steps bisection steps between the last passing and
+    # first blocked radius. Hard upper bound on strict rounds:
+    # 1 nominal + 1 upper + len(factors) + refinements + 1 final acceptance.
+    recovery_rounds = 0
+    accepted, blocked = None, None
+    for factor in cfg.strict_recovery_factors:
+        trial = lo * factor
         if trial <= 0:
             break
-        checks = strict.check(w, H_hat, trial)
+        checks = strict_round(trial, True)
+        recovery_rounds += 1
         if all(r.status == STRICT_FEASIBLE for r in checks):
-            binding = min(checks, key=lambda r: r.normalized_min_eig)
-            result.epsilon_cert = result.epsilon_lo = float(trial)
+            accepted = trial
+            break
+        blocked = trial
+    if accepted is not None and blocked is not None and cfg.strict_refinement_steps > 0:
+        low, high = accepted, blocked
+        for _ in range(cfg.strict_refinement_steps):
+            mid = (low + high) / 2
+            checks = strict_round(mid, True)
+            recovery_rounds += 1
+            if all(r.status == STRICT_FEASIBLE for r in checks):
+                low = mid
+            else:
+                high = mid
+        accepted = low
+    if accepted is not None:
+        final = strict_round(accepted, False)
+        recovery_rounds += 1
+        if all(r.status == STRICT_FEASIBLE for r in final):
+            binding = min(final, key=lambda r: r.normalized_min_eig)
+            result.epsilon_cert = result.epsilon_lo = float(accepted)
             result.binding_user, result.binding_margin = binding.user_index, binding.normalized_min_eig
             result.strict_validation_passed = True
-            result.status = LOWER_BOUND_CENSORED if censored and trial == cfg.eps_cap else VALIDATED
+            result.status = LOWER_BOUND_CENSORED if censored and accepted == cfg.eps_cap else VALIDATED
+            result.strict_trial_count = recovery_rounds
             result.note = "numerically validated conservative lower bound; inspect upper_endpoint_status before interpreting a bracket"
             return finish()
-        trial *= cfg.strict_shrink_factor
-    result.note = "no positive endpoint cleared independent strict guards within shrink budget"
+        result.note = "final full all-user validation contradicted the fail-fast recovery; no endpoint accepted"
+        result.strict_trial_count = recovery_rounds
+        return finish()
+    result.strict_trial_count = recovery_rounds
+    result.note = "no positive endpoint cleared independent strict guards within the bounded recovery budget"
     return finish()

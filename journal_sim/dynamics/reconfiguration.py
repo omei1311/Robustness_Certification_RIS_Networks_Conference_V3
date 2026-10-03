@@ -31,6 +31,8 @@ class PolicyRunner:
                      reconfigured=False, design_status="REUSE", switching_energy=0., controller_energy=0.,
                      n_changed_elements=0, n_changed_bits=0, algorithm_calls=0,
                      fast_oracle_calls=0, strict_oracle_calls=0,
+                     primary_solver_calls=0, fallback_solver_calls=0,
+                     solver_error_count=0, solver_inaccurate_count=0,
                      candidate_generation_runtime=0., certificate_runtime=0., strict_validation_runtime=0.,
                      calibration_runtime=0.)
         if decision.triggered:
@@ -63,8 +65,10 @@ class PolicyRunner:
                 self.candidate_arrays[key + "_theta"] = c.configuration.theta
                 self.candidate_arrays[key + "_H_hat"] = c.H_hat
             for name in ("candidate_generation_runtime", "certificate_runtime", "strict_validation_runtime",
-                         "fast_oracle_calls", "strict_oracle_calls"):
-                event[name] = stats[name]
+                         "fast_oracle_calls", "strict_oracle_calls",
+                         "primary_solver_calls", "fallback_solver_calls",
+                         "solver_error_count", "solver_inaccurate_count"):
+                event[name] = stats.get(name, 0)
         state = self.state
         event.update(configuration_id=None if state is None else state.configuration.configuration_id,
                      epsilon_est_offline=self.epsilon_est, offline_calibration=self.calibration_provenance,
@@ -77,8 +81,12 @@ class PolicyRunner:
                                     effective_channels(estimated_channel, state.configuration.theta, self.cfg), time_index, self.cfg)
             event.update(rho_obs_after=post.rho_obs, rho_total_after=post.rho_total,
                          epsilon_est_after=post.epsilon_est,
-                         certified_budget_hold=state.valid_for(self.cfg) and post.rho_total < state.certificate.epsilon_cert)
+                         certified_budget_hold=state.valid_for(self.cfg) and post.rho_total < state.certificate.epsilon_cert,
+                         # Conservative trigger threshold (eta * eps_cert), distinct from the
+                         # full-certificate comparison in certified_budget_hold.
+                         trigger_budget_hold=state.valid_for(self.cfg) and post.rho_total < post.threshold)
         else:
-            event.update(rho_obs_after=None, rho_total_after=None, epsilon_est_after=None, certified_budget_hold=False)
+            event.update(rho_obs_after=None, rho_total_after=None, epsilon_est_after=None,
+                         certified_budget_hold=False, trigger_budget_hold=False)
         event["runtime"] = perf_counter() - start
         return None if state is None else state.configuration, event

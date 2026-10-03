@@ -30,7 +30,8 @@ class CertificateTests(unittest.TestCase):
 
     def test_uncertainty_never_masquerades_as_certificate(self):
         cfg, w, H = scalar_case()
-        result = certificate_bisection(w, H, cfg.with_overrides(solver="UNAVAILABLE", strict_shrink_steps=2))
+        result = certificate_bisection(w, H, cfg.with_overrides(solver="UNAVAILABLE", fallback_solver=None,
+                                                                strict_recovery_factors=(1.0,), strict_refinement_steps=0))
         self.assertEqual(result.status, NUMERICALLY_UNCERTAIN)
         self.assertFalse(result.strict_validation_passed)
         self.assertEqual(result.epsilon_cert, 0)

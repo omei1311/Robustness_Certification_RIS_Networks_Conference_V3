@@ -54,6 +54,15 @@ def plot(rows, details, output, cfg):
     plt.close(fig)
 
 
-if __name__ == "__main__":
-    _, success = execute("exp4_runtime", cli_config(__doc__), run_seed, plot)
+def main():
+    cfg, execution = cli_config(__doc__)
+    if execution.workers != 1:
+        # Wall-clock numbers are the deliverable of this experiment; CPU
+        # contention from sibling workers would invalidate them.
+        raise SystemExit("exp4_runtime is a serial benchmark and requires --workers 1")
+    _, success = execute("exp4_runtime", cfg, run_seed, plot, workers=1)
     raise SystemExit(0 if success else 1)
+
+
+if __name__ == "__main__":
+    main()

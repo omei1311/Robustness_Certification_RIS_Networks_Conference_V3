@@ -48,6 +48,11 @@ class JournalConfig:
     solver: str = "CLARABEL"
     solver_tol: float = 1e-10
     solver_max_iter: int = 200
+    fallback_solver: str | None = "SCS"
+    fallback_solver_tol: float = 1e-6
+    fallback_solver_max_iter: int = 5000
+    strict_recovery_factors: tuple = (1.00, 0.95, 0.90, 0.80, 0.70, 0.60, 0.50)
+    strict_refinement_steps: int = 2
     fast_tol: float = 0.0
     fast_lambda_cap: float = 1e10
     fast_search_tol: float = 1e-9
@@ -56,8 +61,6 @@ class JournalConfig:
     certificate_abs_tol: float = 1e-7
     certificate_rel_tol: float = 1e-4
     certificate_max_iter: int = 60
-    strict_shrink_factor: float = 0.98
-    strict_shrink_steps: int = 40
     pool_size: int = 12
     static_pool_size: int = 40
     validation_pool_size: int = 12
@@ -121,8 +124,20 @@ class JournalConfig:
                     self.certificate_abs_tol, self.certificate_rel_tol, self.fast_search_tol)
         if any(not math.isfinite(x) or x <= 0 for x in positive):
             raise ValueError("positive finite physical/algorithm parameters required")
-        if not 0 < self.eta_trigger <= 1 or not 0 < self.strict_shrink_factor < 1:
-            raise ValueError("invalid trigger/shrink factor")
+        if not 0 < self.eta_trigger <= 1:
+            raise ValueError("invalid trigger factor")
+        if self.fallback_solver is not None:
+            if self.fallback_solver not in ("CLARABEL", "SCS"):
+                raise ValueError("unknown fallback solver")
+            if not math.isfinite(self.fallback_solver_tol) or self.fallback_solver_tol <= 0 or self.fallback_solver_max_iter < 1:
+                raise ValueError("invalid fallback solver budget")
+        if not self.strict_recovery_factors or any(not 0 < f <= 1 for f in self.strict_recovery_factors):
+            raise ValueError("strict recovery factors must lie in (0, 1]")
+        if self.strict_recovery_factors[0] != 1.0 or any(
+                a <= b for a, b in zip(self.strict_recovery_factors, self.strict_recovery_factors[1:])):
+            raise ValueError("strict recovery factors must start at 1.0 and strictly decrease")
+        if self.strict_refinement_steps < 0:
+            raise ValueError("strict refinement steps must be nonnegative")
         if not 0 < self.eps_hi <= self.eps_cap or self.fast_lambda_cap <= 0:
             raise ValueError("invalid search bounds")
         if self.mobility_level not in ("slow", "medium", "fast"):
@@ -135,7 +150,7 @@ class JournalConfig:
             raise ValueError("unknown aperture model")
         if min(self.time_steps, self.T_period, self.periodic_short, self.periodic_long,
                self.pool_size, self.static_pool_size, self.validation_pool_size, self.calibration_phase_profiles, self.calibration_samples,
-               self.mc_samples, self.solver_max_iter, self.certificate_max_iter, self.strict_shrink_steps) < 1:
+               self.mc_samples, self.solver_max_iter, self.certificate_max_iter) < 1:
             raise ValueError("positive experiment budgets required")
         if self.pool_attempts < self.pool_size or not self.seeds:
             raise ValueError("invalid pool/seed budget")

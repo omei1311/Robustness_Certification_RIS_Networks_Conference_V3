@@ -74,5 +74,6 @@ def plot(rows, details, output, cfg):
 
 
 if __name__ == "__main__":
-    _, success = execute("exp1_csi", cli_config(__doc__), run_seed, plot)
+    cfg, execution = cli_config(__doc__)
+    _, success = execute("exp1_csi", cfg, run_seed, plot, workers=execution.workers)
     raise SystemExit(0 if success else 1)

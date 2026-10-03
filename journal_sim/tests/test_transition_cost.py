@@ -32,7 +32,7 @@ class TransitionTests(unittest.TestCase):
         out = select_lifetime_aware(pool, np.ones(2), cfg)
         self.assertEqual(out.candidate.index, 1)
         self.assertEqual(len(out.scores), 2)
-        self.assertEqual(certified_lifetime(.01, .02, .002), 0)
+        self.assertEqual(certified_lifetime(.01, .02, .002, .9), 0)
         self.assertIsNone(select_lifetime_aware(pool, np.ones(2), cfg, epsilon_est=2).candidate)
 
     def test_long_term_energy_accounting(self):
