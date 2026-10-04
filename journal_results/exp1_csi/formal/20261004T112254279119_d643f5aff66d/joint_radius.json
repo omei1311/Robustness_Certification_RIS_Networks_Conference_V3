@@ -1,0 +1,607 @@
+{
+  "schema": "journal_offline_joint_radius_v1",
+  "entries": [
+    {
+      "scope_fingerprint": "07d58baf677568b6408a12178b03b7f2717b1255adf53503c918072c8e8148d7",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 10.0,
+        "nmse_db": null
+      },
+      "mode": "formal",
+      "calibration_seeds": [
+        52001,
+        52002,
+        52003,
+        52004,
+        52005
+      ],
+      "profile_count": 4,
+      "samples_per_profile": 2000,
+      "per_seed": [
+        {
+          "seed": 52001,
+          "epsilon_joint_90": 0.7100582959004691,
+          "epsilon_joint_95": 0.7565038397312904,
+          "epsilon_joint_99": 0.8718783736346489
+        },
+        {
+          "seed": 52002,
+          "epsilon_joint_90": 0.6954612855777544,
+          "epsilon_joint_95": 0.7671020994750223,
+          "epsilon_joint_99": 0.9296575185612674
+        },
+        {
+          "seed": 52003,
+          "epsilon_joint_90": 0.7232262035429822,
+          "epsilon_joint_95": 0.7949120740501769,
+          "epsilon_joint_99": 0.962478581759721
+        },
+        {
+          "seed": 52004,
+          "epsilon_joint_90": 0.6885953518526132,
+          "epsilon_joint_95": 0.7318819428698795,
+          "epsilon_joint_99": 0.8877908425212212
+        },
+        {
+          "seed": 52005,
+          "epsilon_joint_90": 0.6962193934672756,
+          "epsilon_joint_95": 0.7478626236520582,
+          "epsilon_joint_99": 0.8667467775692625
+        }
+      ],
+      "aggregate": {
+        "epsilon_joint_90": 0.7232262035429822,
+        "epsilon_joint_95": 0.7949120740501769,
+        "epsilon_joint_99": 0.962478581759721
+      },
+      "epsilon_joint_90": 0.7232262035429822,
+      "epsilon_joint_95": 0.7949120740501769,
+      "epsilon_joint_99": 0.962478581759721
+    },
+    {
+      "scope_fingerprint": "345040f061628437e8991ccd8739e4b7528854e57c2ec00c828e1c08d015dc49",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 20.0,
+        "nmse_db": null
+      },
+      "mode": "formal",
+      "calibration_seeds": [
+        52001,
+        52002,
+        52003,
+        52004,
+        52005
+      ],
+      "profile_count": 4,
+      "samples_per_profile": 2000,
+      "per_seed": [
+        {
+          "seed": 52001,
+          "epsilon_joint_90": 0.2578614212640823,
+          "epsilon_joint_95": 0.27567476504961486,
+          "epsilon_joint_99": 0.3113783847350904
+        },
+        {
+          "seed": 52002,
+          "epsilon_joint_90": 0.22811247422163156,
+          "epsilon_joint_95": 0.24821288201132877,
+          "epsilon_joint_99": 0.2854408998884354
+        },
+        {
+          "seed": 52003,
+          "epsilon_joint_90": 0.25537041045832093,
+          "epsilon_joint_95": 0.2769165383001558,
+          "epsilon_joint_99": 0.3327311168454189
+        },
+        {
+          "seed": 52004,
+          "epsilon_joint_90": 0.26514910343813486,
+          "epsilon_joint_95": 0.2843133805939471,
+          "epsilon_joint_99": 0.3249430374911907
+        },
+        {
+          "seed": 52005,
+          "epsilon_joint_90": 0.2505435914679666,
+          "epsilon_joint_95": 0.2704534012581322,
+          "epsilon_joint_99": 0.3082112101088067
+        }
+      ],
+      "aggregate": {
+        "epsilon_joint_90": 0.26514910343813486,
+        "epsilon_joint_95": 0.2843133805939471,
+        "epsilon_joint_99": 0.3327311168454189
+      },
+      "epsilon_joint_90": 0.26514910343813486,
+      "epsilon_joint_95": 0.2843133805939471,
+      "epsilon_joint_99": 0.3327311168454189
+    },
+    {
+      "scope_fingerprint": "6015bb61bf9007951c65e44e9d000cfca71bbafb116223581c68e5af0ccce872",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 30.0,
+        "nmse_db": null
+      },
+      "mode": "formal",
+      "calibration_seeds": [
+        52001,
+        52002,
+        52003,
+        52004,
+        52005
+      ],
+      "profile_count": 4,
+      "samples_per_profile": 2000,
+      "per_seed": [
+        {
+          "seed": 52001,
+          "epsilon_joint_90": 0.0828101202268565,
+          "epsilon_joint_95": 0.08844075267151981,
+          "epsilon_joint_99": 0.0987609574387015
+        },
+        {
+          "seed": 52002,
+          "epsilon_joint_90": 0.07191873329990679,
+          "epsilon_joint_95": 0.07757183503851679,
+          "epsilon_joint_99": 0.08806659715993345
+        },
+        {
+          "seed": 52003,
+          "epsilon_joint_90": 0.08341403246461487,
+          "epsilon_joint_95": 0.08966970587558407,
+          "epsilon_joint_99": 0.1002593015942782
+        },
+        {
+          "seed": 52004,
+          "epsilon_joint_90": 0.08526561845630366,
+          "epsilon_joint_95": 0.09237205293418888,
+          "epsilon_joint_99": 0.10622094510738193
+        },
+        {
+          "seed": 52005,
+          "epsilon_joint_90": 0.079087877048317,
+          "epsilon_joint_95": 0.08593154203485946,
+          "epsilon_joint_99": 0.09846521210639658
+        }
+      ],
+      "aggregate": {
+        "epsilon_joint_90": 0.08526561845630366,
+        "epsilon_joint_95": 0.09237205293418888,
+        "epsilon_joint_99": 0.10622094510738193
+      },
+      "epsilon_joint_90": 0.08526561845630366,
+      "epsilon_joint_95": 0.09237205293418888,
+      "epsilon_joint_99": 0.10622094510738193
+    },
+    {
+      "scope_fingerprint": "3080a6c61690f2af638ad0b379044abc6a35745d85d5738086bc4095287eae88",
+      "scope": {
+        "L": 2,
+        "K": 3,
+        "M": 12,
+        "N": 32,
+        "bits": 2,
+        "bs_x": [
+          -100.0,
+          100.0
+        ],
+        "bs_y": [
+          0.0,
+          0.0
+        ],
+        "ue_center_x": [
+          -15.0,
+          15.0
+        ],
+        "ue_center_y": [
+          0.0,
+          0.0
+        ],
+        "ue_radius": 7.0,
+        "ris_x": 0.0,
+        "ris_y": 0.0,
+        "c0_db": -30.0,
+        "alpha_bu": 4.5,
+        "alpha_br": 2.2,
+        "alpha_ru": 2.2,
+        "rician_k": 3.0,
+        "channel_scale": 100000.0,
+        "direct_link_attenuation": 0.25,
+        "include_direct_intercell": true,
+        "inter_ris_attenuation": 1.0,
+        "ris_size_model": "growing_aperture",
+        "ris_reference_N": 32,
+        "radius_floor": 1e-10,
+        "estimation_snr_db": 40.0,
+        "nmse_db": null
+      },
+      "mode": "formal",
+      "calibration_seeds": [
+        52001,
+        52002,
+        52003,
+        52004,
+        52005
+      ],
+      "profile_count": 4,
+      "samples_per_profile": 2000,
+      "per_seed": [
+        {
+          "seed": 52001,
+          "epsilon_joint_90": 0.0261171588068463,
+          "epsilon_joint_95": 0.027939851664267025,
+          "epsilon_joint_99": 0.031868654748230876
+        },
+        {
+          "seed": 52002,
+          "epsilon_joint_90": 0.022901641836186225,
+          "epsilon_joint_95": 0.024525722471165134,
+          "epsilon_joint_99": 0.028057271667834942
+        },
+        {
+          "seed": 52003,
+          "epsilon_joint_90": 0.02646606570641507,
+          "epsilon_joint_95": 0.028274116636943056,
+          "epsilon_joint_99": 0.03234944412291716
+        },
+        {
+          "seed": 52004,
+          "epsilon_joint_90": 0.026876927179667293,
+          "epsilon_joint_95": 0.028958798843919987,
+          "epsilon_joint_99": 0.03444991764954819
+        },
+        {
+          "seed": 52005,
+          "epsilon_joint_90": 0.025527852359082087,
+          "epsilon_joint_95": 0.02734020483164041,
+          "epsilon_joint_99": 0.03176794921572506
+        }
+      ],
+      "aggregate": {
+        "epsilon_joint_90": 0.026876927179667293,
+        "epsilon_joint_95": 0.028958798843919987,
+        "epsilon_joint_99": 0.03444991764954819
+      },
+      "epsilon_joint_90": 0.026876927179667293,
+      "epsilon_joint_95": 0.028958798843919987,
+      "epsilon_joint_99": 0.03444991764954819
+    }
+  ],
+  "interpretation": "Offline maximum over calibration seeds of empirical all-user joint relative-error quantiles (per seed: max over phase profiles). This is an empirical offline calibration radius based on finite calibration drops; it is not a deterministic future-horizon guarantee and not a robust certificate.",
+  "source": "records.csv",
+  "mode": "formal",
+  "config": {
+    "L": 2,
+    "K": 3,
+    "M": 12,
+    "N": 32,
+    "bits": 2,
+    "gamma": 2.0,
+    "bs_x": [
+      -100.0,
+      100.0
+    ],
+    "bs_y": [
+      0.0,
+      0.0
+    ],
+    "ue_center_x": [
+      -15.0,
+      15.0
+    ],
+    "ue_center_y": [
+      0.0,
+      0.0
+    ],
+    "ue_radius": 7.0,
+    "ris_x": 0.0,
+    "ris_y": 0.0,
+    "c0_db": -30.0,
+    "alpha_bu": 4.5,
+    "alpha_br": 2.2,
+    "alpha_ru": 2.2,
+    "rician_k": 3.0,
+    "channel_scale": 100000.0,
+    "direct_link_attenuation": 0.25,
+    "include_direct_intercell": true,
+    "inter_ris_attenuation": 1.0,
+    "ris_size_model": "growing_aperture",
+    "ris_reference_N": 32,
+    "noise_power_dbm": -100.0,
+    "p_max_dbm": 30.0,
+    "pa_efficiency": 0.38,
+    "p_bs": 6.0,
+    "p_ue": 0.1,
+    "p_loss": 0.5,
+    "p_ris_controller": 0.5,
+    "p_cell_idle": 0.001,
+    "p_diode_on": 0.004,
+    "bandwidth_hz": 10000000.0,
+    "radius_floor": 1e-10,
+    "strict_eig_tol": 1e-08,
+    "strict_normalized_tol": 1e-08,
+    "nominal_normalized_tol": 1e-12,
+    "solver": "CLARABEL",
+    "solver_tol": 1e-10,
+    "solver_max_iter": 200,
+    "fallback_solver": "SCS",
+    "fallback_solver_tol": 1e-06,
+    "fallback_solver_max_iter": 5000,
+    "strict_recovery_factors": [
+      1.0,
+      0.95,
+      0.9,
+      0.8,
+      0.7,
+      0.6,
+      0.5
+    ],
+    "strict_refinement_steps": 2,
+    "fast_tol": 0.0,
+    "fast_lambda_cap": 10000000000.0,
+    "fast_search_tol": 1e-09,
+    "eps_hi": 0.2,
+    "eps_cap": 1.2,
+    "certificate_abs_tol": 1e-07,
+    "certificate_rel_tol": 0.0001,
+    "certificate_max_iter": 60,
+    "pool_size": 12,
+    "static_pool_size": 40,
+    "validation_pool_size": 12,
+    "pool_attempts": 200,
+    "design_gamma_mult": [
+      1.0,
+      1.25,
+      1.5,
+      2.0,
+      3.0,
+      5.0
+    ],
+    "power_slack_grid": [
+      1.0,
+      1.1,
+      1.3,
+      1.8
+    ],
+    "power_control_tol": 1e-10,
+    "zf_rcond": 1e-12,
+    "epsilon_min": 0.05,
+    "estimation_snr_db": 40.0,
+    "nmse_db": null,
+    "calibration_samples": 2000,
+    "calibration_quantiles": [
+      0.9,
+      0.95,
+      0.99
+    ],
+    "calibration_snr_grid": [
+      10.0,
+      20.0,
+      30.0,
+      40.0
+    ],
+    "calibration_q": 0.99,
+    "calibration_phase_profiles": 4,
+    "calibration_cases": [],
+    "calibration_seeds": [
+      52001,
+      52002,
+      52003,
+      52004,
+      52005
+    ],
+    "csi_calibration_file": null,
+    "csi_calibration_sha256": null,
+    "epsilon_est": null,
+    "time_steps": 100,
+    "slot_duration": 0.1,
+    "channel_correlation": null,
+    "mobility_level": "slow",
+    "mobility_regimes": [
+      "slow",
+      "medium",
+      "fast"
+    ],
+    "mobility_correlations": [
+      0.9999,
+      0.995,
+      0.95
+    ],
+    "quasi_static_br": true,
+    "eta_trigger": 0.9,
+    "T_period": 10,
+    "periodic_short": 5,
+    "periodic_long": 20,
+    "drift_rate_nu": 0.002,
+    "drift_rate_nu_by_mobility": null,
+    "drift_calibration_seeds": [
+      53001,
+      53002,
+      53003,
+      53004,
+      53005
+    ],
+    "drift_calibration_q": 0.95,
+    "drift_calibration_slots": 60,
+    "drift_reference_stride": 10,
+    "drift_horizon_slots": [
+      1,
+      2,
+      5,
+      10,
+      20
+    ],
+    "drift_calibration_file": null,
+    "drift_calibration_sha256": null,
+    "energy_per_bit_switch": 1e-05,
+    "E_controller_fixed": 0.001,
+    "policies": [
+      "always_reconfigure",
+      "periodic_short",
+      "periodic_long",
+      "certificate_triggered",
+      "static"
+    ],
+    "selection_rule": "lifetime_aware",
+    "seeds": [
+      52001,
+      52002,
+      52003,
+      52004,
+      52005
+    ],
+    "channel_seed": 20260706,
+    "pool_seed": 31001,
+    "csi_seed": 51001,
+    "calibration_seed": 52001,
+    "mc_seed": 41001,
+    "mc_samples": 300,
+    "alpha_grid": [
+      0.25,
+      0.5,
+      0.9,
+      1.0,
+      1.1
+    ],
+    "validation_alpha_grid": [
+      0.9,
+      1.0,
+      1.1
+    ],
+    "lambda_grid_points": 400,
+    "scaling_cases": [
+      [
+        16,
+        2
+      ],
+      [
+        32,
+        2
+      ],
+      [
+        64,
+        2
+      ],
+      [
+        32,
+        3
+      ]
+    ],
+    "runtime_time_steps": 10,
+    "runtime_policies": [
+      "certificate_triggered"
+    ],
+    "output_root": "journal_results",
+    "smoke": false
+  },
+  "requested_seed_count": 5,
+  "completed_seed_count": 5,
+  "complete": true
+}
